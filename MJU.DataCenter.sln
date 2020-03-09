@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter", "MJU.DataCenter\MJU.DataCenter.csproj", "{76CAB025-8927-4DC2-850E-B5D972F16DD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76CAB025-8927-4DC2-850E-B5D972F16DD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76CAB025-8927-4DC2-850E-B5D972F16DD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76CAB025-8927-4DC2-850E-B5D972F16DD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76CAB025-8927-4DC2-850E-B5D972F16DD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94CA64FD-DEC9-488C-BDF6-2E3D7F8C6501}
+	EndGlobalSection
+EndGlobal
