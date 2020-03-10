@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace MJU.DataCenter
+namespace MJU.DataCenter.Person
 {
     public class Startup
     {
@@ -45,7 +45,7 @@ namespace MJU.DataCenter
             }
 
             app.UseCors(builder =>
-            builder.WithOrigins("https://localhost:5003"));
+            builder.WithOrigins("https://localhost:5002"));
 
             app.UseSwagger();
 
@@ -58,7 +58,7 @@ namespace MJU.DataCenter
             app.UseHttpsRedirection();
 
             app.UseRouting();
-           // app.UseMvc(ConfigureRoutes);
+            // app.UseMvc(ConfigureRoutes);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

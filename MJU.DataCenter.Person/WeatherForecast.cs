@@ -1,6 +1,6 @@
 using System;
 
-namespace MJU.DataCenter
+namespace MJU.DataCenter.Person
 {
     public class WeatherForecast
     {

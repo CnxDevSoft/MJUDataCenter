@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace MJU.DataCenter.Controllers
+namespace MJU.DataCenter.Person.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -13,7 +13,7 @@ namespace MJU.DataCenter.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "test", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
