@@ -5,6 +5,11 @@
   </PropertyGroup>
 
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'MJU.DataCenter.Person' ">
+    <StartAction>Project</StartAction>
+    <LaunchUrl>swagger</LaunchUrl>
+    <ApplicationURL>https://localhost:44307</ApplicationURL>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
