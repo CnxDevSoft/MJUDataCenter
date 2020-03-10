@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Web", "MJU.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Service", "MJU.DataCenter.Service\MJU.DataCenter.Service.csproj", "{8FB79F96-CD6A-4B9C-8A2C-C1D4BCAACC42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Person", "MJU.DataCenter.Person\MJU.DataCenter.Person.csproj", "{6B26B759-FD43-43D3-BAE9-0CA64EFA36E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Personnel", "MJU.DataCenter.Person\MJU.DataCenter.Personnel.csproj", "{6B26B759-FD43-43D3-BAE9-0CA64EFA36E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
