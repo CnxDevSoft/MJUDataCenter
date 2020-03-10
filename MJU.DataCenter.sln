@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.ResearchExte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Personnel", "MJU.DataCenter.Personnel\MJU.DataCenter.Personnel.csproj", "{DF445074-B55B-4565-A3BD-3E8B53118FB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.EntityFrameworkCore", "MJU.DataCenter.EntityFrameworkCore\MJU.DataCenter.EntityFrameworkCore.csproj", "{7F47FDB2-E0D6-4905-B5FF-5E5C43BB31BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DF445074-B55B-4565-A3BD-3E8B53118FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF445074-B55B-4565-A3BD-3E8B53118FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF445074-B55B-4565-A3BD-3E8B53118FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F47FDB2-E0D6-4905-B5FF-5E5C43BB31BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F47FDB2-E0D6-4905-B5FF-5E5C43BB31BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F47FDB2-E0D6-4905-B5FF-5E5C43BB31BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F47FDB2-E0D6-4905-B5FF-5E5C43BB31BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

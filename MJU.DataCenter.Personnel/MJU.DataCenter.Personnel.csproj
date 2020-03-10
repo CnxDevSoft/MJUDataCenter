@@ -5,11 +5,6 @@
   </PropertyGroup>
 
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'MJU.DataCenter.Personnel' ">
-    <StartAction>Project</StartAction>
-    <LaunchUrl>swagger</LaunchUrl>
-    <ApplicationURL>http://localhost:5002</ApplicationURL>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'MJU.DataCenter.Person' ">
     <StartAction>Project</StartAction>
     <LaunchUrl>swagger</LaunchUrl>
@@ -20,5 +15,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
 </Project>
