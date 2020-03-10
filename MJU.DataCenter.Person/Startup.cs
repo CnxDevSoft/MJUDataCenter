@@ -45,7 +45,7 @@ namespace MJU.DataCenter.Person
             }
 
             app.UseCors(builder =>
-            builder.WithOrigins("https://localhost:5003"));
+            builder.WithOrigins("https://localhost:5002"));
 
             app.UseSwagger();
 
