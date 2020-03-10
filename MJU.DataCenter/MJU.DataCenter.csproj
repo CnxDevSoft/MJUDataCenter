@@ -9,16 +9,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Api\" />
-  </ItemGroup>
-
-
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' ">
-    <StartAction>Project</StartAction>
-    <ApplicationURL>https://localhost:5003;http://localhost:5002</ApplicationURL>
-  </PropertyGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\DashboardController.cs" />
+    <Compile Remove="Controllers\Web\HomeController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
 </Project>
