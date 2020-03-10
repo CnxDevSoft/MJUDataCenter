@@ -6,9 +6,9 @@
 
   <ItemGroup>
     <Folder Include="Personnel\Interface\" />
-    <Folder Include="Personnel\Services\" />
+    <Folder Include="Personnel\Repository\" />
     <Folder Include="ReserchExtension\Interface\" />
-    <Folder Include="ReserchExtension\Services\" />
+    <Folder Include="ReserchExtension\Repository\" />
   </ItemGroup>
 
 </Project>
