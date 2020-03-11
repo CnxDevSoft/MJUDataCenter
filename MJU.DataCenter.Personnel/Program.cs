@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace MJU.DataCenter.Person
+namespace MJU.DataCenter.Personnel
 {
     public class Program
     {

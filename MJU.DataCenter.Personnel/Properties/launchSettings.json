@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MJU.DataCenter.Person": {
+    "MJU.DataCenter.Personnel": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

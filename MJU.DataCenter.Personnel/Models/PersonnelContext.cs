@@ -21,7 +21,6 @@ namespace MJU.DataCenter.Personnel.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=DESKTOP-QCPA044\\SQLEXPRESS;Database=Personnel;User Id=apichai_server;Password=Password#01;");
             }
         }
@@ -91,7 +90,7 @@ namespace MJU.DataCenter.Personnel.Models
 
                 entity.Property(e => e.PositionRankId).HasMaxLength(10);
 
-                entity.Property(e => e.Provicne).HasMaxLength(50);
+                entity.Property(e => e.Province).HasMaxLength(50);
 
                 entity.Property(e => e.RetiredDate).HasColumnType("datetime");
 

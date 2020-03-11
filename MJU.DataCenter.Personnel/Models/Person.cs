@@ -26,7 +26,7 @@ namespace MJU.DataCenter.Personnel.Models
         public string Street { get; set; }
         public string SubDistrict { get; set; }
         public string District { get; set; }
-        public string Provicne { get; set; }
+        public string Province { get; set; }
         public int? ZipCode { get; set; }
         public string PositionCode { get; set; }
         public string PersonnelTypeId { get; set; }

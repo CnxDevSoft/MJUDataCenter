@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace MJU.DataCenter.Person
+namespace MJU.DataCenter.Personnel
 {
     public class Startup
     {
