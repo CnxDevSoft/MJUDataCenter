@@ -4,7 +4,8 @@ using System.Text;
 
 namespace MJU.DataCenter.Service.Personnel.Services
 {
-    class Personnel
+    public class Personnel
     {
+
     }
 }
