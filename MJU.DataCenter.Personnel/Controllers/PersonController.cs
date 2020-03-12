@@ -7,6 +7,7 @@ using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
 using MJU.DataCenter.Personnel.Repository.Repositories;
 using MJU.DataCenter.Personnel.Service.Interface;
+using MJU.DataCenter.Personnel.ZeedData;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,6 +40,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpPost]
         public void Post([FromBody]string value)
         {
+            _personnelService.AddPerson();
         }
 
         // PUT api/<controller>/5

@@ -11,5 +11,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
         public Task<IEnumerable<Person>> GetAllPersonnel();
 
         public Task<IEnumerable<Person>> GetPersonTest(int id);
+
+        public void AddPerson();
     }
 }
