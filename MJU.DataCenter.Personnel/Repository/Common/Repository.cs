@@ -35,6 +35,11 @@ namespace MJU.DataCenter.Personnel.IRepository.Common
             return await Context.Set<TEntity>().ToListAsync();
         }
 
+        public IEnumerable<TEntity> GetAll()
+        {
+            return Context.Set<TEntity>().ToList();
+        }
+
         public ValueTask<TEntity> GetByIdAsync(int id)
         {
             return Context.Set<TEntity>().FindAsync(id);

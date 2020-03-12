@@ -41,6 +41,7 @@ namespace MJU.DataCenter.Personnel
 
 
             services.AddScoped<IPersonnelRepository,PersonnelRepository>();
+            services.AddScoped<IDcPersonRepository, DcPersonRepository>();
             services.AddTransient<IPersonnelService, PersonnelService>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents

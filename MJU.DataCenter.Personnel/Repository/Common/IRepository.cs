@@ -15,5 +15,6 @@ namespace MJU.DataCenter.Personnel.IRepository.Common
         Task AddRangeAsync(IEnumerable<TEntity> entities);
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
+        IEnumerable<TEntity> GetAll();
     }
 }
