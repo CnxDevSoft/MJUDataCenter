@@ -25,12 +25,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
             _personnelRepository = personnelRepository;
             _dcPersonRepository = dcPersonRepository;
         }
-<<<<<<< HEAD
 
-        public async Task<IEnumerable<Person>> GetAllPersonnel()
-=======
         public List<PersonGroupViewModel> GetAllPersonnel()
->>>>>>> c5723f3... add view table and add method group graph
         {
             var result = new List<PersonGroupViewModel>();
             var personnel = _personnelRepository.GetAll();
@@ -54,8 +50,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             return result;
         }
-
-<<<<<<< HEAD
         public async Task<IEnumerable<Person>> GetPersonTest(int id)
         {
             
@@ -79,15 +73,11 @@ namespace MJU.DataCenter.Personnel.Service.Services
             };
             _personnelRepository.AddAsync(result);
         }
-       
-=======
           
         
 
         public async Task<IEnumerable<DC_Person>> GetDcPerson() {
             return await _dcPersonRepository.GetAllAsync();
         }
-
->>>>>>> c5723f3... add view table and add method group graph
     }
 }

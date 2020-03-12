@@ -7,11 +7,8 @@ using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
 using MJU.DataCenter.Personnel.Repository.Repositories;
 using MJU.DataCenter.Personnel.Service.Interface;
-<<<<<<< HEAD
 using MJU.DataCenter.Personnel.ZeedData;
-=======
 using MJU.DataCenter.Personnel.ViewModels;
->>>>>>> c5723f3... add view table and add method group graph
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,16 +23,11 @@ namespace MJU.DataCenter.Personnel.Controllers
             _personnelService = personnelService;
         }
         // GET: api/<controller>
-<<<<<<< HEAD
-        [HttpGet("{id}")]
-        public Task<IEnumerable<Person>> Get(int id)
-=======
         [HttpGet]
         public List<PersonGroupViewModel> Get()
->>>>>>> c5723f3... add view table and add method group graph
         {
             //_personnelService.GetAllPersonnel()
-            return _personnelService.GetPersonTest(id);
+            return _personnelService.GetAllPersonnel();
         }
 
         // GET api/<controller>/5
