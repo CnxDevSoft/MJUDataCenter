@@ -20,5 +20,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var result = _personnelRepository.GetAllAsync();
             return await result;
         }
+
+        public async Task<IEnumerable<Person>> GetPersonTest(int id)
+        {
+            var result = _personnelRepository.GetAllAsync();
+            return await result;
+
+        }
     }
 }

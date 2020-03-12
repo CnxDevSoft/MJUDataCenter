@@ -9,5 +9,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
     public interface IPersonnelService
     {
         public Task<IEnumerable<Person>> GetAllPersonnel();
+
+        public Task<IEnumerable<Person>> GetPersonTest(int id);
     }
 }

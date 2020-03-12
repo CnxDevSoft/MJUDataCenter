@@ -21,10 +21,11 @@ namespace MJU.DataCenter.Personnel.Controllers
             _personnelService = personnelService;
         }
         // GET: api/<controller>
-        [HttpGet]
-        public Task<IEnumerable<Person>> Get()
+        [HttpGet("{id}")]
+        public Task<IEnumerable<Person>> Get(int id)
         {
-            return _personnelService.GetAllPersonnel();
+            //_personnelService.GetAllPersonnel()
+            return _personnelService.GetPersonTest(id);
         }
 
         // GET api/<controller>/5
