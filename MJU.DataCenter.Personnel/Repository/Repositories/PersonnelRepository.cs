@@ -10,7 +10,8 @@ namespace MJU.DataCenter.Personnel.Repository.Repositories
     {
         public PersonnelRepository(PersonnelContext context)
             : base(context)
-        { }
+        {
+        }
 
         
     }

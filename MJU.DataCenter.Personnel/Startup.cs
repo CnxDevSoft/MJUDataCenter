@@ -13,6 +13,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MJU.DataCenter.Personnel.Models;
+using MJU.DataCenter.Personnel.Repository.Interface;
+using MJU.DataCenter.Personnel.Repository.Repositories;
+using MJU.DataCenter.Personnel.Service.Interface;
+using MJU.DataCenter.Personnel.Service.Services;
 
 namespace MJU.DataCenter.Personnel
 {
@@ -28,7 +32,17 @@ namespace MJU.DataCenter.Personnel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
+            services.AddMvc();
+
+            services.AddDbContext<PersonnelContext>(option =>
+            option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddScoped<IPersonnelRepository,PersonnelRepository>();
+            services.AddTransient<IPersonnelService, PersonnelService>();
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {

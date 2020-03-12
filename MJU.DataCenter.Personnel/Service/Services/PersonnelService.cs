@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
+using MJU.DataCenter.Personnel.Service.Interface;
 
 namespace MJU.DataCenter.Personnel.Service.Services
 {
-    public class PersonnelService
+    public class PersonnelService : IPersonnelService
     {
         private readonly IPersonnelRepository _personnelRepository;
 
