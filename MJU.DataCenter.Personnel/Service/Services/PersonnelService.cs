@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-<<<<<<< HEAD
 using System.Text;
-=======
->>>>>>> c5723f3... add view table and add method group graph
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MJU.DataCenter.Personnel.Models;
