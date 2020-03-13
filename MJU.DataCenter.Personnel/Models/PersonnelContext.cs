@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace MJU.DataCenter.Personnel.Models
 {
@@ -22,11 +21,8 @@ namespace MJU.DataCenter.Personnel.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-QCPA044\\SQLEXPRESS;Database=Personnel;User Id=apichai_server;Password=Password#01;");
             }
         }
 
@@ -35,7 +31,7 @@ namespace MJU.DataCenter.Personnel.Models
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.HasKey(e => e.PersonnelId)
-                    .HasName("PK__Person__CAFBCB4F88437F96");
+                    .HasName("PK__Person__CAFBCB4F7898E7C2");
 
                 entity.Property(e => e.AdminPosition).HasMaxLength(50);
 
@@ -79,6 +75,8 @@ namespace MJU.DataCenter.Personnel.Models
 
                 entity.Property(e => e.Nation).HasMaxLength(20);
 
+                entity.Property(e => e.NationId).HasMaxLength(10);
+
                 entity.Property(e => e.PersonnelType).HasMaxLength(25);
 
                 entity.Property(e => e.PersonnelTypeId).HasMaxLength(25);
@@ -87,7 +85,7 @@ namespace MJU.DataCenter.Personnel.Models
 
                 entity.Property(e => e.PositionCode).HasMaxLength(10);
 
-                entity.Property(e => e.PositionLeve).HasMaxLength(25);
+                entity.Property(e => e.PositionLevel).HasMaxLength(25);
 
                 entity.Property(e => e.PositionLevelId).HasMaxLength(10);
 

@@ -7,7 +7,7 @@ using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
 using MJU.DataCenter.Personnel.Repository.Repositories;
 using MJU.DataCenter.Personnel.Service.Interface;
-using MJU.DataCenter.Personnel.ZeedData;
+using MJU.DataCenter.Personnel.SeedData;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,7 +25,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{id}")]
         public Task<IEnumerable<Person>> Get(int id)
         {
-            //_personnelService.GetAllPersonnel()
+            
             return _personnelService.GetPersonTest(id);
         }
 
