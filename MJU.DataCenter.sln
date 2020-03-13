@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.Personnel", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.EntityFrameworkCore", "MJU.DataCenter.EntityFrameworkCore\MJU.DataCenter.EntityFrameworkCore.csproj", "{7F47FDB2-E0D6-4905-B5FF-5E5C43BB31BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Repository", "MJU.DataCenter.Repository\MJU.DataCenter.Repository.csproj", "{4B22B8DB-552D-415F-B844-EBF5E3F562AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.Repository", "MJU.DataCenter.Repository\MJU.DataCenter.Repository.csproj", "{4B22B8DB-552D-415F-B844-EBF5E3F562AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
