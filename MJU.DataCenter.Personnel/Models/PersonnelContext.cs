@@ -16,6 +16,7 @@ namespace MJU.DataCenter.Personnel.Models
         }
 
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<DC_Person> DcPerson { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -119,6 +120,8 @@ namespace MJU.DataCenter.Personnel.Models
 
                 entity.Property(e => e.University).HasMaxLength(50);
             });
+
+            modelBuilder.Entity<DC_Person>().HasNoKey().ToView("DC_Person");
 
             OnModelCreatingPartial(modelBuilder);
         }

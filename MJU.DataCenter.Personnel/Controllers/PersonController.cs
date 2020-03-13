@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +7,8 @@ using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
 using MJU.DataCenter.Personnel.Repository.Repositories;
 using MJU.DataCenter.Personnel.Service.Interface;
-using MJU.DataCenter.Personnel.SeedData;
+using MJU.DataCenter.Personnel.ZeedData;
+using MJU.DataCenter.Personnel.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,20 +23,19 @@ namespace MJU.DataCenter.Personnel.Controllers
             _personnelService = personnelService;
         }
         // GET: api/<controller>
-        [HttpGet("{id}")]
-        public Task<IEnumerable<Person>> Get(int id)
+        [HttpGet]
+        public List<PersonGroupViewModel> Get()
         {
-            
-            return _personnelService.GetPersonTest(id);
+            //_personnelService.GetAllPersonnel()
+            return _personnelService.GetAllPersonnel();
         }
 
         // GET api/<controller>/5
-        /*[HttpGet("{id}")]
-        public Task<En<Person> Get(int id)
+        [HttpGet("{id}")]
+        public Task<IEnumerable<DC_Person>> Get(int id)
         {
-            var a = _personnelRepository.GetAllAsync();
-            return  _personnelRepository.GetAllAsync();
-        } */      
+            return  _personnelService.GetDcPerson();
+        }      
         // POST api/<controller>
         [HttpPost]
         public void Post([FromBody]string value)
