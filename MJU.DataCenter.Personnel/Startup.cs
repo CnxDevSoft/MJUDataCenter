@@ -40,6 +40,7 @@ namespace MJU.DataCenter.Personnel
             option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
+
             services.AddScoped<IPersonnelRepository,PersonnelRepository>();
             services.AddScoped<IDcPersonRepository, DcPersonRepository>();
             services.AddTransient<IPersonnelService, PersonnelService>();
