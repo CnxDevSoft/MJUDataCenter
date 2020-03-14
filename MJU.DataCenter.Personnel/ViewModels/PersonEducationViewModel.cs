@@ -5,11 +5,15 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.Personnel.ViewModels
 {
-    public class PersonEducationViewModel
+    public class PersonEducation
     {
-        public int PersonEducationTypeId { get; set; }
         public string EducationTypeName { get; set; }
-        public int PersonEducation { get; set; }
+        public int Person { get; set; }
 
     }
+    public class PersonEducationViewModel
+    {
+        public List<PersonEducation> PersonEducation { get; set; }
+    }
+
 }
