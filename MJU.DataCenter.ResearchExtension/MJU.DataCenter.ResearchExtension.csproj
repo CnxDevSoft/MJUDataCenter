@@ -23,6 +23,5 @@
   <ItemGroup>
     <Folder Include="SeedData\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Service\" />
   </ItemGroup>
 </Project>

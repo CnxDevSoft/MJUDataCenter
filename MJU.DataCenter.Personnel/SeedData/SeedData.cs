@@ -538,7 +538,7 @@ namespace MJU.DataCenter.Personnel.SeedData
         public static Education Education()
         {
             Random random = new Random();
-            var randomTypeA = random.Next(1, 4);
+            var randomTypeA = random.Next(1, 5);
             var randomTypeB = random.Next(1, 5);
             var randomTypeU = random.Next(1, 3);
             var result = new Education();
@@ -553,8 +553,12 @@ namespace MJU.DataCenter.Personnel.SeedData
                     result.EducationLevel = "ปริญญาโท";
                     break;
                 case 3:
-                    result.EducationLevelId = 10;
+                    result.EducationLevelId = 30;
                     result.EducationLevel = "ปริญญาเอก";
+                    break;
+                case 4:
+                    result.EducationLevelId = 00;
+                    result.EducationLevel = "ตํ่ากว่า ปริญญาตรี";
                     break;
             }
 
@@ -580,6 +584,11 @@ namespace MJU.DataCenter.Personnel.SeedData
                         result.Major = "เคมี";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
+                    else if (randomTypeA == 4)
+                    {
+                        result.Major = null;
+                        result.University = null;
+                    }
                     result.CountryId = "TH";
                     result.Country = "ไทย";
                     break;
@@ -603,6 +612,11 @@ namespace MJU.DataCenter.Personnel.SeedData
                         result.Major = "วิศวกรรมเครื่องกล";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
+                    else if (randomTypeA == 4)
+                    {
+                        result.Major = null;
+                        result.University = null;
+                    }
                     result.CountryId = "TH";
                     result.Country = "ไทย";
                     break;
@@ -625,6 +639,11 @@ namespace MJU.DataCenter.Personnel.SeedData
                         result.Major = "รัฐประศาสนศาสตร์";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
+                    else if (randomTypeA == 4)
+                    {
+                        result.Major = null;
+                        result.University = null;
+                    }
                     result.CountryId = "TH";
                     result.Country = "ไทย";
                     break;
@@ -646,8 +665,21 @@ namespace MJU.DataCenter.Personnel.SeedData
                         result.Major = "การบัญชี";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
-                    result.CountryId = "TW";
-                    result.Country = "ไต้หวัน";
+                    else if (randomTypeA == 4)
+                    {
+                        result.Major = null;
+                        result.University = null;
+                    }
+                    if (randomTypeA == 4) 
+                    { 
+                    result.CountryId = "TH";
+                    result.Country = "ไทย";
+                    }
+                    else
+                    {
+                        result.CountryId = "TW";
+                        result.Country = "ไต้หวัน";
+                    }
                     break;
             }
             return result;
