@@ -29,8 +29,8 @@ namespace MJU.DataCenter.Personnel.Models
         public string PositionCode { get; set; }
         public string PersonnelTypeId { get; set; }
         public string PersonnelType { get; set; }
-        public string PositionRankId { get; set; }
-        public string PositionRank { get; set; }
+        public string PositionTypeId { get; set; }
+        public string PositionType { get; set; }
         public string Position { get; set; }
         public string PositionLevelId { get; set; }
         public string PositionLeve { get; set; }
