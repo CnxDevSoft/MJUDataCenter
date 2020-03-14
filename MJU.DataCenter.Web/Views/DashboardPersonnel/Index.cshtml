@@ -8,7 +8,9 @@
     <!-- Small boxes (Stat box) -->
     <div class="row">
         <partial name="PartialViews/_AllPersonGraph" />
+        <partial name="PartialViews/_PersonEducationGraph" />
         <partial name="PartialViews/_PersonTypeGraph" />
+        <partial name="PartialViews/_PersonAgeGraph" />
     </div>
 </div><!-- /.container-fluid -->
 
@@ -160,7 +162,7 @@
     //---------------------
 
     var barChartData = {
-      labels  : [['Baby Boomer',' ','(เกิดปี 2489 - 2507)'], ['Gen X' ,'\n(เกิดปี 2508 - 2522)'], 'Gen Y (เกิดปี 2523 - 2540)', 'Gen Z (เกิดปี 2541 ขึ้นไป)'],
+      labels  : [['Baby Boomer',' ','(เกิดปี 2489 - 2507)'], ['Gen X' ,'(เกิดปี 2508 - 2522)'], 'Gen Y (เกิดปี 2523 - 2540)', 'Gen Z (เกิดปี 2541 ขึ้นไป)'],
       datasets: [
         {
           label               : 'ประเภทวิชาการ',
@@ -196,8 +198,6 @@
       scales: {
         xAxes: [{
             stacked: true,
-
-
         }],
         yAxes: [{
           stacked: true
