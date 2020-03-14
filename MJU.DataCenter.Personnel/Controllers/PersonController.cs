@@ -26,7 +26,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet]
         public List<int> Get()
         {
-            var a = _personnelService.GetAllPersonnel();
+            var a = _personnelService.GetAllPersonnelGroup();
             var b = new List<int>();
             foreach(var s in a)
             {

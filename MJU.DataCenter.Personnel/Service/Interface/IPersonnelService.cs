@@ -13,7 +13,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         void AddPerson();
 
-        List<PersonGroupViewModel> GetAllPersonnel();
+        List<PersonGroupViewModel> GetAllPersonnelGroup();
 
         Task<IEnumerable<Person>> GetAllPerson();
     }
