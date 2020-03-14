@@ -73,31 +73,54 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
             
         }
-        public List<PersonPostionViewModel> GetAllPersonnelPosition()
+        public object GetAllPersonnelPosition(int type)
         {
-            var result = new List<PersonPostionViewModel>();
-            var personnel = _personnelRepository.GetAll();
+            var personnel = _dcPersonRepository.GetAll();
 
-            var distinctPersonnelTypeId = personnel.Select(s => new PersonPostionViewModel { 
+            var distinctPosition = personnel.Select(s => s.PositionType
+            ).Distinct();
 
-
-                PersonPostionTypeId = Int32.Parse(s.PositionCode),
-                PersonPosionTypeName = s.Position
-            });
-
-
-            foreach (var item in distinctPersonnelTypeId)
+            if (type == 1)
             {
+                var label = new List<string>();
+                var data = new List<int>();
 
-                var personGroupView = new PersonPostionViewModel
+                foreach (var positionType in distinctPosition)
                 {
-                    PersonPostionTypeId = item.PersonPostionTypeId,
-                    PersonPosionTypeName = item.PersonPosionTypeName,
-                    PersonPosition = personnel.Where(m => m.PositionCode == item.PersonPostionTypeId.ToString()).Count()
+                    label.Add(positionType);
+                    data.Add(personnel.Where(m => m.PositionType == positionType).Count());
+                }
+                var graphDataSet = new GraphDataSet
+                {
+                    Data = data
                 };
-                result.Add(personGroupView);
+                var result = new GraphData
+                {
+                    GraphDataSet = new List<GraphDataSet> {
+                     graphDataSet
+                    },
+                    Label = label
+                };
+                return result;
             }
-            return result;
+            else
+            {
+                var list = new List<PersonPostion>();
+                foreach (var positionType in distinctPosition)
+                {
+                    var personPosition = new PersonPostion
+                    {
+                        PersonPosionTypeName = positionType,
+                        Person = personnel.Where(m => m.PositionType == positionType).Count()
+                    };
+                    list.Add(personPosition);
+                }
+                var result = new PersonPostionViewModel
+                {
+                    PersonPostion = list
+                };
+                return result;
+            }
         }
 
         public async Task<IEnumerable<Person>> GetAllPerson() {

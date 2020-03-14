@@ -1,52 +1,49 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MJU.DataCenter.Personnel.Models;
-using MJU.DataCenter.Personnel.Repository.Interface;
-using MJU.DataCenter.Personnel.Repository.Repositories;
 using MJU.DataCenter.Personnel.Service.Interface;
-using MJU.DataCenter.Personnel.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MJU.DataCenter.Personnel.Controllers
 {
-
     [Route("api/[controller]")]
-    public class PersonController : Controller
+    public class PersonnelEducationController : Controller
     {
         private readonly IPersonnelService _personnelService;
-        public PersonController(IPersonnelService personnelService) {
+        public PersonnelEducationController(IPersonnelService personnelService)
+        {
             _personnelService = personnelService;
         }
-        // GET: api/<controller>
+        // GET: api/values
         [HttpGet]
-        public void Get()
+        public IEnumerable<string> Get()
         {
-            
+            return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public Task<IEnumerable<Person>> Get(int id)
+        // GET api/values/5
+        [HttpGet("{type}")]
+        public object Get(int type)
         {
-            return  _personnelService.GetAllPerson();
-        }      
-        // POST api/<controller>
+            return "value";
+        }
+
+        // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/<controller>/5
+        // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
