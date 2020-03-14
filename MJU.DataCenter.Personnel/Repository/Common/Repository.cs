@@ -31,6 +31,12 @@ namespace MJU.DataCenter.Personnel.IRepository.Common
             await Context.Set<TEntity>().AddRangeAsync(entities);
         }
 
+        public void AddRange(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().AddRangeAsync(entities);
+            Context.SaveChanges();
+        }
+
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             return Context.Set<TEntity>().Where(predicate);

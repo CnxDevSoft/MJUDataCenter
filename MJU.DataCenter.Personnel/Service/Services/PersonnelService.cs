@@ -57,16 +57,18 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public void AddPerson()
         {
-            var TitleName = SeedData.SeedData.RandomTitleName();
-            var Nationality = SeedData.SeedData.RandomNationality();
-            var Address = SeedData.SeedData.RandomAddress();
-            var Section = SeedData.SeedData.Section();
-            var Division = SeedData.SeedData.Division();
-            var Fact = SeedData.SeedData.Fact();
-            var AdminPosition = SeedData.SeedData.AdminPosition();
-            var Education = SeedData.SeedData.Education();
-            var PersonnelType = SeedData.SeedData.TypePersonCode();
-            int Loop = 1;
+            var list = new List<Person>();
+
+            for(var i = 0; i < 100; i++) {
+                var TitleName = SeedData.SeedData.RandomTitleName();
+                var Nationality = SeedData.SeedData.RandomNationality();
+                var Address = SeedData.SeedData.RandomAddress();
+                var Section = SeedData.SeedData.Section();
+                var Division = SeedData.SeedData.Division();
+                var Fact = SeedData.SeedData.Fact();
+                var AdminPosition = SeedData.SeedData.AdminPosition();
+                var Education = SeedData.SeedData.Education();
+                var PersonnelType = SeedData.SeedData.TypePersonCode();
                 var result = new Person
                 {
                     //PersonnelId = 3,
@@ -124,12 +126,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     StartEducationDate = SeedData.SeedData.RandomDateTime(),
                     GraduateDate = SeedData.SeedData.RandomDateTime()
                 };
-            _personnelRepository.Add(result);
 
-           
+                list.Add(result);
 
-            //_personnelRepository.AddAsync(result);
-            // _personnelRepository.AddAsync(result);
+            }
+            _personnelRepository.AddRange(list);
+
+
+
+
         }
           
         
