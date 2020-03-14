@@ -310,39 +310,60 @@ namespace MJU.DataCenter.Personnel.SeedData
 
         //    return result;
         //}
-        public static string PositionRankId()
+        //public static string PositionRankId()
+        //{
+        //    Random random = new Random();
+        //    var randomType = random.Next(1, 3);
+        //    string result = "";
+        //    switch (randomType)
+        //    {
+        //        case 1:
+        //            result = "ก";
+        //            break;
+        //        case 2:
+        //            result = "ค";
+        //            break;
+        //    }
+        //    return result;
+        //}
+
+        public static PositionType PositionType()
         {
             Random random = new Random();
             var randomType = random.Next(1, 3);
-            string result = "";
+            var result = new PositionType();
             switch (randomType)
             {
                 case 1:
-                    result = "ก";
+                    result.PositionTypeName = "ประเภทวิชาการ";
+                    result.PositionTypeId = "ก";
                     break;
                 case 2:
-                    result = "ค";
+                    result.PositionTypeName = "ประเภทสนับสนุน";
+                    result.PositionTypeId = "ค";
                     break;
             }
             return result;
         }
 
-        public static string PositionRank()
-        {
-            Random random = new Random();
-            var randomType = random.Next(1, 3);
-            string result = "";
-            switch (randomType)
-            {
-                case 1:
-                    result = "ประเภทวิชาการ";
-                    break;
-                case 2:
-                    result = "ประเภทสนับสนุน";
-                    break;
-            }
-            return result;
-        }
+        //public static PositionLevel PositionLevel()
+        //{
+        //    Random random = new Random();
+        //    var randomType = random.Next(1, 3);
+        //    var result = new PositionLevel();
+        //    switch (randomType)
+        //    {
+        //        case 1:
+        //            result.PositionLevelkId = "ประเภทวิชาการ";
+        //            result.PositionLevelName = "ก";
+        //            break;
+        //        case 2:
+        //            result.PositionLevelkId = "ประเภทสนับสนุน";
+        //            result.PositionLevelName = "ค";
+        //            break;
+        //    }
+        //    return result;
+        //}
 
 
         public static string Position()
@@ -361,44 +382,40 @@ namespace MJU.DataCenter.Personnel.SeedData
             }
             return result;
         }
-        public static string PositionLevelId()
-        {
-            Random random = new Random();
-            var randomType = random.Next(1, 5);
-            string result = "";
-            switch (randomType)
-            {
-                case 1:
-                    result = "34";
-                    break;
-                case 2:
-                    result = "35";
-                    break;
-                case 3:
-                    result = "36";
-                    break;
-                case 4:
-                    result = "37";
-                    break;
-            }
-            return result;
-        }
-        public static string PositionLevel()
+        public static PositionLevel PositionLevel()
         {
             Random random = new Random();
             var randomType = random.Next(1, 3);
-            string result = "";
+            var result = new PositionLevel();
             switch (randomType)
             {
                 case 1:
-                    result = "ชำนาญการ";
+                    result.PositionLevelId = "34";
+                    result.PositionLevelName = "ชำนาญการ";
                     break;
                 case 2:
-                    result = "ปฏิบัติการ";
+                    result.PositionLevelId = "35";
+                    result.PositionLevelName = "ปฏิบัติการ";
                     break;
             }
             return result;
         }
+        //public static string PositionLevel()
+        //{
+        //    Random random = new Random();
+        //    var randomType = random.Next(1, 3);
+        //    string result = "";
+        //    switch (randomType)
+        //    {
+        //        case 1:
+        //            result = "ชำนาญการ";
+        //            break;
+        //        case 2:
+        //            result = "ปฏิบัติการ";
+        //            break;
+        //    }
+        //    return result;
+        //}
         public static Section Section()
         {
             Random random = new Random();
@@ -470,7 +487,7 @@ namespace MJU.DataCenter.Personnel.SeedData
             Random random = new Random();
             StringBuilder str_build = new StringBuilder();
             string alphabet = "123456789";
-            int size = random.Next(1, 6);
+            int size = random.Next(5, 6);
             var resualt = Enumerable.Range(0, size).Select(x => alphabet[random.Next(0, alphabet.Length)]);
             return new string(resualt.ToArray());
         }

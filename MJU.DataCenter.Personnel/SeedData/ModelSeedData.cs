@@ -75,4 +75,22 @@ namespace MJU.DataCenter.Personnel.SeedData
         public string PersonType { get; set; }
 
     }
+    public class PositionRank
+    {
+        public string PositionRankId { get; set; }
+        public string PositionRankName { get; set; }
+
+    }
+    public class PositionType
+    {
+        public string PositionTypeId { get; set; }
+        public string PositionTypeName { get; set; }
+
+    }
+    public class PositionLevel
+    {
+        public string PositionLevelId { get; set; }
+        public string PositionLevelName { get; set; }
+
+    }
 }

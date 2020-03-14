@@ -69,6 +69,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var AdminPosition = SeedData.SeedData.AdminPosition();
                 var Education = SeedData.SeedData.Education();
                 var PersonnelType = SeedData.SeedData.TypePersonCode();
+                var PositionType = SeedData.SeedData.PositionType();
+                var PositionLevel = SeedData.SeedData.PositionLevel();
                 var result = new Person
                 {
                     //PersonnelId = 3,
@@ -96,11 +98,11 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     PositionCode = SeedData.SeedData.PositionCOde(),
                     PersonnelTypeId = PersonnelType.PersonTypeId,
                     PersonnelType = PersonnelType.PersonType,
-                    PositionRankId = SeedData.SeedData.PositionRankId(),
-                    PositionRank = SeedData.SeedData.PositionRank(),
+                    PositionRankId = PositionType.PositionTypeId,
+                    PositionRank = PositionType.PositionTypeName,
                     Position = SeedData.SeedData.Position(),
-                    PositionLevelId = SeedData.SeedData.PositionLevelId(),
-                    PositionLevel = SeedData.SeedData.PositionLevel(),
+                    PositionLevelId = PositionLevel.PositionLevelId,
+                    PositionLevel = PositionLevel.PositionLevelName,
                     StartDate = SeedData.SeedData.RandomDateTime(),
                     RetiredDate = SeedData.SeedData.RandomDateTime(),
                     RetiredYear = SeedData.SeedData.RandomDateTime().Year,
