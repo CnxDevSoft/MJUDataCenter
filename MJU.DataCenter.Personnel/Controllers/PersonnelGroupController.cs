@@ -25,7 +25,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{type}")]
         public object Get(int type)
         {
             return _personnelService.GetAllPersonnelGroup(type);
