@@ -24,10 +24,15 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
         // GET: api/<controller>
         [HttpGet]
-        public List<PersonGroupViewModel> Get()
+        public List<int> Get()
         {
-            //_personnelService.GetAllPersonnel()
-            return _personnelService.GetAllPersonnel();
+            var a = _personnelService.GetAllPersonnel();
+            var b = new List<int>();
+            foreach(var s in a)
+            {
+                b.Add(s.Person);
+            }
+            return b;
         }
 
         // GET api/<controller>/5

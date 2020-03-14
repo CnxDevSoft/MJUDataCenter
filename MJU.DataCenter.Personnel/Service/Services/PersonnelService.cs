@@ -23,7 +23,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             _dcPersonRepository = dcPersonRepository;
         }
 
-        public List<PersonGroupViewModel> GetAllPersonnel()
+        public List<PersonGroupViewModel> GetAllPersonnelGroup()
         {
             var result = new List<PersonGroupViewModel>();
             var personnel = _personnelRepository.GetAll();
@@ -42,6 +42,32 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     PersonGroupTypeId = item.PersonGroupTypeId,
                     PersonGroupTypeName = item.PersonGroupTypeName,
                     Person = personnel.Where(m => m.PersonnelTypeId == item.PersonGroupTypeId.ToString()).Count()
+                };
+                result.Add(personGroupView);
+            }
+            return result;
+        }
+        public List<PersonPostionViewModel> GetAllPersonnelPosition()
+        {
+            var result = new List<PersonPostionViewModel>();
+            var personnel = _personnelRepository.GetAll();
+
+            var distinctPersonnelTypeId = personnel.Select(s => new PersonPostionViewModel { 
+
+
+                PersonPostionTypeId = Int32.Parse(s.PositionCode),
+                PersonPosionTypeName = s.Position
+            });
+
+
+            foreach (var item in distinctPersonnelTypeId)
+            {
+
+                var personGroupView = new PersonPostionViewModel
+                {
+                    PersonPostionTypeId = item.PersonPostionTypeId,
+                    PersonPosionTypeName = item.PersonPosionTypeName,
+                    PersonPosition = personnel.Where(m => m.PositionCode == item.PersonPostionTypeId.ToString()).Count()
                 };
                 result.Add(personGroupView);
             }
