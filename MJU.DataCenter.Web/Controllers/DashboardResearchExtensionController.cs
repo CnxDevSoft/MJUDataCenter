@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
 namespace MJU.DataCenter.Web.Controllers
 {
     [Authorize]
-    //[Route("DashboardPerson")]
-    public class DashboardPersonnelController : Controller
+   // [Route("DashboardResearchExtension")]
+    public class DashboardResearchExtensionController : Controller
     {
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            ViewData["currentPage"] = "DashboardPerson";
+            ViewData["currentPage"] = "DashboardResearchExtension";
             return View();
         }
     }
