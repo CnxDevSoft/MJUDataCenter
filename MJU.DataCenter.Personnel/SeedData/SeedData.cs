@@ -261,7 +261,7 @@ namespace MJU.DataCenter.Personnel.SeedData
         public static PersonnelType TypePersonCode()
         {
             Random random = new Random();
-            var randomType = random.Next(1, 5);
+            var randomType = random.Next(1, 8);
             var result = new PersonnelType();
             switch (randomType)
             {
@@ -280,6 +280,18 @@ namespace MJU.DataCenter.Personnel.SeedData
                 case 4:
                     result.PersonTypeId = "EG";
                     result.PersonType = "พนักงานมหาวิทยาลัยเงินรายได้";
+                    break;
+                case 5:
+                    result.PersonTypeId = "T";
+                    result.PersonType = "พนักงานราชการ";
+                    break;
+                case 6:
+                    result.PersonTypeId = "Y";
+                    result.PersonType = "ลูกจ้างชั่วคราวเงินงบประมาณ";
+                    break;
+                case 7:
+                    result.PersonTypeId = "O";
+                    result.PersonType = "พนักงานส่วนงาน";
                     break;
             }
 

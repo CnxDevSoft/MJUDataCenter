@@ -21,8 +21,9 @@
 
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Repository\" />
+    <Folder Include="Repository\Repositories\" />
+    <Folder Include="Repository\Interface\" />
+    <Folder Include="SeedData\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Service\" />
   </ItemGroup>
