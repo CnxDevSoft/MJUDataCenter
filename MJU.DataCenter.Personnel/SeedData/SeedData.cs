@@ -258,47 +258,58 @@ namespace MJU.DataCenter.Personnel.SeedData
             return new string(resualt.ToArray());
 
         }
-        public static string TypePersonCode()
+        public static PersonnelType TypePersonCode()
         {
             Random random = new Random();
-            var randomType = random.Next(1, 6);
-            string result = "";
+            var randomType = random.Next(1, 5);
+            var result = new PersonnelType();
             switch (randomType)
             {
                 case 1:
-                    result = "P";
+                    result.PersonTypeId = "P";
+                    result.PersonType = "ข้าราชกาล";
                     break;
                 case 2:
-                    result = "E";
+                    result.PersonTypeId = "E";
+                    result.PersonType = "ลูกจ้างประจำ";
                     break;
                 case 3:
-                    result = "M";
+                    result.PersonTypeId = "M";
+                    result.PersonType = "พนักงานมหาวิทยาลัย";
                     break;
                 case 4:
-                    result = "EG";
+                    result.PersonTypeId = "EG";
+                    result.PersonType = "พนักงานมหาวิทยาลัยเงินรายได้";
                     break;
             }
 
             return result;
         }
 
-        public static string TypePerson()
-        {
-            Random random = new Random();
-            var randomType = random.Next(1, 3);
-            string result = "";
-            switch (randomType)
-            {
-                case 1:
-                    result = "ข้าราชกาล";
-                    break;
-                case 2:
-                    result = "ลูกจ้างประจำ";
-                    break;
-            }
+        //public static string TypePerson()
+        //{
+        //    Random random = new Random();
+        //    var randomType = random.Next(1, 3);
+        //    string result = "";
+        //    switch (randomType)
+        //    {
+        //        case 1:
+        //            result = "ข้าราชกาล";
+        //            break;
+        //        case 2:
+        //            result = "ลูกจ้างประจำ";
+        //            break;
+        //        case 3:
+        //            result = "พนักงานมหาวิทยาลัย";
+        //            break;
+        //        case 4:
+        //            result = "พนักงานมหาวิทยาลัยเงินรายได้";
+        //            break;
 
-            return result;
-        }
+        //    }
+
+        //    return result;
+        //}
         public static string PositionRankId()
         {
             Random random = new Random();
