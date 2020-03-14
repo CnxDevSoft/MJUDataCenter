@@ -13,5 +13,9 @@ namespace MJU.DataCenter.Personnel.Service.Interface
         object GetAllPersonnelGroup(int type);
 
         object GetAllPersonnelPosition(int type);
+
+        object GetAllPersonnelEducation(int type);
+
+        object GetAllPersonnelPositionGeneration(int type);
     }
 }
