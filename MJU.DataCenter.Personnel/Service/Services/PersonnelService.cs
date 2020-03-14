@@ -23,29 +23,55 @@ namespace MJU.DataCenter.Personnel.Service.Services
             _dcPersonRepository = dcPersonRepository;
         }
 
-        public List<PersonGroupViewModel> GetAllPersonnelGroup()
+        public object GetAllPersonnelGroup(int type)
         {
-            var result = new List<PersonGroupViewModel>();
-            var personnel = _personnelRepository.GetAll();
+            
+            var personnel = _dcPersonRepository.GetAll();
 
-            var distinctPersonnelTypeId = personnel.Select(s => new PersonGroupViewModel{
-                PersonGroupTypeId = Int32.Parse(s.PersonnelTypeId),
-                PersonGroupTypeName =s.PersonnelType
-            });
+            var distinctPersonnelTypeId = personnel.Select(s=> s.PersonnelType
+            ).Distinct();
 
-
-            foreach(var item in distinctPersonnelTypeId)
+           if (type == 1)
             {
-
-                var personGroupView = new PersonGroupViewModel
+                var label = new List<string>();
+                var data = new List<int>();
+                
+                foreach (var personnelType in distinctPersonnelTypeId)
                 {
-                    PersonGroupTypeId = item.PersonGroupTypeId,
-                    PersonGroupTypeName = item.PersonGroupTypeName,
-                    Person = personnel.Where(m => m.PersonnelTypeId == item.PersonGroupTypeId.ToString()).Count()
+                    label.Add(personnelType);
+                    data.Add(personnel.Where(m => m.PersonnelType == personnelType).Count());
+                }
+                var graphDataSet = new GraphDataSet {
+                    Data = data
                 };
-                result.Add(personGroupView);
+                var result = new GraphData
+                {
+                    GraphDataSet = new List<GraphDataSet> {
+                     graphDataSet
+                    },
+                    Label = label
+                };
+                return result;
             }
-            return result;
+            else {
+                var list = new List<PersonGroup>();
+                foreach (var personnelType in distinctPersonnelTypeId)
+                {
+                    var personGroup = new PersonGroup
+                    {
+                        PersonGroupTypeName = personnelType,
+                        Person = personnel.Where(m => m.PersonnelType == personnelType).Count()
+                    };
+                    list.Add(personGroup);
+                }
+                var result = new PersonGroupViewModel
+                {
+                    PersonGroup = list
+                };
+                return result;
+            }
+
+            
         }
         public List<PersonPostionViewModel> GetAllPersonnelPosition()
         {
@@ -73,84 +99,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             return result;
         }
-        public async Task<IEnumerable<Person>> GetPersonTest(int id)
-        {
-            AddPerson();
-            var result = _personnelRepository.GetAllAsync();
-            return await result;
-
-        }
-
-        public void AddPerson()
-        {
-            var TitleName = SeedData.SeedData.RandomTitleName();
-            var Nationality = SeedData.SeedData.RandomNationality();
-            var Address = SeedData.SeedData.RandomAddress();
-            var Section = SeedData.SeedData.Section();
-            var Division = SeedData.SeedData.Division();
-            var Fact = SeedData.SeedData.Fact();
-            var AdminPosition = SeedData.SeedData.AdminPosition();
-            var Education = SeedData.SeedData.Education();
-                var result = new Person
-                {
-                    IdCard = SeedData.SeedData.RandomIdCard(),
-                    TitleName = TitleName.TitleName,
-                    FirstName = SeedData.SeedData.RandomFirstName(),
-                    LastName = SeedData.SeedData.RandomLastName(),
-                    TitleNameEn = TitleName.TitleNameEn,
-                    FirstNameEn = SeedData.SeedData.RandomFirstNameEn(),
-                    LastNameEn = SeedData.SeedData.RandomLastNameEn(),
-                    DateOfBirth = SeedData.SeedData.RandomDateTime(),
-                    BloodType = SeedData.SeedData.BloodType(),
-                    GenderId = TitleName.GenderType,
-                    Gender = TitleName.Gender.ToString(),
-                    NationId = Nationality.NationalityId,
-                    Nation = Nationality.Nationality,
-                    HomeNumber = Address.HomeNumber,
-                    Moo = Address.Moo,
-                    Soi = Address.Soi,
-                    Street = Address.Street,
-                    SubDistrict = Address.SubDistrict,
-                    District = Address.District,
-                    Province = Address.Province,
-                    ZipCode = Address.ZipCode,
-                    PositionCode = SeedData.SeedData.PositionCOde(),
-                    PersonnelTypeId = SeedData.SeedData.TypePerson(),
-                    PersonnelType = SeedData.SeedData.TypePerson(),
-                    PositionRankId = SeedData.SeedData.PositionRankId(),
-                    PositionRank = SeedData.SeedData.PositionRank(),
-                    Position = SeedData.SeedData.Position(),
-                    PositionLevelId = SeedData.SeedData.PositionLevelId(),
-                    PositionLevel = SeedData.SeedData.PositionLevel(),
-                    StartDate = SeedData.SeedData.RandomDateTime(),
-                    RetiredDate = SeedData.SeedData.RandomDateTime(),
-                    RetiredYear = SeedData.SeedData.RandomDateTime().Year,
-                    SectionId = Section.SectionId,
-                    Section = Section.SectionName,
-                    DivisionId = Division.DivisionId,
-                    Division = Division.DivisionName,
-                    FacultyId = Fact.FactId,
-                    Faculty = Fact.FactName,
-                    Salary = int.Parse(SeedData.SeedData.Salary()),
-                    AdminPositionId = AdminPosition.AdminPositionId,
-                    AdminPositionType = AdminPosition.AdminPositionType,
-                    AdminPosition = AdminPosition.AdminPositionName,
-                    EducationLevel = Education.EducationLevel,
-                    EducationLevelId = Education.EducationLevelId,
-                    TitleEducation = Education.TitleEducation,
-                    Education = Education.EducationName,
-                    Major = Education.Major,
-                    University = Education.University,
-                    TitlePosition = Education.TitleEducation,
-                    CountryId = Education.CountryId,
-                    Country = Education.Country,
-                    StartEducationDate = SeedData.SeedData.RandomDateTime(),
-                    GraduateDate = SeedData.SeedData.RandomDateTime()
-                };
-            _personnelRepository.AddAsync(result);
-        }
-          
-        
 
         public async Task<IEnumerable<Person>> GetAllPerson() {
             return await _personnelRepository.GetAllAsync();

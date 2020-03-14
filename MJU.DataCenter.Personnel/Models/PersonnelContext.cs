@@ -16,13 +16,13 @@ namespace MJU.DataCenter.Personnel.Models
         }
 
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<DC_Person> DcPerson { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-QCPA044\\SQLEXPRESS;Database=Personnel;User Id=apichai_server;Password=Password#01;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=Personnel;User Id=sa;Password=reallyStrongPwd123;");
             }
         }
 
@@ -43,6 +43,7 @@ namespace MJU.DataCenter.Personnel.Models
 
                 entity.Property(e => e.StartEducationDate).HasColumnType("datetime");
             });
+            modelBuilder.Entity<DC_Person>().ToView("DC_Person").HasNoKey();
 
             OnModelCreatingPartial(modelBuilder);
         }
