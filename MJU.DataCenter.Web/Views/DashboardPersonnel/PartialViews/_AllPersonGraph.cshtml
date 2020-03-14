@@ -25,7 +25,6 @@
 
 <script>
 
-    async function Render() {
 
           'use strict'
 
@@ -36,89 +35,67 @@
 
         var mode = 'index'
         var intersect = true
+    fetch('https://localhost:44307/api/PersonnelGroup/1')
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data)
+            var $allPersonalChart = $('#allpersonal-chart')
+            var chart = new Chart($allPersonalChart, {
+                type: 'horizontalBar',
+                data: {
+                    labels: data.label,
+                    datasets: [
+                        {
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[0].data
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            // display: false,
+                            gridLines: {
+                                display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            ticks: $.extend({
+                                beginAtZero: true,
 
-        var $allPersonalChart = $('#allpersonal-chart')
-        var chart = new Chart($allPersonalChart, {
-            type: 'horizontalBar',
-            data: {
-                labels: ['ข้าราชการ', 'ลูกจ้างประจำ', 'พนักงานมหาวิทยาลัย', 'พนักงานมหาวิทยาลัยเงินรายได้', 'พนักงานราชการ', 'ลูกจ้างชั่วคราวเงินงบประมาณ', 'พนักงานส่วนงาน'],
-                datasets: [
-                    {
-                        backgroundColor: '#007bff',
-                        borderColor: '#007bff',
-                        data: [50, 25, 1300, 10, 30, 40, 200]
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    mode: mode,
-                    intersect: intersect
-                },
-                hover: {
-                    mode: mode,
-                    intersect: intersect
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        // display: false,
-                        gridLines: {
-                            display: true,
-                            lineWidth: '4px',
-                            color: 'rgba(0, 0, 0, .2)',
-                            zeroLineColor: 'transparent'
-                        },
-                        ticks: $.extend({
-                            beginAtZero: true,
-
-                            // Include a dollar sign in the ticks
-                            callback: function (value, index, values) {
-                                if (value >= 1000) {
-                                    value /= 1000
-                                    value += 'k'
+                                // Include a dollar sign in the ticks
+                                callback: function (value, index, values) {
+                                    if (value >= 1000) {
+                                        value /= 1000
+                                        value += 'k'
+                                    }
+                                    return value;// '$' + value
                                 }
-                                return value;// '$' + value
-                            }
-                        }, ticksStyle)
-                    }],
-                    xAxes: [{
-                        display: true,
-                        gridLines: {
-                            display: false
-                        },
-                        ticks: ticksStyle
-                    }]
+                            }, ticksStyle)
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: ticksStyle
+                        }]
+                    }
                 }
-            }
+            })
         })
-    }
-
-    async function Load() {
-         fetch('https://jsonplaceholder.typicode.com/todos/1')
-             .then((response) => {
-
-               Render();
-
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-         });
-    }
-
-
-      Render();
-    //$(function () {
-
-    //    var a = fetch('https://jsonplaceholder.typicode.com/todos')
-    //      .then(response => response.json())
-    //       .then(json => console.log(json))
-
-    //    Render();
-
-    //});
 </script>

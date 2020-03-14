@@ -10,10 +10,10 @@ using MJU.DataCenter.Personnel.Service.Interface;
 namespace MJU.DataCenter.Personnel.Controllers
 {
     [Route("api/[controller]")]
-    public class PersonnelGroupController : Controller
+    public class PersonnelPositionController : Controller
     {
         private readonly IPersonnelService _personnelService;
-        public PersonnelGroupController(IPersonnelService personnelService)
+        public PersonnelPositionController(IPersonnelService personnelService)
         {
             _personnelService = personnelService;
         }
@@ -28,7 +28,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{type}")]
         public object Get(int type)
         {
-            return _personnelService.GetAllPersonnelGroup(type);
+            return _personnelService.GetAllPersonnelPosition(type);
         }
 
         // POST api/values

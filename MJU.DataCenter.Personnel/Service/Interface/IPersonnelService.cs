@@ -12,6 +12,6 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelGroup(int type);
 
-        Task<IEnumerable<Person>> GetAllPerson();
+        object GetAllPersonnelPosition(int type);
     }
 }
