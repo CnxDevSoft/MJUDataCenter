@@ -69,4 +69,10 @@ namespace MJU.DataCenter.Personnel.SeedData
         public string Country { get; set; }
 
     }
+    public class PersonnelType
+    {
+        public string PersonTypeId { get; set; }
+        public string PersonType { get; set; }
+
+    }
 }
