@@ -396,20 +396,223 @@ namespace MJU.DataCenter.Personnel.SeedData
             switch (randomType)
             {
                 case 1:
-                    result.SectionId = 20410;
-                    result.SectionName = "กองกลาง";
+                    result.SectionId = 20411;
+                    result.SectionName = "งานบริหารและธุรการ";
                     break;
                 case 2:
-                    result.SectionId = 20420;
-                    result.SectionName = "ผ่ายสื่อสารองค์กร";
+                    result.SectionId = 20412;
+                    result.SectionName = "";
                     break;
                 case 3:
-                    result.SectionId = 20430;
-                    result.SectionName = "สำนักคณบดี";
+                    result.SectionId = 20413;
+                    result.SectionName = "";
                     break;
             }
             return result;
-
         }
+        public static Division Division()
+        {
+            Random random = new Random();
+            var randomType = random.Next(1, 4);
+            var result = new Division();
+            switch (randomType)
+            {
+                case 1:
+                    result.DivisionId = 20401;
+                    result.DivisionName = "กองกลาง";
+                    break;
+                case 2:
+                    result.DivisionId = 20402;
+                    result.DivisionName = "ผ่ายสื่อสารองค์กร";
+                    break;
+                case 3:
+                    result.DivisionId = 20403;
+                    result.DivisionName = "สำนักคณบดี";
+                    break;
+            }
+            return result;
+        }
+        public static Fact Fact()
+        {
+            Random random = new Random();
+            var randomType = random.Next(1, 4);
+            var result = new Fact();
+            switch (randomType)
+            {
+                case 1:
+                    result.FactId = 20001;
+                    result.FactName = "สำนักงานมหาวิทยาลัย";
+                    break;
+                case 2:
+                    result.FactId = 20002;
+                    result.FactName = "คณะวิทยาศาสตร์";
+                    break;
+                case 3:
+                    result.FactId = 20003;
+                    result.FactName = "คณะวิศวกรรมศาสตร์";
+                    break;
+            }
+            return result;
+        }
+        public static string Salary()
+        {
+            Random random = new Random();
+            StringBuilder str_build = new StringBuilder();
+            string alphabet = "123456789";
+            int size = random.Next(1, 6);
+            var resualt = Enumerable.Range(0, size).Select(x => alphabet[random.Next(0, alphabet.Length)]);
+            return new string(resualt.ToArray());
+        }
+        public static AdminPosition AdminPosition()
+        {
+            Random random = new Random();
+            var randomTypeA = random.Next(1, 4);
+            var randomTypeB = random.Next(1, 3);
+            var result = new AdminPosition();
+            switch (randomTypeA)
+            {
+                case 1:
+                    result.AdminPositionId = 10;
+                    result.AdminPositionType = "อธิการบดี";
+                    break;
+                case 2:
+                    result.AdminPositionId = 20;
+                    result.AdminPositionType = "รองอธิการบดี";
+                    break;
+                case 3:
+                    result.AdminPositionId = 30;
+                    result.AdminPositionType = "คณบดี";
+                    break;
+            }
+            switch (randomTypeB)
+            {
+                case 1:
+                    result.AdminPositionName = "คณบดีคณะวิทยาศาสตร์";
+                    break;
+                case 2:
+                    result.AdminPositionName = "ผู้อำนวยการกองคลัง";
+                    break;
+            }
+            return result;
+        }
+        public static Education Education()
+        {
+            Random random = new Random();
+            var randomTypeA = random.Next(1, 4);
+            var randomTypeB = random.Next(1, 5);
+            var randomTypeU = random.Next(1, 3);
+            var result = new Education();
+            switch (randomTypeA)
+            {
+                case 1:
+                    result.EducationLevelId = 10;
+                    result.EducationLevel = "ปริญญาตรี";
+                    break;
+                case 2:
+                    result.EducationLevelId = 20;
+                    result.EducationLevel = "ปริญญาโท";
+                    break;
+                case 3:
+                    result.EducationLevelId = 10;
+                    result.EducationLevel = "ปริญญาเอก";
+                    break;
+            }
+
+            switch (randomTypeB)
+            {
+                case 1:
+                    result.TitleEducation = "วท.บ. /B.Sc";
+                    result.EducationName = "วิทยาศาสตรบัณฑิต";
+                    if (randomTypeA == 1) 
+                    {
+                        result.Major = "วิทยาการคอมพิวเตอร์";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                        result.CountryId = "TH";
+                    }
+                    else if (randomTypeA == 2)
+                    {
+                        result.Major = "สถิติประยุกต์";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                        result.CountryId = "TH";
+                    }
+                    else if (randomTypeA == 3)
+                    {
+                        result.Major = "เคมี";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    result.CountryId = "TH";
+                    result.Country = "ไทย";
+                    break;
+
+                case 2:
+                    result.TitleEducation = "วศ.บ. /B.Eng.";
+                    result.EducationName = "วิศวกรรมศาสตรบัณฑิต";
+                    if (randomTypeA == 1)
+                    {
+                        result.Major = "เกษตร";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                        result.CountryId = "TH";
+                    }
+                    else if (randomTypeA == 2)
+                    {
+                        result.Major = "อุตสาหกรรมอาหาร";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    else if (randomTypeA == 3)
+                    {
+                        result.Major = "วิศวกรรมเครื่องกล";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    result.CountryId = "TH";
+                    result.Country = "ไทย";
+                    break;
+
+                case 3:
+                    result.TitleEducation = "รป.บ. / B.P.A.";
+                    result.EducationName = "รัฐประศาสนศาสตรบัณฑิต";
+                    if (randomTypeA == 1)
+                    {
+                        result.Major = "รัฐประศาสนศาสตร์";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    else if (randomTypeA == 2)
+                    {
+                        result.Major = "รัฐประศาสนศาสตร์";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    else if (randomTypeA == 3)
+                    {
+                        result.Major = "รัฐประศาสนศาสตร์";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    result.CountryId = "TH";
+                    result.Country = "ไทย";
+                    break;
+                case 4:
+                    result.TitleEducation = "บธ.บ. / B.B.A.";
+                    result.EducationName = "ธุรกิจและบริหาร";
+                    if (randomTypeA == 1)
+                    {
+                        result.Major = "วิชาผู้ประกอบการ";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    else if (randomTypeA == 2)
+                    {
+                        result.Major = "ธุรกิจศึกษา";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    else if (randomTypeA == 3)
+                    {
+                        result.Major = "การบัญชี";
+                        result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
+                    }
+                    result.CountryId = "TW";
+                    result.Country = "ไต้หวัน";
+                    break;
+            }
+            return result;
+        }
+
+
     }
 }

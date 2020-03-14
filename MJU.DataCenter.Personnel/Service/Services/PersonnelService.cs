@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-<<<<<<< HEAD
 using System.Text;
-=======
->>>>>>> c5723f3... add view table and add method group graph
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MJU.DataCenter.Personnel.Models;
@@ -52,7 +49,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         }
         public async Task<IEnumerable<Person>> GetPersonTest(int id)
         {
-            
+            AddPerson();
             var result = _personnelRepository.GetAllAsync();
             return await result;
 
@@ -64,55 +61,80 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var Nationality = SeedData.SeedData.RandomNationality();
             var Address = SeedData.SeedData.RandomAddress();
             var Section = SeedData.SeedData.Section();
+            var Division = SeedData.SeedData.Division();
+            var Fact = SeedData.SeedData.Fact();
+            var AdminPosition = SeedData.SeedData.AdminPosition();
+            var Education = SeedData.SeedData.Education();
             int Loop = 1;
-            var result = new Person
-            {
-                PersonnelId = 1 + Loop,
-                IdCard = SeedData.SeedData.RandomIdCard(),
-                TitleName = TitleName.TitleName,
-                FirstName = SeedData.SeedData.RandomFirstName(),
-                LastName = SeedData.SeedData.RandomLastName(),
-                TitleNameEn = TitleName.TitleNameEn,
-                FirstNameEn = SeedData.SeedData.RandomFirstNameEn(),
-                LastNameEn = SeedData.SeedData.RandomLastNameEn(),
-                DateOfBirth = SeedData.SeedData.RandomDateTime(),
-                BloodType = SeedData.SeedData.BloodType(),
-                GenderId = TitleName.GenderType,
-                Gender = TitleName.Gender.ToString(),
-                NationId = Nationality.NationalityId,
-                Nation = Nationality.Nationality,
-                HomeNumber = Address.HomeNumber,
-                Moo = Address.Moo,
-                Soi = Address.Soi,
-                Street = Address.Street,
-                SubDistrict = Address.SubDistrict,
-                District = Address.District,
-                Province = Address.Province,
-                ZipCode = Address.ZipCode,
-                PositionCode = SeedData.SeedData.PositionCOde(),
-                PersonnelTypeId = SeedData.SeedData.TypePerson(),
-                PersonnelType = SeedData.SeedData.TypePerson(),
-                PositionRankId = SeedData.SeedData.PositionRankId(),
-                PositionRank = SeedData.SeedData.PositionRank(),
-                Position = SeedData.SeedData.Position(),
-                PositionLevelId = SeedData.SeedData.PositionLevelId(),
-                PositionLevel = SeedData.SeedData.PositionLevel(),
-                StartDate = SeedData.SeedData.RandomDateTime(),
-                RetiredDate = SeedData.SeedData.RandomDateTime(),
-                RetiredYear = SeedData.SeedData.RandomDateTime().Year,
-                SectionId = Section.SectionId,
-                Section = Section.SectionName,
+                var result = new Person
+                {
+                    //PersonnelId = 3,
+                    IdCard = SeedData.SeedData.RandomIdCard(),
+                    TitleName = TitleName.TitleName,
+                    FirstName = SeedData.SeedData.RandomFirstName(),
+                    LastName = SeedData.SeedData.RandomLastName(),
+                    //TitleNameEn = TitleName.TitleNameEn,
+                    //FirstNameEn = SeedData.SeedData.RandomFirstNameEn(),
+                    //LastNameEn = SeedData.SeedData.RandomLastNameEn(),
+                    //DateOfBirth = SeedData.SeedData.RandomDateTime(),
+                    //BloodType = SeedData.SeedData.BloodType(),
+                    //GenderId = TitleName.GenderType,
+                    //Gender = TitleName.Gender.ToString(),
+                    //NationId = Nationality.NationalityId,
+                    //Nation = Nationality.Nationality,
+                    //HomeNumber = Address.HomeNumber,
+                    //Moo = Address.Moo,
+                    //Soi = Address.Soi,
+                    //Street = Address.Street,
+                    //SubDistrict = Address.SubDistrict,
+                    //District = Address.District,
+                    //Province = Address.Province,
+                    //ZipCode = Address.ZipCode,
+                    //PositionCode = SeedData.SeedData.PositionCOde(),
+                    //PersonnelTypeId = SeedData.SeedData.TypePerson(),
+                    //PersonnelType = SeedData.SeedData.TypePerson(),
+                    //PositionRankId = SeedData.SeedData.PositionRankId(),
+                    //PositionRank = SeedData.SeedData.PositionRank(),
+                    //Position = SeedData.SeedData.Position(),
+                    //PositionLevelId = SeedData.SeedData.PositionLevelId(),
+                    //PositionLevel = SeedData.SeedData.PositionLevel(),
+                    //StartDate = SeedData.SeedData.RandomDateTime(),
+                    //RetiredDate = SeedData.SeedData.RandomDateTime(),
+                    //RetiredYear = SeedData.SeedData.RandomDateTime().Year,
+                    //SectionId = Section.SectionId,
+                    //Section = Section.SectionName,
+                    //DivisionId = Division.DivisionId,
+                    //Division = Division.DivisionName,
+                    //FacultyId = Fact.FactId,
+                    //Faculty = Fact.FactName,
+                    //Salary = int.Parse(SeedData.SeedData.Salary()),
+                    //AdminPositionId = AdminPosition.AdminPositionId,
+                    //AdminPositionType = AdminPosition.AdminPositionType,
+                    //AdminPosition = AdminPosition.AdminPositionName,
+                    //EducationLevel = Education.EducationLevel,
+                    //EducationLevelId = Education.EducationLevelId,
+                    //TitleEducation = Education.TitleEducation,
+                    //Education = Education.EducationName,
+                    //Major = Education.Major,
+                    //University = Education.University,
+                    //TitlePosition = Education.TitleEducation,
+                    //CountryId = Education.CountryId,
+                    //Country = Education.Country,
+                    //StartEducationDate = SeedData.SeedData.RandomDateTime(),
+                    //GraduateDate = SeedData.SeedData.RandomDateTime()
+                };
+            _personnelRepository.Add(result);
 
+           
 
-            };
-            var test = result;
-           // _personnelRepository.AddAsync(result);
+            //_personnelRepository.AddAsync(result);
+            // _personnelRepository.AddAsync(result);
         }
           
         
 
-        public async Task<IEnumerable<DC_Person>> GetDcPerson() {
-            return await _dcPersonRepository.GetAllAsync();
+        public async Task<IEnumerable<Person>> GetAllPerson() {
+            return await _personnelRepository.GetAllAsync();
         }
     }
 }

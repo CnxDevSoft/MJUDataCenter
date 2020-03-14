@@ -9,12 +9,12 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 {
     public interface IPersonnelService
     {
-        public Task<IEnumerable<Person>> GetPersonTest(int id);
+        Task<IEnumerable<Person>> GetPersonTest(int id);
 
-        public void AddPerson();
+        void AddPerson();
 
         List<PersonGroupViewModel> GetAllPersonnel();
 
-        Task<IEnumerable<DC_Person>> GetDcPerson();
+        Task<IEnumerable<Person>> GetAllPerson();
     }
 }

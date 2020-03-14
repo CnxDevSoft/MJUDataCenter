@@ -20,6 +20,12 @@ namespace MJU.DataCenter.Personnel.IRepository.Common
             await Context.Set<TEntity>().AddAsync(entity);
         }
 
+        public void Add(TEntity entity)
+        {
+            Context.Set<TEntity>().Add(entity);
+            Context.SaveChanges();
+        }
+
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await Context.Set<TEntity>().AddRangeAsync(entities);

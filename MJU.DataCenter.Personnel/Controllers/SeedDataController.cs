@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Service.Interface;
 
 namespace MJU.DataCenter.Personnel.Controllers
@@ -22,24 +23,22 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            _personnelService.AddPerson();
-            string x = SeedData.SeedData.RandomDateTime().ToString();
-
 
             return new string[] { "value1", "value2" };
         }
 
         // GET: api/SeedData/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Task<IEnumerable<Person>> Get(int id)
         {
-            return "value";
+            //_personnelService.AddPerson();
+            return _personnelService.GetPersonTest(id);
         }
 
         // POST: api/SeedData
         [HttpPost]
         public void Post([FromBody] string value)
-        {
+        {            
         }
 
         // PUT: api/SeedData/5

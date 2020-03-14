@@ -40,5 +40,33 @@ namespace MJU.DataCenter.Personnel.SeedData
         public int? SectionId { get; set; }
         public string SectionName { get; set; }
     }
+    public class Division
+    {
+        public int? DivisionId { get; set; }
+        public string DivisionName { get; set; }
+    }
+    public class Fact
+    {
+        public int? FactId { get; set; }
+        public string FactName { get; set; }
+    }
+    public class AdminPosition
+    {
+        public int? AdminPositionId { get; set; }
+        public string AdminPositionType { get; set; }
+        public string AdminPositionName { get; set; }
 
+    }
+    public class Education
+    {
+        public int? EducationLevelId { get; set; }
+        public string EducationLevel { get; set; }
+        public string TitleEducation { get; set; }
+        public string EducationName { get; set; }
+        public string Major { get; set; }
+        public string University { get; set; }
+        public string CountryId { get; set; }
+        public string Country { get; set; }
+
+    }
 }
