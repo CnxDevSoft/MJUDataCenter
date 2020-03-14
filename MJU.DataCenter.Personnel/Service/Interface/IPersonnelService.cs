@@ -9,11 +9,8 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 {
     public interface IPersonnelService
     {
-        Task<IEnumerable<Person>> GetPersonTest(int id);
 
-        void AddPerson();
-
-        List<PersonGroupViewModel> GetAllPersonnelGroup();
+        object GetAllPersonnelGroup(int type);
 
         Task<IEnumerable<Person>> GetAllPerson();
     }

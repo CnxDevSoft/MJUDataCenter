@@ -7,7 +7,6 @@ using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
 using MJU.DataCenter.Personnel.Repository.Repositories;
 using MJU.DataCenter.Personnel.Service.Interface;
-using MJU.DataCenter.Personnel.SeedData;
 using MJU.DataCenter.Personnel.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,15 +23,9 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
         // GET: api/<controller>
         [HttpGet]
-        public List<int> Get()
+        public void Get()
         {
-            var a = _personnelService.GetAllPersonnelGroup();
-            var b = new List<int>();
-            foreach(var s in a)
-            {
-                b.Add(s.Person);
-            }
-            return b;
+            
         }
 
         // GET api/<controller>/5
@@ -45,7 +38,6 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpPost]
         public void Post([FromBody]string value)
         {
-            _personnelService.AddPerson();
         }
 
         // PUT api/<controller>/5
