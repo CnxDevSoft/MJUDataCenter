@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.Service.Services
 {
-    public class ProjectService : IProjectService
+    public class FundSeedDataService : IFundSeedDataService
     {
-        private readonly IProjectRepository _projectRepository;
-        public ProjectService(IProjectRepository projectRepository)
+        private readonly IFundRepository _fundRepository;
+        public FundSeedDataService(IFundRepository fundRepository)
         {
-            _projectRepository = projectRepository;
+            _fundRepository = fundRepository;
         }
     }
 }

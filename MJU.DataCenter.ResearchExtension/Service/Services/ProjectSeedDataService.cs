@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.Service.Services
 {
-    public class ProjectService : IProjectService
+    public class ProjectSeedDataService : IProjectSeedDataService
     {
         private readonly IProjectRepository _projectRepository;
-        public ProjectService(IProjectRepository projectRepository)
+        public ProjectSeedDataService(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
         }
