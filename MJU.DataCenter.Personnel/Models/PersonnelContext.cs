@@ -21,7 +21,7 @@ namespace MJU.DataCenter.Personnel.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Database=Personnel;Password=reallyStrongPwd123");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-QCPA044\\SQLEXPRESS;Database=Personnel;User Id=apichai_server;Password=Password#01;");
             }
         }
 
