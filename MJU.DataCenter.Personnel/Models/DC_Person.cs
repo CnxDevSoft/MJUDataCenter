@@ -16,7 +16,7 @@ namespace MJU.DataCenter.Personnel.Models
         public string BloodType { get; set; }
         public int? GenderId { get; set; }
         public string Gender { get; set; }
-        public int? NationId { get; set; }
+        public string NationId { get; set; }
         public string Nation { get; set; }
         public string HomeNumber { get; set; }
         public int? Moo { get; set; }
@@ -33,7 +33,7 @@ namespace MJU.DataCenter.Personnel.Models
         public string PositionType { get; set; }
         public string Position { get; set; }
         public string PositionLevelId { get; set; }
-        public string PositionLeve { get; set; }
+        public string PositionLevel { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? RetiredDate { get; set; }
         public int? RetiredYear { get; set; }

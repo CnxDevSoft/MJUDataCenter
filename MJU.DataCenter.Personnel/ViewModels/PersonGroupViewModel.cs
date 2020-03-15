@@ -7,7 +7,10 @@ namespace MJU.DataCenter.Personnel.ViewModels
 {
     public class PersonGroupViewModel
     {
-        public int PersonGroupTypeId { get; set; }
+        public List<PersonGroup> PersonGroup { get; set; }
+    }
+    public class PersonGroup
+    {
         public string PersonGroupTypeName { get; set; }
         public int Person { get; set; }
     }

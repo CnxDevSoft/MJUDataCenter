@@ -23,124 +23,256 @@ namespace MJU.DataCenter.Personnel.Service.Services
             _dcPersonRepository = dcPersonRepository;
         }
 
-        public List<PersonGroupViewModel> GetAllPersonnel()
+        public object GetAllPersonnelGroup(int type)
         {
-            var result = new List<PersonGroupViewModel>();
-            var personnel = _personnelRepository.GetAll();
+            
+            var personnel = _dcPersonRepository.GetAll();
 
-            var distinctPersonnelTypeId = personnel.Select(s => new PersonGroupViewModel{
-                PersonGroupTypeId = Int32.Parse(s.PersonnelTypeId),
-                PersonGroupTypeName =s.PersonnelType
-            });
+            var distinctPersonnelTypeId = personnel.Select(s=> s.PersonnelType
+            ).Distinct();
 
+           if (type == 1)
+            {
+                var label = new List<string>();
+                var data = new List<int>();
+                
+                foreach (var personnelType in distinctPersonnelTypeId)
+                {
+                    label.Add(personnelType);
+                    data.Add(personnel.Where(m => m.PersonnelType == personnelType).Count());
+                }
+                var graphDataSet = new GraphDataSet {
+                    Data = data
+                };
+                var result = new GraphData
+                {
+                    GraphDataSet = new List<GraphDataSet> {
+                     graphDataSet
+                    },
+                    Label = label
+                };
+                return result;
+            }
+            else {
+                var list = new List<PersonGroup>();
+                foreach (var personnelType in distinctPersonnelTypeId)
+                {
+                    var personGroup = new PersonGroup
+                    {
+                        PersonGroupTypeName = personnelType,
+                        Person = personnel.Where(m => m.PersonnelType == personnelType).Count()
+                    };
+                    list.Add(personGroup);
+                }
+                var result = new PersonGroupViewModel
+                {
+                    PersonGroup = list
+                };
+                return result;
+            }
 
-            foreach(var item in distinctPersonnelTypeId)
+            
+        }
+        public object GetAllPersonnelPosition(int type)
+        {
+            var personnel = _dcPersonRepository.GetAll();
+
+            var distinctPosition = personnel.Select(s => s.PositionType
+            ).Distinct();
+
+            if (type == 1)
+            {
+                var label = new List<string>();
+                var data = new List<int>();
+
+                foreach (var positionType in distinctPosition)
+                {
+                    label.Add(positionType);
+                    data.Add(personnel.Where(m => m.PositionType == positionType).Count());
+                }
+                var graphDataSet = new GraphDataSet
+                {
+                    Data = data
+                };
+                var result = new GraphData
+                {
+                    GraphDataSet = new List<GraphDataSet> {
+                     graphDataSet
+                    },
+                    Label = label
+                };
+                return result;
+            }
+            else
+            {
+                var list = new List<PersonPostion>();
+                foreach (var positionType in distinctPosition)
+                {
+                    var personPosition = new PersonPostion
+                    {
+                        PersonPosionTypeName = positionType,
+                        Person = personnel.Where(m => m.PositionType == positionType).Count()
+                    };
+                    list.Add(personPosition);
+                }
+                var result = new PersonPostionViewModel
+                {
+                    PersonPostion = list
+                };
+                return result;
+            }
+        }
+
+        public object GetAllPersonnelEducation(int type)
+        {
+            var educate = new List<string>() { "ปริญญาเอก", "ปริญญาตรี", "ปริญญาโท" };
+            var personnel = _dcPersonRepository.GetAll().Where(m => educate.Contains(m.EducationLevel));
+            var lowerBachelor = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel)).Count();
+
+            var distinctEducationLevel = personnel.Select(s => s.EducationLevel
+            ).Distinct();
+
+            if (type == 1)
+            {
+                var label = new List<string>();
+                var data = new List<int>();
+
+                foreach (var educationLevel in distinctEducationLevel)
+                {
+                    label.Add(educationLevel);
+                    data.Add(personnel.Where(m => m.EducationLevel == educationLevel).Count());
+                }
+
+                label.Add("ต่ำกว่าปริญญาตรี");
+                data.Add(lowerBachelor);
+
+                var graphDataSet = new GraphDataSet
+                {
+                    Data = data
+                };
+                var result = new GraphData
+                {
+                    GraphDataSet = new List<GraphDataSet> {
+                     graphDataSet
+                    },
+                    Label = label
+                };
+                return result;
+            }
+            else
+            {
+                var list = new List<PersonEducation>();
+                foreach (var educationLevel in distinctEducationLevel)
+                {
+                    var personPosition = new PersonEducation
+                    {
+                        EducationTypeName = educationLevel,
+                        Person = personnel.Where(m => m.EducationLevel == educationLevel).Count()
+                    };
+                    list.Add(personPosition);
+                }
+                list.Add(new PersonEducation
+                {
+                     EducationTypeName = "ต่ำกว่าปริญญาตรี",
+                     Person = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel)).Count()
+
+                });
+                var result = new PersonEducationViewModel
+                {
+                    PersonEducation = list
+                };
+                return result;
+            }
+        }
+        public object GetAllPersonnelPositionGeneration(int type)
+        {
+            var personnel = _dcPersonRepository.GetAll();
+
+            var distinctPosition = personnel.Select(s => s.PositionType
+            ).Distinct();
+
+            if (type == 1)
             {
 
-                var personGroupView = new PersonGroupViewModel
+                var list = new List<GraphDataSet>();
+                var label = new List<string> { "Baby Boomer\n(เกิดปี 2489 - 2507)", "Gen X \n \n (เกิดปี 2508 - 2522)", "Gen Y \n \n (เกิดปี 2523 - 2540)", "Gen Z \n \n (เกิดปี 2541 ขึ้นไป)" };
+
+                foreach (var positionType in distinctPosition)
                 {
-                    PersonGroupTypeId = item.PersonGroupTypeId,
-                    PersonGroupTypeName = item.PersonGroupTypeName,
-                    Person = personnel.Where(m => m.PersonnelTypeId == item.PersonGroupTypeId.ToString()).Count()
-                };
-                result.Add(personGroupView);
-            }
-            return result;
-        }
-        public async Task<IEnumerable<Person>> GetPersonTest(int id)
-        {
-            AddPerson();
-            var result = _personnelRepository.GetAllAsync();
-            return await result;
+                    var distinctGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231)).Count();
+                    var distinctGenerationGenX = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231)).Count();
+                    var distinctGenerationGenY = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231)).Count();
+                    var distinctGenerationGenZ = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19980101)).Count();
 
-        }
-
-        public void AddPerson()
-        {
-            var list = new List<Person>();
-
-            for(var i = 0; i < 100; i++) {
-                var TitleName = SeedData.SeedData.RandomTitleName();
-                var Nationality = SeedData.SeedData.RandomNationality();
-                var Address = SeedData.SeedData.RandomAddress();
-                var Section = SeedData.SeedData.Section();
-                var Division = SeedData.SeedData.Division();
-                var Fact = SeedData.SeedData.Fact();
-                var AdminPosition = SeedData.SeedData.AdminPosition();
-                var Education = SeedData.SeedData.Education();
-                var PersonnelType = SeedData.SeedData.TypePersonCode();
-                var PositionType = SeedData.SeedData.PositionType();
-                var PositionLevel = SeedData.SeedData.PositionLevel();
-                var result = new Person
-                {
-                    //PersonnelId = 3,
-                    IdCard = SeedData.SeedData.RandomIdCard(),
-                    TitleName = TitleName.TitleName,
-                    FirstName = SeedData.SeedData.RandomFirstName(),
-                    LastName = SeedData.SeedData.RandomLastName(),
-                    TitleNameEn = TitleName.TitleNameEn,
-                    FirstNameEn = SeedData.SeedData.RandomFirstNameEn(),
-                    LastNameEn = SeedData.SeedData.RandomLastNameEn(),
-                    DateOfBirth = SeedData.SeedData.RandomDateTime(),
-                    BloodType = SeedData.SeedData.BloodType(),
-                    GenderId = TitleName.GenderType,
-                    Gender = TitleName.Gender.ToString(),
-                    NationId = Nationality.NationalityId,
-                    Nation = Nationality.Nationality,
-                    HomeNumber = Address.HomeNumber,
-                    Moo = Address.Moo,
-                    Soi = Address.Soi,
-                    Street = Address.Street,
-                    SubDistrict = Address.SubDistrict,
-                    District = Address.District,
-                    Province = Address.Province,
-                    ZipCode = Address.ZipCode,
-                    PositionCode = SeedData.SeedData.PositionCOde(),
-                    PersonnelTypeId = PersonnelType.PersonTypeId,
-                    PersonnelType = PersonnelType.PersonType,
-                    PositionTypeId = PositionType.PositionTypeId,
-                    PositionType = PositionType.PositionTypeName,
-                    Position = SeedData.SeedData.Position(),
-                    PositionLevelId = PositionLevel.PositionLevelId,
-                    PositionLevel = PositionLevel.PositionLevelName,
-                    StartDate = SeedData.SeedData.RandomDateTime(),
-                    RetiredDate = SeedData.SeedData.RandomDateTime(),
-                    RetiredYear = SeedData.SeedData.RandomDateTime().Year,
-                    SectionId = Section.SectionId,
-                    Section = Section.SectionName,
-                    DivisionId = Division.DivisionId,
-                    Division = Division.DivisionName,
-                    FacultyId = Fact.FactId,
-                    Faculty = Fact.FactName,
-                    Salary = int.Parse(SeedData.SeedData.Salary()),
-                    AdminPositionId = AdminPosition.AdminPositionId,
-                    AdminPositionType = AdminPosition.AdminPositionType,
-                    AdminPosition = AdminPosition.AdminPositionName,
-                    EducationLevel = Education.EducationLevel,
-                    EducationLevelId = Education.EducationLevelId,
-                    TitleEducation = Education.TitleEducation,
-                    Education = Education.EducationName,
-                    Major = Education.Major,
-                    University = Education.University,
-                    TitlePosition = Education.TitleEducation,
-                    CountryId = Education.CountryId,
-                    Country = Education.Country,
-                    StartEducationDate = SeedData.SeedData.RandomDateTime(),
-                    GraduateDate = SeedData.SeedData.RandomDateTime()
+                    var graphDataSet = new GraphDataSet
+                    {
+                        Label = positionType,
+                        Data = new List<int>{
+                        distinctGenerationBabyBoomber,
+                        distinctGenerationGenX,
+                        distinctGenerationGenY,
+                        distinctGenerationGenZ
+                        }
+                    };
+                    list.Add(graphDataSet);
                 };
 
-                list.Add(result);
+                var result = new GraphData
+                {
+                    GraphDataSet = list,
+                    Label = label
+                };
+                return result;
 
             }
-            _personnelRepository.AddRange(list);
+            else
+            {
+                var result = new List<PersonPostionGenertionViewModel>();
+
+                foreach (var positionType in distinctPosition)
+                {
+                    var distinctGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231)).Count();
+                    var distinctGenerationGenX = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231)).Count();
+                    var distinctGenerationGenY = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231)).Count();
+                    var distinctGenerationGenZ = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19980101)).Count();
 
 
+                    var personPostionGenertion = new List<PersonPostionGenertion> {
+                        new PersonPostionGenertion
+                        {
+                            PersonGenertionName = "Baby Boomer (เกิดปี 2489 - 2507)",
+                            Person = distinctGenerationBabyBoomber
+                        },
+                        new PersonPostionGenertion
+                        {
+                            PersonGenertionName = "Gen X (เกิดปี 2508 - 2522)",
+                            Person = distinctGenerationGenX
+                        },
+                        new PersonPostionGenertion
+                        {
+                            PersonGenertionName = "Gen Y (เกิดปี 2523 - 2540)",
+                            Person = distinctGenerationGenY
+                        },
+                        new PersonPostionGenertion
+                        {
+                            PersonGenertionName = "Gen Z (เกิดปี 2541 ขึ้นไป)" ,
+                            Person = distinctGenerationGenZ
+                        }
+                    };
+                    var personPostionGenertionViewModel = new PersonPostionGenertionViewModel()
+                    {
+                        PersionPostionName = positionType,
+                        PersonPostionGeneration = personPostionGenertion
+
+                    };
+                    result.Add(personPostionGenertionViewModel);
 
 
+                }
+
+                return result;
+            }
         }
-          
-        
-
         public async Task<IEnumerable<Person>> GetAllPerson() {
             return await _personnelRepository.GetAllAsync();
         }

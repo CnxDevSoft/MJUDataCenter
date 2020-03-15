@@ -16,12 +16,13 @@ namespace MJU.DataCenter.Personnel.Models
         }
 
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<DC_Person> DcPerson { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Database=Personnel;Password=reallyStrongPwd123");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=Personnel;User Id=sa;Password=reallyStrongPwd123;");
             }
         }
 
@@ -42,6 +43,7 @@ namespace MJU.DataCenter.Personnel.Models
 
                 entity.Property(e => e.StartEducationDate).HasColumnType("datetime");
             });
+            modelBuilder.Entity<DC_Person>().ToView("DC_Person").HasNoKey();
 
             OnModelCreatingPartial(modelBuilder);
         }

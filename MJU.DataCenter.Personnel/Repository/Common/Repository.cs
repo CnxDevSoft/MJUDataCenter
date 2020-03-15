@@ -18,6 +18,7 @@ namespace MJU.DataCenter.Personnel.IRepository.Common
         public async Task AddAsync(TEntity entity)
         {
             await Context.Set<TEntity>().AddAsync(entity);
+            Context.SaveChanges();
         }
 
         public void Add(TEntity entity)

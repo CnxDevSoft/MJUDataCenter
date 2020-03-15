@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MJU.DataCenter.Web</title>
+    <title>MJU.DataCenter.Web - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -23,7 +23,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="DashboardPersonnel" asp-action="Index">Dashboard</a>
                         </li>
                     </ul>
                 </div>
@@ -31,15 +31,16 @@
         </nav>
     </header>
     <div class="container">
-        
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - MJU.DataCenter.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2020 <a href="http://adminlte.io">MJU DataCenter</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 1.0
         </div>
     </footer>
 
