@@ -8,8 +8,6 @@ namespace MJU.DataCenter.ResearchExtension.Repository.Common
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        public interface IRepository<TEntity> where TEntity : class
-        {
             ValueTask<TEntity> GetByIdAsync(int id);
             Task<IEnumerable<TEntity>> GetAllAsync();
             IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
@@ -21,6 +19,7 @@ namespace MJU.DataCenter.ResearchExtension.Repository.Common
             void RemoveRange(IEnumerable<TEntity> entities);
             IEnumerable<TEntity> GetAll();
             void AddRange(IEnumerable<TEntity> entities);
+
         }
     }
-}
+

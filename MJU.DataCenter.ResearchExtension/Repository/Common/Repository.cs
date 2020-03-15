@@ -71,5 +71,7 @@ namespace MJU.DataCenter.ResearchExtension.Repository.Common
         {
             return Context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
+
+
     }
 }

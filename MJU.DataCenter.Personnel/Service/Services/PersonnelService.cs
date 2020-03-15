@@ -59,7 +59,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
         {
             var list = new List<Person>();
 
-            for(var i = 0; i < 100; i++) {
+            for(var i = 0; i < 100; i++) 
+            {
                 var TitleName = SeedData.SeedData.RandomTitleName();
                 var Nationality = SeedData.SeedData.RandomNationality();
                 var Address = SeedData.SeedData.RandomAddress();

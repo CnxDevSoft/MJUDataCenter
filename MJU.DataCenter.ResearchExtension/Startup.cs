@@ -36,9 +36,12 @@ namespace MJU.DataCenter.ResearchExtension
 
             services.AddDbContext<ResearchExtensionContext>(option =>
             option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<IFundRepository,FundRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddTransient<IFundService, FundService>();
+            services.AddTransient<IProjectSeedDataService,ProjectSeedDataService>();
+            services.AddTransient<IFundSeedDataService, FundSeedDataService>();
             services.AddTransient<IProjectService, ProjectService>();
             services.AddSwaggerGen(c =>
             {
