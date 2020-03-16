@@ -22,4 +22,9 @@
 
 
 
+  <ItemGroup>
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchManageKnowledgeStat.cshtml" />
+    <Content Remove="appsettings.Development.json" />
+    <Content Remove="appsettings.json" />
+  </ItemGroup>
 </Project>
