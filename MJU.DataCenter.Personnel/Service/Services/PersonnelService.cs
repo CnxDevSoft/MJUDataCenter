@@ -272,5 +272,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         public async Task<IEnumerable<Person>> GetAllPerson() {
             return await _personnelRepository.GetAllAsync();
         }
+
+
     }
 }
