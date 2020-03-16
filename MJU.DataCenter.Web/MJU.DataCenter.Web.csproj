@@ -23,8 +23,11 @@
 
 
   <ItemGroup>
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchBudgetAllGraph.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchPatentStat.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchPublicationStat.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchBudgetYearGraph.cshtml" />
     <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchManageKnowledgeStat.cshtml" />
-    <Content Remove="appsettings.Development.json" />
-    <Content Remove="appsettings.json" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchBudgetStat.cshtml" />
   </ItemGroup>
 </Project>
