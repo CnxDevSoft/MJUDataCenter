@@ -17,6 +17,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
         public virtual DbSet<Fund> Fund { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<ProjectFund> ProjectFund { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,6 +38,8 @@ namespace MJU.DataCenter.ResearchExtension.Models
             {
                 entity.Property(e => e.Budget).HasColumnType("decimal(8, 2)");
             });
+
+            modelBuilder.Entity<ProjectFund>().ToView("Project_Fund").HasNoKey();
 
             OnModelCreatingPartial(modelBuilder);
         }
