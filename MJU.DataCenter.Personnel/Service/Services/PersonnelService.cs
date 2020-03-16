@@ -176,8 +176,20 @@ namespace MJU.DataCenter.Personnel.Service.Services
                      EducationTypeName = "ต่ำกว่าปริญญาตรี",
                      Person = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel)).Count()
 
-                });
-                var result = new PersonEducationViewModel
+            for(var i = 0; i < 100; i++) 
+            {
+                var TitleName = SeedData.SeedData.RandomTitleName();
+                var Nationality = SeedData.SeedData.RandomNationality();
+                var Address = SeedData.SeedData.RandomAddress();
+                var Section = SeedData.SeedData.Section();
+                var Division = SeedData.SeedData.Division();
+                var Fact = SeedData.SeedData.Fact();
+                var AdminPosition = SeedData.SeedData.AdminPosition();
+                var Education = SeedData.SeedData.Education();
+                var PersonnelType = SeedData.SeedData.TypePersonCode();
+                var PositionType = SeedData.SeedData.PositionType();
+                var PositionLevel = SeedData.SeedData.PositionLevel();
+                var result = new Person
                 {
                     PersonEducation = list
                 };

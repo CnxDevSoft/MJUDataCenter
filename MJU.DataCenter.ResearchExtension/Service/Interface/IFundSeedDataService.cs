@@ -7,5 +7,6 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
 {
     public interface IFundSeedDataService
     {
+        void AddFund();
     }
 }

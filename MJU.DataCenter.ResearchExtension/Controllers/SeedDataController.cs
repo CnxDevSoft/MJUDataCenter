@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.ResearchExtension.Service.Interface;
 
 namespace MJU.DataCenter.ResearchExtension.Controllers
 {
@@ -11,10 +12,21 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     [ApiController]
     public class SeedDataController : ControllerBase
     {
+        private readonly IFundSeedDataService _fundSeedDataService;
+        private readonly IProjectSeedDataService _projectSeedDataService;
+        public SeedDataController(IFundSeedDataService fundSeedDataService
+            , IProjectSeedDataService projectSeedDataService)
+        {
+            _fundSeedDataService = fundSeedDataService;
+            _projectSeedDataService = projectSeedDataService;
+        }
         // GET: api/SeedData
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            _fundSeedDataService.AddFund();
+            _projectSeedDataService.AddProJect();
+            
             return new string[] { "value1", "value2" };
         }
 
