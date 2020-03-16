@@ -14,6 +14,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             _fundRepository = fundRepository;
         }
+
     }
     
 }
