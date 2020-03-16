@@ -18,7 +18,6 @@
     "MJU.DataCenter.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "dashboardPersonnel",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
