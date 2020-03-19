@@ -103,8 +103,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.Property(e => e.PaperPercent).HasColumnType("decimal(5, 2)");
             });
 
-            modelBuilder.Entity<ProjectFund>().ToView("Project_Fund").HasNoKey();
-
             OnModelCreatingPartial(modelBuilder);
         }
 

@@ -22,6 +22,5 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
-    <Folder Include="Service\" />
   </ItemGroup>
 </Project>

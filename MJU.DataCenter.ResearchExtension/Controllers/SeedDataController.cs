@@ -14,19 +14,20 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     {
         private readonly IFundSeedDataService _fundSeedDataService;
         private readonly IProjectSeedDataService _projectSeedDataService;
+        private readonly INewSeedDataService _newSeedDataService;
         public SeedDataController(IFundSeedDataService fundSeedDataService
-            , IProjectSeedDataService projectSeedDataService)
+            , IProjectSeedDataService projectSeedDataService
+            , INewSeedDataService newSeedDataService)
         {
             _fundSeedDataService = fundSeedDataService;
             _projectSeedDataService = projectSeedDataService;
+            _newSeedDataService =newSeedDataService;
         }
         // GET: api/SeedData
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            _fundSeedDataService.AddFund();
-            _projectSeedDataService.AddProJect();
-            
+            _newSeedDataService.ResearchDataAdd();
             return new string[] { "value1", "value2" };
         }
 
