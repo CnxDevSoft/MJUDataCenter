@@ -37,16 +37,22 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddDbContext<ResearchExtensionContext>(option =>
             option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            //DI
             services.AddScoped<IFundRepository,FundRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IProjectFundRepository, ProjectFundRepository>();
             services.AddTransient<IFundService, FundService>();
             services.AddTransient<IProjectSeedDataService,ProjectSeedDataService>();
             services.AddTransient<IFundSeedDataService, FundSeedDataService>();
             services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IProjectFundService, ProjectFundService>();
+
+            //swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
+
             services.AddRazorPages();
             services.AddCors();
         }
