@@ -42,7 +42,7 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public static DateTime RandomDateTimeResearch() 
         {
             Random random = new Random();
-            DateTime start = new DateTime(1996, 1, 1);
+            DateTime start = new DateTime(2540, 1, 1);
             int range = (DateTime.Today - start).Days;
             return start.AddDays(random.Next(range));
         }
@@ -66,6 +66,38 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
             StringBuilder str_build = new StringBuilder();
             string alphabet = "abcdefghijklmnopqrstuvwxyz";
             int size = random.Next(10, 20);
+            var resualt = Enumerable.Range(0, size).Select(x => alphabet[random.Next(0, alphabet.Length)]);
+            return new string(resualt.ToArray());
+        }
+
+        public static int RandomPercent()
+        {
+            Random random = new Random();
+            var randomTypeA = random.Next(1, 101);
+            return randomTypeA;
+        }
+        public static int RandomPersonnelId()
+        {
+            Random random = new Random();
+            var randomTypeA = random.Next(100, 999);
+            return randomTypeA;
+        }
+        public static string RandomCitizenId()
+        {
+            Random random = new Random();
+            StringBuilder str_build = new StringBuilder();
+            string alphabet = "123456789";
+            int size = 13;
+            var resualt = Enumerable.Range(0, size).Select(x => alphabet[random.Next(0, alphabet.Length)]);
+            return new string(resualt.ToArray());
+        }
+
+        public static string RandomTitleNameTH()
+        {
+            Random random = new Random();
+            StringBuilder str_build = new StringBuilder();
+            string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            int size = random.Next(5, 10);
             var resualt = Enumerable.Range(0, size).Select(x => alphabet[random.Next(0, alphabet.Length)]);
             return new string(resualt.ToArray());
         }

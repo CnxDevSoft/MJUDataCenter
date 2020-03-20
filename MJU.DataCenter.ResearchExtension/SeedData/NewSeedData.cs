@@ -38,6 +38,33 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
 
         }
 
+        public static ResearchPersonnelMOdelSeed RandomResearchResearchPersonnel()
+        {
+            var result = new ResearchPersonnelMOdelSeed();
+            result.PersonId = HelperSeedData.RandomPersonnelId();
+            result.ResearchId = HelperSeedData.RandomResearchId();
+            result.ResearchMoney = HelperSeedData.RandomResearchMoney();
+            result.ResearchWorkPercent = HelperSeedData.RandomPercent();
+            return result;
+
+        }
+
+        public static ResearcherModelSeed RandomResearch()
+        {
+            var result = new ResearcherModelSeed();
+            result.PersonId = HelperSeedData.RandomPersonnelId();
+            result.CitizenId = int.Parse(HelperSeedData.RandomCitizenId());
+            result.TitleTH = HelperSeedData.RandomTitleNameTH();
+            result.FirstNameTH = HelperSeedData.RandomResearchNameTH();
+            result.LastNameTH = HelperSeedData.RandomResearchNameTH();
+            result.DepartmentId = HelperSeedData.RandomResearchId();
+
+
+
+            return result;
+
+        }
+
 
     }
 }

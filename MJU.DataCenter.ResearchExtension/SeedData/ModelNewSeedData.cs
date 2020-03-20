@@ -31,5 +31,24 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public int? ResearchId { get; set; }
         public int? ResearchMoneyTypeId { get; set; }
     }
-    //MoneyType--------------------------------------------------------------------------------------------------
+    //ReasearchMoneyType--------------------------------------------------------------------------------------------------
+    public class ResearchPersonnelMOdelSeed
+    {
+        public int? PersonId { get; set; }
+        public int? ResearchId { get; set; }
+        public int? ResearchWorkPercent { get; set; }
+        public int? ResearchMoney { get; set; }
+    }
+    public class ResearcherModelSeed
+    {
+        public int? PersonId { get; set; }
+        public int? CitizenId { get; set; }
+        public string TitleTH { get; set; }
+        public string FirstNameTH { get; set; }
+        public string LastNameTH { get; set; }
+        public int? DepartmentId { get; set; }
+        public int? DepartmentCode { get; set; }
+        public string DepartmentNameTH { get; set; }
+    }
+
 }

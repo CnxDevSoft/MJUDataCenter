@@ -47,10 +47,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var list = new List<ResearchData>();
             var list1 = new List<MoneyType>();
             var list2 = new List<ResearchMoney>();
+            var list3 = new List<ResearchPersonnel>();
             for (int i = 0;i<10;i++)
             {
                 //ResearchData
                 var ResearchData = SeedData.NewSeedData.RandomResearchData();
+                var researchPersonnel = SeedData.NewSeedData.RandomResearchResearchPersonnel();
                 var result = new ResearchData
                 {
                     ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId)),
@@ -78,11 +80,29 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId)),
                 };
                 list2.Add(result2);
+                //ResearchPersonnel
+                var result3 = new ResearchPersonnel
+                {
+                    PersonId = researchPersonnel.PersonId,
+                    ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId)),
+                    ResearchMoney = ResearchData.ResearchMoney,
+                    ResearchWorkPercent = researchPersonnel.ResearchWorkPercent
+                };
+                list3.Add(result3);
+                //Researcher
+                var result4 = new Researcher()
+                {
+                    PersonId = researchPersonnel.PersonId,
+                    CitizenId = 
+
+                };
+
             }
 
             _researchDataRepository.AddRange(list);
             _moneyTypeRepository.AddRange(list1);
             _researchMoneyRepository.AddRange(list2);
+            _researchPersonnelRepository.AddRange(list3);
 
         }
         public void MoneyTypeAdd() 
