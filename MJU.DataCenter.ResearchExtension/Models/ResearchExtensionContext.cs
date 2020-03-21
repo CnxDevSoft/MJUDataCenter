@@ -16,7 +16,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
         }
 
         public virtual DbSet<DcResearchData> DcResearchData { get; set; }
-        public virtual DbSet<DcResearchMoney> DcResearchMoney { get; set; }
+        public virtual DbSet<DcResearchDepartment> DcResearchDepartment { get; set; }
         public virtual DbSet<DcResearchPaper> DcResearchPaper { get; set; }
         public virtual DbSet<DcResearchPaperPerson> DcResearchPaperPerson { get; set; }
         public virtual DbSet<DcResearcher> DcResearcher { get; set; }
@@ -68,6 +68,19 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.Property(e => e.ResearchNameTh).HasColumnName("research_name_th");
 
                 entity.Property(e => e.ResearchRefCode).HasColumnName("research_ref_code");
+            });
+
+            modelBuilder.Entity<DcResearchDepartment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("DC_ResearchDepartment");
+
+                entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
+
+                entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
+
+                entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
             });
 
             modelBuilder.Entity<DcResearchMoney>(entity =>
@@ -157,13 +170,13 @@ namespace MJU.DataCenter.ResearchExtension.Models
             modelBuilder.Entity<PersonnelGroup>(entity =>
             {
                 entity.HasKey(e => e.PersonGroupId)
-                    .HasName("PK__Personne__89466BB7BCF6A780");
+                    .HasName("PK__Personne__89466BB76038819F");
             });
 
             modelBuilder.Entity<ResearchData>(entity =>
             {
                 entity.HasKey(e => e.ResearchId)
-                    .HasName("PK__Research__617A954E074B9D5A");
+                    .HasName("PK__Research__617A954E8F427A87");
 
                 entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
