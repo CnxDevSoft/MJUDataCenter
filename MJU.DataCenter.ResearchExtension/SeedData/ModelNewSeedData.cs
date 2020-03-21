@@ -50,5 +50,35 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public int? DepartmentCode { get; set; }
         public string DepartmentNameTH { get; set; }
     }
+    public class ResearchPaperGroupModelSeed
+    {
+           public int? PersonId { get; set; }
+           public int? PersonGroupId { get; set; }
+    }
+
+    public class PersonnelGroupModelSeed
+    {
+        public int? PersonGroupId { get; set; }
+        public string PersonGroupName { get; set; }
+    }
+
+    public class ResearcherPaperModelSeed
+    {
+        public int? PaperId { get; set; }
+        public int? PersonId { get; set; }
+        public int? PaperPercent { get; set; }
+    }
+
+    public class ResearchPaperModelSeed
+    {
+        public int? PaperId { get; set; }
+        public string PaperNameTH { get; set; }
+        public  string PaperNameEN { get; set; }
+        public int? Weigth { get; set; }
+        public DateTime? PaperCreateData { get; set; }
+        public int? MagazineId { get; set; }
+        public string MagazineName { get; set; }
+        public int? MagzineVolum { get; set; }
+    }
 
 }

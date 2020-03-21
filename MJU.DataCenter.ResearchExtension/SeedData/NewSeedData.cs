@@ -49,7 +49,7 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
 
         }
 
-        public static ResearcherModelSeed RandomResearch()
+        public static ResearcherModelSeed RandomResearcher()
         {
             var result = new ResearcherModelSeed();
             result.PersonId = HelperSeedData.RandomPersonnelId();
@@ -58,13 +58,47 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
             result.FirstNameTH = HelperSeedData.RandomResearchNameTH();
             result.LastNameTH = HelperSeedData.RandomResearchNameTH();
             result.DepartmentId = HelperSeedData.RandomResearchId();
+            result.DepartmentCode = HelperSeedData.RandomResearchId();
+            result.DepartmentNameTH = HelperSeedData.RandomResearchNameTH();
+            return result;
+        }
+        public static ResearchPaperGroupModelSeed RandomResearchPaperGroup()
+        {
+            var result = new ResearchPaperGroupModelSeed();
+            result.PersonId = HelperSeedData.RandomPersonnelId();
+            result.PersonGroupId = HelperSeedData.RandomPersonnelId();
+            return result;
+        }
+        public static PersonnelGroupModelSeed RandomPersonnelGroup()
+        {
+            var result = new PersonnelGroupModelSeed();       
+            result.PersonGroupId = HelperSeedData.RandomPersonnelId();
+            result.PersonGroupName = HelperSeedData.RandomResearchNameTH();
+            return result;
+        }
 
-
+        public static ResearcherPaperModelSeed RandomResearcherPaper()
+        {
+            var result = new ResearcherPaperModelSeed();
+            result.PersonId = HelperSeedData.RandomPersonnelId();
+            result.PaperId = HelperSeedData.RandomPersonnelId();
+            result.PaperPercent = HelperSeedData.RandomPercent();
+            return result;
+        }
+        public static ResearchPaperModelSeed RandomResearchPaper()
+        {
+            var result = new ResearchPaperModelSeed();
+            result.PaperId = HelperSeedData.RandomPersonnelId();
+            result.PaperNameTH = HelperSeedData.RandomResearchNameTH();
+            result.PaperNameEN = HelperSeedData.RandomResearchNameEN();
+            result.Weigth = HelperSeedData.RandomWeigthPaper();
+            result.PaperCreateData = HelperSeedData.RandomDateTimeResearch();
+            result.MagazineId = HelperSeedData.RandomPersonnelId();
+            result.MagazineName = HelperSeedData.RandomResearchNameTH();
+            result.MagzineVolum = HelperSeedData.RandomPersonnelId();
 
             return result;
 
         }
-
-
     }
 }

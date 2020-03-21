@@ -102,6 +102,33 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
             return new string(resualt.ToArray());
         }
 
+        public static int RandomWeigthPaper()
+        {            
+            Random random = new Random();
+            var randomTypeA = random.Next(1, 6);
+            int result = 0;
+            switch (randomTypeA)
+            {
+                case 1:
+                    result = 20;
+                    break;
+                case 2:
+                    result = 40;
+                    break;
+                case 3:
+                    result = 60;
+                    break;
+                case 4:
+                    result = 80;
+                    break;
+                case 5:
+                    result = 100;
+                    break;
+            }
+            return result;
+
+        }
+
 
     }
 }

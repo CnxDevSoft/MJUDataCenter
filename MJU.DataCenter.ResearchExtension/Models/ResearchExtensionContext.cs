@@ -62,10 +62,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
             modelBuilder.Entity<ResearchPaper>(entity =>
             {
-                entity.HasKey(e => e.ResearchPaper1)
-                    .HasName("PK__Research__9DCBAEB2ABBCFF02");
-
-                entity.Property(e => e.ResearchPaper1).HasColumnName("ResearchPaper");
+                entity.Property(e => e.PaperCreateData).HasColumnType("datetime");
 
                 entity.Property(e => e.PaperNameEn).HasColumnName("PaperNameEN");
 
