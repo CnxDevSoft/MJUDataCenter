@@ -7,7 +7,7 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
     {
        public int? DepartmentId { get; set; }
         public string DepartmentName { get; set; }
-        public List<ResaerchData> ResaerchData { get; set; }
+        public List<ResaerchData> ResearchData { get; set; }
     }
     public class ResaerchData
     {

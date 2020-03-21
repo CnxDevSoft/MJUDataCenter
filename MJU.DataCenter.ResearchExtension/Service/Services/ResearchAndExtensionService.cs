@@ -19,7 +19,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         public object GetResearchDepartment(int type)
         {
             var researchDepartment = _dcResearchDepartmentRepository.GetAll().ToList();
-            var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId ,m.DepartmentNameTh}).Distinct();
+            var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId ,m.DepartmentNameTh}).Distinct().OrderBy(o=>o.DepartmentId);
             if(type == 1)
             {
                 var label = new List<string>();
@@ -50,14 +50,16 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 }
                 var graphDataSet = new GraphDataSet
                 {
-                    Data = data
+                    Data = data,
+                    ViewData = viewData
                 };
                 var result = new GraphData
                 {
                     GraphDataSet = new List<GraphDataSet> {
                      graphDataSet
                     },
-                    Label = label
+                    Label = label,
+                    
                 };
                 return result;
                
@@ -71,7 +73,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     {
                         DepartmentId = rd.DepartmentId,
                         DepartmentName = rd.DepartmentNameTh,
-                        ResaerchData = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh)
+                        ResearchData = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh)
                         .Select(s => new ResaerchData
                         {
                             ResearchId = s.ResearchId,
@@ -81,11 +83,11 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     };
                     list.Add(model);
                 }
+                return list;
+
+
 
             }
-            
-
-            return null;
         }
     }
 }

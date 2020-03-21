@@ -47,7 +47,10 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddScoped <IResearchPersonnelRepository,ResearchPersonnelRepository> ();
             services.AddScoped <IResearchMoneyRepository, ResearchMoneyRepository> ();
             services.AddScoped<IMoneyTypeRepository, MoneyTypeRepository>();
+            services.AddScoped<IDcResearchDepartmentRepository, DcResearchDepartmentRepository>();
             services.AddTransient<INewSeedDataService,NewSeedDataService >();
+            services.AddTransient<IResearchAndExtensionService, ResearchAndExtensionService>();
+
 
             //swagger
             services.AddSwaggerGen(c =>
