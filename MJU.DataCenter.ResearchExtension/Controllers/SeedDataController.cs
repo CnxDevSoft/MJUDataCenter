@@ -12,15 +12,10 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     [ApiController]
     public class SeedDataController : ControllerBase
     {
-        private readonly IFundSeedDataService _fundSeedDataService;
-        private readonly IProjectSeedDataService _projectSeedDataService;
+
         private readonly INewSeedDataService _newSeedDataService;
-        public SeedDataController(IFundSeedDataService fundSeedDataService
-            , IProjectSeedDataService projectSeedDataService
-            , INewSeedDataService newSeedDataService)
+        public SeedDataController(INewSeedDataService newSeedDataService)
         {
-            _fundSeedDataService = fundSeedDataService;
-            _projectSeedDataService = projectSeedDataService;
             _newSeedDataService =newSeedDataService;
         }
         // GET: api/SeedData

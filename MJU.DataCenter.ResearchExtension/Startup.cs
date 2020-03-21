@@ -38,9 +38,6 @@ namespace MJU.DataCenter.ResearchExtension
             option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //DI
-            services.AddScoped<IFundRepository,FundRepository>();
-            services.AddScoped<IProjectRepository, ProjectRepository>();
-            services.AddScoped<IProjectFundRepository, ProjectFundRepository>();
             services.AddScoped<IPersonnelGroupRepository, PersonnelGroupRepository> ();
             services.AddScoped <IResearchDataRepository, ResearchDataRepository> ();
             services.AddScoped <IResearcherPaperRepository, ResearcherPaperRepository> ();
@@ -50,11 +47,6 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddScoped <IResearchPersonnelRepository,ResearchPersonnelRepository> ();
             services.AddScoped <IResearchMoneyRepository, ResearchMoneyRepository> ();
             services.AddScoped<IMoneyTypeRepository, MoneyTypeRepository>();
-            services.AddTransient<IFundService, FundService>();
-            services.AddTransient<IProjectSeedDataService,ProjectSeedDataService>();
-            services.AddTransient<IFundSeedDataService, FundSeedDataService>();
-            services.AddTransient<IProjectService, ProjectService>();
-            services.AddTransient<IProjectFundService, ProjectFundService>();
             services.AddTransient<INewSeedDataService,NewSeedDataService >();
 
             //swagger
