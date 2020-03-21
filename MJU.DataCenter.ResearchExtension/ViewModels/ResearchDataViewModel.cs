@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace MJU.DataCenter.ResearchExtension.ViewModels
 {
-    public class ResearchDepartment
+    public class ResearchDataViewModel
     {
-       public int? DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
-        public List<ResaerchData> ResaerchData { get; set; }
+        public int? MoneyTypeId { get; set; }
+        public string MoneyTypeName { get; set; }
+        public List<ResearchData> ResearchData { get; set; }
     }
-    public class ResaerchData
+    public class ResearchData
     {
         public int? ResearchId { get; set; }
         public string ResearchNameEN { get; set; }
