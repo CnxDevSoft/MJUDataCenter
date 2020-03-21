@@ -42,7 +42,7 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
     public class ResearcherModelSeed
     {
         public int? PersonId { get; set; }
-        public int? CitizenId { get; set; }
+        public string CitizenId { get; set; }
         public string TitleTH { get; set; }
         public string FirstNameTH { get; set; }
         public string LastNameTH { get; set; }

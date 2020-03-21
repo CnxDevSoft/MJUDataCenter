@@ -42,9 +42,10 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public static DateTime RandomDateTimeResearch() 
         {
             Random random = new Random();
-            DateTime start = new DateTime(2540, 1, 1);
-            int range = (DateTime.Today - start).Days;
-            return start.AddDays(random.Next(range));
+            DateTime start = new DateTime(1997, 1, 1);
+            var range = DateTime.Now - start;
+            //int range = (DateTime.Now().Days - new DateTime(2540, 1, 1)).Days;
+            return start.AddDays(random.Next(range.Days));
         }
         public static int RandomResearchMoney()
         {

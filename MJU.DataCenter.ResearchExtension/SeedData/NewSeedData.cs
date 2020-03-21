@@ -53,7 +53,7 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         {
             var result = new ResearcherModelSeed();
             result.PersonId = HelperSeedData.RandomPersonnelId();
-            result.CitizenId = int.Parse(HelperSeedData.RandomCitizenId());
+            result.CitizenId = HelperSeedData.RandomCitizenId();
             result.TitleTH = HelperSeedData.RandomTitleNameTH();
             result.FirstNameTH = HelperSeedData.RandomResearchNameTH();
             result.LastNameTH = HelperSeedData.RandomResearchNameTH();

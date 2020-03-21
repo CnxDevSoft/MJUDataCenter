@@ -7,7 +7,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
     {
         public int ResearcherId { get; set; }
         public int? PersonId { get; set; }
-        public int? CitizenId { get; set; }
+        public string CitizenId { get; set; }
         public string TitleTh { get; set; }
         public string FirstNameTh { get; set; }
         public string LastNameTh { get; set; }

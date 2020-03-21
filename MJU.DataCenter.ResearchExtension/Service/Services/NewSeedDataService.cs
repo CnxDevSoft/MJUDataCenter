@@ -93,7 +93,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 //ResearchPersonnel--------------------------------------------------------------------------------
                 var result3 = new ResearchPersonnel
                 {
-                    PersonId = researchPersonnel.PersonId,
+                    PersonId = int.Parse(string.Format("{0}{1}", i, researchPersonnel.PersonId)),
                     ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId)),
                     ResearchMoney = ResearchData.ResearchMoney,
                     ResearchWorkPercent = researchPersonnel.ResearchWorkPercent
@@ -102,7 +102,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 //Researcher--------------------------------------------------------------------------------
                 var result4 = new Researcher()
                 {
-                    PersonId = researchPersonnel.PersonId,
+                    PersonId = int.Parse(string.Format("{0}{1}", i, researchPersonnel.PersonId)),
                     CitizenId = researcher.CitizenId,
                     TitleTh = researcher.TitleTH,
                     FirstNameTh = researcher.FirstNameTH,
