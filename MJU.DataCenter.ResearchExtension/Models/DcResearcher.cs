@@ -5,7 +5,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 {
     public partial class DcResearcher
     {
-        public int? PersonId { get; set; }
+        public int PersonId { get; set; }
         public string PrefixNameTh { get; set; }
         public string NameTh { get; set; }
         public string SirNameTh { get; set; }
