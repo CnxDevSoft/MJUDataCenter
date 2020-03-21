@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.Repository.Repositories
 {
-    public class FundRepository : Repository<Fund>, IFundRepository
+    public class DcReasearchMoneyRepository : Repository<DcResearchMoney>, IDcResearchMoneyRepository
     {
-        public FundRepository(ResearchExtensionContext context)
-            : base(context)
+        public DcReasearchMoneyRepository(ResearchExtensionContext context)
+           : base(context)
         {
         }
     }

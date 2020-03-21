@@ -7,7 +7,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
     {
         public int ResearcherPaperId { get; set; }
         public int? PaperId { get; set; }
-        public int? PersonId { get; set; }
+        public int? ResearcherId { get; set; }
         public decimal? PaperPercent { get; set; }
     }
 }

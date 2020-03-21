@@ -17,10 +17,19 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\DC_ResearchData.cs" />
+    <Compile Remove="Models\DC_Researcher.cs" />
+    <Compile Remove="Models\DC_Research_Paper.cs" />
+    <Compile Remove="Models\DC_ResearchPaperPerson.cs" />
+    <Compile Remove="ViewModels\GraphMountYear.cs" />
+    <Compile Remove="Service\Interface\IDcResearchDepartmentRepository.cs" />
   </ItemGroup>
 </Project>

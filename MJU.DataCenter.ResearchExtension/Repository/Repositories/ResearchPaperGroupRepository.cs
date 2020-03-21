@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.Repository.Repositories
 {
-    public class ResearchPaperGroupRepository : Repository<ResearchPaperGroup>, IResearchPaperGroupRepository
+    public class ResearchGroupRepository : Repository<ResearcherGroup>, IResearchGroupRepository
     {
-        public ResearchPaperGroupRepository(ResearchExtensionContext context)
+        public ResearchGroupRepository(ResearchExtensionContext context)
           : base(context)
         {
         }

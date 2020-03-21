@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.Repository.Interface
 {
-    public interface IProjectFundRepository : IRepository<ProjectFund>
+    public interface IDcResearchMoneyRepository : IRepository<DcResearchMoney>
     {
     }
 }
