@@ -5,7 +5,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 {
     public partial class DcResearchPaper
     {
-        public int? PaperId { get; set; }
+        public int PaperId { get; set; }
         public int? Weigth { get; set; }
         public string ActicleNameTh { get; set; }
         public string ActicleNameEng { get; set; }
@@ -13,6 +13,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public int? MagId { get; set; }
         public string MagazineName { get; set; }
         public int? MagazineVolum { get; set; }
-        public int? ResearchId { get; set; }
+        public int ResearchId { get; set; }
     }
 }

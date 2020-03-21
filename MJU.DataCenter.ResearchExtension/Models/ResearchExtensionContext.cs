@@ -16,6 +16,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
         }
 
         public virtual DbSet<DcResearchData> DcResearchData { get; set; }
+        public virtual DbSet<DcResearchMoney> DcResearchMoney { get; set; }
         public virtual DbSet<DcResearchPaper> DcResearchPaper { get; set; }
         public virtual DbSet<DcResearchPaperPerson> DcResearchPaperPerson { get; set; }
         public virtual DbSet<DcResearcher> DcResearcher { get; set; }
@@ -67,6 +68,13 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.Property(e => e.ResearchNameTh).HasColumnName("research_name_th");
 
                 entity.Property(e => e.ResearchRefCode).HasColumnName("research_ref_code");
+            });
+
+            modelBuilder.Entity<DcResearchMoney>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("DC_ResearchMoney");
             });
 
             modelBuilder.Entity<DcResearchPaper>(entity =>
@@ -135,7 +143,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.Property(e => e.PersonMoney)
                     .HasColumnName("personMoney")
-                    .HasColumnType("decimal(8, 2)");
+                    .HasColumnType("decimal(22, 2)");
 
                 entity.Property(e => e.PrefixNameTh).HasColumnName("prefixNameTH");
 
@@ -177,7 +185,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
             modelBuilder.Entity<ResearchPersonnel>(entity =>
             {
-                entity.Property(e => e.ResearchMoney).HasColumnType("decimal(8, 2)");
+                entity.Property(e => e.ResearchMoney).HasColumnType("decimal(22, 2)");
 
                 entity.Property(e => e.ResearchWorkPercent).HasColumnType("decimal(5, 2)");
             });

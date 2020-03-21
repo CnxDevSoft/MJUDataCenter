@@ -206,7 +206,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 {
                     ResearcherId = researcher,
                     PaperId = paper,
-                    PaperPercent = SeedData.HelperSeedData.per()
+                    PaperPercent = SeedData.HelperSeedData.RandomPercent()
                 };
                 if (!list.Where(m => m.PaperId == model.PaperId && m.ResearcherId == model.ResearcherId).Any())
                 {
@@ -241,9 +241,5 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             _researchPersonnelRepository.AddRange(list);
         }
-
-
-
-
     }
 }
