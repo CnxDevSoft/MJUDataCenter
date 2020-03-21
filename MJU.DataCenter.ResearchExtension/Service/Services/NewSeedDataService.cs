@@ -145,7 +145,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                   PaperCreateData = researchPaper.PaperCreateData,
                   MagazineId = int.Parse(string.Format("{0}{1}", i, researchPaper.MagazineId)),
                   MagazineName = researchPaper.MagazineName,
-                  MagzineVolum = researchPaper.MagzineVolum
+                  MagzineVolum = researchPaper.MagzineVolum,
+                  ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId))
                 };
                 list8.Add(result8);
             }

@@ -14,5 +14,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public int? MagazineId { get; set; }
         public string MagazineName { get; set; }
         public int? MagzineVolum { get; set; }
+        public int? ResearchId { get; set; }
     }
 }
