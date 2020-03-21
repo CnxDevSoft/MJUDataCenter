@@ -48,6 +48,8 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddScoped <IResearchMoneyRepository, ResearchMoneyRepository> ();
             services.AddScoped<IMoneyTypeRepository, MoneyTypeRepository>();
             services.AddScoped<IDcResearchDepartmentRepository, DcResearchDepartmentRepository>();
+            services.AddScoped<IDcResearchGroupRepository, DcResearchGroupRepository>();
+            services.AddScoped<IDcResearchDataRepository, DcResearchDataRepository>();
             services.AddTransient<INewSeedDataService,NewSeedDataService >();
             services.AddTransient<IResearchAndExtensionService, ResearchAndExtensionService>();
 

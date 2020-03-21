@@ -17,6 +17,8 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
         public virtual DbSet<DcResearchData> DcResearchData { get; set; }
         public virtual DbSet<DcResearchDepartment> DcResearchDepartment { get; set; }
+        public virtual DbSet<DcResearchGroup> DcResearchGroup { get; set; }
+        public virtual DbSet<DcResearchMoney> DcResearchMoney { get; set; }
         public virtual DbSet<DcResearchPaper> DcResearchPaper { get; set; }
         public virtual DbSet<DcResearchPaperPerson> DcResearchPaperPerson { get; set; }
         public virtual DbSet<DcResearcher> DcResearcher { get; set; }
@@ -35,7 +37,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-QCPA044\\SQLEXPRESS;Database=ResearchExtension;User Id=apichai_server;Password=Password#01;");
+                optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Database=ResearchExtension;Password=reallyStrongPwd123");
             }
         }
 
@@ -77,6 +79,17 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.ToView("DC_ResearchDepartment");
 
                 entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
+
+                entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
+
+                entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
+            });
+
+            modelBuilder.Entity<DcResearchGroup>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("DC_ResearchGroup");
 
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
@@ -156,7 +169,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.Property(e => e.PersonMoney)
                     .HasColumnName("personMoney")
-                    .HasColumnType("decimal(22, 2)");
+                    .HasColumnType("decimal(8, 2)");
 
                 entity.Property(e => e.PrefixNameTh).HasColumnName("prefixNameTH");
 
