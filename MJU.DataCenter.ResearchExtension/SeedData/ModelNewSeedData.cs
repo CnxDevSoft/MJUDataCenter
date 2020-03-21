@@ -80,5 +80,17 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public string MagazineName { get; set; }
         public int? MagzineVolum { get; set; }
     }
+    public class Depart
+    {
+        public int? DepartId { get; set; }
+        public int? DepartmentCode { get; set; }
+        public string DepartmentName { get; set; }
+    }
 
+    public class PersonnelGroup
+    {
+        public int? PersonGroupId { get; set; }
+        public string PersonGroupName { get; set; }
+
+    }
 }

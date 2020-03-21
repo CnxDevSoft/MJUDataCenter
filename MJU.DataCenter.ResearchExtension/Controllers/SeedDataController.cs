@@ -22,7 +22,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            _newSeedDataService.ResearchDataAdd();
+            _newSeedDataService.GenerateSeed();
             return new string[] { "value1", "value2" };
         }
 

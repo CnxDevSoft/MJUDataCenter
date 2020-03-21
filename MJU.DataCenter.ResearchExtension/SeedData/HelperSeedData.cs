@@ -50,7 +50,7 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public static int RandomResearchMoney()
         {
             Random random = new Random();
-            var randomTypeA = random.Next(100000,1000000);
+            var randomTypeA = random.Next(100000,20000000);
             return randomTypeA;
         }
         //********************************************************************EndResearchData
@@ -124,6 +124,78 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
                     break;
                 case 5:
                     result = 100;
+                    break;
+            }
+            return result;
+
+        }
+        public static Depart RandomDepart()
+        {
+            Random random = new Random();
+            var randomTypeA = random.Next(1, 6);
+            var result = new Depart();
+            switch (randomTypeA)
+            {
+                case 1:
+                    result.DepartId = 1;
+                    result.DepartmentCode = 10;
+                    result.DepartmentName = "A";
+                    break;
+                case 2:
+                    result.DepartId = 2;
+                    result.DepartmentCode = 20;
+                    result.DepartmentName = "B";
+                    break;
+                case 3:
+                    result.DepartId = 3;
+                    result.DepartmentCode = 30;
+                    result.DepartmentName = "C";
+                    break;
+                case 4:
+                    result.DepartId = 4;
+                    result.DepartmentCode = 40;
+                    result.DepartmentName = "D";
+                    break;
+                case 5:
+                    result.DepartId = 5;
+                    result.DepartmentCode = 50;
+                    result.DepartmentName = "E";
+                    break;
+            }
+            return result;
+
+        }
+        public static PersonnelGroup RandomGroupPerson()
+        {
+            Random random = new Random();
+            var randomTypeA = random.Next(1, 6);
+            var result = new PersonnelGroup();
+            switch (randomTypeA)
+            {
+                case 1:
+                    
+                    result.PersonGroupId = 1;
+                    result.PersonGroupName = "A";
+                    break;
+                case 2:
+                    
+                    result.PersonGroupId = 2;
+                    result.PersonGroupName = "B";
+                    break;
+                case 3:
+                  
+                    result.PersonGroupId = 3;
+                    result.PersonGroupName = "C";
+                    break;
+                case 4:
+                    
+                    result.PersonGroupId = 4;
+                    result.PersonGroupName = "D";
+                    break;
+                case 5:
+                   
+                    result.PersonGroupId = 5;
+                    result.PersonGroupName = "E";
                     break;
             }
             return result;

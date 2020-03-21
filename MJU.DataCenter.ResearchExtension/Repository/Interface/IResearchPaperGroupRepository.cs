@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.Repository.Interface
 {
-    public interface IResearchPaperGroupRepository : IRepository<ResearchPaperGroup>
+    public interface IResearchGroupRepository : IRepository<ResearcherGroup>
     {
     }
 }

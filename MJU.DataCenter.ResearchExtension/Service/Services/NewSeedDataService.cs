@@ -14,7 +14,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private readonly IResearchDataRepository _researchDataRepository;
         private readonly IResearcherPaperRepository _researcherPaperRepository;
         private readonly IResearcherRepository _researcherRepository;
-        private readonly IResearchPaperGroupRepository _researchPaperGroupRepository;
+        private readonly IResearchGroupRepository _researchGroupRepository;
         private readonly IResearchPaperRepository _researchPaperRepository;
         private readonly IResearchPersonnelRepository _researchPersonnelRepository;
         private readonly IResearchMoneyRepository _researchMoneyRepository;
@@ -24,7 +24,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             IResearchDataRepository researchDataRepository,
             IResearcherPaperRepository researcherPaperRepository,
             IResearcherRepository researcherRepository,
-            IResearchPaperGroupRepository researchPaperGroupRepository,
+            IResearchGroupRepository researchGroupRepository,
             IResearchPaperRepository researchPaperRepository,
             IResearchPersonnelRepository researchPersonnelRepository,
             IResearchMoneyRepository researchMoneyRepository,
@@ -35,151 +35,201 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             _researchDataRepository = researchDataRepository;
             _researcherPaperRepository = researcherPaperRepository;
             _researcherRepository = researcherRepository;
-            _researchPaperGroupRepository = researchPaperGroupRepository;
+            _researchGroupRepository = researchGroupRepository;
             _researchPaperRepository = researchPaperRepository;
             _researchPersonnelRepository = researchPersonnelRepository;
             _researchMoneyRepository = researchMoneyRepository;
             _moneyTypeRepository = moneyTypeRepository;
 
         }
-        public void ResearchDataAdd()
+
+        public void GenerateSeed()
         {
-            var list = new List<ResearchData>();
-            var list1 = new List<MoneyType>();
-            var list2 = new List<ResearchMoney>();
-            var list3 = new List<ResearchPersonnel>();
-            var list4 = new List<Researcher>();
-            var list5 = new List<ResearchPaperGroup>();
-            var list6 = new List<PersonnelGroup>();
-            var list7 = new List<ResearcherPaper>();
-            var list8 = new List<ResearchPaper>();
-            for (int i = 0;i<10;i++)
-            {
-                //ResearchData--------------------------------------------------------------------------------
-                var ResearchData = SeedData.NewSeedData.RandomResearchData();
-                var researchPersonnel = SeedData.NewSeedData.RandomResearchResearchPersonnel();
-                var researcher = SeedData.NewSeedData.RandomResearcher();
-                var researchPaperGroup = SeedData.NewSeedData.RandomResearchPaperGroup();
-                var personnelGroup = SeedData.NewSeedData.RandomPersonnelGroup();
-                var researcherPaper = SeedData.NewSeedData.RandomResearcherPaper();
-                var researchPaper = SeedData.NewSeedData.RandomResearchPaper();
-                var result = new ResearchData
-                {
-                    ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId)),
-                    ResearchCode = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchCode)),
-                    ResearchNameTh = ResearchData.ResearchNameTH,
-                    ResearchNameEn = ResearchData.ResearchNameEN,
-                    StartDataResearch = ResearchData.StartDateResearch,
-                    EndDateResearch = ResearchData.EndDateResearch,
-                    ResearchMoney = ResearchData.ResearchMoney,
-                };
-                list.Add(result);
-                //MoneyType--------------------------------------------------------------------------------
-                var moneyData = SeedData.NewSeedData.RandomMoneyType();
-                var result1 = new MoneyType
-                {
-                    ResearchMoneyTypeId = int.Parse(string.Format("{0}{1}", i, moneyData.ResearchMoneyTypeId)),
-                    ResearchMoneyTypeName = moneyData.ResearchMoneyTypeName
-                };
-                list1.Add(result1);
-                //ResearchMoneyType--------------------------------------------------------------------------------
-                var researchMoneyType = SeedData.NewSeedData.RandomResearchMoneyType();
-                var result2 = new ResearchMoney
-                {
-                     ResearchMoneyTypeId = int.Parse(string.Format("{0}{1}", i, moneyData.ResearchMoneyTypeId)),
-                     ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId)),
-                };
-                list2.Add(result2);
-                //ResearchPersonnel--------------------------------------------------------------------------------
-                var result3 = new ResearchPersonnel
-                {
-                    PersonId = int.Parse(string.Format("{0}{1}", i, researchPersonnel.PersonId)),
-                    ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId)),
-                    ResearchMoney = ResearchData.ResearchMoney,
-                    ResearchWorkPercent = researchPersonnel.ResearchWorkPercent
-                };
-                list3.Add(result3);
-                //Researcher--------------------------------------------------------------------------------
-                var result4 = new Researcher()
-                {
-                    PersonId = int.Parse(string.Format("{0}{1}", i, researchPersonnel.PersonId)),
-                    CitizenId = researcher.CitizenId,
-                    TitleTh = researcher.TitleTH,
-                    FirstNameTh = researcher.FirstNameTH,
-                    LastNameTh = researcher.LastNameTH,
-                    DepartmentId = int.Parse(string.Format("{0}{1}", i, researcher.DepartmentId)),
-                    DepartmentCode = int.Parse(string.Format("{0}{1}", i, researcher.DepartmentCode)),
-                    DepartmentNameTh = researcher.DepartmentNameTH
-                };
-                list4.Add(result4);
-                //ResearchPaperGroup-----------------------------------------------------------------------
-                var result5 = new ResearchPaperGroup()
-                {
-                    PersonId = int.Parse(string.Format("{0}{1}", i, researchPersonnel.PersonId)),
-                    PersonGroupId = int.Parse(string.Format("{0}{1}", i, researchPaperGroup.PersonGroupId)),
-                    
-                };
-                list5.Add(result5);
-                //PersonnelGroup-----------------------------------------------------------------------------------
-                var result6 = new PersonnelGroup()
-                {
-                    PersonGroupId = int.Parse(string.Format("{0}{1}", i, researchPaperGroup.PersonGroupId)),
-                    PersonGroupName = personnelGroup.PersonGroupName
-                };          
-                list6.Add(result6);
-                //ResearcherPaper------------------------------------------------------------------------------------
-                var result7 = new ResearcherPaper()
-                {
-                    PaperId = int.Parse(string.Format("{0}{1}", i, researcherPaper.PaperId)),
-                    PaperPercent = researcherPaper.PaperPercent,
-                    PersonId = int.Parse(string.Format("{0}{1}", i, researchPersonnel.PersonId))
-                };
-                list7.Add(result7);
-                //ResearchPaper---------------------------------------------------------------------------------------
-                var result8 = new ResearchPaper()
-                {
-                  PaperId  = int.Parse(string.Format("{0}{1}", i, researcherPaper.PaperId)),
-                  PaperNameTh = researchPaper.PaperNameTH,
-                  PaperNameEn = researchPaper.PaperNameEN,
-                  Weigth = researchPaper.Weigth,
-                  PaperCreateData = researchPaper.PaperCreateData,
-                  MagazineId = int.Parse(string.Format("{0}{1}", i, researchPaper.MagazineId)),
-                  MagazineName = researchPaper.MagazineName,
-                  MagzineVolum = researchPaper.MagzineVolum,
-                  ResearchId = int.Parse(string.Format("{0}{1}", i, ResearchData.ResearchId))
-                };
-                list8.Add(result8);
-            }
-
-            _researchDataRepository.AddRange(list);
-            _moneyTypeRepository.AddRange(list1);
-            _researchMoneyRepository.AddRange(list2);
-            _researchPersonnelRepository.AddRange(list3);
-            _researcherRepository.AddRange(list4);
-            _researchPaperGroupRepository.AddRange(list5);
-            _personnelGroupRepository.AddRange(list6);
-            _researcherPaperRepository.AddRange(list7);
-            _researchPaperRepository.AddRange(list8);
-
+            GenerateMoneyType();
+            GenerateReacher();
+            GeneratePersonnelGroup();
+            GenerateResearchData();
+            GenerateResearchMoneyType();
+            GenerateResearchGroup();
+            GenerateResearchPaper();
+            GenerateResearcherPaper();
+            GenerateResearchPersonnel();
         }
-        public void MoneyTypeAdd() 
+
+        private void GenerateMoneyType()
         {
             var list = new List<MoneyType>();
-
-            for (int i = 0; i < 10; i++)
+            for (var i = 1; i <= 10; i++)
             {
-    
-                var moneyData = SeedData.NewSeedData.RandomMoneyType();
-                var result1 = new MoneyType
+                var model = new MoneyType
                 {
-                    ResearchMoneyTypeId = int.Parse(string.Format("{0}{1}", i, moneyData.ResearchMoneyTypeId)),
-                    ResearchMoneyTypeName = moneyData.ResearchMoneyTypeName
+                    MoneyTypeName = string.Format("MoneyType {0}", i)
                 };
-                list.Add(result1);
-
+                list.Add(model);
             }
             _moneyTypeRepository.AddRange(list);
         }
+        private void GenerateReacher()
+        {
+            var list = new List<Researcher>();
+            for (var i = 1; i <= 20; i++)
+            {
+                var depart = SeedData.HelperSeedData.RandomDepart();
+                var model = new Researcher
+                {
+                    CitizenId = SeedData.HelperSeedData.RandomCitizenId(),
+                    TitleTh = SeedData.NewSeedData.RandomTitleName(),
+                    FirstNameTh = string.Format("Firstname{0}", i),
+                    LastNameTh = string.Format("Lastname{0}", i),
+                    DepartmentCode = depart.DepartmentCode,
+                    DepartmentId = depart.DepartId,
+                    DepartmentNameTh = depart.DepartmentName
+                };
+                list.Add(model);
+            }
+            _researcherRepository.AddRange(list);
+        }
+        private void GeneratePersonnelGroup()
+        {
+            var list = new List<PersonnelGroup>();
+            for (var i = 1; i <= 10; i++)
+            {
+                var model = new PersonnelGroup
+                {
+                    PersonGroupName = string.Format("Group {0}", i)
+                };
+                list.Add(model);
+            }
+            _personnelGroupRepository.AddRange(list);
+        }
+        private void GenerateResearchData()
+        {
+            var list = new List<ResearchData>();
+            for (var i = 1; i <= 100; i++)
+            {
+
+                var rd1 = SeedData.HelperSeedData.RandomDateTimeResearch();
+                var rd2 = SeedData.HelperSeedData.RandomDateTimeResearch();
+                var model = new ResearchData
+                {
+                    ResearchCode = i,
+                    ResearchNameEn = string.Format("Research {0}", i),
+                    ResearchNameTh = string.Format("งานวิจัย {0}", i),
+                    StartDataResearch = rd1 > rd2 ? rd2 : rd1,
+                    EndDateResearch = rd1 < rd2 ? rd2 : rd1,
+                    ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
+                };
+                list.Add(model);
+            }
+            _researchDataRepository.AddRange(list);
+        }
+
+        private void GenerateResearchMoneyType()
+        {
+            var list = new List<ResearchMoney>();
+            for (var i = 1; i <= 200; i++)
+            {
+                Random random = new Random();
+                var moneyType = random.Next(1, 11);
+
+                var rd = random.Next(1, 101);
+
+                var model = new ResearchMoney
+                {
+                    ResearchId = rd,
+                    ResearchMoneyTypeId = moneyType
+                };
+                list.Add(model);
+            }
+            _researchMoneyRepository.AddRange(list);
+        }
+
+        private void GenerateResearchGroup()
+        {
+            var list = new List<ResearcherGroup>();
+            for (var i = 1; i <= 50; i++)
+            {
+                Random random = new Random();
+                var group = random.Next(1, 21);
+                var researcher = random.Next(1, 21);
+
+                var model = new ResearcherGroup
+                {
+                    PersonGroupId = group,
+                    ResearcherId = researcher
+                };
+                list.Add(model);
+            }
+            _researchGroupRepository.AddRange(list);
+        }
+        private void GenerateResearchPaper()
+        {
+            var list = new List<ResearchPaper>();
+            for (var i = 1; i <= 80; i++)
+            {
+                Random random = new Random();
+                var research = random.Next(1, 101);
+
+                var model = new ResearchPaper
+                {
+                    ResearcherId = research
+                };
+                list.Add(model);
+            }
+            _researchPaperRepository.AddRange(list);
+        }
+
+        private void GenerateResearcherPaper()
+        {
+            var list = new List<ResearcherPaper>();
+            for (var i = 1; i <= 80; i++)
+            {
+                Random random = new Random();
+                var researcher = random.Next(1, 21);
+                var paper = random.Next(1, 51);
+
+                var model = new ResearcherPaper
+                {
+                    ResearcherId = researcher,
+                    PaperId = paper,
+                    PaperPercent = SeedData.HelperSeedData.RandomPercent()
+                };
+                if (!list.Where(m => m.PaperId == model.PaperId && m.ResearcherId == model.ResearcherId).Any())
+                {
+                    list.Add(model);
+                }
+
+            }
+            _researcherPaperRepository.AddRange(list);
+        }
+
+        private void GenerateResearchPersonnel()
+        {
+            var list = new List<ResearchPersonnel>();
+            for (var i = 1; i <= 50; i++)
+            {
+                Random random = new Random();
+                var researcher = random.Next(1, 21);
+                var Research = random.Next(1, 101);
+
+                var model = new ResearchPersonnel
+                {
+                    ResearcherId = researcher,
+                    ResearchId = Research,
+                    ResearchWorkPercent = SeedData.HelperSeedData.RandomPercent(),
+                    ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
+                };
+                if (!list.Where(m => m.ResearchId == model.ResearchId && m.ResearcherId == model.ResearcherId).Any())
+                {
+                    list.Add(model);
+                }
+
+            }
+            _researchPersonnelRepository.AddRange(list);
+        }
+
+
+
 
     }
 }

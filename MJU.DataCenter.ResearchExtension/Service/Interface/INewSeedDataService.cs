@@ -7,6 +7,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
 {
     public interface INewSeedDataService
     {
-        void ResearchDataAdd();
+
+        void GenerateSeed();
     }
 }

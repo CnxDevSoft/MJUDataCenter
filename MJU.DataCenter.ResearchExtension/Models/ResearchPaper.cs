@@ -6,7 +6,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
     public partial class ResearchPaper
     {
         public int ResearchPaperId { get; set; }
-        public int? PaperId { get; set; }
+        public int? ResearcherId { get; set; }
         public string PaperNameTh { get; set; }
         public string PaperNameEn { get; set; }
         public int? Weigth { get; set; }

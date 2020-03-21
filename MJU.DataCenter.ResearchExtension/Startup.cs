@@ -42,7 +42,7 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddScoped <IResearchDataRepository, ResearchDataRepository> ();
             services.AddScoped <IResearcherPaperRepository, ResearcherPaperRepository> ();
             services.AddScoped <IResearcherRepository, ResearcherRepository> ();
-            services.AddScoped <IResearchPaperGroupRepository, ResearchPaperGroupRepository> ();
+            services.AddScoped <IResearchGroupRepository, ResearchGroupRepository> ();
             services.AddScoped <IResearchPaperRepository, ResearchPaperRepository> ();
             services.AddScoped <IResearchPersonnelRepository,ResearchPersonnelRepository> ();
             services.AddScoped <IResearchMoneyRepository, ResearchMoneyRepository> ();

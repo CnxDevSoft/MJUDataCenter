@@ -100,5 +100,29 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
             return result;
 
         }
+
+
+        public static string RandomTitleName()
+        {
+            Random random = new Random();
+            int TitleType = random.Next(0, 3);
+            var TitleName =string.Empty;
+            switch (TitleType)
+            {
+                case 0:
+                    TitleName = "นาย";
+                    break;
+                case 1:
+                    TitleName = "นาง";
+                    break;
+                case 2:
+                    TitleName = "นส.";
+                    break;
+
+
+            }
+            return TitleName;
+
+        }
     }
 }
