@@ -169,12 +169,26 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 Random random = new Random();
                 var research = random.Next(1, 101);
+                var researcher = random.Next(1, 101);
+                var magazine = SeedData.HelperSeedData.RandomResearchId();
 
                 var model = new ResearchPaper
                 {
-                    ResearcherId = research
+                    ResearcherId = researcher,
+                    PaperNameTh = string.Format("บทวิจัย{0}",i),
+                    PaperNameEn = string.Format("Paper{0}", i),
+                    Weigth = SeedData.HelperSeedData.RandomWeigthPaper(),
+                    PaperCreateData = SeedData.HelperSeedData.RandomDateTimeResearch(),
+                    MagazineId = magazine,
+                    MagazineName = string.Format("MagazineName{0}", magazine),
+                    MagzineVolum = SeedData.HelperSeedData.RandomResearchId(),
+                    ResearchId  = research
                 };
-                list.Add(model);
+                if (!list.Where(m=>m.ResearchId==model.ResearchId&&m.ResearcherId==model.ResearcherId).Any())
+                {
+                    list.Add(model);
+                }
+                
             }
             _researchPaperRepository.AddRange(list);
         }
@@ -192,7 +206,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 {
                     ResearcherId = researcher,
                     PaperId = paper,
-                    PaperPercent = SeedData.HelperSeedData.RandomPercent()
+                    PaperPercent = SeedData.HelperSeedData.per()
                 };
                 if (!list.Where(m => m.PaperId == model.PaperId && m.ResearcherId == model.ResearcherId).Any())
                 {
