@@ -1,71 +1,148 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+:root {
+    --primary-green: rgba(1, 127, 63, 1);
+    --primary-green-60: rgba(1, 127, 63, 0.6);
+    --primary-green-12: rgba(1, 127, 63, 0.12);
+    --white-90: rgba(255, 255, 255, 0.9);
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: rgba(1, 127, 63, 1) !important;
+    transition: all 0.3s !important;
 }
 
+.nav-pills .nav-link:not(.active):hover {
+    background-color: var(--primary-green-12);
+    color: var(--primary-green);
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif !important;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+body, p {
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.main-footer {
+    background: #fff;
+    border-top: 1px solid #dee2e6;
+    color: #869099;
+}
+
+.logo {
+    max-width: 120px;
+}
+
+.text-white {
+    color: rgba(255, 255, 255, 1);
+}
+
+.text-white-90 {
+    color: var(--white-90);
+}
+
+.gradient-bg {
+    background: rgb(1,127,63);
+    background: linear-gradient(145deg, #72B191 45%, #FFEF80 120%);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-green {
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    transition: all 0.3s;
+}
+
+.btn-green:hover {
+    color: var(--white-90);
+    background-color: var(--primary-green);
+}
+
+[class*=sidebar-primary] {
+    background-color: white !important;
+}
+
+.sidebar-mini.sidebar-collapse.layout-fixed .brand-text  {
+    transition: margin-left .3s linear,opacity .3s ease,visibility .3s ease;
+}
+
+@media (min-width: 992px) {
+    .sidebar-mini.sidebar-collapse.layout-fixed .brand-text {
+        opacity: 0;
+        visibility: hidden;
+        margin-left: -10px;
+    }
 }

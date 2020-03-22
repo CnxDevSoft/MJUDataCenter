@@ -19,4 +19,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Content Remove="wwwroot\img\logo.ico" />
+    <Content Remove="wwwroot\img\logo.png" />
+  </ItemGroup>
 </Project>

@@ -35,12 +35,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 var label = new List<string>();
                 var data = new List<int>();
+                var value = new List<int?>();
                 var viewData = new List<ViewData>();
                 var i = 0;
                 foreach (var rd in distinctResearchDepartment)
                 {
                     var researchDepartmentWithCondition = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh);
-
+                    value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
                     viewData.Add(
                         new ViewData
                         {
@@ -64,7 +65,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      graphDataSet
                     },
                     Label = label,
-                    ViewData = viewData
+                    ViewData = viewData,
+                    Value = value
 
                 };
                 return result;
@@ -94,12 +96,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 var label = new List<string>();
                 var data = new List<int>();
+                var value = new List<int?>();
                 var viewData = new List<ViewData>();
                 var i = 0;
                 foreach (var rg in distinctResearchGroup)
                 {
                     var researchDepartmentWithCondition = researchGroup.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName);
-
+                    value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
                     viewData.Add(
                         new ViewData
                         {
@@ -124,7 +127,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      graphDataSet
                     },
                     Label = label,
-                    ViewData = viewData
+                    ViewData = viewData,
+                    Value = value
                 };
                 return result;
 
@@ -148,18 +152,19 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public object GetResearchData(int type)
         {
-            var researchData = _dcResearchDataRepository.GetAll().ToList();
+            var researchData = _dcResearchDataRepository.GetAll().ToList(); 
             var distinctResearchData = researchData.Select(m => new { m.ResearchMoneyTypeId, m.MoneyTypeName }).Distinct().OrderBy(o => o.ResearchMoneyTypeId);
             if (type == 1)
             {
                 var label = new List<string>();
                 var data = new List<int>();
+                var value = new List<int?>();
                 var viewData = new List<ViewData>();
                 var i = 0;
                 foreach (var rd in distinctResearchData)
                 {
                     var researchDepartmentWithCondition = researchData.Where(m => m.ResearchMoneyTypeId == rd.ResearchMoneyTypeId && m.MoneyTypeName == rd.MoneyTypeName);
-
+                    value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
                     viewData.Add(
                         new ViewData
                         {
@@ -183,7 +188,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      graphDataSet
                     },
                     Label = label,
-                    ViewData = viewData
+                    ViewData = viewData,
+                    Value = value
 
                 };
                 return result;
