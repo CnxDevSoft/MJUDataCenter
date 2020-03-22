@@ -35,18 +35,22 @@
 
         var mode = 'index'
         var intersect = true
-
-        var $allMoneyRangeChart = $('#allMoneyRange-chart')
+        fetch('https://localhost:44341/api/ResearchMoney/1')
+            .then(res => res.json())
+            .then((data) => {
+                   var $allMoneyRangeChart = $('#allMoneyRange-chart')
         var chart = new Chart($allMoneyRangeChart, {
             type: 'horizontalBar',
             data: {
-                labels: ['ต่ำกว่า 100,000', '100,000 - 500,000', '500,001 - 1,000,000', '1,000,001 - 5,000,000', '5,000,001 - 10,000,000', '10,000,001 - 20,000,000', '20,000,000 ขึ้นไป'],
+                labels: data.label,
+                    //['ต่ำกว่า 100,000', '100,000 - 500,000', '500,001 - 1,000,000', '1,000,001 - 5,000,000', '5,000,001 - 10,000,000', '10,000,001 - 20,000,000', '20,000,000 ขึ้นไป'],
                 //  datasLabels: [1001,1002,1003,1004,1005,1006,1007],
                 datasets: [
                     {
                         backgroundColor: '#007bff',
                         borderColor: '#007bff',
-                        data: [50, 25, 130, 10, 30, 40, 20],
+                        data:data.graphDataSet[0].data
+                        //[50, 25, 130, 10, 30, 40, 20],
                         //label: [1101,1102,1103,1104,1105]
                     }
                 ]
@@ -119,6 +123,8 @@
                 }
             }
         })
+            })
+        
     }
 
     $(function () {

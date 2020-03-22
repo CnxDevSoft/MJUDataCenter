@@ -14,10 +14,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private readonly IDcResearchGroupRepository _dcResearchGroupRepository;
         private readonly IDcResearchDataRepository _dcResearchDataRepository;
         private readonly IDcResearchMoneyRepository _dcResearchMoneyReoisitory;
-        public ResearchAndExtensionService(IDcResearchGroupRepository dcResearchGroupRepository,
-            IDcResearchDataRepository dcResearchDataRepository
-            , IDcResearchMoneyRepository dcResearchMoneyRepository)
+        public ResearchAndExtensionService(IDcResearchGroupRepository dcResearchGroupRepository
+            ,IDcResearchDataRepository dcResearchDataRepository
+            , IDcResearchMoneyRepository dcResearchMoneyRepository
+            , IDcResearchDepartmentRepository dcResearchDepartmentRepository)
         {
+            _dcResearchDepartmentRepository = dcResearchDepartmentRepository;
             _dcResearchGroupRepository = dcResearchGroupRepository;
             _dcResearchDataRepository = dcResearchDataRepository;
             _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
@@ -246,12 +248,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 };
 
                 var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Count();
-                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100001 && m.ResearchMoney <= 500001).Count();
-                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500001 && m.ResearchMoney <= 1000000).Count();
-                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000001 && m.ResearchMoney <= 5000000).Count();
-                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000001 && m.ResearchMoney <= 10000000).Count();
-                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney >= 100000001 && m.ResearchMoney <= 20000000).Count();
-                var over20m = researchMoney.Where(m => m.ResearchMoney >= 20000000).Count();
+                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).Count();
+                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Count();
+                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Count();
+                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Count();
+                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Count();
+                var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Count();
 
                 var graphDataSet = new GraphDataSet
                 {

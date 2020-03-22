@@ -50,6 +50,7 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddScoped<IDcResearchDepartmentRepository, DcResearchDepartmentRepository>();
             services.AddScoped<IDcResearchGroupRepository, DcResearchGroupRepository>();
             services.AddScoped<IDcResearchDataRepository, DcResearchDataRepository>();
+            services.AddScoped<IDcResearchMoneyRepository,DcReasearchMoneyRepository >();
             services.AddTransient<INewSeedDataService,NewSeedDataService >();
             services.AddTransient<IResearchAndExtensionService, ResearchAndExtensionService>();
 
