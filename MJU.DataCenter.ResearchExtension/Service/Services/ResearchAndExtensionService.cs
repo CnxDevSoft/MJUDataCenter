@@ -21,7 +21,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             _dcResearchGroupRepository = dcResearchGroupRepository;
             _dcResearchDataRepository = dcResearchDataRepository;
             _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
-             _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
+            _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
 
         }
 
