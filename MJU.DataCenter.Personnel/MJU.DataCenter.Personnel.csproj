@@ -30,9 +30,9 @@
     <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SeedData\" />
     <Folder Include="Repository\Interface\" />
     <Folder Include="Repository\Common\" />
     <Folder Include="Repository\Repositories\" />
+    <Folder Include="SeedData\SQLScripts\" />
   </ItemGroup>
 </Project>
