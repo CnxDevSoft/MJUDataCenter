@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MJU.DataCenter.ResearchExtension.Models;
 
 namespace MJU.DataCenter.ResearchExtension.ViewModels
 {
@@ -7,12 +8,6 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
     {
         public int? PersonGroupId { get; set; }
         public string PersonGroupName { get; set; }
-        public List<ResearchDataGroup> ResearchData { get; set; }
-    }
-    public class ResearchDataGroup
-    {
-        public int ResearchId { get; set; }
-        public string ResearchNameEN { get; set; }
-        public string ResearchNameTH { get; set; }
+        public List<DcResearchGroup> ResearchData { get; set; }
     }
 }
