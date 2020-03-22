@@ -3,46 +3,19 @@
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
-    <div class="container-fluid">
-        <div class="row">
+<div class="container-fluid">
+    <div class="row">
 
-            <partial name="PartialViews/_ResearchAvailableStat" />
-
-            @*@<partial name="PartialViews/_ResearchPatentStat" />
-            <partial name="PartialViews/_ResearchPublicationStat" />
-            <partial name="PartialViews/_ResearchManageKnowledgeStat" />
-            <partial name="PartialViews/_ResearchAvailableStat" />
-            <partial name="PartialViews/_ResearchBudgetStat" />*@
-
-            @*<partial name="PartialViews/_ResearchBudgetAllGraph" />
-            <partial name="PartialViews/_ResearchBudgetAllGraph" />
-            <partial name="PartialViews/_ResearchManageKnowledgeStat" />
-            <partial name="PartialViews/_ResearchPublicationStat" />
-            <partial name="PartialViews/_ResearchBudgetStat" />*@
-
-            @*<partial name="PartialViews/_ResearchBudgetAllGraph" />
-            <partial name="PartialViews/_ResearchBudgetYearGraph" />*@
-            @*<div class="col-lg-6">
-                <div class="col-lg-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>150</h3>
-
-                            <p>New Orders</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>*@
-        </div>
-
-        @*<div class="row">
-            <partial name="PartialViews/_ResearchBudgetAllGraph" />
-            <partial name="PartialViews/_ResearchBudgetYearGraph" />
-        </div>*@
-
+        <partial name="PartialViews/_ResearchPatentStat" />
+        <partial name="PartialViews/_ResearchPublicationStat" />
+        <partial name="PartialViews/_ResearchManageKnowledgeStat" />
+        <partial name="PartialViews/_ResearchAvailableStat" />
+        <partial name="PartialViews/_ResearchBudgetStat" />
     </div>
+    <div class="row">
+        <partial name="PartialViews/_ResearchDepartmentGraph" />
+        <partial name="PartialViews/_ResearchMoneyPersonGroupGraph" />
+        <partial name="PartialViews/_ResearchMoneyRangeGraph" />
+        <partial name="PartialViews/_ResearchMoneyTypeGraph" />
+    </div>
+</div>
