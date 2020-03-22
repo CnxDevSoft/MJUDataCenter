@@ -10,9 +10,13 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DcResearchMoneyController : ControllerBase
+    public class ResearchMoneyController : ControllerBase
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
+        public ResearchMoneyController(IResearchAndExtensionService researchAndExtensionService)
+        {
+            _researchAndExtensionService = researchAndExtensionService;
+        }
         // GET: api/DcResearchMoney
         [HttpGet]
         public IEnumerable<string> Get()

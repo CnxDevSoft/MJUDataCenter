@@ -50,7 +50,7 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public static int RandomResearchMoney()
         {
             Random random = new Random();
-            var randomTypeA = random.Next(100000,20000000);
+            var randomTypeA = random.Next(50000,40000000);
             return randomTypeA;
         }
         //********************************************************************EndResearchData

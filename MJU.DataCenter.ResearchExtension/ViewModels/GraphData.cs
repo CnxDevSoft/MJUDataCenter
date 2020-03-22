@@ -7,11 +7,12 @@ namespace MJU.DataCenter.Personnel.ViewModels
     {
         public List<string> Label { get; set; }
         public List<GraphDataSet> GraphDataSet { get; set; }
+        public List<ViewData> ViewData { get; set; }
+
     }
     public class GraphDataSet
     {
         public string Label { get; set; }
-        public List<ViewData> ViewData { get; set; }
         public List<int> Data { get; set; }
     }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MJU.DataCenter.Personnel.ViewModels;
@@ -14,13 +14,17 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private readonly IDcResearchGroupRepository _dcResearchGroupRepository;
         private readonly IDcResearchDataRepository _dcResearchDataRepository;
         private readonly IDcResearchMoneyRepository _dcResearchMoneyReoisitory;
-        public ResearchAndExtensionService(IDcResearchGroupRepository dcResearchGroupRepository,
-            IDcResearchDataRepository dcResearchDataRepository
-            , IDcResearchMoneyRepository dcResearchMoneyRepository)
+        public ResearchAndExtensionService(IDcResearchGroupRepository dcResearchGroupRepository
+            ,IDcResearchDataRepository dcResearchDataRepository
+            , IDcResearchMoneyRepository dcResearchMoneyRepository
+            , IDcResearchDepartmentRepository dcResearchDepartmentRepository)
         {
+            _dcResearchDepartmentRepository = dcResearchDepartmentRepository;
             _dcResearchGroupRepository = dcResearchGroupRepository;
             _dcResearchDataRepository = dcResearchDataRepository;
             _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
+            _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
+
         }
 
         public object GetResearchDepartment(int type)
@@ -41,12 +45,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchDepartmentWithCondition.Select(s => new ResearchDataDepartment
-                            {
-                                ResearchId = s.ResearchId,
-                                ResearchNameEN = s.ResearchNameEn,
-                                ResearchNameTH = s.ResearchNameTh
-                            }).ToList()
+                            LisViewData = researchDepartmentWithCondition.ToList()
                         }
 
                     );
@@ -57,8 +56,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 }
                 var graphDataSet = new GraphDataSet
                 {
-                    Data = data,
-                    ViewData = viewData
+                    Data = data
                 };
                 var result = new GraphData
                 {
@@ -66,7 +64,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      graphDataSet
                     },
                     Label = label,
-                    
+                    ViewData = viewData
+
                 };
                 return result;
                
@@ -80,13 +79,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     {
                         DepartmentId = rd.DepartmentId,
                         DepartmentName = rd.DepartmentNameTh,
-                        ResearchData = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh)
-                        .Select(s => new ResearchDataDepartment
-                        {
-                            ResearchId = s.ResearchId,
-                            ResearchNameEN = s.ResearchNameEn,
-                            ResearchNameTH = s.ResearchNameTh
-                        }).ToList()
+                        ResearchData = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh).ToList()
                     };
                     list.Add(model);
                 }
@@ -111,12 +104,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchDepartmentWithCondition.Select(s => new ResearchDataGroup
-                            {
-                                ResearchId = s.ResearchId,
-                                ResearchNameEN = s.ResearchNameEn,
-                                ResearchNameTH = s.ResearchNameTh
-                            }).ToList()
+                            LisViewData = researchDepartmentWithCondition.ToList()
                         }
 
                     );
@@ -128,7 +116,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var graphDataSet = new GraphDataSet
                 {
                     Data = data,
-                    ViewData = viewData
+
                 };
                 var result = new GraphData
                 {
@@ -136,7 +124,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      graphDataSet
                     },
                     Label = label,
-
+                    ViewData = viewData
                 };
                 return result;
 
@@ -150,13 +138,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     {
                         PersonGroupId = rg.PersonGroupId,
                         PersonGroupName = rg.PersonGroupName,
-                        ResearchData = researchGroup.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName)
-                        .Select(s => new ResearchDataGroup
-                        {
-                            ResearchId = s.ResearchId,
-                            ResearchNameEN = s.ResearchNameEn,
-                            ResearchNameTH = s.ResearchNameTh
-                        }).ToList()
+                        ResearchData = researchGroup.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName).ToList()
                     };
                     list.Add(model);
                 }
@@ -182,12 +164,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchDepartmentWithCondition.Select(s => new ResearchData
-                            {
-                                ResearchId = s.ResearchId,
-                                ResearchNameEN = s.ResearchNameEng,
-                                ResearchNameTH = s.ResearchNameTh
-                            }).ToList()
+                            LisViewData = researchDepartmentWithCondition.ToList()
                         }
 
                     );
@@ -199,7 +176,6 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var graphDataSet = new GraphDataSet
                 {
                     Data = data,
-                    ViewData = viewData
                 };
                 var result = new GraphData
                 {
@@ -207,6 +183,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      graphDataSet
                     },
                     Label = label,
+                    ViewData = viewData
 
                 };
                 return result;
@@ -221,13 +198,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     {
                         MoneyTypeId = rd.ResearchMoneyTypeId,
                         MoneyTypeName = rd.MoneyName,
-                        ResearchData = researchData.Where(m => m.ResearchMoneyTypeId == rd.ResearchMoneyTypeId && m.MoneyName == rd.MoneyName)
-                        .Select(s => new ResearchData
-                        {
-                            ResearchId = s.ResearchId,
-                            ResearchNameEN = s.ResearchNameEng,
-                            ResearchNameTH = s.ResearchNameTh
-                        }).ToList()
+                        ResearchData = researchData.Where(m => m.ResearchMoneyTypeId == rd.ResearchMoneyTypeId && m.MoneyName == rd.MoneyName).ToList()
                     };
                     list.Add(model);
                 }
@@ -246,12 +217,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 };
 
                 var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Count();
-                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100001 && m.ResearchMoney <= 500001).Count();
-                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500001 && m.ResearchMoney <= 1000000).Count();
-                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000001 && m.ResearchMoney <= 5000000).Count();
-                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000001 && m.ResearchMoney <= 10000000).Count();
-                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney >= 100000001 && m.ResearchMoney <= 20000000).Count();
-                var over20m = researchMoney.Where(m => m.ResearchMoney >= 20000000).Count();
+                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).Count();
+                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Count();
+                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Count();
+                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Count();
+                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Count();
+                var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Count();
 
                 var graphDataSet = new GraphDataSet
                 {
