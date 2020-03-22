@@ -80,9 +80,15 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
 
+                entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
+
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
+
+                entity.Property(e => e.ResearcherName).IsRequired();
+
+                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<DcResearchGroup>(entity =>
@@ -91,9 +97,15 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_ResearchGroup");
 
+                entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
+
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
+
+                entity.Property(e => e.ResearcherName).IsRequired();
+
+                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<DcResearchMoney>(entity =>
