@@ -1,4 +1,4 @@
-﻿@page
+@page
 @{
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
@@ -6,11 +6,13 @@
     <div class="container-fluid">
         <div class="row">
 
-            <partial name="PartialViews/_ResearchPatentStat" />
+            <partial name="PartialViews/_ResearchAvailableStat" />
+
+            @*@<partial name="PartialViews/_ResearchPatentStat" />
             <partial name="PartialViews/_ResearchPublicationStat" />
             <partial name="PartialViews/_ResearchManageKnowledgeStat" />
             <partial name="PartialViews/_ResearchAvailableStat" />
-            <partial name="PartialViews/_ResearchBudgetStat" />
+            <partial name="PartialViews/_ResearchBudgetStat" />*@
 
             @*<partial name="PartialViews/_ResearchBudgetAllGraph" />
             <partial name="PartialViews/_ResearchBudgetAllGraph" />
@@ -37,13 +39,10 @@
                 </div>
             </div>*@
         </div>
-        <div class="row">
-            @* <partial name="PartialViews/_ResearchBudgetAllGraph" />
-        <partial name="PartialViews/_ResearchBudgetYearGraph" />*@
-            <partial name="PartialViews/_ResearchDepartmentGraph" />
-            <partial name="PartialViews/_ResearchMoneyPersonGroupGraph" />
-            <partial name="PartialViews/_ResearchMoneyRangeGraph" />
-            <partial name="PartialViews/_ResearchMoneyTypeGraph" />
-        </div>
+
+        @*<div class="row">
+            <partial name="PartialViews/_ResearchBudgetAllGraph" />
+            <partial name="PartialViews/_ResearchBudgetYearGraph" />
+        </div>*@
 
     </div>
