@@ -19,4 +19,21 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchBudgetAllGraph.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchPatentStat.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchPublicationStat.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchBudgetYearGraph.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchManageKnowledgeStat.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\PartialViews\_ResearchBudgetStat.cshtml" />
+    <Content Remove="Views\Shared\_BlankLayout.cshtml" />
+    <Content Remove="Views\DashboardResearchExtension\Index.cshtml" />
+    <Content Remove="wwwroot\img\logo.ico" />
+    <Content Remove="wwwroot\img\logo.png" />
+    <Content Remove="appsettings.Development.json" />
+    <Content Remove="appsettings.json" />
+  </ItemGroup>
 </Project>
