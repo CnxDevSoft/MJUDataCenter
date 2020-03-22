@@ -89,7 +89,16 @@
                             // alert(item[0]._index + ' / ' + data[item[0]._index].title);
                             alert(item[0]._model.label);
                             $("#moneyTypeSection").empty();
-                            $("#moneyTypeSection").append('<tr><td>' + data[item[0]._index].title + ' </td><td></td><td></td><td></td></tr>')
+
+                            $("#moneyTypeSection").append('<tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle"><td>' + data[item[0]._index].title + ' </td><td></td><td></td><td></td></tr>')
+                            $("#moneyTypeSection").append('<tr><td class="hiddenRow"><div class="accordian-body collapse" id="demo1">' + data[item[0]._index].title + ' </td><td class="hiddenRow"></td><td class="hiddenRow"></td><td class="hiddenRow"></td></tr>')
+
+                            $("#moneyTypeSection").append('<tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle"><td>' + data[item[0]._index].title + ' </td><td></td><td></td><td></td></tr>')
+                            $("#moneyTypeSection").append('<tr><td class="hiddenRow"><div class="accordian-body collapse" id="demo2">' + data[item[0]._index].title + ' </td><td class="hiddenRow"></td><td class="hiddenRow"></td><td class="hiddenRow"></td></tr>')
+
+                            $("#moneyTypeSection").append('<tr data-toggle="collapse" data-target="#demo3" class="accordion-toggle"><td>' + data[item[0]._index].title + ' </td><td></td><td></td><td></td></tr>')
+                            $("#moneyTypeSection").append('<tr><td class="hiddenRow"><div class="accordian-body collapse" id="demo3">' + data[item[0]._index].title + ' </td><td class="hiddenRow"></td><td class="hiddenRow"></td><td class="hiddenRow"></td></tr>')
+
 
                             $('#moneyTypeModal').modal('show');
                             $('#moneyTypeModal').on('shown.bs.modal', function () {
@@ -106,6 +115,14 @@
     });
 </script>
 
+<style>
+    .hiddenRow{
+        
+        padding: 0 !important;
+
+    }
+
+</style>
 
 <div id="moneyTypeModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
