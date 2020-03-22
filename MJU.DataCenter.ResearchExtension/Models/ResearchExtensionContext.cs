@@ -37,7 +37,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-QCPA044\\SQLEXPRESS;Database=ResearchExtension;User Id=apichai_server;Password=Password#01;");
+                optionsBuilder.UseSqlServer("Server=localhost;User Id=sa;Database=ResearchExtension;Password=reallyStrongPwd123");
             }
         }
 
@@ -49,27 +49,15 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_researchData");
 
-                entity.Property(e => e.MoneyName).HasColumnName("money_name");
+                entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
-                entity.Property(e => e.ResearchDateEnd)
-                    .HasColumnName("research_date_end")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
-                entity.Property(e => e.ResearchDateStart)
-                    .HasColumnName("research_date_start")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
-                entity.Property(e => e.ResearchId).HasColumnName("research_id");
+                entity.Property(e => e.ResearcherName).IsRequired();
 
-                entity.Property(e => e.ResearchMoney).HasColumnName("research_money");
-
-                entity.Property(e => e.ResearchMoneyTypeId).HasColumnName("research_money_type_id");
-
-                entity.Property(e => e.ResearchNameEng).HasColumnName("research_name_eng");
-
-                entity.Property(e => e.ResearchNameTh).HasColumnName("research_name_th");
-
-                entity.Property(e => e.ResearchRefCode).HasColumnName("research_ref_code");
+                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<DcResearchDepartment>(entity =>
