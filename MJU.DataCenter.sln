@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.ResearchExte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.Personnel", "MJU.DataCenter.Personnel\MJU.DataCenter.Personnel.csproj", "{DF445074-B55B-4565-A3BD-3E8B53118FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.WebUI", "MJU.DataCenter.WebUI\MJU.DataCenter.WebUI.csproj", "{4D76047A-EE31-4131-894F-1983EED44B20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.WebUI", "MJU.DataCenter.WebUI\MJU.DataCenter.WebUI.csproj", "{4D76047A-EE31-4131-894F-1983EED44B20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.WebForm", "MJU.DataCenter.WebForm\MJU.DataCenter.WebForm.csproj", "{02068374-DD52-467E-AB47-76A64C89C518}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4D76047A-EE31-4131-894F-1983EED44B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D76047A-EE31-4131-894F-1983EED44B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D76047A-EE31-4131-894F-1983EED44B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02068374-DD52-467E-AB47-76A64C89C518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02068374-DD52-467E-AB47-76A64C89C518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02068374-DD52-467E-AB47-76A64C89C518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02068374-DD52-467E-AB47-76A64C89C518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
