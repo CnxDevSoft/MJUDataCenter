@@ -49,27 +49,15 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_researchData");
 
-                entity.Property(e => e.MoneyName).HasColumnName("money_name");
+                entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
-                entity.Property(e => e.ResearchDateEnd)
-                    .HasColumnName("research_date_end")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
-                entity.Property(e => e.ResearchDateStart)
-                    .HasColumnName("research_date_start")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
-                entity.Property(e => e.ResearchId).HasColumnName("research_id");
+                entity.Property(e => e.ResearcherName).IsRequired();
 
-                entity.Property(e => e.ResearchMoney).HasColumnName("research_money");
-
-                entity.Property(e => e.ResearchMoneyTypeId).HasColumnName("research_money_type_id");
-
-                entity.Property(e => e.ResearchNameEng).HasColumnName("research_name_eng");
-
-                entity.Property(e => e.ResearchNameTh).HasColumnName("research_name_th");
-
-                entity.Property(e => e.ResearchRefCode).HasColumnName("research_ref_code");
+                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<DcResearchDepartment>(entity =>
@@ -181,7 +169,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.Property(e => e.PersonMoney)
                     .HasColumnName("personMoney")
-                    .HasColumnType("decimal(8, 2)");
+                    .HasColumnType("decimal(22, 2)");
 
                 entity.Property(e => e.PrefixNameTh).HasColumnName("prefixNameTH");
 
@@ -195,13 +183,13 @@ namespace MJU.DataCenter.ResearchExtension.Models
             modelBuilder.Entity<PersonnelGroup>(entity =>
             {
                 entity.HasKey(e => e.PersonGroupId)
-                    .HasName("PK__Personne__89466BB76038819F");
+                    .HasName("PK__Personne__89466BB7BCF6A780");
             });
 
             modelBuilder.Entity<ResearchData>(entity =>
             {
                 entity.HasKey(e => e.ResearchId)
-                    .HasName("PK__Research__617A954E8F427A87");
+                    .HasName("PK__Research__617A954E074B9D5A");
 
                 entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
