@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MJU.DataCenter.Personnel.ViewModels;
+using MJU.DataCenter.ResearchExtension.Models;
 using MJU.DataCenter.ResearchExtension.Repository.Interface;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
 using MJU.DataCenter.ResearchExtension.ViewModels;
@@ -220,46 +221,77 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 var list = new List<GraphDataSet>();
                 var data = new List<int>();
+                
                 var label = new List<string> { "ตํ่ากว่า 100,000", "100,001 - 500,000","500,001 - 1,000,000"
                      ,"1,000,001 - 5,000,000","5,000,001 - 10,000,000","10,000,001 - 20,000,000","20,000,000 ขึ้นไป"
                 };
-                var viewData = new List<ViewData>();
+                
                 var i = 0;
-                var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Count();
-                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).Count();
-                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Count();
-                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Count();
-                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Count();
-                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Count();
-                var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Count();
-                foreach (var aun in distinctResearchMoney)
-                {
-                    var researchMoneyWithCondition = researchMoney.Where(m => m.ResearcherId == aun.ResearchId && m.ResearchName == aun.ResearchName);
-                    viewData.Add(
-                                 new ViewData
-                                 {
-                                     index = i,
-                                     LisViewData = researchMoneyWithCondition.ToList()
-                                 }
-                        );
-            
-                    i++;
-                }
+                var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0);
+                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000);
+                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000);
+                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000);
+                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000);
+                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000);
+                var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000);
 
+                //var researchMoneylower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Distinct().OrderBy(a=>a.ResearchId);
+                //var researchMoneybetween100kTo500kk = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Distinct().OrderBy(a => a.ResearchId);
+                //var researchMoneybetween500kTo1m = researchMoney.Where(m => m.ResearchMoney > 5000000 && m.ResearchMoney < 100000000).Distinct().OrderBy(a => a.ResearchId);
+                //var researchMoneybetween1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Distinct().OrderBy(a => a.ResearchId);
+                //var researchMoneybetween5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Distinct().OrderBy(a => a.ResearchId);
+                //var researchMoneybetween10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Distinct().OrderBy(a => a.ResearchId);
+                //var researchMoneyover20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Distinct().OrderBy(a => a.ResearchId);
+                var viewData = new List<ViewData> {
+                    new ViewData
+                    {
+                        index = 0,
+                        LisViewData = lower100k.ToList()
+                    },
+                    new ViewData
+                    {
+                        index = 1,
+                        LisViewData = between100kTo500k.ToList()
+                    },
+                    new ViewData
+                    {
+                        index = 2,
+                        LisViewData = between500kTo1m.ToList()
+                    },
+                    new ViewData
+                    {
+                        index = 3,
+                        LisViewData = between1mTo5m.ToList()
+                    },
+                    new ViewData
+                    {
+                        index = 4,
+                        LisViewData = between5mTo10m.ToList()
+                    },
+                    new ViewData
+                    {
+                        index = 5,
+                        LisViewData = between10mTo20m.ToList()
+                    },
+                    new ViewData
+                    {
+                        index = 6,
+                        LisViewData = over20m.ToList()
+                    }
+                };
 
                 var graphDataSet = new GraphDataSet
                 {
 
                     Data =
-
                      new List<int> {
-                         lower100k,
-                         between100kTo500k,
-                         between500kTo1m,
-                         between1mTo5m,
-                         between5mTo10m,
-                         between10mTo20m,
-                         over20m }
+                         lower100k.Count(),
+                         between100kTo500k.Count(),
+                         between500kTo1m.Count(),
+                         between1mTo5m.Count(),
+                         between5mTo10m.Count(),
+                         between10mTo20m.Count(),
+                         over20m.Count() }
                 };
                 
                 var result = new GraphData

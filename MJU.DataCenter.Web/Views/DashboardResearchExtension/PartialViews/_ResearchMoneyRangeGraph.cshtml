@@ -103,7 +103,7 @@
                     console.log('legd item', item);
                     // alert(item[0].index);
 
-                    fetch('https://jsonplaceholder.typicode.com/todos')
+                    fetch('https://localhost:44341/api/ResearchMoney/1')
                         .then((response) => {
 
                             return response.json();
@@ -112,13 +112,20 @@
 
                             // alert(item[0]._index + ' / ' + data[item[0]._index].title);
                             alert(item[0]._model.label);
-                            $("#moneyResearchSection").empty();
-                            $("#moneyResearchSection").append('<tr><td>' + data[item[0]._index].title + ' </td><td></td><td></td><td></td></tr>')
+                    $("#moneyResearchSection").empty();
+                    $("#ResearchMoneyLabel").empty();
+                   
+                     $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
+                        console.log(value)
+                            $("#moneyResearchSection").append('<tr><td>' + value.researchName + ' </td><td>' +
+                            value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH")  + '</td> <td></td></tr > ')
 
+                             });
                             $('#ResearchMoneyModal').modal('show');
                             $('#ResearchMoneyModal').on('shown.bs.modal', function () {
 
                             })
+
                         });
                 }
             }
