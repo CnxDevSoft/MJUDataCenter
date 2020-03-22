@@ -4,35 +4,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.ResearchExtension.Service.Interface;
 
 namespace MJU.DataCenter.ResearchExtension.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DcReasearchMoneyController : ControllerBase
+    public class DcResearchMoneyController : ControllerBase
     {
-        // GET: api/DcReasearchMoney
+        private readonly IResearchAndExtensionService _researchAndExtensionService;
+        // GET: api/DcResearchMoney
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/DcReasearchMoney/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        // GET: api/DcResearchMoney/5
+        [HttpGet("{type}")]
+        public object Get(int type)
         {
-
-            return "value";
+            return _researchAndExtensionService.GetAllResearchMoney(type);
         }
 
-        // POST: api/DcReasearchMoney
+        // POST: api/DcResearchMoney
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/DcReasearchMoney/5
+        // PUT: api/DcResearchMoney/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {

@@ -6,5 +6,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         object GetResearchDepartment(int type);
         object GetResearchGroup(int type);
         object GetResearchData(int type);
+        object GetAllResearchMoney(int type);
+        
     }
 }
