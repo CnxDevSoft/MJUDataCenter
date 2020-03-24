@@ -34,8 +34,8 @@
                             <tr>
                                 <th>รายชื่องานวิจัย</th>
                                 <th>ผู้ทำวิจัย</th>
-                                <th>จำนวนเงิน</th>
-                                <th>More</th>
+                               <!-- <th>จำนวนเงิน</th>
+                                  <th>More</th> -->
                             </tr>
                         </thead>
                         <tbody id="moneyPersonGroupSection">
@@ -113,7 +113,7 @@
                     $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                         console.log(value)
                         $("#moneyPersonGroupSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                            value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <td></td></tr > ')
+                            value.researcherName + '</td> <!--<td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <td></td>--></tr > ')
 
                     });
 

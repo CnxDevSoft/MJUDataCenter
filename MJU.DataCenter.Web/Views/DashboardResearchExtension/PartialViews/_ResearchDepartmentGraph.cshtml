@@ -39,8 +39,8 @@
                             <tr>
                                 <th>รายชื่องานวิจัย</th>
                                 <th>ผู้ทำวิจัย</th>
-                                <th>จำนวนเงิน</th>
-                                <th>More</th>
+                               <!-- <th>จำนวนเงิน</th>
+                                <th>More</th>   -->
                             </tr>
                         </thead>
                         <tbody id="researchDepartmentSection">
@@ -126,12 +126,12 @@
                 onClick: function (evt, item) {
                     $("#researchDepartmentSection").empty();
                     $("#researchDepartmentLabel").empty();
-                    $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
+                  //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
 
                     $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                         console.log(value)
                         $("#researchDepartmentSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                            value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH")  + '</td> <td></td></tr > ')
+                            value.researcherName + '</td><!--<td>' + new Number(value.researchMoney).toLocaleString("th-TH")  + '</td> <td></td>--></tr > ')
 
                     });
                     $('#researchDepartmentModal').modal('show');

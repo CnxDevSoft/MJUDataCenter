@@ -42,7 +42,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 foreach (var rd in distinctResearchDepartment)
                 {
                     var researchDepartmentWithCondition = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh);
-                    value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
+                    //value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
                     viewData.Add(
                         new ViewData
                         {
@@ -103,7 +103,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 foreach (var rg in distinctResearchGroup)
                 {
                     var researchDepartmentWithCondition = researchGroup.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName);
-                    value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
+                   // value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
                     viewData.Add(
                         new ViewData
                         {
@@ -216,7 +216,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         public object GetAllResearchMoney(int type)
         {
             var researchMoney = _dcResearchMoneyReoisitory.GetAll();
-            var distinctResearchMoney = researchMoney.Select(m=> new {m.ResearchId,m.ResearchName}).Distinct().OrderBy(o => o.ResearchId);
+            var distinctResearchMoney = researchMoney.Select(m=> new {m.ResearchId,m.ResearchNameTh}).Distinct().OrderBy(o => o.ResearchId);
             if (type == 1)
             {
                 var list = new List<GraphDataSet>();
@@ -313,14 +313,14 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     var model = new RankResearchMoneyViewModel
                     {
                         ResearchId = aun.ResearchId,
-                        ResearchName = aun.ResearchName,
-                        ResearchMoney = researchMoney.Where(m => m.ResearchId == aun.ResearchId && m.ResearchName == aun.ResearchName).ToList()
+                        ResearchName = aun.ResearchNameTh,
+                        ResearchMoney = researchMoney.Where(m => m.ResearchId == aun.ResearchId && m.ResearchNameTh == aun.ResearchNameTh).ToList()
 
                     };
                     list.Add(model);
                 }      
                 return list;
-            }
+            }   
 
         }
     }

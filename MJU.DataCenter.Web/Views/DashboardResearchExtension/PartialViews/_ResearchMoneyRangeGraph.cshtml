@@ -110,14 +110,15 @@
                         })
                         .then((data) => {
 
-                            // alert(item[0]._index + ' / ' + data[item[0]._index].title);
-                            alert(item[0]._model.label);
+                            //alert(item[0]._index + ' / ' + data[item[0]._index].title);
+                           // alert(item[0]._model.label);
                     $("#moneyResearchSection").empty();
-                    $("#ResearchMoneyLabel").empty();
-                   
+                            $("#ResearchMoneyLabel").empty();
+                            $("#ResearchMoneyLabel").text(item[0]._model.label);
+      
                      $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                         console.log(value)
-                            $("#moneyResearchSection").append('<tr><td>' + value.researchName + ' </td><td>' +
+                            $("#moneyResearchSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
                             value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH")  + '</td> <td></td></tr > ')
 
                              });
@@ -145,7 +146,7 @@
         <div class="modal-content">
             <div class="card card-success">
                 <div class="card-header border-0">
-                    <h3 class="card-title">งานวิจัยที่ได้รับงบประมาณ <span id="ResearchMoneyLabel" >xxxxx</span> </h3>
+                    <h3 class="card-title">งานวิจัยที่ได้รับงบประมาณ <span id="ResearchMoneyLabel" ></span> </h3>
                     <div class="card-tools">
                     </div>
                 </div>
@@ -156,7 +157,7 @@
                                 <th>รายชื่องานวิจัย</th>
                                 <th>ผู้ทำวิจัย</th>
                                 <th>จำนวนเงิน</th>
-                                <th>More</th>
+                                <!-- <th>More</th>-->
                             </tr>
                         </thead>
                         <tbody id="moneyResearchSection">

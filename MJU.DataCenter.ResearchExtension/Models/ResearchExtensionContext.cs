@@ -49,15 +49,17 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_researchData");
 
-                entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
-
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
-                entity.Property(e => e.ResearcherName).IsRequired();
+                entity.Property(e => e.ResearchSendDate)
+                    .HasColumnName("ResearchSEndDate")
+                    .HasColumnType("datetime");
 
-                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
+                entity.Property(e => e.ResearchStartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ResearcherName).IsRequired();
             });
 
             modelBuilder.Entity<DcResearchDepartment>(entity =>
@@ -68,15 +70,15 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
 
-                entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
+                entity.Property(e => e.ResearchEndDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
-                entity.Property(e => e.ResearcherName).IsRequired();
+                entity.Property(e => e.ResearchStartDate).HasColumnType("datetime");
 
-                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
+                entity.Property(e => e.ResearcherName).IsRequired();
             });
 
             modelBuilder.Entity<DcResearchGroup>(entity =>
@@ -85,15 +87,15 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_ResearchGroup");
 
-                entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
+                entity.Property(e => e.ResearchEndDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
-                entity.Property(e => e.ResearcherName).IsRequired();
+                entity.Property(e => e.ResearchStartDate).HasColumnType("datetime");
 
-                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
+                entity.Property(e => e.ResearcherName).IsRequired();
             });
 
             modelBuilder.Entity<DcResearchMoney>(entity =>
@@ -101,6 +103,14 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.HasNoKey();
 
                 entity.ToView("DC_ResearchMoney");
+
+                entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
+
+                entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
+
+                entity.Property(e => e.ResearchStartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ResearcherName).IsRequired();
             });
 
             modelBuilder.Entity<DcResearchPaper>(entity =>
