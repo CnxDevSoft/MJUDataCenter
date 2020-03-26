@@ -28,7 +28,4 @@
     <Compile Remove="ViewModels\GraphMountYear.cs" />
     <Compile Remove="Service\Interface\IDcResearchDepartmentRepository.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SeedData\SQLScripts\" />
-  </ItemGroup>
 </Project>

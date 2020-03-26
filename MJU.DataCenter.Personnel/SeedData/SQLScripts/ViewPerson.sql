@@ -1,0 +1,1 @@
+create view [dbo].[DC_Person] as select * from Person

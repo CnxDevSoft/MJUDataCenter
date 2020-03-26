@@ -29,7 +29,7 @@
         <div class="modal-content">
             <div class="card card-success">
                 <div class="card-header border-0">
-                    <h3 class="card-title">งานวิจัยที่ได้รับงบประมาณ <span id="researchDepartmentLabel"></span> </h3>
+                    <h3 class="card-title">หน่วยงาน <span id="researchDepartmentLabel"></span> </h3>
                     <div class="card-tools">
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                     $("#researchDepartmentSection").empty();
                     $("#researchDepartmentLabel").empty();
                   //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
-
+                     $("#researchDepartmentLabel").text(item[0]._model.label);
                     $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                         console.log(value)
                         $("#researchDepartmentSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +

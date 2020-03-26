@@ -24,7 +24,7 @@
         <div class="modal-content">
             <div class="card card-success">
                 <div class="card-header border-0">
-                    <h3 class="card-title">งานวิจัยที่ได้รับงบประมาณ <span id="moneyPersonGroupLabel" ></span> </h3>
+                    <h3 class="card-title">กลุ่มบุคลากร <span id="moneyPersonGroupLabel" ></span> </h3>
                     <div class="card-tools">
                     </div>
                 </div>
@@ -109,7 +109,8 @@
                 onClick: function (evt, item) {
                     $("#moneyPersonGroupSection").empty();
                     $("#moneyPersonGroupLabel").empty();
-                    $("#moneyPersonGroupLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
+                        $("#moneyPersonGroupLabel").text(item[0]._model.label);
+                   // $("#moneyPersonGroupLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
                     $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                         console.log(value)
                         $("#moneyPersonGroupSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
