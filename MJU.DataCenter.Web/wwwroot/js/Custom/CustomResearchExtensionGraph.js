@@ -1,5 +1,5 @@
 ﻿async function ResearchDepartmentGraph(filter) {
-    var url = (filter != null) ? 'https://localhost:44341/api/ResearchDepartment/1' : 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter;
+    var url = filter != null ? 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter : 'https://localhost:44341/api/ResearchDepartment/1'
 
     fetch(url)
         .then((response) => {
@@ -98,8 +98,8 @@ async function allResearchRender(data) {
                 table.clear().destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    $("#researchDepartmentSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                        value.researcherName + '</td><!--<td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <td></td>--></tr > ')
+                    $("#researchDepartmentSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn +' </td><td>' +
+                        RenderReseacherName(value.researcher) + '</td><td>' +  moment(value.researchEndDate).format("DD/MM/YYYY")+ '</td></tr > ')
                 });
 
                 $('#researchDepartmentModal').modal('show');
@@ -115,6 +115,19 @@ async function allResearchRender(data) {
         }
     })
 }
+
+function RenderReseacherName(reseacherList) {
+    var listName = '';
+    $.each(reseacherList, function (key, value) {
+        if (key > 0) {
+            listName += '<br/>';
+        }
+        listName += '' +value.researcherName;      
+    });
+
+    return listName;
+}
+
 
 async function ResearchPersonGroupGraph(filter) {
     var url = filter != null ? 'https://localhost:44341/api/ResearchGroup/1?filter=' + filter :'https://localhost:44341/api/ResearchGroup/1'
@@ -401,7 +414,7 @@ async function moneyTypeRender(data) {
                 $("#moneyTypeLabel").empty();
                 $("#moneyTypeLabel").text(item[0]._model.label);
 
-                var table = $('#moneyTypeTable').empty();
+                var table = $('#moneyTypeTable').DataTable();
                 table.clear().destroy();
 
                 // $("#moneyTypeLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));

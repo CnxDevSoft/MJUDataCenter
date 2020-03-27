@@ -49,7 +49,7 @@
     <div class="row">
         <partial name="PartialViews/_ResearchDepartmentGraph" />
         <partial name="PartialViews/_ResearchMoneyPersonGroupGraph" />
-        @*<partial name="PartialViews/_ResearchMoneyRangeGraph" />*@
+        <partial name="PartialViews/_ResearchMoneyRangeGraph" />
         <partial name="PartialViews/_ResearchMoneyTypeGraph" />
     </div>
 </div>
@@ -74,9 +74,9 @@
            // $('#allResearch-chart').destroy();
 
             ResearchDepartmentGraph(dateVal);
-          //  ResearchPersonGroupGraph(dateVal);
-          //  ResearchMoneyRangeGraph(dateVal);
-           // ResearchMoneyTypeGraph(dateVal);
+            ResearchPersonGroupGraph(dateVal);
+            ResearchMoneyRangeGraph(dateVal);
+            ResearchMoneyTypeGraph(dateVal);
 
         });
 
