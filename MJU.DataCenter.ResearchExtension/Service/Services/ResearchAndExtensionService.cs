@@ -48,9 +48,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     //value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
 
 
-                    var distinctResearcherDepartmentWithDepartmentId = researchDepartmentWithCondition.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
+                    var distinctResearcherDepartmentWithResearchId = researchDepartmentWithCondition.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
                     var researchDepartmentViewDataModelList = new List<ResearchDepartmentViewDataModel>();
-                    foreach (var researchData in distinctResearcherDepartmentWithDepartmentId)
+                    foreach (var researchData in distinctResearcherDepartmentWithResearchId)
                     {
                         var firstResearchDepartments = researchDepartmentWithCondition.FirstOrDefault(m => m.ResearchId == researchData.ResearchId);
                         var researchDepartments = researchDepartmentWithCondition.Where(m => m.ResearchId == researchData.ResearchId)
@@ -78,7 +78,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchDepartmentViewDataModelList
+                            LisViewData = researchDepartmentViewDataModelList.OrderBy(o => o.ResearchNameTh)
                         }
 
                     );
@@ -135,21 +135,48 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var i = 0;
                 foreach (var rg in distinctResearchGroup)
                 {
-                    var researchDepartmentWithCondition = researchGroup.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName
+                    var researchGroupWithCondition = researchGroup.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName
                     && (input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-            (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true));
-                    // value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
+                    (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true));
+
+                    var distinctResearcherGroupWithResearchId = researchGroupWithCondition.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
+                    var researchGroupViewDataModelList = new List<ResearchGroupViewDataModel>();
+                    foreach (var researchData in distinctResearcherGroupWithResearchId)
+                    {
+                        var firstResearchGroups = researchGroupWithCondition.FirstOrDefault(m => m.ResearchId == researchData.ResearchId);
+                        var researchGroups = researchGroupWithCondition.Where(m => m.ResearchId == researchData.ResearchId)
+                           .Select(s => new ResearcherViewModel
+                           {
+                               ResearcherId = s.ResearchId,
+                               ResearcherName = s.ResearcherName
+                           }).ToList();
+                        var researchDepartmentView = new ResearchGroupViewDataModel
+                        {
+                            ResearchId = firstResearchGroups.ResearchId,
+                            ResearchCode = firstResearchGroups.ResearchCode,
+                            ResearchNameEn = firstResearchGroups.ResearchNameEn,
+                            ResearchNameTh = firstResearchGroups.ResearchNameTh,
+                            ResearchStartDate = firstResearchGroups.ResearchStartDate,
+                            ResearchEndDate = firstResearchGroups.ResearchEndDate,
+                            PersonGroupId = firstResearchGroups.PersonGroupId,
+                            PersonGroupName = firstResearchGroups.PersonGroupName,
+                            Researcher = researchGroups
+                        };
+                        researchGroupViewDataModelList.Add(researchDepartmentView);
+                    }
+
+
                     viewData.Add(
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchDepartmentWithCondition.ToList()
+                            LisViewData = researchGroupViewDataModelList.OrderBy(o=>o.ResearchNameTh)
                         }
 
                     );
 
                     label.Add(rg.PersonGroupName);
-                    data.Add(researchDepartmentWithCondition.Count());
+                    data.Add(researchGroupWithCondition.Count());
                     i++;
                 }
                 var graphDataSet = new GraphDataSet
@@ -268,49 +295,53 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      ,"1,000,001 - 5,000,000","5,000,001 - 10,000,000","10,000,001 - 20,000,000","20,000,000 ขึ้นไป"
                 };
 
-                var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0);
-                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000);
-                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000);
-                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000);
-                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000);
-                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000);
-                var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000);
+                var lower100k = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).ToList());
+                var between100kTo500k = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).ToList());
+                var between500kTo1m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).ToList());
+                var between1mTo5m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).ToList());
+                var between5mTo10m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).ToList());
+                var between10mTo20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).ToList());
+                var over20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 20000000).ToList());
+
+               
+
+
 
                 var viewData = new List<ViewData> {
                     new ViewData
                     {
                         index = 0,
-                        LisViewData = lower100k.ToList()
+                        LisViewData = lower100k
                     },
                     new ViewData
                     {
                         index = 1,
-                        LisViewData = between100kTo500k.ToList()
+                        LisViewData = between100kTo500k
                     },
                     new ViewData
                     {
                         index = 2,
-                        LisViewData = between500kTo1m.ToList()
+                        LisViewData = between500kTo1m
                     },
                     new ViewData
                     {
                         index = 3,
-                        LisViewData = between1mTo5m.ToList()
+                        LisViewData = between1mTo5m
                     },
                     new ViewData
                     {
                         index = 4,
-                        LisViewData = between5mTo10m.ToList()
+                        LisViewData = between5mTo10m
                     },
                     new ViewData
                     {
                         index = 5,
-                        LisViewData = between10mTo20m.ToList()
+                        LisViewData = between10mTo20m
                     },
                     new ViewData
                     {
                         index = 6,
-                        LisViewData = over20m.ToList()
+                        LisViewData = over20m
                     }
                 };
 
@@ -356,6 +387,37 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 return list;
             }
 
+        }
+
+        private List<ResearchMoneyViewDataModel> GetResearchMoneyViewDataModel(List<DcResearchMoney> researchMoneyData)
+        {
+            var distinctMoney = researchMoneyData.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
+            var researchMoneyViewDataModelList = new List<ResearchMoneyViewDataModel>();
+            foreach (var researchData in distinctMoney)
+            {
+                var firstResearchMoney = researchMoneyData.FirstOrDefault(m => m.ResearchId == researchData.ResearchId);
+                var researchMoney = researchMoneyData.Where(m => m.ResearchId == researchData.ResearchId)
+                   .Select(s => new ResearcherViewModel
+                   {
+                       ResearcherId = s.ResearchId,
+                       ResearcherName = s.ResearcherName
+                   }).ToList();
+                var researchLowerMoneyData = new ResearchMoneyViewDataModel
+                {
+                    ResearchId = firstResearchMoney.ResearchId,
+                    ResearchCode = firstResearchMoney.ResearchCode,
+                    ResearchNameEn = firstResearchMoney.ResearchNameEn,
+                    ResearchNameTh = firstResearchMoney.ResearchNameTh,
+                    ResearchStartDate = firstResearchMoney.ResearchStartDate,
+                    ResearchEndDate = firstResearchMoney.ResearchEndDate,
+                    ResearchMoney = firstResearchMoney.ResearchMoney,
+                    MoneyTypeName = firstResearchMoney.MoneyTypeName,
+                    Researcher = researchMoney
+                };
+                researchMoneyViewDataModelList.Add(researchLowerMoneyData);
+            }
+
+            return researchMoneyViewDataModelList;
         }
     }
 }
