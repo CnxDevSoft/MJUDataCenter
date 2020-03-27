@@ -7,7 +7,7 @@ rd.ResearchId
 ,rd.ResearchCode
 ,rd.ResearchNameTH 
 ,rd.ResearchNameEN 
-,rd.StartDataResearch as ResearchStartDate
+,rd.StartDateResearch as ResearchStartDate
 ,rd.EndDateResearch as ResearchEndDate
 from Researcher r 
 inner join ResearcherGroup rg on r.ResearcherId  = rg.ResearcherId 
