@@ -12,7 +12,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public string ResearchNameTh { get; set; }
         public string ResearchNameEn { get; set; }
         public DateTime? ResearchStartDate { get; set; }
-        public DateTime? ResearchSendDate { get; set; }
+        public DateTime? ResearchEndDate { get; set; }
         public int? ResearchMoney { get; set; }
         public int? ResearchMoneyTypeId { get; set; }
         public string MoneyTypeName { get; set; }
