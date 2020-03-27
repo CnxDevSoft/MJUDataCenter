@@ -46,11 +46,39 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     && (input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
             (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true));
                     //value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
-                    viewData.Add(
+
+
+                    var distinctResearcherDepartmentWithDepartmentId = researchDepartmentWithCondition.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
+                    var researchDepartmentViewDataModelList = new List<ResearchDepartmentViewDataModel>();
+                    foreach (var researchData in distinctResearcherDepartmentWithDepartmentId)
+                    {
+                        var firstResearchDepartments = researchDepartmentWithCondition.FirstOrDefault(m => m.ResearchId == researchData.ResearchId);
+                        var researchDepartments = researchDepartmentWithCondition.Where(m => m.ResearchId == researchData.ResearchId)
+                           .Select(s => new ResearcherViewModel
+                           {
+                               ResearcherId = s.ResearcherId,
+                               ResearcherName = s.ResearcherName
+                           }).ToList();
+                        var researchDepartmentView = new ResearchDepartmentViewDataModel
+                        {
+                            ResearchId = firstResearchDepartments.ResearchId,
+                            ResearchCode = firstResearchDepartments.ResearchCode,
+                            ResearchNameEn = firstResearchDepartments.ResearchNameEn,
+                            ResearchNameTh = firstResearchDepartments.ResearchNameTh,
+                            ResearchStartDate = firstResearchDepartments.ResearchStartDate,
+                            ResearchEndDate = firstResearchDepartments.ResearchEndDate,
+                            DepartmentCode = firstResearchDepartments.DepartmentCode,
+                            DepartmentId = firstResearchDepartments.DepartmentId,
+                            DepartmentNameTh = firstResearchDepartments.DepartmentNameTh,
+                            Researcher = researchDepartments
+                        };
+                        researchDepartmentViewDataModelList.Add(researchDepartmentView);
+                    }
+                        viewData.Add(
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchDepartmentWithCondition.ToList()
+                            LisViewData = researchDepartmentViewDataModelList
                         }
 
                     );
