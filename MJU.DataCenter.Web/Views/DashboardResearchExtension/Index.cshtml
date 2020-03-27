@@ -62,11 +62,7 @@
 <script src="~/js/Custom/CustomResearchExtensionGraph.js"></script>
 
 <script type="text/javascript">$(function () {
-    ResearchDepartmentGraph();
-    ResearchPersonGroupGraph();
-    ResearchMoneyRangeGraph();
-    ResearchMoneyTypeGraph();
-        
+  
 
         $('#dateRangeTxt').datepicker({
             format: "dd/mm/yyyy",
@@ -74,7 +70,11 @@
 
         $('#dateBtn').click(function () {
             var dateVal = $(".datetimepicker-input").val();
-            alert(dateVal);
+            ResearchDepartmentGraph(dateVal);
+            ResearchPersonGroupGraph(dateVal);
+            ResearchMoneyRangeGraph(dateVal);
+            ResearchMoneyTypeGraph(dateVal);
+
         });
 
         //$('#yearPicker').datetimepicker({
