@@ -79,7 +79,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     new ViewData
                     {
                         index = i,
-                        LisViewData = researchDepartmentViewDataModelList.OrderBy(o => o.ResearchNameTh).ToList()
+                        LisViewData = researchDepartmentViewDataModelList.OrderByDescending(o => o.ResearchId).ToList()
                     }
 
                 );
@@ -171,7 +171,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchGroupViewDataModelList.OrderBy(o => o.ResearchNameTh)
+                            LisViewData = researchGroupViewDataModelList.OrderByDescending(o => o.ResearchId)
                         }
 
                     );
@@ -231,18 +231,44 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 {
                     var researchDepartmentWithCondition = researchData.Where(m => m.ResearchMoneyTypeId == rd.ResearchMoneyTypeId && m.MoneyTypeName == rd.MoneyTypeName && (input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
                     (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true));
-                    value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
-                    viewData.Add(
-                        new ViewData
+                    //value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
+                    var researchDataWithCondition = researchDepartmentWithCondition.Select(a => new { a.ResearchId, a.ResearchNameTh, a.ResearchNameEn }).Distinct();
+                    var researchDataList = new List<ResearchDataListViewModel>();
+                        foreach (var dataResearch in researchDataWithCondition)
                         {
-                            index = i,
-                            LisViewData = researchDepartmentWithCondition.ToList()
-                        }
+                        var firstResearchData = researchDepartmentWithCondition.FirstOrDefault(a => a.ResearchId == dataResearch.ResearchId);
+                        var researcherDataSub = researchDepartmentWithCondition.Where(c => c.ResearchId == dataResearch.ResearchId)
+                            .Select(g => new ResearcherData
+                            {
+                                  ResearcherId = g.ResearcherId,
+                                  ResearcherName = g.ResearcherName
+                            }).ToList();
+                        var researchDataViewModel = new ResearchDataListViewModel
+                        {
+                             ResearchId = firstResearchData.ResearchId,
+                             ResearchNameTh = firstResearchData.ResearchNameTh,
+                            ResearchNameEn = firstResearchData.ResearchNameEn,
+                            ResearchCode  = firstResearchData.ResearchCode,
+                            ResearchMoneyTypeId = firstResearchData.ResearchMoneyTypeId,
+                            MoneyTypeName = firstResearchData.MoneyTypeName,
+                            ResearchMoney = firstResearchData.ResearchMoney,
+                            ResearchStartDate = firstResearchData.ResearchStartDate,
+                            ResearchEndDate = firstResearchData.ResearchEndDate,
+                            Researcher = researcherDataSub
 
-                    );
+                        };
+                        researchDataList.Add(researchDataViewModel);
+                        }
+                    viewData.Add(
+                            new ViewData
+                            {
+                              index = i ,
+                              LisViewData = researchDataList.Distinct().OrderByDescending(o=>o.ResearchId).ToList()
+                            }
+                        );
 
                     label.Add(rd.MoneyTypeName);
-                    data.Add(researchDepartmentWithCondition.Count());
+                    data.Add(researchDataList.Count());
                     i++;
                 }
                 var graphDataSet = new GraphDataSet
