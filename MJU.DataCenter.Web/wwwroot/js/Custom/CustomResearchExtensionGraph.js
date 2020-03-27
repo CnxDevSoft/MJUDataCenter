@@ -78,6 +78,8 @@ async function allResearchRender(data) {
                 $("#researchDepartmentLabel").empty();
                 //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
                 $("#researchDepartmentLabel").text(item[0]._model.label);
+
+
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                     console.log(value)
                     $("#researchDepartmentSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
@@ -86,6 +88,7 @@ async function allResearchRender(data) {
                 $('#researchDepartmentModal').modal('show');
                 $('#researchDepartmentModal').on('shown.bs.modal', function () {
                 })
+
             }
         }
     })
