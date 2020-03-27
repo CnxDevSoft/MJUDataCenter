@@ -49,16 +49,16 @@
     <div class="row">
         <partial name="PartialViews/_ResearchDepartmentGraph" />
         <partial name="PartialViews/_ResearchMoneyPersonGroupGraph" />
-        <partial name="PartialViews/_ResearchMoneyRangeGraph" />
+        @*<partial name="PartialViews/_ResearchMoneyRangeGraph" />*@
         <partial name="PartialViews/_ResearchMoneyTypeGraph" />
     </div>
 </div>
-
+@*
 <div class="form-group">
     <div class='input-group date'>
         <input type="text" id="yearPicker">
     </div>
-</div>
+</div>*@
 <script src="~/js/Custom/CustomResearchExtensionGraph.js"></script>
 
 <script type="text/javascript">$(function () {
@@ -70,10 +70,13 @@
 
         $('#dateBtn').click(function () {
             var dateVal = $(".datetimepicker-input").val();
+
+           // $('#allResearch-chart').destroy();
+
             ResearchDepartmentGraph(dateVal);
-            ResearchPersonGroupGraph(dateVal);
-            ResearchMoneyRangeGraph(dateVal);
-            ResearchMoneyTypeGraph(dateVal);
+          //  ResearchPersonGroupGraph(dateVal);
+          //  ResearchMoneyRangeGraph(dateVal);
+           // ResearchMoneyTypeGraph(dateVal);
 
         });
 
