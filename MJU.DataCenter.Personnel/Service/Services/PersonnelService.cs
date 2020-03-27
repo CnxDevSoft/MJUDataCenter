@@ -193,12 +193,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var list = new List<GraphDataSet>();
                 var label = new List<string> { "Baby Boomer\n(เกิดปี 2489 - 2507)", "Gen X \n \n (เกิดปี 2508 - 2522)", "Gen Y \n \n (เกิดปี 2523 - 2540)", "Gen Z \n \n (เกิดปี 2541 ขึ้นไป)" };
 
+
+
+
                 foreach (var positionType in distinctPosition)
                 {
-                    var distinctGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231)).Count();
-                    var distinctGenerationGenX = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231)).Count();
-                    var distinctGenerationGenY = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231)).Count();
-                    var distinctGenerationGenZ = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= new DateTime(19980101)).Count();
+                    var distinctGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= DateTime.Parse("1964/12/31")).Count();
+                    var distinctGenerationGenX = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= DateTime.Parse("1967/01/01") && s.DateOfBirth <= DateTime.Parse("1979/12/31")).Count();
+                    var distinctGenerationGenY = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= DateTime.Parse("1980/01/01") && s.DateOfBirth <= DateTime.Parse("1997/12/31")).Count();
+                    var distinctGenerationGenZ = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= DateTime.Parse("1998/01/01")).Count();
 
                     var graphDataSet = new GraphDataSet
                     {
