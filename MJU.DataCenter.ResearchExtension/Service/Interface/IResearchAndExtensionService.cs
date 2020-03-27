@@ -9,7 +9,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         object GetResearchDepartment(InputFilterGraphViewModel input);
         object GetResearchGroup(InputFilterGraphViewModel input);
         object GetResearchData(InputFilterGraphViewModel input);
-        Task<object> GetAllResearchMoneyAsync(InputFilterGraphViewModel input);
+        object GetAllResearchMoney(InputFilterGraphViewModel input);
 
 
     }

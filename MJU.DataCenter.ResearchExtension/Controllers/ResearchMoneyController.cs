@@ -33,7 +33,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
                 Type = type,
                 Filter = filter
             };
-            return _researchAndExtensionService.GetAllResearchMoneyAsync(input);
+            return _researchAndExtensionService.GetAllResearchMoney(input);
         }
 
         // POST: api/DcResearchMoney

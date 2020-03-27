@@ -75,14 +75,14 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         };
                         researchDepartmentViewDataModelList.Add(researchDepartmentView);
                     }
-                        viewData.Add(
-                        new ViewData
-                        {
-                            index = i,
-                            LisViewData = researchDepartmentViewDataModelList.OrderBy(o => o.ResearchNameTh).ToList()
-                        }
+                    viewData.Add(
+                    new ViewData
+                    {
+                        index = i,
+                        LisViewData = researchDepartmentViewDataModelList.OrderBy(o => o.ResearchNameTh).ToList()
+                    }
 
-                    );
+                );
 
                     label.Add(rd.DepartmentNameTh);
                     data.Add(researchDepartmentViewDataModelList.Count());
@@ -171,7 +171,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchGroupViewDataModelList.OrderBy(o=>o.ResearchNameTh)
+                            LisViewData = researchGroupViewDataModelList.OrderBy(o => o.ResearchNameTh)
                         }
 
                     );
@@ -282,18 +282,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
         }
 
-        public async Task<object> GetAllResearchMoneyAsync(InputFilterGraphViewModel input)
+        public object GetAllResearchMoney(InputFilterGraphViewModel input)
         {
             var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
                 (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true).ToList();
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
             if (input.Type == 1)
-            var researchMoney = _dcResearchMoneyReoisitory.GetAll();
-            var viewListData = new List<ViewData>();
-            var listresearchId = new List<int>();
-            var listresearchName = new List<string>();
-            var distinctResearchMoney = researchMoney.Select(m=> new {m.ResearchId,m.ResearchNameTh}).Distinct().OrderBy(o => o.ResearchId);
-            if (type == 1)
             {
                 var list = new List<GraphDataSet>();
                 var data = new List<int>();
@@ -309,8 +303,6 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var between5mTo10m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).ToList());
                 var between10mTo20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).ToList());
                 var over20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 20000000).ToList());
-                
-                await Task.WhenAll(lower100k, between100kTo500k, between500kTo1m, between1mTo5m, between5mTo10m, between10mTo20m, over20m);
 
 
 
@@ -318,37 +310,37 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     new ViewData
                     {
                         index = 0,
-                        LisViewData = lower100k.Result.ResearchMoneyViewData
+                        LisViewData = lower100k
                     },
                     new ViewData
                     {
                         index = 1,
-                        LisViewData = between100kTo500k.Result.ResearchMoneyViewData
+                        LisViewData = between100kTo500k
                     },
                     new ViewData
                     {
                         index = 2,
-                        LisViewData = between500kTo1m.Result.ResearchMoneyViewData
+                        LisViewData = between500kTo1m
                     },
                     new ViewData
                     {
                         index = 3,
-                        LisViewData = between1mTo5m.Result.ResearchMoneyViewData
+                        LisViewData = between1mTo5m
                     },
                     new ViewData
                     {
                         index = 4,
-                        LisViewData = between5mTo10m.Result.ResearchMoneyViewData
+                        LisViewData = between5mTo10m
                     },
                     new ViewData
                     {
                         index = 5,
-                        LisViewData = between10mTo20m.Result.ResearchMoneyViewData
+                        LisViewData = between10mTo20m
                     },
                     new ViewData
                     {
                         index = 6,
-                        LisViewData = over20m.Result.ResearchMoneyViewData
+                        LisViewData = over20m
                     }
                 };
 
@@ -357,13 +349,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
                     Data =
                      new List<int> {
-                         lower100k.Result.Count,
-                         between100kTo500k.Result.Count,
-                         between500kTo1m.Result.Count,
-                         between1mTo5m.Result.Count,
-                         between5mTo10m.Result.Count,
-                         between10mTo20m.Result.Count,
-                         over20m.Result.Count }
+                         lower100k.Count,
+                         between100kTo500k.Count,
+                         between500kTo1m.Count,
+                         between1mTo5m.Count,
+                         between5mTo10m.Count,
+                         between10mTo20m.Count,
+                         over20m.Count }
                 };
 
                 var result = new GraphData
@@ -396,7 +388,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         }
 
-        private async Task<ResearchMoneyViewRetunData> GetResearchMoneyViewDataModel(List<DcResearchMoney> researchMoneyData)
+        private List<ResearchMoneyViewDataModel> GetResearchMoneyViewDataModel(List<DcResearchMoney> researchMoneyData)
         {
             var distinctMoney = researchMoneyData.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
             var researchMoneyViewDataModelList = new List<ResearchMoneyViewDataModel>();
@@ -426,11 +418,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
 
 
-            return new ResearchMoneyViewRetunData
-            {
-                ResearchMoneyViewData = researchMoneyViewDataModelList,
-                Count = researchMoneyViewDataModelList.Count()
-            }; ;
+            return researchMoneyViewDataModelList;
         }
 
     }
