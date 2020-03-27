@@ -26,7 +26,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{input}")]
+        [HttpGet("{type}")]
         public object Get(InputFilterGraphViewModel input)
         {
             return _researchAndExtensionService.GetResearchData(input);

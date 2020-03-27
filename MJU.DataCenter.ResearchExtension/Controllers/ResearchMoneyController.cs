@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
+using MJU.DataCenter.ResearchExtension.ViewModels;
 
 namespace MJU.DataCenter.ResearchExtension.Controllers
 {
@@ -26,9 +27,9 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
 
         // GET: api/DcResearchMoney/5
         [HttpGet("{type}")]
-        public object Get(int type)
+        public object Get(InputFilterGraphViewModel input)
         {
-            return _researchAndExtensionService.GetAllResearchMoney(type);
+            return _researchAndExtensionService.GetAllResearchMoney(input);
         }
 
         // POST: api/DcResearchMoney
