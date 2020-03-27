@@ -1,5 +1,8 @@
 ﻿async function ResearchDepartmentGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter :'https://localhost:44341/api/ResearchDepartment/1'
+    var url = 'https://localhost:44341/api/ResearchDepartment/1';
+    if (filter != null) {
+        url = 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter;
+    }
 
     fetch(url)
         .then((response) => {
@@ -11,6 +14,10 @@
 }
 
 async function allResearchRender(data) {
+
+    $('#allResearchBox').empty(); // this is my <canvas> element
+    $('#allResearchBox').append('<canvas id="allResearch-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
+
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
@@ -18,7 +25,9 @@ async function allResearchRender(data) {
     }
     var mode = 'index'
     var intersect = true
-    var $allResearchChart = $('#allResearch-chart')
+    var $allResearchChart = $('#allResearch-chart');
+
+   
     var chart = new Chart($allResearchChart, {
         type: 'horizontalBar',
         data: {
@@ -93,7 +102,11 @@ async function allResearchRender(data) {
                 $('#researchDepartmentModal').on('shown.bs.modal', function () {
                 })
 
-                $('#researchDepartmentTable').DataTable();
+                $('#researchDepartmentTable').DataTable({
+                    language: {
+                        sLengthMenu: "Show _MENU_"
+                    }
+                });
             }
         }
     })
@@ -113,6 +126,10 @@ async function ResearchPersonGroupGraph(filter) {
 }
 
 async function moneyPersonGroupRender(data) {
+
+    $('#moneyPersonGroupBox').empty(); // this is my <canvas> element
+    $('#moneyPersonGroupBox').append('<canvas id="moneyPersonGroup-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
+
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
@@ -202,6 +219,10 @@ async function ResearchMoneyRangeGraph(filter) {
 }
 
 async function ResearchMoneyRangeRender(data) {
+
+    $('#allMoneyRangeBox').empty(); // this is my <canvas> element
+    $('#allMoneyRangeBox').append('<canvas id="allMoneyRange-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
+
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
@@ -304,6 +325,11 @@ async function ResearchMoneyTypeGraph(filter) {
 }
 
 async function moneyTypeRender(data) {
+
+    $('#moneyTypeBox').empty(); // this is my <canvas> element
+    $('#moneyTypeBox').append('<canvas id="moneyType-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
+
+
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
