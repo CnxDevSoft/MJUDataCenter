@@ -150,13 +150,17 @@ async function moneyPersonGroupRender(data) {
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        beginAtZero: true,
+        stepSize: 10,
+        suggestedMin: 0,
+        suggestedMax: 100
     }
     var mode = 'index'
     var intersect = true
     var $moneyPersonGroupChart = $('#moneyPersonGroup-chart')
     var chart = new Chart($moneyPersonGroupChart, {
-        type: 'horizontalBar',
+        type: 'bar',
         data: {
             labels: data.label,
             datasets: [
@@ -209,9 +213,8 @@ async function moneyPersonGroupRender(data) {
 
                 // $("#moneyPersonGroupLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    console.log(value)
-                    $("#moneyPersonGroupSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                        value.researcherName + '</td> <!--<td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <td></td>--></tr > ')
+                    $("#moneyPersonGroupSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
+                        RenderReseacherName(value.researcher) + '</td><td>' + moment(value.researchEndDate).format("DD/MM/YYYY") + '</td></tr > ')
                 });
                 $('#moneyPersonGroupModal').modal('show');
                 $('#moneyPersonGroupModal').on('shown.bs.modal', function () {
@@ -247,7 +250,11 @@ async function ResearchMoneyRangeRender(data) {
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        beginAtZero: true,
+        stepSize: 10,
+        suggestedMin: 0,
+        suggestedMax: 100
     }
     var mode = 'index'
     var intersect = true
@@ -311,34 +318,31 @@ async function ResearchMoneyRangeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                $("#moneyResearchSection").empty();
-                $("#ResearchMoneyLabel").empty();
+                $("#allMoneyRangeSection").empty();
+                $("#allMoneyRangeLabel").empty();
 
-                $("#ResearchMoneyLabel").text(item[0]._model.label);
-                var table = $('#ResearchMoneyTable').DataTable();
+                $("#allMoneyRangeLabel").text(item[0]._model.label);
+                var table = $('#allMoneyRangeTable').DataTable();
                 table.clear().destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    console.log(value)
-                    $("#moneyResearchSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                        value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <td></td></tr > ')
+                    $("#allMoneyRangeSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
+                        RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
                 });
-                $('#ResearchMoneyModal').modal('show');
-                $('#ResearchMoneyModal').on('shown.bs.modal', function () {
+                $('#allMoneyRangeModal').modal('show');
+                $('#allMoneyRangeModal').on('shown.bs.modal', function () {
                 })
-                $('#ResearchMoneyTable').DataTable(
-                 {
+                $('#allMoneyRangeTable').DataTable({
                     language: {
                         sLengthMenu: "Show _MENU_"
-                     }
-                 });
+                    }
+                });
             }
         }
     })
 }
 
 async function ResearchMoneyTypeGraph(filter) {
-    console.log(filter)
     var url = filter != null ? 'https://localhost:44341/api/ResearchData/1?filter=' + filter : 'https://localhost:44341/api/ResearchData/1';
 
     fetch(url)
@@ -352,6 +356,8 @@ async function ResearchMoneyTypeGraph(filter) {
 
 async function moneyTypeRender(data) {
 
+
+
     $('#moneyTypeBox').empty(); // this is my <canvas> element
     $('#moneyTypeBox').append('<canvas id="moneyType-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
 
@@ -359,13 +365,17 @@ async function moneyTypeRender(data) {
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        beginAtZero: true,
+        stepSize: 10,
+        suggestedMin: 0,
+        suggestedMax: 100
     }
     var mode = 'index'
     var intersect = true
     var $moneyTypeChart = $('#moneyType-chart')
     var chart = new Chart($moneyTypeChart, {
-        type: 'bar',
+        type: 'horizontalBar',
         data: {
             labels: data.label,
             datasets: [
@@ -410,6 +420,8 @@ async function moneyTypeRender(data) {
             },
             onClick: function (evt, item) {
 
+                if (item.length == 0) return;
+
                 $("#moneyTypeSection").empty();
                 $("#moneyTypeLabel").empty();
                 $("#moneyTypeLabel").text(item[0]._model.label);
@@ -417,12 +429,15 @@ async function moneyTypeRender(data) {
                 var table = $('#moneyTypeTable').DataTable();
                 table.clear().destroy();
 
-                // $("#moneyTypeLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    console.log(value)
                     $("#moneyTypeSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
                         value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <!--<td></td>--></tr > ')
                 });
+                //$.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
+                //    $("#moneyTypeSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
+                //        RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
+                //});
+
                 $('#moneyTypeModal').modal('show');
                 $('#moneyTypeModal').on('shown.bs.modal', function () {
                 })

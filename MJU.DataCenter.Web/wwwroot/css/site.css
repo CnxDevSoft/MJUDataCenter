@@ -155,6 +155,9 @@ body {
 .dataTables_info {
     margin: 10px;
 }
+.dataTables_wrapper{
+    overflow:hidden;
+}
 
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse.layout-fixed .brand-text {
