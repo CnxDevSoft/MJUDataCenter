@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[ResearchData](
 	[ResearchCode] [int] NULL,
 	[ResearchNameTH] [nvarchar](max) NULL,
 	[ResearchNameEN] [nvarchar](max) NULL,
-	[StartDataResearch] [datetime] NULL,
+	[StartDateResearch] [datetime] NULL,
 	[EndDateResearch] [datetime] NULL,
 	[ResearchMoney] [int] NULL,
 PRIMARY KEY CLUSTERED 

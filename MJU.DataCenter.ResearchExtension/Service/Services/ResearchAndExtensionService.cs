@@ -216,11 +216,15 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         public object GetAllResearchMoney(int type)
         {
             var researchMoney = _dcResearchMoneyReoisitory.GetAll();
+            var viewListData = new List<ViewData>();
+            var listresearchId = new List<int>();
+            var listresearchName = new List<string>();
             var distinctResearchMoney = researchMoney.Select(m=> new {m.ResearchId,m.ResearchNameTh}).Distinct().OrderBy(o => o.ResearchId);
             if (type == 1)
             {
                 var list = new List<GraphDataSet>();
                 var data = new List<int>();
+                var testdata = new List<RankResearchMoneyViewModel>();
                 
                 var label = new List<string> { "ตํ่ากว่า 100,000", "100,001 - 500,000","500,001 - 1,000,000"
                      ,"1,000,001 - 5,000,000","5,000,001 - 10,000,000","10,000,001 - 20,000,000","20,000,000 ขึ้นไป"
@@ -234,14 +238,26 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000);
                 var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000);
                 var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000);
+                foreach (var x100k in between500kTo1m)
+                {
+                    //var researchId = lower100k.Where(m => m.ResearchId == x100k.ResearchId).Select(m => new { m.ResearchId }).OrderBy(a => a.ResearchId).ToList().Distinct();
+                    //var researchName = lower100k.Where(m => m.ResearchId == x100k.ResearchId).Select(m => new { m.ResearchNameTh, m.ResearchId }).OrderBy(a => a.ResearchId).ToList();
+                    var researchData = new List<object>
+                    {
+                      lower100k.ToList()
+                    };
+                    testdata.Add(
+                        new RankResearchMoneyViewModel
+                        {
+                            ResearchId = x100k.ResearchId,
+                            ResearchName = x100k.ResearchNameTh,
+                            ResearchMoney = between500kTo1m.Where(m => m.ResearchId == x100k.ResearchId).Distinct().Select(x => x) .ToList()
+                        }
+                        ); ;
+                    
 
-                //var researchMoneylower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Distinct().OrderBy(a=>a.ResearchId);
-                //var researchMoneybetween100kTo500kk = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween500kTo1m = researchMoney.Where(m => m.ResearchMoney > 5000000 && m.ResearchMoney < 100000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneyover20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Distinct().OrderBy(a => a.ResearchId);
+                }                                                                                    
+               
                 var viewData = new List<ViewData> {
                     new ViewData
                     {
@@ -256,7 +272,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     new ViewData
                     {
                         index = 2,
-                        LisViewData = between500kTo1m.ToList()
+                        LisViewData = testdata.ToList()
                     },
                     new ViewData
                     {
@@ -306,21 +322,22 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             else
             {
-                var list = new List<RankResearchMoneyViewModel>();
+                //var list = new List<RankResearchMoneyViewModel>();
 
-                    foreach(var aun in distinctResearchMoney)
-                {
-                    var model = new RankResearchMoneyViewModel
-                    {
-                        ResearchId = aun.ResearchId,
-                        ResearchName = aun.ResearchNameTh,
-                        ResearchMoney = researchMoney.Where(m => m.ResearchId == aun.ResearchId && m.ResearchNameTh == aun.ResearchNameTh).ToList()
+                //foreach (var aun in distinctResearchMoney)
+                //{
+                //    var model = new RankResearchMoneyViewModel
+                //    {
+                //        ResearchId = aun.ResearchId,
+                //        ResearchName = aun.ResearchNameTh,
+                //        ResearchMoney = researchMoney.Where(m => m.ResearchId == aun.ResearchId && m.ResearchNameTh == aun.ResearchNameTh).ToList()
 
-                    };
-                    list.Add(model);
-                }      
-                return list;
-            }   
+                //    };
+                //    list.Add(model);
+                //}
+                //return list;
+                return null;
+            }
 
         }
     }

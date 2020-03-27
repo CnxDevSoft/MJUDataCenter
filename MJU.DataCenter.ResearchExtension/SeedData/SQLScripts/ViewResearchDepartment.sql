@@ -8,8 +8,8 @@ r.DepartmentId
 ,rd.ResearchNameEN 
 ,rd.ResearchNameTH
 ,rd.ResearchCode
-,rd.StartDataResearch as ResearchStartDate
+,rd.StartDateResearch as ResearchStartDate
 ,rd.EndDateResearch as ResearchEndDate
 from Researcher r 
 inner join ResearchPersonnel rp on r.ResearcherId  = rp.ResearcherId 
-inner join ResearchData  rd on rp.ResearchId  = rd.ResearchId
+inner join ResearchData  rd on rp.ResearchId  = rd.ResearchId 
