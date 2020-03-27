@@ -1,8 +1,5 @@
 ﻿async function ResearchDepartmentGraph(filter) {
-    var url = 'https://localhost:44341/api/ResearchDepartment/1';
-    if (filter != null) {
-        url = 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter;
-    }
+    var url = (filter != null) ? 'https://localhost:44341/api/ResearchDepartment/1' : 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter;
 
     fetch(url)
         .then((response) => {
