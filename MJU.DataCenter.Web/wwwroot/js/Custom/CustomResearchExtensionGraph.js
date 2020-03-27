@@ -81,6 +81,8 @@ async function allResearchRender(data) {
                 //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
                 $("#researchDepartmentLabel").text(item[0]._model.label);
 
+                var table = $('#researchDepartmentTable').DataTable();
+                table.destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                     console.log(value)
@@ -91,6 +93,7 @@ async function allResearchRender(data) {
                 $('#researchDepartmentModal').on('shown.bs.modal', function () {
                 })
 
+                $('#researchDepartmentTable').DataTable();
             }
         }
     })
@@ -166,6 +169,10 @@ async function moneyPersonGroupRender(data) {
                 $("#moneyPersonGroupSection").empty();
                 $("#moneyPersonGroupLabel").empty();
                 $("#moneyPersonGroupLabel").text(item[0]._model.label);
+
+                var table = $('#moneyPersonGroupTable').DataTable();
+                table.destroy();
+
                 // $("#moneyPersonGroupLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                     console.log(value)
@@ -175,6 +182,7 @@ async function moneyPersonGroupRender(data) {
                 $('#moneyPersonGroupModal').modal('show');
                 $('#moneyPersonGroupModal').on('shown.bs.modal', function () {
                 })
+                $('#moneyPersonGroupTable').DataTable();
             }
         }
     })
@@ -263,7 +271,10 @@ async function ResearchMoneyRangeRender(data) {
             onClick: function (evt, item) {
                 $("#moneyResearchSection").empty();
                 $("#ResearchMoneyLabel").empty();
+                debugger;
                 $("#ResearchMoneyLabel").text(item[0]._model.label);
+                var table = $('#ResearchMoneyTable').DataTable();
+                table.destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                     console.log(value)
@@ -273,6 +284,7 @@ async function ResearchMoneyRangeRender(data) {
                 $('#ResearchMoneyModal').modal('show');
                 $('#ResearchMoneyModal').on('shown.bs.modal', function () {
                 })
+                $('#ResearchMoneyTable').DataTable();
             }
         }
     })
@@ -348,6 +360,9 @@ async function moneyTypeRender(data) {
                 $("#moneyTypeSection").empty();
                 $("#moneyTypeLabel").empty();
                 $("#moneyTypeLabel").text(item[0]._model.label);
+                var table = $('#moneyTypeTable').DataTable();
+                table.destroy();
+
                 // $("#moneyTypeLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                     console.log(value)
@@ -357,6 +372,7 @@ async function moneyTypeRender(data) {
                 $('#moneyTypeModal').modal('show');
                 $('#moneyTypeModal').on('shown.bs.modal', function () {
                 })
+                $('#moneyTypeTable').DataTable();
             }
         }
     })
