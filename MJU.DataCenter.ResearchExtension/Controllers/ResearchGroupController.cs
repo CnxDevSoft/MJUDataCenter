@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
+using MJU.DataCenter.ResearchExtension.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,11 +25,15 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
         [HttpGet("{type}")]
-        public object Get(int type)
+        public object Get(int type, string filter)
         {
-            return _researchAndExtensionService.GetResearchGroup(type);
+            var input = new InputFilterGraphViewModel
+            {
+                Type = type,
+                Filter = filter
+            };
+            return _researchAndExtensionService.GetResearchGroup(input);
         }
 
         // POST api/values

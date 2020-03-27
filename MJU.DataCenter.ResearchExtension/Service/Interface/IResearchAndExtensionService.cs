@@ -1,12 +1,14 @@
 ﻿using System;
+using MJU.DataCenter.ResearchExtension.ViewModels;
+
 namespace MJU.DataCenter.ResearchExtension.Service.Interface
 {
     public interface IResearchAndExtensionService
     {
-        object GetResearchDepartment(int type);
-        object GetResearchGroup(int type);
-        object GetResearchData(int type);
-        object GetAllResearchMoney(int type);
+        object GetResearchDepartment(InputFilterGraphViewModel type);
+        object GetResearchGroup(InputFilterGraphViewModel type);
+        object GetResearchData(InputFilterGraphViewModel type);
+        object GetAllResearchMoney(InputFilterGraphViewModel type);
         
     }
 }

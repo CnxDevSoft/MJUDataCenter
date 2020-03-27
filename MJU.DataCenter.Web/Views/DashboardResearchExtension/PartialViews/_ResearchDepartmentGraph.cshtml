@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="position-relative mb-4">
+            <div class="position-relative mb-4" id="allResearchBox">
                 <canvas id="allResearch-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
             </div>
 
@@ -17,7 +17,6 @@
                 <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> จำนวนงานวิจัย
                 </span>
-
             </div>
         </div>
     </div>
@@ -29,12 +28,12 @@
         <div class="modal-content">
             <div class="card card-success">
                 <div class="card-header border-0">
-                    <h3 class="card-title">หน่วยงาน <span id="researchDepartmentLabel"></span> </h3>
+                    <h3 class="card-title">แสดงรายชื่องานวิจัยแยกตามหน่วยงาน <span id="researchDepartmentLabel"></span> </h3>
                     <div class="card-tools">
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle">
+                    <table class="table table-striped table-valign-middle dataTable" id="researchDepartmentTable">
                         <thead>
                             <tr>
                                 <th>รายชื่องานวิจัย</th>
@@ -52,106 +51,9 @@
     </div>
 </div>
 
-
-<script>async function allResearchRender(data) {
-
-        'use strict'
-
-        var ticksStyle = {
-            fontColor: '#495057',
-            fontStyle: 'bold'
-        }
-
-        var mode = 'index'
-        var intersect = true
-
-        var $allResearchChart = $('#allResearch-chart')
-        var chart = new Chart($allResearchChart, {
-            type: 'horizontalBar',
-            data: {
-                labels: data.label, //['หน่วยงาน 1', 'หน่วยงาน 2', 'หน่วยงาน 3', 'หน่วยงาน 4', 'หน่วยงาน 5', 'หน่วยงาน 6', 'หน่วยงาน 7'],
-                //  datasLabels: [1001,1002,1003,1004,1005,1006,1007],
-                datasets: [
-                    {
-                        backgroundColor: '#007bff',
-                        borderColor: '#007bff',
-                        data: data.graphDataSet[0].data,//[50, 25, 1300, 10, 30, 40, 200],
-                        //label: [1101,1102,1103,1104,1105]
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    mode: mode,
-                    intersect: intersect
-                },
-                hover: {
-                    mode: mode,
-                    intersect: intersect
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        // display: false,
-                        gridLines: {
-                            display: true,
-                            lineWidth: '4px',
-                            color: 'rgba(0, 0, 0, .2)',
-                            zeroLineColor: 'transparent'
-                        },
-                        ticks: $.extend({
-                            beginAtZero: true,
-
-                            // Include a dollar sign in the ticks
-                            callback: function (value, index, values) {
-                                if (value >= 1000) {
-                                    value /= 1000
-                                    value += 'k'
-                                }
-                                return value;// '$' + value
-                            }
-                        }, ticksStyle)
-                    }],
-                    xAxes: [{
-                        display: true,
-                        gridLines: {
-                            display: false
-                        },
-                        ticks: ticksStyle
-                    }]
-                },
-                onClick: function (evt, item) {
-                    $("#researchDepartmentSection").empty();
-                    $("#researchDepartmentLabel").empty();
-                  //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
-                     $("#researchDepartmentLabel").text(item[0]._model.label);
-                    $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                        console.log(value)
-                        $("#researchDepartmentSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                            value.researcherName + '</td><!--<td>' + new Number(value.researchMoney).toLocaleString("th-TH")  + '</td> <td></td>--></tr > ')
-
-                    });
-                    $('#researchDepartmentModal').modal('show');
-                    $('#researchDepartmentModal').on('shown.bs.modal', function () {
-
-                    })
-
-                }
-            }
-        })
-    }
-
+<script>
     $(function () {
-        fetch('https://localhost:44341/api/ResearchDepartment/1')
-            .then((response) => {
+        ResearchDepartmentGraph(null);
+    })
+</script>
 
-                Render();
-                return response.json();
-            })
-            .then((data) => {
-                allResearchRender(data);
-            });
-    });</script>

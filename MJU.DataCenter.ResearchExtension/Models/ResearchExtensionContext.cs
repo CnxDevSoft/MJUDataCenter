@@ -19,9 +19,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public virtual DbSet<DcResearchDepartment> DcResearchDepartment { get; set; }
         public virtual DbSet<DcResearchGroup> DcResearchGroup { get; set; }
         public virtual DbSet<DcResearchMoney> DcResearchMoney { get; set; }
-        public virtual DbSet<DcResearchPaper> DcResearchPaper { get; set; }
-        public virtual DbSet<DcResearchPaperPerson> DcResearchPaperPerson { get; set; }
-        public virtual DbSet<DcResearcher> DcResearcher { get; set; }
         public virtual DbSet<MoneyType> MoneyType { get; set; }
         public virtual DbSet<PersonnelGroup> PersonnelGroup { get; set; }
         public virtual DbSet<ResearchData> ResearchData { get; set; }
@@ -37,7 +34,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-QCPA044\\SQLEXPRESS;Database=ResearchExtension;User Id=apichai_server;Password=Password#01;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-LFUK1A8\\SQLEXPRESS;User Id=admin;Database=ResearchExtension;Password=abc123");
             }
         }
 
@@ -113,93 +110,16 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.Property(e => e.ResearcherName).IsRequired();
             });
 
-            modelBuilder.Entity<DcResearchPaper>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("DC_research_Paper");
-
-                entity.Property(e => e.ActicleNameEng).HasColumnName("acticle_nameEng");
-
-                entity.Property(e => e.ActicleNameTh).HasColumnName("acticle_nameTH");
-
-                entity.Property(e => e.MagId).HasColumnName("mag_id");
-
-                entity.Property(e => e.MagazineName).HasColumnName("magazine_name");
-
-                entity.Property(e => e.MagazineVolum).HasColumnName("magazine_volum");
-
-                entity.Property(e => e.PaperId).HasColumnName("paper_id");
-
-                entity.Property(e => e.PrintingDate)
-                    .HasColumnName("printing_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.ResearchId).HasColumnName("research_id");
-
-                entity.Property(e => e.Weigth).HasColumnName("weigth");
-            });
-
-            modelBuilder.Entity<DcResearchPaperPerson>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("DC_researchPaperPerson");
-
-                entity.Property(e => e.PaperId).HasColumnName("paper_ID");
-
-                entity.Property(e => e.PaperPercent)
-                    .HasColumnName("paperPercent")
-                    .HasColumnType("decimal(5, 2)");
-
-                entity.Property(e => e.PersonGroupId).HasColumnName("personGroupID");
-
-                entity.Property(e => e.PersonGroupName).HasColumnName("personGroupName");
-
-                entity.Property(e => e.PersonId).HasColumnName("personID");
-            });
-
-            modelBuilder.Entity<DcResearcher>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("DC_researcher");
-
-                entity.Property(e => e.DepartmentCode).HasColumnName("departmentCode");
-
-                entity.Property(e => e.DepartmentId).HasColumnName("departmentID");
-
-                entity.Property(e => e.DepartmentNameTh).HasColumnName("departmentNameTH");
-
-                entity.Property(e => e.NameTh).HasColumnName("nameTH");
-
-                entity.Property(e => e.PersonGroupId).HasColumnName("personGroupID");
-
-                entity.Property(e => e.PersonId).HasColumnName("personID");
-
-                entity.Property(e => e.PersonMoney)
-                    .HasColumnName("personMoney")
-                    .HasColumnType("decimal(22, 2)");
-
-                entity.Property(e => e.PrefixNameTh).HasColumnName("prefixNameTH");
-
-                entity.Property(e => e.ResearchWorkPercent)
-                    .HasColumnName("research_work_percent")
-                    .HasColumnType("decimal(5, 2)");
-
-                entity.Property(e => e.SirNameTh).HasColumnName("sirNameTH");
-            });
-
             modelBuilder.Entity<PersonnelGroup>(entity =>
             {
                 entity.HasKey(e => e.PersonGroupId)
-                    .HasName("PK__Personne__89466BB7BCF6A780");
+                    .HasName("PK__Personne__89466BB732A98791");
             });
 
             modelBuilder.Entity<ResearchData>(entity =>
             {
                 entity.HasKey(e => e.ResearchId)
-                    .HasName("PK__Research__617A954E074B9D5A");
+                    .HasName("PK__Research__617A954ED9414303");
 
                 entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 

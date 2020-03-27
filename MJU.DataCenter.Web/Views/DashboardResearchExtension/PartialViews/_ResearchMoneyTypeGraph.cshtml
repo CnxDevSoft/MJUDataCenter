@@ -9,13 +9,12 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="position-relative mb-4">
+            <div class="position-relative mb-4" id="moneyTypeBox">
                 <canvas id="moneyType-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
             </div>
         </div>
     </div>
 </div>
-
 
 <div id="moneyTypeModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -27,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle">
+                    <table class="table table-striped table-valign-middle dataTable" id="moneyTypeTable">
                         <thead>
                             <tr>
                                 <th>รายชื่องานวิจัย</th>
@@ -36,26 +35,7 @@
                                 <!-- <th>More</th> -->
                             </tr>
                         </thead>
-                        <tbody id="moneyTypeSection">
-                            <tr>
-                                <td>
-                                    <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                    Some Product
-                                </td>
-                                <td>$13 USD</td>
-                                <td>
-                                    <small class="text-success mr-1">
-                                        <i class="fas fa-arrow-up"></i>
-                                        12%
-                                    </small>
-                                    12,000 Sold
-                                </td>
-                                <td>
-                                    <a href="#" class="text-muted">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tbody id="moneyTypeSection">                
                         </tbody>
                     </table>
                 </div>
@@ -64,104 +44,15 @@
     </div>
 </div>
 
-<script>
-
-    async function moneyTypeRender(data) {
-
-        'use strict'
-        var ticksStyle = {
-            fontColor: '#495057',
-            fontStyle: 'bold'
-        }
-
-        var mode = 'index'
-        var intersect = true
-
-        var $moneyTypeChart = $('#moneyType-chart')
-        var chart = new Chart($moneyTypeChart, {
-            type: 'bar',
-            data: {
-                labels: data.label,
-                datasets: [
-                    {
-                        backgroundColor: '#007bff',
-                        borderColor: '#007bff',
-                        data:data.graphDataSet[0].data,
-                        //label: [1101,1102,1103,1104,1105]
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    mode: mode,
-                    intersect: intersect
-                },
-                hover: {
-                    mode: mode,
-                    intersect: intersect
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        // display: false,
-                        gridLines: {
-                            display: true,
-                            lineWidth: '4px',
-                            color: 'rgba(0, 0, 0, .2)',
-                            zeroLineColor: 'transparent'
-                        },
-                    }],
-                    xAxes: [{
-                        display: true,
-                        gridLines: {
-                            display: false
-                        },
-                        ticks: ticksStyle
-                    }]
-                },
-                onClick: function (evt, item) {
-                    $("#moneyTypeSection").empty();
-                    $("#moneyTypeLabel").empty();
-                    $("#moneyTypeLabel").text(item[0]._model.label);
-                   // $("#moneyTypeLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
-                    $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                        console.log(value)
-                        $("#moneyTypeSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                            value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <!--<td></td>--></tr > ')
-
-                    });
-                    $('#moneyTypeModal').modal('show');
-                    $('#moneyTypeModal').on('shown.bs.modal', function () {
-
-                    })
-                }
-            }
-        })
-    }
-
-    $(function () {
-
-        fetch('https://localhost:44341/api/ResearchData/1')
-            .then((response) => {
-
-                Render();
-                return response.json();
-            })
-            .then((data) => {
-                moneyTypeRender(data);
-            });
-    });
-</script>
-
 <style>
-    .hiddenRow{
-        
+    .hiddenRow {
         padding: 0 !important;
-
     }
-
 </style>
 
+
+<script>
+    $(function () {
+        ResearchMoneyTypeGraph(null);
+    })
+</script>
