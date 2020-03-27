@@ -53,7 +53,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
-                entity.Property(e => e.ResearchSendDate)
+                entity.Property(e => e.ResearchEndDate)
                     .HasColumnName("ResearchSEndDate")
                     .HasColumnType("datetime");
 
