@@ -26,10 +26,5 @@
   <ItemGroup>
     <Content Remove="wwwroot\img\logo.ico" />
     <Content Remove="wwwroot\img\logo.png" />
-    <Content Remove="wwwroot\js\Custom\CustomPersonnelGraph.js" />
-    <Content Remove="wwwroot\js\Custom\CustomPersonnelGraph.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\js\Custom\" />
   </ItemGroup>
 </Project>
