@@ -79,7 +79,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     new ViewData
                     {
                         index = i,
-                        LisViewData = researchDepartmentViewDataModelList.OrderBy(o => o.ResearchNameTh).ToList()
+                        LisViewData = researchDepartmentViewDataModelList.OrderByDescending(o => o.ResearchId).ToList()
                     }
 
                 );
@@ -171,7 +171,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         new ViewData
                         {
                             index = i,
-                            LisViewData = researchGroupViewDataModelList.OrderBy(o => o.ResearchNameTh)
+                            LisViewData = researchGroupViewDataModelList.OrderByDescending(o => o.ResearchId)
                         }
 
                     );
@@ -263,7 +263,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                             new ViewData
                             {
                               index = i ,
-                              LisViewData = researchDataList.Distinct().OrderBy(o=>o.ResearchId)
+                              LisViewData = researchDataList.Distinct().OrderByDescending(o=>o.ResearchId).ToList()
                             }
                         );
 
