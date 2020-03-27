@@ -18,4 +18,10 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
 
         public List<ResearcherViewModel> Researcher { get; set; }
     }
+
+    public class ResearchMoneyViewRetunData
+    {
+        public List<ResearchMoneyViewDataModel> ResearchMoneyViewData { get; set; }
+        public int Count { get; set; }
+    }
 }
