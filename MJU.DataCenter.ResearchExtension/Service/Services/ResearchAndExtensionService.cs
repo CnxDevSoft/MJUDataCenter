@@ -288,6 +288,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true).ToList();
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
             if (input.Type == 1)
+            var researchMoney = _dcResearchMoneyReoisitory.GetAll();
+            var viewListData = new List<ViewData>();
+            var listresearchId = new List<int>();
+            var listresearchName = new List<string>();
+            var distinctResearchMoney = researchMoney.Select(m=> new {m.ResearchId,m.ResearchNameTh}).Distinct().OrderBy(o => o.ResearchId);
+            if (type == 1)
             {
                 var list = new List<GraphDataSet>();
                 var data = new List<int>();

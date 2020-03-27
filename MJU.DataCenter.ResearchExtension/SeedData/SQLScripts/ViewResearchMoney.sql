@@ -5,8 +5,8 @@ select rd.ResearchId
 ,rd.ResearchNameEN
 ,rd.ResearchCode
 ,rd.ResearchMoney
-,rd.StartDataResearch as ResearchStartDate
-,rm.ResearchMoneyTypeId as ResearchEndDate
+,rd.StartDateResearch as ResearchStartDate
+,rd.EndDateResearch as ResearchEndDate
 ,mt.MoneyTypeName
 ,rp.ResearcherId
 from ResearchData rd

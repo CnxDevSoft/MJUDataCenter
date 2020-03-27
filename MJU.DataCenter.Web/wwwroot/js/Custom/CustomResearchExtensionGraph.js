@@ -1,8 +1,5 @@
 ﻿async function ResearchDepartmentGraph(filter) {
-    var url = 'https://localhost:44341/api/ResearchDepartment/1';
-    if (filter != null) {
-        url = 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter;
-    }
+    var url = filter != null ? 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter : 'https://localhost:44341/api/ResearchDepartment/1'
 
     fetch(url)
         .then((response) => {
@@ -21,7 +18,11 @@ async function allResearchRender(data) {
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        beginAtZero: true,
+        stepSize: 10,
+        suggestedMin: 0,
+        suggestedMax: 100
     }
     var mode = 'index'
     var intersect = true
@@ -85,32 +86,48 @@ async function allResearchRender(data) {
                 }]
             },
             onClick: function (evt, item) {
+
+
+               // $("#researchDepartmentTable").empty();
                 $("#researchDepartmentSection").empty();
                 $("#researchDepartmentLabel").empty();
                 //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
                 $("#researchDepartmentLabel").text(item[0]._model.label);
 
                 var table = $('#researchDepartmentTable').DataTable();
-                table.destroy();
+                table.clear().destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    console.log(value)
-                    $("#researchDepartmentSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                        value.researcherName + '</td><!--<td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <td></td>--></tr > ')
+                    $("#researchDepartmentSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn +' </td><td>' +
+                        RenderReseacherName(value.researcher) + '</td><td>' +  moment(value.researchEndDate).format("DD/MM/YYYY")+ '</td></tr > ')
                 });
+
                 $('#researchDepartmentModal').modal('show');
                 $('#researchDepartmentModal').on('shown.bs.modal', function () {
+     
                 })
-
                 $('#researchDepartmentTable').DataTable({
                     language: {
                         sLengthMenu: "Show _MENU_"
                     }
-                });
+                });      
             }
         }
     })
 }
+
+function RenderReseacherName(reseacherList) {
+    var listName = '';
+    $.each(reseacherList, function (key, value) {
+        if (key > 0) {
+            listName += '<br/>';
+        }
+        listName += '' +value.researcherName;      
+    });
+
+    return listName;
+}
+
 
 async function ResearchPersonGroupGraph(filter) {
     var url = filter != null ? 'https://localhost:44341/api/ResearchGroup/1?filter=' + filter :'https://localhost:44341/api/ResearchGroup/1'
@@ -188,7 +205,7 @@ async function moneyPersonGroupRender(data) {
                 $("#moneyPersonGroupLabel").text(item[0]._model.label);
 
                 var table = $('#moneyPersonGroupTable').DataTable();
-                table.destroy();
+                table.clear().destroy();
 
                 // $("#moneyPersonGroupLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
@@ -199,7 +216,11 @@ async function moneyPersonGroupRender(data) {
                 $('#moneyPersonGroupModal').modal('show');
                 $('#moneyPersonGroupModal').on('shown.bs.modal', function () {
                 })
-                $('#moneyPersonGroupTable').DataTable();
+                $('#moneyPersonGroupTable').DataTable({
+                    language: {
+                        sLengthMenu: "Show _MENU_"
+                    }
+                });
             }
         }
     })
@@ -292,10 +313,10 @@ async function ResearchMoneyRangeRender(data) {
             onClick: function (evt, item) {
                 $("#moneyResearchSection").empty();
                 $("#ResearchMoneyLabel").empty();
-                debugger;
+
                 $("#ResearchMoneyLabel").text(item[0]._model.label);
                 var table = $('#ResearchMoneyTable').DataTable();
-                table.destroy();
+                table.clear().destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                     console.log(value)
@@ -305,7 +326,12 @@ async function ResearchMoneyRangeRender(data) {
                 $('#ResearchMoneyModal').modal('show');
                 $('#ResearchMoneyModal').on('shown.bs.modal', function () {
                 })
-                $('#ResearchMoneyTable').DataTable();
+                $('#ResearchMoneyTable').DataTable(
+                 {
+                    language: {
+                        sLengthMenu: "Show _MENU_"
+                     }
+                 });
             }
         }
     })
@@ -383,11 +409,13 @@ async function moneyTypeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
+
                 $("#moneyTypeSection").empty();
                 $("#moneyTypeLabel").empty();
                 $("#moneyTypeLabel").text(item[0]._model.label);
+
                 var table = $('#moneyTypeTable').DataTable();
-                table.destroy();
+                table.clear().destroy();
 
                 // $("#moneyTypeLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH"));
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
@@ -398,7 +426,11 @@ async function moneyTypeRender(data) {
                 $('#moneyTypeModal').modal('show');
                 $('#moneyTypeModal').on('shown.bs.modal', function () {
                 })
-                $('#moneyTypeTable').DataTable();
+                $('#moneyTypeTable').DataTable({
+                    language: {
+                        sLengthMenu: "Show _MENU_"
+                    }
+                });
             }
         }
     })
