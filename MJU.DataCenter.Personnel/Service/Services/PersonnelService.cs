@@ -198,7 +198,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
                 foreach (var positionType in distinctPosition)
                 {
-                    var distinctGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= DateTime.Parse("1964/12/31")).Count();
+                    var distinctGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") && s.DateOfBirth <= DateTime.Parse("1964/12/31")).Count();
                     var distinctGenerationGenX = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= DateTime.Parse("1967/01/01") && s.DateOfBirth <= DateTime.Parse("1979/12/31")).Count();
                     var distinctGenerationGenY = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= DateTime.Parse("1980/01/01") && s.DateOfBirth <= DateTime.Parse("1997/12/31")).Count();
                     var distinctGenerationGenZ = personnel.Where(s => s.PositionType == positionType && s.DateOfBirth >= DateTime.Parse("1998/01/01")).Count();
