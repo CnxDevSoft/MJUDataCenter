@@ -1,5 +1,7 @@
-﻿async function ResearchDepartmentGraph() {
-    fetch('https://localhost:44341/api/ResearchDepartment/1')
+﻿async function ResearchDepartmentGraph(filter) {
+    var url = filter != null ? 'https://localhost:44341/api/ResearchDepartment/1?filter=' + filter :'https://localhost:44341/api/ResearchDepartment/1'
+
+    fetch(url)
         .then((response) => {
             return response.json();
         })
@@ -97,8 +99,10 @@ async function allResearchRender(data) {
     })
 }
 
-async function ResearchPersonGroupGraph() {
-    fetch('https://localhost:44341/api/ResearchGroup/1')
+async function ResearchPersonGroupGraph(filter) {
+    var url = filter != null ? 'https://localhost:44341/api/ResearchGroup/1?filter=' + filter :'https://localhost:44341/api/ResearchGroup/1'
+    
+    fetch(url)
         .then((response) => {
             return response.json();
         })
@@ -184,8 +188,10 @@ async function moneyPersonGroupRender(data) {
     })
 }
 
-async function ResearchMoneyRangeGraph() {
-    fetch('https://localhost:44341/api/ResearchMoney/1')
+async function ResearchMoneyRangeGraph(filter) {
+    var url = filter != null ? 'https://localhost:44341/api/ResearchMoney/1?filter=' + filter : 'https://localhost:44341/api/ResearchMoney/1'
+
+    fetch(url)
         .then((response) => {
             return response.json();
         })
@@ -284,8 +290,11 @@ async function ResearchMoneyRangeRender(data) {
     })
 }
 
-async function ResearchMoneyTypeGraph() {
-    fetch('https://localhost:44341/api/ResearchData/1')
+async function ResearchMoneyTypeGraph(filter) {
+    console.log(filter)
+    var url = filter != null ? 'https://localhost:44341/api/ResearchData/1?filter=' + filter : 'https://localhost:44341/api/ResearchData/1';
+
+    fetch(url)
         .then((response) => {
             return response.json();
         })
