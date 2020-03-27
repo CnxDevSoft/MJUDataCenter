@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\DC_ResearchData.cs" />
@@ -27,5 +28,8 @@
     <Compile Remove="Models\DC_ResearchPaperPerson.cs" />
     <Compile Remove="ViewModels\GraphMountYear.cs" />
     <Compile Remove="Service\Interface\IDcResearchDepartmentRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helper\" />
   </ItemGroup>
 </Project>

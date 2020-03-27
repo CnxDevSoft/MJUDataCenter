@@ -25,35 +25,3 @@
     <!-- /.card -->
 </div>
 
-
-<script>
-    'use strict'
-
-    fetch('https://localhost:44307/api/PersonnelPosition/1')
-        .then(res => res.json())
-        .then((data) => {
-            var donutChartCanvas = $('#pie2Chart').get(0).getContext('2d')
-            var donutData = {
-                labels: data.label,
-                datasets: [
-                    {
-                        data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-                    }
-                ]
-            }
-            var donutOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
-            }
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            var donutChart = new Chart(donutChartCanvas, {
-                type: 'pie',
-                data: donutData,
-                options: donutOptions
-            })
-        })
-    
-
-</script>

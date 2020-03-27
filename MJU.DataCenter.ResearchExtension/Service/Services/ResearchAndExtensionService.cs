@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MJU.DataCenter.Personnel.ViewModels;
+using MJU.DataCenter.ResearchExtension.Helper;
 using MJU.DataCenter.ResearchExtension.Models;
 using MJU.DataCenter.ResearchExtension.Repository.Interface;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
@@ -28,11 +29,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         }
 
-        public object GetResearchDepartment(int type)
+        public object GetResearchDepartment(InputFilterGraphViewModel input)
         {
-            var researchDepartment = _dcResearchDepartmentRepository.GetAll().ToList();
+            var startOfYear = input.Filter.StartOfYearDate();
+            var endOfYear = input.Filter.EndOfYearDate();
+            var researchDepartment = _dcResearchDepartmentRepository.GetAll().Where(m=> input.Filter != null? (m.ResearchStartDate >= startOfYear && m.ResearchEndDate <= endOfYear) || (m.ResearchStartDate >= startOfYear && m.ResearchStartDate <= endOfYear) : true).ToList();
             var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId ,m.DepartmentNameTh}).Distinct().OrderBy(o=>o.DepartmentId);
-            if(type == 1)
+            if(input.Type == 1)
             {
                 var label = new List<string>();
                 var data = new List<int>();
@@ -89,11 +92,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 return list;
             }
         }
-        public object GetResearchGroup(int type)
+        public object GetResearchGroup(InputFilterGraphViewModel input)
         {
-            var researchGroup = _dcResearchGroupRepository.GetAll().ToList();
+            var startOfYear = input.Filter.StartOfYearDate();
+            var endOfYear = input.Filter.EndOfYearDate();
+            var researchGroup = _dcResearchGroupRepository.GetAll().Where(m => input.Filter != null ? (m.ResearchStartDate >= startOfYear && m.ResearchEndDate <= endOfYear) || (m.ResearchStartDate >= startOfYear && m.ResearchStartDate <= endOfYear) : true).ToList();
             var distinctResearchGroup = researchGroup.Select(m => new { m.PersonGroupId, m.PersonGroupName }).Distinct().OrderBy(o => o.PersonGroupId);
-            if (type == 1)
+            if (input.Type == 1)
             {
                 var label = new List<string>();
                 var data = new List<int>();
@@ -151,11 +156,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
         }
 
-        public object GetResearchData(int type)
+        public object GetResearchData(InputFilterGraphViewModel input)
         {
-            var researchData = _dcResearchDataRepository.GetAll().ToList(); 
+            var startOfYear = input.Filter.StartOfYearDate();
+            var endOfYear = input.Filter.EndOfYearDate();
+            var researchData = _dcResearchDataRepository.GetAll().Where(m => input.Filter != null ? (m.ResearchStartDate >= startOfYear && m.ResearchEndDate <= endOfYear) || (m.ResearchStartDate >= startOfYear && m.ResearchStartDate <= endOfYear) : true).ToList(); 
             var distinctResearchData = researchData.Select(m => new { m.ResearchMoneyTypeId, m.MoneyTypeName }).Distinct().OrderBy(o => o.ResearchMoneyTypeId);
-            if (type == 1)
+            if (input.Type == 1)
             {
                 var label = new List<string>();
                 var data = new List<int>();
@@ -213,11 +220,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
         }
 
-        public object GetAllResearchMoney(int type)
+        public object GetAllResearchMoney(InputFilterGraphViewModel input)
         {
-            var researchMoney = _dcResearchMoneyReoisitory.GetAll();
+            var startOfYear = input.Filter.StartOfYearDate();
+            var endOfYear = input.Filter.EndOfYearDate();
+            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.Filter != null ? (m.ResearchStartDate >= startOfYear && m.ResearchEndDate <= endOfYear) || (m.ResearchStartDate >= startOfYear && m.ResearchStartDate <= endOfYear) : true).ToList(); ;
             var distinctResearchMoney = researchMoney.Select(m=> new {m.ResearchId,m.ResearchNameTh}).Distinct().OrderBy(o => o.ResearchId);
-            if (type == 1)
+            if (input.Type == 1)
             {
                 var list = new List<GraphDataSet>();
                 var data = new List<int>();
@@ -225,8 +234,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var label = new List<string> { "ตํ่ากว่า 100,000", "100,001 - 500,000","500,001 - 1,000,000"
                      ,"1,000,001 - 5,000,000","5,000,001 - 10,000,000","10,000,001 - 20,000,000","20,000,000 ขึ้นไป"
                 };
-                
-                var i = 0;
+
                 var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0);
                 var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000);
                 var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000);
@@ -235,13 +243,6 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000);
                 var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000);
 
-                //var researchMoneylower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Distinct().OrderBy(a=>a.ResearchId);
-                //var researchMoneybetween100kTo500kk = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween500kTo1m = researchMoney.Where(m => m.ResearchMoney > 5000000 && m.ResearchMoney < 100000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneybetween10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Distinct().OrderBy(a => a.ResearchId);
-                //var researchMoneyover20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Distinct().OrderBy(a => a.ResearchId);
                 var viewData = new List<ViewData> {
                     new ViewData
                     {
