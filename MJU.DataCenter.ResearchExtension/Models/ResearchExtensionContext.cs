@@ -99,6 +99,8 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_ResearchMoney");
 
+                entity.Property(e => e.ResearchEndDate).HasColumnType("datetime");
+
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
@@ -125,7 +127,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
-                entity.Property(e => e.StartDataResearch).HasColumnType("datetime");
+                entity.Property(e => e.StartDateResearch).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<ResearchPaper>(entity =>

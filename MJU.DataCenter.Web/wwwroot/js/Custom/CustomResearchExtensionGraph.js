@@ -272,7 +272,6 @@ async function ResearchMoneyRangeRender(data) {
 async function ResearchMoneyTypeGraph() {
     fetch('https://localhost:44341/api/ResearchData/1')
         .then((response) => {
-            Render();
             return response.json();
         })
         .then((data) => {

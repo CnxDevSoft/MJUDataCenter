@@ -27,8 +27,13 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
 
         // GET api/values/5
         [HttpGet("{type}")]
-        public object Get(InputFilterGraphViewModel input)
+        public object Get(int type, string filter)
         {
+            var input = new InputFilterGraphViewModel
+            {
+                Type = type,
+                Filter = filter
+            };
             return _researchAndExtensionService.GetResearchDepartment(input);
         }
 
