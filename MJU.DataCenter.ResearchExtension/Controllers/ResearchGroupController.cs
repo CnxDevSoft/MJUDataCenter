@@ -10,8 +10,10 @@ using MJU.DataCenter.ResearchExtension.ViewModels;
 
 namespace MJU.DataCenter.ResearchExtension.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/[controller]")]
-    public class ResearchGroupController : Controller
+    [ApiController]
+    public class ResearchGroupController : ControllerBase
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
         public ResearchGroupController(IResearchAndExtensionService researchAndExtensionService)
@@ -19,11 +21,11 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             _researchAndExtensionService = researchAndExtensionService;
         }
         // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         [HttpGet("{type}")]
         public object Get(int type, string filter)
@@ -37,21 +39,21 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        //[HttpPost]
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT api/values/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/values/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

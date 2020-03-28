@@ -8,24 +8,24 @@ using MJU.DataCenter.ResearchExtension.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace MJU.DataCenter.ResearchExtension.Controllers
+namespace MJU.DataCenter.ResearchExtension.V2.Controllers
 {
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ResearchDataController : Controller
+    public class ResearchDepartmentController : ControllerBase
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
-        public ResearchDataController(IResearchAndExtensionService researchAndExtensionService)
+        public ResearchDepartmentController(IResearchAndExtensionService researchAndExtensionService)
         {
             _researchAndExtensionService = researchAndExtensionService;
         }
         // GET: api/values
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
         // GET api/values/5
         [HttpGet("{type}")]
@@ -36,25 +36,25 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
                 Type = type,
                 Filter = filter
             };
-            return _researchAndExtensionService.GetResearchData(input);
+            return _researchAndExtensionService.GetResearchDepartment(input);
         }
 
         // POST api/values
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
+        [HttpPost]
+        public void Post([FromBody]string value)
+        {
+        }
 
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody]string value)
+        {
+        }
 
-        //// DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        // DELETE api/values/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
 }
