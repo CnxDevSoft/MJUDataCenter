@@ -58,7 +58,8 @@ namespace MJU.DataCenter.ResearchExtension
             //swagger
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Maejo Research API", Version = "v1" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "Maejo Research API", Version = "v2" });
             });
 
             services.AddRazorPages();

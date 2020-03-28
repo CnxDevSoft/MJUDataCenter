@@ -326,7 +326,7 @@ async function ResearchMoneyRangeRender(data) {
                 table.clear().destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    $("#allMoneyRangeSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
+                    $("#allMoneyRangeSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
                         RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
                 });
                 $('#allMoneyRangeModal').modal('show');
@@ -429,14 +429,14 @@ async function moneyTypeRender(data) {
                 var table = $('#moneyTypeTable').DataTable();
                 table.clear().destroy();
 
-                $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
+               /* $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
                     $("#moneyTypeSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
                         value.researcherName + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td> <!--<td></td>--></tr > ')
+                });*/
+                $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
+                    $("#moneyTypeSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
+                        RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
                 });
-                //$.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                //    $("#moneyTypeSection").append('<tr><td>' + value.researchNameTh + ' </td><td>' +
-                //        RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
-                //});
 
                 $('#moneyTypeModal').modal('show');
                 $('#moneyTypeModal').on('shown.bs.modal', function () {
