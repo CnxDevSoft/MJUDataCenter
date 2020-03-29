@@ -224,7 +224,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public object GetResearchData(InputFilterGraphViewModel input)
         {
-            var startDate =  input.StartDate.ToUtcDateTime();
+            var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
             var researchData = _dcResearchDataRepository.GetAll().ToList();
             var distinctResearchData = researchData.Select(m => new { m.ResearchMoneyTypeId, m.MoneyTypeName }).Distinct().OrderBy(o => o.ResearchMoneyTypeId);
@@ -320,7 +320,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate!= null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
                 (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
             if (input.Type == 1)
@@ -455,6 +455,21 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
 
             return researchMoneyViewDataModelList;
+        }
+
+        public List<ResearcherResearchDataModel> GetDcResearcherByName(string name)
+        {
+            var distinc = _dcResearchDepartmentRepository.GetAll().Where(m => m.ResearcherName.Contains(name))
+                .Select(s=> new { s.ResearcherId, s.ResearcherName,s.DepartmentNameTh,s.DepartmentId,s.DepartmentCode}).Distinct();
+
+            return distinc.Select(s => new ResearcherResearchDataModel
+            {
+                ResearcherId = s.ResearcherId,
+                ResearcherName = s.ResearcherName,
+                DepartmentCode = s.DepartmentCode,
+                DepartmentId = s.DepartmentId,
+                DepartmentNameTh = s.DepartmentNameTh
+            }).ToList();
         }
 
     }
