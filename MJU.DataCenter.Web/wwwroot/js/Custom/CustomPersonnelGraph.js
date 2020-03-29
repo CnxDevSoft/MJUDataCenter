@@ -376,7 +376,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost:44341/api/ResecherResearchData/1?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal;
+    var url = 'https://localhost:44341/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal;
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
