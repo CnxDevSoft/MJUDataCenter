@@ -36,7 +36,7 @@
                     <br />
 
                         <div class="position-relative mb-4">
-                            <canvas id="visitors-chart" height="350"></canvas>
+                            <canvas id="personForcastGeneration-chart" height="350"></canvas>
                         </div>
 
                     <br />
@@ -56,6 +56,35 @@
         </div>
     </div>
 </div>
+
+<div id="personForcastGenerationModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="card card-success">
+                <div class="card-header border-0">
+                    <h3 class="card-title">งานวิจัยที่ได้รับงบประมาณ <span id="personForcastGenerationLabel"></span> </h3>
+                    <div class="card-tools">
+                    </div>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-striped table-valign-middle dataTable" id="personForcastGenerationTable">
+                        <thead>
+                            <tr>
+                                <th>ชื่อบุคลากร</th>
+                                <th>สังกัด</th>
+                                <th>อายุ</th>
+                                <!-- <th>More</th>-->
+                            </tr>
+                        </thead>
+                        <tbody id="personForcastGenerationSection">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(function () {
         PersonForcastGenrationGraph();

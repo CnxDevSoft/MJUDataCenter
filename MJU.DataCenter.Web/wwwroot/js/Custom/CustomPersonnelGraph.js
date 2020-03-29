@@ -184,7 +184,7 @@ async function PersonForcastGenrationGraph() {
 
     var mode = 'index'
     var intersect = true
-    var $visitorsChart = $('#visitors-chart')
+    var $visitorsChart = $('#personForcastGeneration-chart')
     var visitorsChart = new Chart($visitorsChart, {
         data: {
             labels: ['ปี 2560', 'ปี 2561', 'ปี 2562', 'ปี 2563', 'ปี 2564', 'ปี 2565', 'ปี 2566'],
@@ -255,8 +255,8 @@ async function PersonForcastGenrationGraph() {
         }
     })
 
-    $("#visitors-chart").click(function (event) {
-        debugger;
+    $("#personForcastGeneration-chart").click(function (event) {
+
         var activePoint = visitorsChart.getElementAtEvent(event);
 
         if (activePoint.length > 0) {
@@ -265,12 +265,9 @@ async function PersonForcastGenrationGraph() {
             var clickedDatasetPoint = visitorsChart.data.datasets[clickedDatasetIndex];
 
             var clickedDatasetLabel = visitorsChart.data.labels[clickedElementIndex];
-            var clickedDatasetLabel = visitorsChart.data.data[clickedElementIndex];
-          //  var label = clickedDatasetLabel;
+            var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
 
-            var value = clickedDatasetPoint.data[clickedElementIndex];
-
-            alert("Clicked: " + clickedDatasetLabel + " - " + value);
+            alert("Clicked: " + clickedDatasetLabel + " - " + clickedDatasetPoint);
         }
     });
 
