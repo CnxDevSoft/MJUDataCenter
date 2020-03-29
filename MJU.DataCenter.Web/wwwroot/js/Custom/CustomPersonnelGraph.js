@@ -332,3 +332,11 @@ function modalRender(chartName, element, modelLabel, data) {
         }
     });
 }
+
+
+async function DisplayPersonProfile() {
+
+    alert("test");
+
+
+}

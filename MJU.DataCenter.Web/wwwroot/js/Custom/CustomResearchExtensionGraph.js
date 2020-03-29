@@ -359,6 +359,8 @@ async function moneyTypeRender(data) {
     $('#moneyTypeBox').empty(); // this is my <canvas> element
     $('#moneyTypeBox').append('<canvas id="moneyType-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
 
+ 
+
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
@@ -370,7 +372,8 @@ async function moneyTypeRender(data) {
     }
     var mode = 'index'
     var intersect = true
-    var $moneyTypeChart = $('#moneyType-chart')
+    var $moneyTypeChart = $('#moneyType-chart');
+
     var chart = new Chart($moneyTypeChart, {
         type: 'horizontalBar',
         data: {
@@ -446,4 +449,7 @@ async function moneyTypeRender(data) {
             }
         }
     })
+
+ 
+
 }

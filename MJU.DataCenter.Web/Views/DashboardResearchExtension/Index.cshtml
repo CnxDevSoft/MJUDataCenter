@@ -49,18 +49,28 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-
+                        <div class="col-md-4">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>ระบุชื่อบุคลากร</label>
+                                    <div class="input-group date" id="searchPerson" data-target-input="nearest">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text"><i class="far fa-user"></i></div>
+                                        </div>
+                                        <input type="text" id="personText" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>&nbsp;</label>
+                            <button id="searchBtn" class="form-control btn btn-primary">ค้นหา</button>
+                        </div>
                     </div>
                 </div>
 
-
-     
-
-              
                 <div class="col-md-2">
                 </div>
-
-
 
             </div>
         </div>
@@ -91,8 +101,8 @@
             <input type="text" id="yearPicker">
         </div>
     </div>*@
+<script src="~/js/Custom/CustomPersonnelGraph.js"></script>
 <script src="~/js/Custom/CustomResearchExtensionGraph.js"></script>
-
 <script type="text/javascript">
     $(function () {
 
@@ -118,15 +128,14 @@
 
         });
 
-        //$('#yearPicker').datetimepicker({
-        //    format      :   "YYYY",
-        // viewMode    :   "years",
-        //});
-
         $('#datepicker').datetimepicker({
             format: 'YYYY',
         });
 
+        $('#searchBtn').click(function () {
+            DisplayPersonProfile();
+        });
+    
     });</script>
 
 
@@ -139,42 +148,11 @@
 
 <link rel="stylesheet" href="~/css/datepicker.css" />
 <script type="text/javascript">
-    //$(function () {
-
-    //    var thaiYear = function (ct) {
-    //        var leap = 3;
-    //        var dayWeek = ["พฤ.", "ศ.", "ส.", "อา.", "จ.", "อ.", "พ."];
-    //        if (ct) {
-    //            var yearL = new Date(ct).getFullYear() - 543;
-    //            leap = (((yearL % 4 == 0) && (yearL % 100 != 0)) || (yearL % 400 == 0)) ? 2 : 3;
-    //            if (leap == 2) {
-    //                dayWeek = ["ศ.", "ส.", "อา.", "จ.", "อ.", "พ.", "พฤ."];
-    //            }
-    //        }
-    //        this.setOptions({
-    //            i18n: { th: { dayOfWeek: dayWeek } }, dayOfWeekStart: leap,
-    //        })
-    //    };
-
-    //    $("#testdate5").datetimepicker({
-    //        timepicker: false,
-    //        format: 'd-m-Y',  // กำหนดรูปแบบวันที่ ที่ใช้ เป็น 00-00-0000
-    //        lang: 'th',  // แสดงภาษาไทย
-    //        onChangeMonth: thaiYear,
-    //        onShow: thaiYear,
-    //        yearOffset: 543,  // ใช้ปี พ.ศ. บวก 543 เพิ่มเข้าไปในปี ค.ศ
-    //        closeOnDateSelect: true,
-    //    });
-
-
-
-    //});
+    
     function RenderDatePicker() {
         $('.startDatePicker').datepicker({ format: "dd/mm/yyyy"});
         $('.endDatePicker').datepicker({ format: "dd/mm/yyyy"});
     }
-
-
 
 </script>
 <script type="text/javascript">
