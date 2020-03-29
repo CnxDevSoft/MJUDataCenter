@@ -27,14 +27,9 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         //    return new string[] { "value1", "value2" };
         //}
 
-        [HttpGet("{type}")]
-        public object Get(int type, string filter)
+        [HttpGet("")]
+        public object Get([FromQuery]InputFilterGraphViewModel input)
         {
-            var input = new InputFilterGraphViewModel
-            {
-                Type = type,
-                Filter = filter
-            };
             return _researchAndExtensionService.GetResearchGroup(input);
         }
 

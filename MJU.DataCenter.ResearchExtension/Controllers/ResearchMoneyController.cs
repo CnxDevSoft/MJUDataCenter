@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
+    [DisplayName("งานวิจัยแยกตามหน่วยงาน")]
     public class ResearchMoneyController : ControllerBase
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
@@ -26,14 +28,9 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         //    return new string[] { "value1", "value2" };
         //}
 
-        [HttpGet("{type}")]
-        public object Get(int type, string filter)
+        [HttpGet("")]
+        public object Get([FromQuery]InputFilterGraphViewModel input)
         {
-            var input = new InputFilterGraphViewModel
-            {
-                Type = type,
-                Filter = filter
-            };
             return _researchAndExtensionService.GetAllResearchMoney(input);
         }
 

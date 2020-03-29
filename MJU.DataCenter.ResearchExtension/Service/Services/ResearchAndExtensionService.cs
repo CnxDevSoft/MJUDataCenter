@@ -32,6 +32,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public object GetResearchDepartment(InputFilterGraphViewModel input)
         {
+            var startDate = input.StartDate.GetValueOrDefault().ToUniversalTime();
+            var endDate = input.EndDate.GetValueOrDefault().ToUniversalTime();
             var researchDepartment = _dcResearchDepartmentRepository.GetAll().ToList();
             var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh }).Distinct().OrderBy(o => o.DepartmentId);
             if (input.Type == 1)
@@ -44,8 +46,10 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 foreach (var rd in distinctResearchDepartment)
                 {
                     var researchDepartmentWithCondition = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh
-                    && (input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-            (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true)).ToList();
+                    && (
+                   input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                    (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true
+                    )).ToList();
                     //value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
 
 
@@ -107,8 +111,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             else
             {
-                var researchDepartmentWithDate = researchDepartment.Where(m => input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-            (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true).ToList();
+                var researchDepartmentWithDate = researchDepartment.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
                 var list = new List<ResearchDepartmentViewModel>();
                 foreach (var rd in distinctResearchDepartment)
                 {
@@ -125,6 +129,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         }
         public object GetResearchGroup(InputFilterGraphViewModel input)
         {
+            var startDate = input.StartDate.GetValueOrDefault().ToUniversalTime();
+            var endDate = input.EndDate.GetValueOrDefault().ToUniversalTime();
             var researchGroup = _dcResearchGroupRepository.GetAll().ToList();
             var distinctResearchGroup = researchGroup.Select(m => new { m.PersonGroupId, m.PersonGroupName }).Distinct().OrderBy(o => o.PersonGroupId);
             if (input.Type == 1)
@@ -137,8 +143,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 foreach (var rg in distinctResearchGroup)
                 {
                     var researchGroupWithCondition = researchGroup.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName
-                    && (input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-                    (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true));
+                    && (input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true));
 
                     var distinctResearcherGroupWithResearchId = researchGroupWithCondition.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
                     var researchGroupViewDataModelList = new List<ResearchGroupViewDataModel>();
@@ -199,8 +205,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             else
             {
-                var researchGroupWithDate = researchGroup.Where(m => input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-            (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true).ToList();
+                var researchGroupWithDate = researchGroup.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
                 var list = new List<ResearchGroupViewModel>();
                 foreach (var rg in distinctResearchGroup)
                 {
@@ -218,6 +224,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public object GetResearchData(InputFilterGraphViewModel input)
         {
+            var startDate =  input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
             var researchData = _dcResearchDataRepository.GetAll().ToList();
             var distinctResearchData = researchData.Select(m => new { m.ResearchMoneyTypeId, m.MoneyTypeName }).Distinct().OrderBy(o => o.ResearchMoneyTypeId);
             if (input.Type == 1)
@@ -229,26 +237,26 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var i = 0;
                 foreach (var rd in distinctResearchData)
                 {
-                    var researchDepartmentWithCondition = researchData.Where(m => m.ResearchMoneyTypeId == rd.ResearchMoneyTypeId && m.MoneyTypeName == rd.MoneyTypeName && (input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-                    (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true));
+                    var researchDepartmentWithCondition = researchData.Where(m => m.ResearchMoneyTypeId == rd.ResearchMoneyTypeId && m.MoneyTypeName == rd.MoneyTypeName && (input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true));
                     //value.Add(researchDepartmentWithCondition.Sum(s => s.ResearchMoney));
                     var researchDataWithCondition = researchDepartmentWithCondition.Select(a => new { a.ResearchId, a.ResearchNameTh, a.ResearchNameEn }).Distinct();
                     var researchDataList = new List<ResearchDataListViewModel>();
-                        foreach (var dataResearch in researchDataWithCondition)
-                        {
+                    foreach (var dataResearch in researchDataWithCondition)
+                    {
                         var firstResearchData = researchDepartmentWithCondition.FirstOrDefault(a => a.ResearchId == dataResearch.ResearchId);
                         var researcherDataSub = researchDepartmentWithCondition.Where(c => c.ResearchId == dataResearch.ResearchId)
                             .Select(g => new ResearcherData
                             {
-                                  ResearcherId = g.ResearcherId,
-                                  ResearcherName = g.ResearcherName
+                                ResearcherId = g.ResearcherId,
+                                ResearcherName = g.ResearcherName
                             }).ToList();
                         var researchDataViewModel = new ResearchDataListViewModel
                         {
-                             ResearchId = firstResearchData.ResearchId,
-                             ResearchNameTh = firstResearchData.ResearchNameTh,
+                            ResearchId = firstResearchData.ResearchId,
+                            ResearchNameTh = firstResearchData.ResearchNameTh,
                             ResearchNameEn = firstResearchData.ResearchNameEn,
-                            ResearchCode  = firstResearchData.ResearchCode,
+                            ResearchCode = firstResearchData.ResearchCode,
                             ResearchMoneyTypeId = firstResearchData.ResearchMoneyTypeId,
                             MoneyTypeName = firstResearchData.MoneyTypeName,
                             ResearchMoney = firstResearchData.ResearchMoney,
@@ -258,12 +266,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
                         };
                         researchDataList.Add(researchDataViewModel);
-                        }
+                    }
                     viewData.Add(
                             new ViewData
                             {
-                              index = i ,
-                              LisViewData = researchDataList.Distinct().OrderByDescending(o=>o.ResearchId).ToList()
+                                index = i,
+                                LisViewData = researchDataList.Distinct().OrderByDescending(o => o.ResearchId).ToList()
                             }
                         );
 
@@ -290,8 +298,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             else
             {
-                var researchDateWithDate = researchData.Where(m => input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-                (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true).ToList();
+                var researchDateWithDate = researchData.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
 
                 var list = new List<ResearchDataViewModel>();
                 foreach (var rd in distinctResearchData)
@@ -310,8 +318,10 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public object GetAllResearchMoney(InputFilterGraphViewModel input)
         {
-            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.Filter != null ? (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchEndDate <= input.Filter.EndOfYearDate()) ||
-                (m.ResearchStartDate >= input.Filter.StartOfYearDate() && m.ResearchStartDate <= input.Filter.EndOfYearDate()) : true).ToList();
+            var startDate = input.StartDate.GetValueOrDefault().ToUniversalTime();
+            var endDate = input.EndDate.GetValueOrDefault().ToUniversalTime();
+            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate!= null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
             if (input.Type == 1)
             {
