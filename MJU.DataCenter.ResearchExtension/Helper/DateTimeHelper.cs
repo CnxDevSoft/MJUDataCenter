@@ -8,16 +8,10 @@ namespace MJU.DataCenter.ResearchExtension.Helper
 {
     public static class DateTimeHelper
     {
-        public static DateTime StartOfYearDate(this string year)
+        public static DateTime ToUtcDateTime(this DateTime? dateTime)
         {
-            var dateString = string.Format("01-01-{0}", year);
-            return DateTime.Parse(dateString);
-        }
 
-        public static DateTime EndOfYearDate(this string year)
-        {
-            var dateString = string.Format("12-31-{0}", year);
-            return DateTime.Parse(dateString);
+            return dateTime != null ? dateTime.GetValueOrDefault().AddYears(-543).ToUniversalTime() : DateTime.UtcNow;
         }
     }
 }

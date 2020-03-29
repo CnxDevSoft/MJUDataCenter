@@ -18,7 +18,7 @@
                                 <div class="form-group">
                                     <label>เลือกวันเริ่มต้น:</label>
                                     <div class="input-group date" id="startDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#startDatePicker" />
+                                        <input type="text" id="startDate" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#startDatePicker" />
                                         <div class="input-group-append" data-target="#startDatePicker" data-toggle="datepicker">
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
                                         </div>
@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label>เลือกวันสิ้นสุด:</label>
                                     <div class="input-group date" id="endDatePicker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#endDatePicker" />
+                                        <input type="text" id="endDate" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#endDatePicker" />
                                         <div class="input-group-append" data-target="#endDatePicker" data-toggle="datepicker">
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
                                         </div>
@@ -101,14 +101,20 @@
         });
 
         $('#dateBtn').click(function () {
-            var dateVal = $(".datetimepicker-input").val();
 
-            // $('#allResearch-chart').destroy();
+            var startDateval = $('#startDate').val();
+            var endDateVal = $('#endDate').val();
 
-            ResearchDepartmentGraph(dateVal);
-            ResearchPersonGroupGraph(dateVal);
-            ResearchMoneyRangeGraph(dateVal);
-            ResearchMoneyTypeGraph(dateVal);
+            var startDate = moment(startDateval, "DD/MM/YYYY").format('MM/DD/YYYY');
+            var endDate = moment(endDateVal, "DD/MM/YYYY").format('MM/DD/YYYY');
+
+            console.log(startDate)
+            console.log(endDate)
+
+            ResearchDepartmentGraph(startDate, endDate);
+            ResearchPersonGroupGraph(startDate, endDate);
+            ResearchMoneyRangeGraph(startDate, endDate);
+            ResearchMoneyTypeGraph(startDate, endDate);
 
         });
 

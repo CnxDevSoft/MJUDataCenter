@@ -31,7 +31,6 @@ namespace MJU.DataCenter.ResearchExtension.V2.Controllers
             var input = new InputFilterGraphViewModel
             {
                 Type = type,
-                Filter = filter
             };
             return _researchAndExtensionService.GetAllResearchMoney(input);
         }
