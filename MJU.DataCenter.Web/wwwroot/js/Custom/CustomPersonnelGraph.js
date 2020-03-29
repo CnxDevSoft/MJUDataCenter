@@ -174,7 +174,13 @@ async function PersonTypeGraph() {
             })
         })
 }
+
+
 async function PersonForcastGenrationGraph() {
+
+    $("#personForcastGenerationBox").empty(); // this is my <canvas> element
+    $("#personForcastGenerationBox").append('<canvas id="personForcastGeneration-chart" height="350"><canvas>');
+
     'use strict'
 
     var ticksStyle = {
@@ -261,10 +267,10 @@ async function PersonForcastGenrationGraph() {
     })
     chartClicked(personForcastGenerationChart, "personForcastGeneration");
 }
-
 function chartClicked(chart, chartName) {
+
     var element = '#' + chartName + "-chart";
-    var modal = '#' + chartName + 'Modal';
+    // var modal = '#' + chartName + 'Modal';
     $(element).click(function (event) {
         var activePoint = chart.getElementAtEvent(event);
 
@@ -272,12 +278,57 @@ function chartClicked(chart, chartName) {
             var clickedDatasetIndex = activePoint[0]._datasetIndex;
             var clickedElementIndex = activePoint[0]._index;
             var clickedDatasetPoint = chart.data.datasets[clickedDatasetIndex];
-            var clickedDatasetLabel = chart.data.labels[clickedElementIndex];
+            var modelLabel = chart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
 
-            $(modal).modal('show');
+            var url = 'https://localhost:44341/api/ResearchData?Type=1&api-version=1.0';
 
-            console.log("Clicked: " + clickedDatasetLabel + " - " + clickedDatasetPoint);
+            fetch(url)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    modalRender(chartName, element, modelLabel, data)
+                });
+
+            console.log("Clicked: " + modelLabel + " - " + clickedDatasetPoint);
+        }
+    });
+}
+
+function modalRender(chartName, element, modelLabel, data) {
+
+    var box = '#' + chartName + 'Box';
+    var section = '#' + chartName + 'Section';
+    var label = '#' + chartName + 'Label';
+    var table = '#' + chartName + 'Table';
+    var modal = '#' + chartName + 'Modal';
+
+
+
+    $(section).empty();
+    $(label).empty();
+    $(label).text(modelLabel);
+
+    var table = $(table).DataTable();
+    table.clear().destroy();
+
+
+
+
+
+    /* $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
+         $(section).append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
+             RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
+     });*/
+
+    $(modal).modal('show');
+
+    $(modal).on('shown.bs.modal', function () {
+    })
+    $(table).DataTable({
+        language: {
+            sLengthMenu: "Show _MENU_"
         }
     });
 }

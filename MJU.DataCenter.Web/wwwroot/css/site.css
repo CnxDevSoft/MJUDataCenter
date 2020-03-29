@@ -169,6 +169,10 @@ body {
         background-color: #017f3f;
     }
 
+.card-tools .close {
+    color: white !important;
+}
+
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse.layout-fixed .brand-text {
         opacity: 0;
