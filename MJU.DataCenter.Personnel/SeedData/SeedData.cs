@@ -139,11 +139,11 @@ namespace MJU.DataCenter.Personnel.SeedData
             var resualt = Enumerable.Range(0, size).Select(x => alphabet[random.Next(0, alphabet.Length)]);
             return new string(resualt.ToArray());
         }
-        public static DateTime RandomDateTime()
+        public static DateTime? RandomDateTime()
         {
             Random random = new Random();
             DateTime start = new DateTime(1995, 1, 1);
-            int range = (DateTime.Today - start).Days;
+            int range = (DateTime.UtcNow.AddYears(5) - start).Days;
             return start.AddDays(random.Next(range));
         }
 

@@ -176,10 +176,32 @@ async function PersonTypeGraph() {
 }
 
 
+
 async function PersonForcastGenrationGraph() {
+    var url ='https://localhost:44307/api/PersonnelRetired/1/10'
+
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            PersonForcastGenrationRenderGraph(data);
+        });
+}
+
+async function PersonForcastGenrationRenderGraph(data) {
 
     $("#personForcastGenerationBox").empty(); // this is my <canvas> element
     $("#personForcastGenerationBox").append('<canvas id="personForcastGeneration-chart" height="350"><canvas>');
+
+    $('#personLabel').empty();
+    $('#personLabel').append(data.viewLabel.person);
+    $('#personStartLabel').empty();
+    $('#personStartLabel').append(data.viewLabel.personStart);
+    $('#personPredictionRateLabel').empty();
+    $('#personPredictionRateLabel').append(data.viewLabel.predictionRetiredPersonRate);
+    $('#personRetiredRateLabel').empty();
+    $('#personRetiredRateLabel').append(data.viewLabel.retiredPersonRate);
 
     'use strict'
 
@@ -193,10 +215,10 @@ async function PersonForcastGenrationGraph() {
     var $personForcastGenerationChart = $('#personForcastGeneration-chart')
     var personForcastGenerationChart = new Chart($personForcastGenerationChart, {
         data: {
-            labels: ['ปี 2560', 'ปี 2561', 'ปี 2562', 'ปี 2563', 'ปี 2564', 'ปี 2565', 'ปี 2566'],
+            labels: data.label,
             datasets: [{
                 type: 'line',
-                data: [100, 120, 170, 167, 180, 177, 160],
+                data: data.graphDataSet[0].data,
                 backgroundColor: 'transparent',
                 borderColor: '#017f3f',
                 pointBorderColor: '#017f3f',
@@ -207,7 +229,7 @@ async function PersonForcastGenrationGraph() {
             },
             {
                 type: 'line',
-                data: [60, 80, 70, 67, 80, 77, 100],
+                data: data.graphDataSet[1].data,
                 backgroundColor: 'tansparent',
                 borderColor: '#ced4da',
                 pointBorderColor: '#ced4da',
@@ -218,7 +240,7 @@ async function PersonForcastGenrationGraph() {
             },
             {
                 type: 'line',
-                data: [55, 80, 99],
+                data: data.graphDataSet[2].data,
                 backgroundColor: 'tansparent',
                 borderColor: 'red',
                 pointBorderColor: 'red',
