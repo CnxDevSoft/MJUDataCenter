@@ -266,7 +266,7 @@ async function PersonForcastGenrationGraph() {
 
             var clickedDatasetLabel = visitorsChart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
-
+            $('#personForcastGenerationModal').modal('show');
             alert("Clicked: " + clickedDatasetLabel + " - " + clickedDatasetPoint);
         }
     });
