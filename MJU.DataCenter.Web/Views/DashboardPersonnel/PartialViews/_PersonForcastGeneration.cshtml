@@ -16,14 +16,28 @@
                             <span class="info-box-icon bg-green elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">จำนวนบุคลากรทั้งหมดปีปัจจุบัน</span>
-                                <span class="info-box-number">2,000</span>
+                                <span class="info-box-number">2,000</span><span>@Html.Raw("คน")</span>
                             </div>
-                            <!-- /.info-box-content -->
                         </div>
 
+                        <div class="info-box mb-3 ml-auto text-center"">
+                            <span class="info-box-icon bg-green elevation-1"><i class="fas fa-users"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">จำนวนบุคลากรที่เริ่มต้นทำงานปัจจุบัน</span>
+                                <span class="info-box-number">3</span><span>@Html.Raw("คน")</span>
+                            </div>
+                        </div>
 
                         <div class="info-box mb-3 ml-auto text-right">
                             <span class="info-box-icon bg-gray elevation-1"><i class="fas fa-users"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">การคาดการณ์อัตราการเกษียณปีปัจจุบัน</span>
+                                <span class="info-box-number">20%</span>
+                            </div>
+                        </div>
+
+                        <div class="info-box mb-3 ml-auto text-right">
+                            <span class="info-box-icon bg-red elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">อัตราการเกษียณปีปัจจุบัน</span>
                                 <span class="info-box-number">12.5%</span>
@@ -39,13 +53,13 @@
                     <br />
                     <div class="d-flex flex-row justify-content-end">
                         <span class="mr-2">
-                            <i class="fas fa-square text-green"></i> จำนวนบุคลากรปัจจุบัน
+                            <i class="fas fa-square text-green"></i> บุคลากรปัจจุบัน
                         </span>
                         <span>
-                            <i class="fas fa-square text-gray"></i> จำนวนบุคลากรที่คาดว่าจะเกษียณ
+                            <i class="fas fa-square text-gray"></i> บุคลากรที่คาดว่าจะเกษียณ
                         </span>
                         <span>
-                            <i class="fas fa-square text-red"></i> จำนวนบุคลากรที่เกษียณ
+                            <i class="fas fa-square text-red"></i> บุคลากรที่เกษียณแล้ว
                         </span>
                     </div>
                 </div>
