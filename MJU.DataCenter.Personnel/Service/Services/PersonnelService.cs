@@ -388,7 +388,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var retiredPersonCount = person.Where(m => m.RetiredDate >= startOfYear && m.RetiredDate <= endOfYear).Count();
                     if (retiredPersonCount > 0) retiredPersonData.Add(retiredPersonCount);
 
-                    var personRetiredPredict = person.Where(m => (endOfYear.Year - m.DateOfBirth.GetValueOrDefault().Year) > 60).Count();
+                    var personRetiredPredict = person.Where(m => (endOfYear.Year - m.DateOfBirth.GetValueOrDefault().Year) == 60).Count();
                     if (personRetiredPredict > 0) predictRetiredPersondata.Add(personRetiredPredict);
                     if (currentDate.Year == DateTime.UtcNow.Year)
                     {
