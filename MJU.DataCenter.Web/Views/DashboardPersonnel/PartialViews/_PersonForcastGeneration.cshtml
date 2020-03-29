@@ -33,18 +33,19 @@
                     </div>
                     <!-- /.d-flex -->
                     <br />
-
-                        <div class="position-relative mb-4">
-                            <canvas id="personForcastGeneration-chart" height="350"></canvas>
-                        </div>
+                    <div class="position-relative mb-4">
+                        <canvas id="personForcastGeneration-chart" height="350"></canvas>
+                    </div>
                     <br />
                     <div class="d-flex flex-row justify-content-end">
                         <span class="mr-2">
                             <i class="fas fa-square text-green"></i> จำนวนบุคลากรปัจจุบัน
                         </span>
-
                         <span>
-                            <i class="fas fa-square text-gray"></i> จำนวนบุคลากรที่เกษียณ
+                            <i class="fas fa-square text-gray"></i> จำนวนบุคลากรที่คาดว่าจะเกษียณ
+                        </span>
+                        <span>
+                            <i class="fas fa-square text-red"></i> จำนวนบุคลากรที่เกษียณ
                         </span>
                     </div>
                 </div>
@@ -84,5 +85,6 @@
 <script>
     $(function () {
         PersonForcastGenrationGraph();
+
     })
 </script>

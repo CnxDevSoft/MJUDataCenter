@@ -67,7 +67,7 @@
             })
         })
 }
-async function PersonAgeGraph(){
+async function PersonAgeGraph() {
     fetch('https://localhost:44307/api/PersonnelPositionGeneration/1')
         .then(res => res.json())
         .then((data) => {
@@ -182,10 +182,10 @@ async function PersonForcastGenrationGraph() {
         fontStyle: 'bold'
     }
 
-    var mode = 'index'
+    var mode = 'nearest'
     var intersect = true
-    var $visitorsChart = $('#personForcastGeneration-chart')
-    var visitorsChart = new Chart($visitorsChart, {
+    var $personForcastGenerationChart = $('#personForcastGeneration-chart')
+    var personForcastGenerationChart = new Chart($personForcastGenerationChart, {
         data: {
             labels: ['ปี 2560', 'ปี 2561', 'ปี 2562', 'ปี 2563', 'ปี 2564', 'ปี 2565', 'ปี 2566'],
             datasets: [{
@@ -195,7 +195,7 @@ async function PersonForcastGenrationGraph() {
                 borderColor: '#017f3f',
                 pointBorderColor: '#017f3f',
                 pointBackgroundColor: '#017f3f',
-                fill: false
+                fill: true
                 // pointHoverBackgroundColor: '#007bff',
                 // pointHoverBorderColor    : '#007bff'
             },
@@ -209,7 +209,18 @@ async function PersonForcastGenrationGraph() {
                 fill: false
                 // pointHoverBackgroundColor: '#ced4da',
                 // pointHoverBorderColor    : '#ced4da'
-            }]
+            },
+            {
+                type: 'line',
+                data: [55, 80, 99],
+                backgroundColor: 'tansparent',
+                borderColor: 'red',
+                pointBorderColor: 'red',
+                pointBackgroundColor: 'red',
+                fill: false,
+            }
+
+            ]
         },
         options: {
             maintainAspectRatio: false,
@@ -246,29 +257,27 @@ async function PersonForcastGenrationGraph() {
                     ticks: ticksStyle
                 }]
             },
-            onClick: function (evt, item) {
-               // debugger;
-                //alert(item[0]._model.label);
-
-
-            }
         }
     })
+    chartClicked(personForcastGenerationChart, "personForcastGeneration");
+}
 
-    $("#personForcastGeneration-chart").click(function (event) {
-
-        var activePoint = visitorsChart.getElementAtEvent(event);
+function chartClicked(chart, chartName) {
+    var element = '#' + chartName + "-chart";
+    var modal = '#' + chartName + 'Modal';
+    $(element).click(function (event) {
+        var activePoint = chart.getElementAtEvent(event);
 
         if (activePoint.length > 0) {
             var clickedDatasetIndex = activePoint[0]._datasetIndex;
             var clickedElementIndex = activePoint[0]._index;
-            var clickedDatasetPoint = visitorsChart.data.datasets[clickedDatasetIndex];
-
-            var clickedDatasetLabel = visitorsChart.data.labels[clickedElementIndex];
+            var clickedDatasetPoint = chart.data.datasets[clickedDatasetIndex];
+            var clickedDatasetLabel = chart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
-            $('#personForcastGenerationModal').modal('show');
-            alert("Clicked: " + clickedDatasetLabel + " - " + clickedDatasetPoint);
+
+            $(modal).modal('show');
+
+            console.log("Clicked: " + clickedDatasetLabel + " - " + clickedDatasetPoint);
         }
     });
-
 }
