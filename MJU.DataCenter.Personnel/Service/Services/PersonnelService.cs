@@ -311,7 +311,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             else if (type == 1)
             {
-                var result =  _dcPersonRepository.GetAll().Where(m => (endOfYear.Year - m.DateOfBirth.GetValueOrDefault().Year) > 60)
+                var result =  _dcPersonRepository.GetAll().Where(m => (endOfYear.Year - m.DateOfBirth.GetValueOrDefault().Year) == 60)
                     .Select(s => new RetiredPersonDataTableModel
                     {
                         PersonnelId = s.PersonnelId,
