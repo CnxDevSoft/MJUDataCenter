@@ -393,8 +393,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     if (currentDate.Year == DateTime.UtcNow.Year)
                     {
                         retiredPersonView.Person = personCount;
-                        retiredPersonView.RetiredPerson = retiredPersonCount;
-                        retiredPersonView.PredictionRetiredPerson = personRetiredPredict;
+                        retiredPersonView.PersonStart = person.Where(m => m.StartDate >= startOfYear && m.StartDate <= endOfYear).Count();
+                        retiredPersonView.PredictionRetiredPersonRate = Math.Round(((decimal)personRetiredPredict / (decimal)personCount) * 100, 2);
+                        retiredPersonView.RetiredPersonRate = Math.Round(((decimal)retiredPersonCount / (decimal)personCount) * 100,2);
                     }
 
                 }

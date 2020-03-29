@@ -18,8 +18,9 @@ namespace MJU.DataCenter.Personnel.ViewModels
     public class RetiredPersonDataModel
     {
         public int Person { get; set; }
-        public int RetiredPerson { get; set; }
-        public int PredictionRetiredPerson { get; set; }
+        public int PersonStart { get; set; }
+        public decimal RetiredPersonRate { get; set; }
+        public decimal PredictionRetiredPersonRate { get; set; }
     }
 
     public class RetiredPersonDataTableModel
