@@ -5,7 +5,7 @@
     }
     var mode = 'index'
     var intersect = true
-    fetch('https://localhost:44307/api/PersonnelGroup/1')
+    fetch('https://localhost:44341/api/PersonnelGroup/1')
         .then(res => res.json())
         .then((data) => {
             var $allPersonalChart = $('#allpersonal-chart')
@@ -68,7 +68,7 @@
         })
 }
 async function PersonAgeGraph(){
-    fetch('https://localhost:44307/api/PersonnelPositionGeneration/1')
+    fetch('https://localhost:44341/api/PersonnelPositionGeneration/1')
         .then(res => res.json())
         .then((data) => {
             var barChartData = {
@@ -121,7 +121,7 @@ async function PersonAgeGraph(){
         })
 }
 async function PersonEducationGraph() {
-    fetch('https://localhost:44307/api/PersonnelEducation/1')
+    fetch('https://localhost:44341/api/PersonnelEducation/1')
         .then(res => res.json())
         .then((data) => {
             var donutChartCanvas = $('#pieChart').get(0).getContext('2d')
@@ -148,7 +148,7 @@ async function PersonEducationGraph() {
         })
 }
 async function PersonTypeGraph() {
-    fetch('https://localhost:44307/api/PersonnelPosition/1')
+    fetch('https://localhost:44341/api/PersonnelPosition/1')
         .then(res => res.json())
         .then((data) => {
             var donutChartCanvas = $('#pie2Chart').get(0).getContext('2d')
