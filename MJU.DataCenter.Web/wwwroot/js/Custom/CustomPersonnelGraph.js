@@ -175,7 +175,103 @@ async function PersonTypeGraph() {
         })
 }
 async function PersonForcastGenrationGraph() {
+    'use strict'
+
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold'
+    }
+
+    var mode = 'index'
+    var intersect = true
+    var $visitorsChart = $('#visitors-chart')
+    var visitorsChart = new Chart($visitorsChart, {
+        data: {
+            labels: ['ปี 2560', 'ปี 2561', 'ปี 2562', 'ปี 2563', 'ปี 2564', 'ปี 2565', 'ปี 2566'],
+            datasets: [{
+                type: 'line',
+                data: [100, 120, 170, 167, 180, 177, 160],
+                backgroundColor: 'transparent',
+                borderColor: '#017f3f',
+                pointBorderColor: '#017f3f',
+                pointBackgroundColor: '#017f3f',
+                fill: false
+                // pointHoverBackgroundColor: '#007bff',
+                // pointHoverBorderColor    : '#007bff'
+            },
+            {
+                type: 'line',
+                data: [60, 80, 70, 67, 80, 77, 100],
+                backgroundColor: 'tansparent',
+                borderColor: '#ced4da',
+                pointBorderColor: '#ced4da',
+                pointBackgroundColor: '#ced4da',
+                fill: false
+                // pointHoverBackgroundColor: '#ced4da',
+                // pointHoverBorderColor    : '#ced4da'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+                mode: mode,
+                intersect: intersect
+            },
+            hover: {
+                mode: mode,
+                intersect: intersect
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    // display: false,
+                    gridLines: {
+                        display: true,
+                        lineWidth: '4px',
+                        color: 'rgba(0, 0, 0, .2)',
+                        zeroLineColor: 'transparent'
+                    },
+                    ticks: $.extend({
+                        beginAtZero: true,
+                        suggestedMax: 200
+                    }, ticksStyle)
+                }],
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: ticksStyle
+                }]
+            },
+            onClick: function (evt, item) {
+               // debugger;
+                //alert(item[0]._model.label);
 
 
+            }
+        }
+    })
+
+    $("#visitors-chart").click(function (event) {
+        debugger;
+        var activePoint = visitorsChart.getElementAtEvent(event);
+
+        if (activePoint.length > 0) {
+            var clickedDatasetIndex = activePoint[0]._datasetIndex;
+            var clickedElementIndex = activePoint[0]._index;
+            var clickedDatasetPoint = visitorsChart.data.datasets[clickedDatasetIndex];
+
+            var clickedDatasetLabel = visitorsChart.data.labels[clickedElementIndex];
+            var clickedDatasetLabel = visitorsChart.data.data[clickedElementIndex];
+          //  var label = clickedDatasetLabel;
+
+            var value = clickedDatasetPoint.data[clickedElementIndex];
+
+            alert("Clicked: " + clickedDatasetLabel + " - " + value);
+        }
+    });
 
 }
