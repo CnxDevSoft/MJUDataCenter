@@ -174,3 +174,8 @@ async function PersonTypeGraph() {
             })
         })
 }
+async function PersonForcastGenrationGraph() {
+
+
+
+}
