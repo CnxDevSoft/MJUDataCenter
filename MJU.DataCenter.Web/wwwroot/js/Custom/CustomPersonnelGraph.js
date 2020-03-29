@@ -193,7 +193,7 @@ async function PersonForcastGenerationRenderGraph(data) {
     $("#personForcastGenerationBox").append('<canvas id="personForcastGeneration-chart" height="350"><canvas>');
 
     $('#personLabel').empty();
-    $('#personLabel').append(data.viewLabel.person+' คน');
+    $('#personLabel').append(data.viewLabel.person +' คน');
     $('#personStartLabel').empty();
     $('#personStartLabel').append(data.viewLabel.personStart + ' คน');
     $('#personPredictionRateLabel').empty();
@@ -310,19 +310,20 @@ function chartClicked(chart, chartName) {
                     return response.json();
                 })
                 .then((data) => {
-                    modalRender(chartName, element, modelLabel, data)
+                    modalRender(chartName, element, modelLabel, data, clickedDatasetIndex)
                 });
 
-            console.log("Clicked: " + modelLabel + " - " + clickedDatasetPoint);
+            console.log("Clicked: " + modelLabel + " - " + clickedDatasetIndex);
         }
     });
 }
 
-function modalRender(chartName, element, modelLabel, data) {
+function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) {
 
     var box = '#' + chartName + 'Box';
     var section = '#' + chartName + 'Section';
     var label = '#' + chartName + 'Label';
+    var labelType = '#' + chartName + 'TypeLabel';
     var table = '#' + chartName + 'Table';
     var modal = '#' + chartName + 'Modal';
 
@@ -330,10 +331,19 @@ function modalRender(chartName, element, modelLabel, data) {
     $(label).empty();
     $(label).text(modelLabel);
 
-    var table = $(table).DataTable();
-    table.clear().destroy();
+    var labelTypeValue = '';
+    if (clickedDatasetIndex == 0) labelTypeValue = 'บุคลากรปัจจุบัน';
+    else if (clickedDatasetIndex == 1) labelTypeValue = 'บุคลากรที่คาดว่าจะเกษียณ';
+    else if (clickedDatasetIndex == 2) labelTypeValue = 'บุคลากรที่เกษียณแล้ว';
+    
+    $(labelType).empty();
+    $(labelType).text(labelTypeValue);
+    
 
-    var url = 'https://localhost:44307/api/PersonnelRetired/GetDataTablePersonRetired/'+ '0' + '/' + '2563'
+    var dataTable = $(table).DataTable();
+    dataTable.clear().destroy();
+
+    var url = 'https://localhost:44307/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel;
 
     fetch(url)
         .then((response) => {
@@ -344,11 +354,12 @@ function modalRender(chartName, element, modelLabel, data) {
                 $(section).append('<tr><td>'+ value.personnelName +'</td><td>' +
                     moment(value.dateOfBirth).format("DD/MM/YYYY") + '</td><td>' +
                     value.age + '</td><td>' +
-                    value.position + '</td></tr > ')
+                    value.position + '</td><td>' +
+                    value.division + '</td><td>' +
+                    value.faculty + '</td></tr > ')
             });
 
             $(modal).modal('show');
-
             $(modal).on('shown.bs.modal', function () {
             })
             $(table).DataTable({
@@ -356,14 +367,38 @@ function modalRender(chartName, element, modelLabel, data) {
                     sLengthMenu: "Show _MENU_"
                 }
             });
-
         });
 }
 
 
 async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 
-    alert("test");
+    var table = '#researchInfoTable';
+    var modal = '#researchInfoModal';
+    var section = '#researchInfoSection';
+    var url = 'https://localhost:44341/api/ResecherResearchData/1?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal;
 
+    var dataTable = $(table).DataTable();
+    dataTable.clear().destroy();
 
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            $.each(data, function (key, value) {
+                $(section).append('<tr><td><a href="#" class="text-green">' + value.researcherName + '</a></td><td>' +
+                    value.departmentNameTh + '</td></tr > ')
+            });
+
+            $(modal).modal('show');
+            $(modal).on('shown.bs.modal', function () {
+            })
+            $(table).DataTable({
+                language: {
+                    sLengthMenu: "Show _MENU_"
+                }
+            });
+        });
 }
+

@@ -359,8 +359,6 @@ async function moneyTypeRender(data) {
     $('#moneyTypeBox').empty(); // this is my <canvas> element
     $('#moneyTypeBox').append('<canvas id="moneyType-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
 
- 
-
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
