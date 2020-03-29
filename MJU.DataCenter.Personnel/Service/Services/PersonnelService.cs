@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
 using MJU.DataCenter.Personnel.Service.Interface;
@@ -25,23 +26,24 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonnelGroup(int type)
         {
-            
+
             var personnel = _dcPersonRepository.GetAll();
 
-            var distinctPersonnelTypeId = personnel.Select(s=> s.PersonnelType
+            var distinctPersonnelTypeId = personnel.Select(s => s.PersonnelType
             ).Distinct();
 
-           if (type == 1)
+            if (type == 1)
             {
                 var label = new List<string>();
                 var data = new List<int>();
-                
+
                 foreach (var personnelType in distinctPersonnelTypeId)
                 {
                     label.Add(personnelType);
                     data.Add(personnel.Where(m => m.PersonnelType == personnelType).Count());
                 }
-                var graphDataSet = new GraphDataSet {
+                var graphDataSet = new GraphDataSet
+                {
                     Data = data
                 };
                 var result = new GraphData
@@ -53,7 +55,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 };
                 return result;
             }
-            else {
+            else
+            {
                 var list = new List<PersonGroup>();
                 foreach (var personnelType in distinctPersonnelTypeId)
                 {
@@ -71,7 +74,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 return result;
             }
 
-            
+
         }
         public object GetAllPersonnelPosition(int type)
         {
@@ -272,8 +275,174 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 return result;
             }
         }
-        public async Task<IEnumerable<Person>> GetAllPerson() {
+        public async Task<IEnumerable<Person>> GetAllPerson()
+        {
             return await _personnelRepository.GetAllAsync();
+        }
+
+        public List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type)
+        {
+            var currentDate = DateTime.Parse(string.Format("01/01/{0}", year)).AddYears(-543);
+            var startOfYear = currentDate.StartOfYear();
+            var endOfYear = currentDate.EndOfYear();
+            if (type == 0)
+            {
+
+                return _dcPersonRepository.GetAll().Where(m => m.StartDate <= endOfYear && (m.RetiredDate < endOfYear || m.RetiredDate == null))
+                    .Select(s => new RetiredPersonDataTableModel
+                    {
+                        PersonnelId = s.PersonnelId,
+                        PersonnelName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        DateOfBirth = s.DateOfBirth,
+                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionType = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        StartDate = s.StartDate,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Section = s.Section,
+                        Division = s.Division,
+                        Faculty = s.Faculty
+
+                    }).ToList();
+
+            }
+            else if (type == 1)
+            {
+                var result =  _dcPersonRepository.GetAll().Where(m => (endOfYear.Year - m.DateOfBirth.GetValueOrDefault().Year) > 60)
+                    .Select(s => new RetiredPersonDataTableModel
+                    {
+                        PersonnelId = s.PersonnelId,
+                        PersonnelName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        DateOfBirth = s.DateOfBirth,
+                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionType = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        StartDate = s.StartDate,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Section = s.Section,
+                        Division = s.Division,
+                        Faculty = s.Faculty
+
+                    }).ToList();
+
+                return result;
+
+            }
+            else
+            {
+                return _dcPersonRepository.GetAll().Where(m => m.RetiredDate >= startOfYear && m.RetiredDate <= endOfYear)
+                    .Select(s => new RetiredPersonDataTableModel
+                    {
+                        PersonnelId = s.PersonnelId,
+                        PersonnelName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        DateOfBirth = s.DateOfBirth,
+                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionType = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        StartDate = s.StartDate,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Section = s.Section,
+                        Division = s.Division,
+                        Faculty = s.Faculty
+
+                    }).ToList();
+
+            }
+        }
+
+        public object GetAllPersonRetired(int total, int type)
+        {
+            var half = total / 2 - 1;
+            var yearBack = DateTime.UtcNow.AddYears(-half);
+
+            var person = _dcPersonRepository.GetAll();
+
+            if (type == 1)
+            {
+                var label = new List<string>();
+                var personData = new List<int>();
+                var retiredPersonData = new List<int>();
+                var predictRetiredPersondata = new List<int>();
+                var retiredPersonView = new RetiredPersonDataModel();
+
+                for (var i = 0; i < total; i++)
+                {
+
+                    var currentDate = yearBack.AddYears(i);
+                    var startOfYear = currentDate.StartOfYear();
+                    var endOfYear = currentDate.EndOfYear();
+                    label.Add(currentDate.AddYears(543).Year.ToString());
+
+                    var personCount = person.Where(m => m.StartDate <= endOfYear && (m.RetiredDate < endOfYear || m.RetiredDate == null)).Count();
+                    personData.Add(personCount);
+
+                    var retiredPersonCount = person.Where(m => m.RetiredDate >= startOfYear && m.RetiredDate <= endOfYear).Count();
+                    if (retiredPersonCount > 0) retiredPersonData.Add(retiredPersonCount);
+
+                    var personRetiredPredict = person.Where(m => (endOfYear.Year - m.DateOfBirth.GetValueOrDefault().Year) > 60).Count();
+                    if (personRetiredPredict > 0) predictRetiredPersondata.Add(personRetiredPredict);
+                    if (currentDate.Year == DateTime.UtcNow.Year)
+                    {
+                        retiredPersonView.Person = personCount;
+                        retiredPersonView.RetiredPerson = retiredPersonCount;
+                        retiredPersonView.PredictionRetiredPerson = personRetiredPredict;
+                    }
+
+                }
+
+                var grapgData = new GraphData
+                {
+                    Label = label,
+                    GraphDataSet = new List<GraphDataSet>{
+                      new GraphDataSet
+                      {
+                        Label = "Person",
+                        Data = personData
+                      },
+                      new GraphDataSet
+                      {
+                        Label = "PredictionRetired",
+                        Data = predictRetiredPersondata
+                      },
+                      new GraphDataSet
+                      {
+                        Label = "Retired",
+                        Data = retiredPersonData
+                      }
+                },
+                    ViewLabel = retiredPersonView
+                };
+                return grapgData;
+            }
+            else
+            {
+                var result = new List<RetiredPersonViewModel>();
+                for (var i = 0; i < total; i++)
+                {
+                    var currentDate = yearBack.AddYears(i);
+                    var startOfYear = currentDate.StartOfYear();
+                    var endOfYear = currentDate.EndOfYear();
+                    var model = new RetiredPersonViewModel
+                    {
+                        Year = currentDate.AddYears(543).Year.ToString(),
+                        Person = person.Where(m => m.StartDate <= endOfYear && (m.RetiredDate < endOfYear || m.RetiredDate == null)).ToList(),
+                        RetiredPerson = person.Where(m => m.RetiredDate >= startOfYear && m.RetiredDate <= endOfYear).ToList(),
+                        PredecitionRetiredPerson = person.Where(m => (endOfYear.Year - m.DateOfBirth.GetValueOrDefault().Year) > 60).ToList()
+                    };
+                    result.Add(model);
+
+                }
+                return result.OrderBy(o => o.Year);
+            }
         }
 
 

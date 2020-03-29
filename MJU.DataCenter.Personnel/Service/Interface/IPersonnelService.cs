@@ -17,5 +17,9 @@ namespace MJU.DataCenter.Personnel.Service.Interface
         object GetAllPersonnelEducation(int type);
 
         object GetAllPersonnelPositionGeneration(int type);
+
+        object GetAllPersonRetired(int total,int type);
+
+        List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type);
     }
 }
