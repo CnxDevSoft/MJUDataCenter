@@ -67,7 +67,7 @@
             })
         })
 }
-async function PersonAgeGraph(){
+async function PersonAgeGraph() {
     fetch('https://localhost:44307/api/PersonnelPositionGeneration/1')
         .then(res => res.json())
         .then((data) => {
@@ -174,8 +174,161 @@ async function PersonTypeGraph() {
             })
         })
 }
+
+
 async function PersonForcastGenrationGraph() {
 
+    $("#personForcastGenerationBox").empty(); // this is my <canvas> element
+    $("#personForcastGenerationBox").append('<canvas id="personForcastGeneration-chart" height="350"><canvas>');
+
+    'use strict'
+
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold'
+    }
+
+    var mode = 'nearest'
+    var intersect = true
+    var $personForcastGenerationChart = $('#personForcastGeneration-chart')
+    var personForcastGenerationChart = new Chart($personForcastGenerationChart, {
+        data: {
+            labels: ['ปี 2560', 'ปี 2561', 'ปี 2562', 'ปี 2563', 'ปี 2564', 'ปี 2565', 'ปี 2566'],
+            datasets: [{
+                type: 'line',
+                data: [100, 120, 170, 167, 180, 177, 160],
+                backgroundColor: 'transparent',
+                borderColor: '#017f3f',
+                pointBorderColor: '#017f3f',
+                pointBackgroundColor: '#017f3f',
+                fill: true
+                // pointHoverBackgroundColor: '#007bff',
+                // pointHoverBorderColor    : '#007bff'
+            },
+            {
+                type: 'line',
+                data: [60, 80, 70, 67, 80, 77, 100],
+                backgroundColor: 'tansparent',
+                borderColor: '#ced4da',
+                pointBorderColor: '#ced4da',
+                pointBackgroundColor: '#ced4da',
+                fill: false
+                // pointHoverBackgroundColor: '#ced4da',
+                // pointHoverBorderColor    : '#ced4da'
+            },
+            {
+                type: 'line',
+                data: [55, 80, 99],
+                backgroundColor: 'tansparent',
+                borderColor: 'red',
+                pointBorderColor: 'red',
+                pointBackgroundColor: 'red',
+                fill: false,
+            }
+
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+                mode: mode,
+                intersect: intersect
+            },
+            hover: {
+                mode: mode,
+                intersect: intersect
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    // display: false,
+                    gridLines: {
+                        display: true,
+                        lineWidth: '4px',
+                        color: 'rgba(0, 0, 0, .2)',
+                        zeroLineColor: 'transparent'
+                    },
+                    ticks: $.extend({
+                        beginAtZero: true,
+                        suggestedMax: 200
+                    }, ticksStyle)
+                }],
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: ticksStyle
+                }]
+            },
+        }
+    })
+    chartClicked(personForcastGenerationChart, "personForcastGeneration");
+}
+function chartClicked(chart, chartName) {
+
+    var element = '#' + chartName + "-chart";
+    // var modal = '#' + chartName + 'Modal';
+    $(element).click(function (event) {
+        var activePoint = chart.getElementAtEvent(event);
+
+        if (activePoint.length > 0) {
+            var clickedDatasetIndex = activePoint[0]._datasetIndex;
+            var clickedElementIndex = activePoint[0]._index;
+            var clickedDatasetPoint = chart.data.datasets[clickedDatasetIndex];
+            var modelLabel = chart.data.labels[clickedElementIndex];
+            var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
+
+            var url = 'https://localhost:44341/api/ResearchData?Type=1&api-version=1.0';
+
+            fetch(url)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    modalRender(chartName, element, modelLabel, data)
+                });
+
+            console.log("Clicked: " + modelLabel + " - " + clickedDatasetPoint);
+        }
+    });
+}
+
+function modalRender(chartName, element, modelLabel, data) {
+
+    var box = '#' + chartName + 'Box';
+    var section = '#' + chartName + 'Section';
+    var label = '#' + chartName + 'Label';
+    var table = '#' + chartName + 'Table';
+    var modal = '#' + chartName + 'Modal';
 
 
+
+    $(section).empty();
+    $(label).empty();
+    $(label).text(modelLabel);
+
+    var table = $(table).DataTable();
+    table.clear().destroy();
+
+
+
+
+
+    /* $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
+         $(section).append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
+             RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
+     });*/
+
+    $(modal).modal('show');
+
+    $(modal).on('shown.bs.modal', function () {
+    })
+    $(table).DataTable({
+        language: {
+            sLengthMenu: "Show _MENU_"
+        }
+    });
 }
