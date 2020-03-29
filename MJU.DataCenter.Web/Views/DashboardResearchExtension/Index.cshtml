@@ -52,12 +52,25 @@
                         <div class="col-md-4">
                             <div class="bootstrap-timepicker">
                                 <div class="form-group">
-                                    <label>ระบุชื่อบุคลากร</label>
-                                    <div class="input-group date" id="searchPerson" data-target-input="nearest">
-                                        <div class="input-group-append">
+                                    <label>ระบุชื่อ</label>
+                                    <div class="input-group" id="searchFirstNamePerson" data-target-input="nearest">
+                                        @*<div class="input-group-append">
                                             <div class="input-group-text"><i class="far fa-user"></i></div>
-                                        </div>
-                                        <input type="text" id="personText" class="form-control" />
+                                        </div>*@
+                                        <input type="text" id="firstNameTxt" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>ระบุนามสกุล</label>
+                                    <div class="input-group" id="searchLastNamePerson" data-target-input="nearest">
+                                        @*<div class="input-group-append">
+                                            <div class="input-group-text"><i class="far fa-user"></i></div>
+                                        </div>*@
+                                        <input type="text" id="lastNameTxt" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -95,12 +108,7 @@
 
     </div>
 </div>
-@*
-    <div class="form-group">
-        <div class='input-group date'>
-            <input type="text" id="yearPicker">
-        </div>
-    </div>*@
+
 <script src="~/js/Custom/CustomPersonnelGraph.js"></script>
 <script src="~/js/Custom/CustomResearchExtensionGraph.js"></script>
 <script type="text/javascript">
@@ -133,7 +141,11 @@
         });
 
         $('#searchBtn').click(function () {
-            DisplayPersonProfile();
+
+            var firstNameVal = $('#firstNameVal').val();
+            var lastNameVal = $('#lastNameVal').val(); 
+
+            DisplayPersonProfileModal(firstNameVal, lastNameVal);
         });
     
     });</script>

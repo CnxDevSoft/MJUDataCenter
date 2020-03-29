@@ -177,7 +177,7 @@ async function PersonTypeGraph() {
 
 
 
-async function PersonForcastGenrationGraph() {
+async function PersonForcastGenerationGraph() {
     var url ='https://localhost:44307/api/PersonnelRetired/1/10'
 
     fetch(url)
@@ -185,23 +185,21 @@ async function PersonForcastGenrationGraph() {
             return response.json();
         })
         .then((data) => {
-            PersonForcastGenrationRenderGraph(data);
+            PersonForcastGenerationRenderGraph(data);
         });
 }
-
-async function PersonForcastGenrationRenderGraph(data) {
-
+async function PersonForcastGenerationRenderGraph(data) {
     $("#personForcastGenerationBox").empty(); // this is my <canvas> element
     $("#personForcastGenerationBox").append('<canvas id="personForcastGeneration-chart" height="350"><canvas>');
 
     $('#personLabel').empty();
-    $('#personLabel').append(data.viewLabel.person);
+    $('#personLabel').append(data.viewLabel.person+' คน');
     $('#personStartLabel').empty();
-    $('#personStartLabel').append(data.viewLabel.personStart);
+    $('#personStartLabel').append(data.viewLabel.personStart + ' คน');
     $('#personPredictionRateLabel').empty();
-    $('#personPredictionRateLabel').append(data.viewLabel.predictionRetiredPersonRate);
+    $('#personPredictionRateLabel').append(data.viewLabel.predictionRetiredPersonRate + '%');
     $('#personRetiredRateLabel').empty();
-    $('#personRetiredRateLabel').append(data.viewLabel.retiredPersonRate);
+    $('#personRetiredRateLabel').append(data.viewLabel.retiredPersonRate + '%');
 
     'use strict'
 
@@ -289,6 +287,8 @@ async function PersonForcastGenrationRenderGraph(data) {
     })
     chartClicked(personForcastGenerationChart, "personForcastGeneration");
 }
+
+
 function chartClicked(chart, chartName) {
 
     var element = '#' + chartName + "-chart";
@@ -326,8 +326,6 @@ function modalRender(chartName, element, modelLabel, data) {
     var table = '#' + chartName + 'Table';
     var modal = '#' + chartName + 'Modal';
 
-
-
     $(section).empty();
     $(label).empty();
     $(label).text(modelLabel);
@@ -335,28 +333,35 @@ function modalRender(chartName, element, modelLabel, data) {
     var table = $(table).DataTable();
     table.clear().destroy();
 
+    var url = 'https://localhost:44307/api/PersonnelRetired/GetDataTablePersonRetired/'+ '0' + '/' + '2563'
 
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            $.each(data, function (key, value) {
+                $(section).append('<tr><td>'+ value.personnelName +'</td><td>' +
+                    moment(value.dateOfBirth).format("DD/MM/YYYY") + '</td><td>' +
+                    value.age + '</td><td>' +
+                    value.position + '</td></tr > ')
+            });
 
+            $(modal).modal('show');
 
+            $(modal).on('shown.bs.modal', function () {
+            })
+            $(table).DataTable({
+                language: {
+                    sLengthMenu: "Show _MENU_"
+                }
+            });
 
-    /* $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-         $(section).append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
-             RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
-     });*/
-
-    $(modal).modal('show');
-
-    $(modal).on('shown.bs.modal', function () {
-    })
-    $(table).DataTable({
-        language: {
-            sLengthMenu: "Show _MENU_"
-        }
-    });
+        });
 }
 
 
-async function DisplayPersonProfile() {
+async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 
     alert("test");
 
