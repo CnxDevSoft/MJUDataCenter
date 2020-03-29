@@ -457,9 +457,10 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             return researchMoneyViewDataModelList;
         }
 
-        public List<ResearcherResearchDataModel> GetDcResearcherByName(string name)
+        public List<ResearcherResearchDataModel> GetDcResearcherByName(string firstName, string lastName)
         {
-            var distinc = _dcResearchDepartmentRepository.GetAll().Where(m => m.ResearcherName.Contains(name))
+            var distinc = _dcResearchDepartmentRepository.GetAll().Where(m => !string.IsNullOrEmpty(firstName)?m.ResearcherName.Contains(firstName):true)
+                .Where(m => !string.IsNullOrEmpty(lastName) ? m.ResearcherName.Contains(lastName): true)
                 .Select(s=> new { s.ResearcherId, s.ResearcherName,s.DepartmentNameTh,s.DepartmentId,s.DepartmentCode}).Distinct();
 
             return distinc.Select(s => new ResearcherResearchDataModel

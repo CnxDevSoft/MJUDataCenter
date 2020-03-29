@@ -13,7 +13,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         object GetResearchData(InputFilterGraphViewModel input);
         object GetAllResearchMoney(InputFilterGraphViewModel input);
 
-        List<ResearcherResearchDataModel> GetDcResearcherByName(string name);
+        List<ResearcherResearchDataModel> GetDcResearcherByName(string firstName, string lastName);
 
 
     }

@@ -22,10 +22,10 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             _researchAndExtensionService = researchAndExtensionService;
         }
 
-        [HttpGet("{name}")]
-        public List<ResearcherResearchDataModel> Get(string name)
+        [HttpGet("")]
+        public List<ResearcherResearchDataModel> Get(string firstName, string lastName)
         {
-            return _researchAndExtensionService.GetDcResearcherByName(name);
+            return _researchAndExtensionService.GetDcResearcherByName(firstName, lastName);
         }
     }
 }
