@@ -32,8 +32,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public object GetResearchDepartment(InputFilterGraphViewModel input)
         {
-            var startDate = input.StartDate.GetValueOrDefault().ToUniversalTime();
-            var endDate = input.EndDate.GetValueOrDefault().ToUniversalTime();
+            var startDate = input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
             var researchDepartment = _dcResearchDepartmentRepository.GetAll().ToList();
             var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh }).Distinct().OrderBy(o => o.DepartmentId);
             if (input.Type == 1)
@@ -129,8 +129,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         }
         public object GetResearchGroup(InputFilterGraphViewModel input)
         {
-            var startDate = input.StartDate.GetValueOrDefault().ToUniversalTime();
-            var endDate = input.EndDate.GetValueOrDefault().ToUniversalTime();
+            var startDate = input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
             var researchGroup = _dcResearchGroupRepository.GetAll().ToList();
             var distinctResearchGroup = researchGroup.Select(m => new { m.PersonGroupId, m.PersonGroupName }).Distinct().OrderBy(o => o.PersonGroupId);
             if (input.Type == 1)
@@ -318,8 +318,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public object GetAllResearchMoney(InputFilterGraphViewModel input)
         {
-            var startDate = input.StartDate.GetValueOrDefault().ToUniversalTime();
-            var endDate = input.EndDate.GetValueOrDefault().ToUniversalTime();
+            var startDate = input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
             var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate!= null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
                 (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);

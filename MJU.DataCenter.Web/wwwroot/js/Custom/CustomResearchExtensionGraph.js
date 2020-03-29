@@ -1,5 +1,5 @@
 ﻿async function ResearchDepartmentGraph(startDate, endDate) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchDepartment/Type=1&api-version=1.0'
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchDepartment?Type=1&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -130,7 +130,7 @@ function RenderReseacherName(reseacherList) {
 
 
 async function ResearchPersonGroupGraph(startDate, endDate) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' :'https://localhost:44341/api/ResearchGroup/Type=1&api-version=1.0'
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' :'https://localhost:44341/api/ResearchGroup?Type=1&api-version=1.0'
     
     fetch(url)
         .then((response) => {
@@ -230,7 +230,7 @@ async function moneyPersonGroupRender(data) {
 }
 
 async function ResearchMoneyRangeGraph(startDate,endDate) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchMoney/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchMoney/Type=1&api-version=1.0'
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchMoney/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchMoney?Type=1&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -342,8 +342,8 @@ async function ResearchMoneyRangeRender(data) {
     })
 }
 
-async function ResearchMoneyTypeGraph(startDate,enDate) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchData?Type=1&api-version=1.0';
+async function ResearchMoneyTypeGraph(startDate,endDate) {
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchData?Type=1&api-version=1.0';
 
     fetch(url)
         .then((response) => {
