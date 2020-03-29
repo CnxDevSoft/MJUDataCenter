@@ -10,42 +10,48 @@
                     </div>
                 </div>
                 <div class="card-body">
-
-                    <div class="d-flex">
-                        <div class="info-box mb-3 text-right">
-                            <span class="info-box-icon bg-green elevation-1"><i class="fas fa-users"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">จำนวนบุคลากรทั้งหมดปีปัจจุบัน</span>
-                                <span class="info-box-number" id="personLabel"></span>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex">                   
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="info-box mb-3 text-right">
+                                            <span class="info-box-icon bg-green elevation-1"><i class="fas fa-users"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text chartCard">จำนวนบุคลากรทั้งหมดปีปัจจุบัน</span>
+                                                <span class="info-box-number" id="personLabel"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="info-box mb-3 ml-auto text-right">
+                                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-plus"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text chartCard">จำนวนบุคลากรที่เริ่มต้นทำงานปัจจุบัน</span>
+                                                <span class="info-box-number" id="personStartLabel"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="info-box mb-3 ml-auto text-right">
+                                            <span class="info-box-icon bg-gray elevation-1"><i class="fas fa-user-times"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text chartCard">การคาดการณ์อัตราการเกษียณปีปัจจุบัน</span>
+                                                <span class="info-box-number" id="personPredictionRateLabel"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="info-box mb-3 ml-auto text-right">
+                                            <span class="info-box-icon bg-red elevation-1"><i class="fas fa-user-times"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text chartCard">อัตราการเกษียณปีปัจจุบัน</span>
+                                                <span class="info-box-number" id="personRetiredRateLabel"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
-                        </div>
-
-                        <div class="info-box mb-3 ml-auto text-right">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-plus"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">จำนวนบุคลากรที่เริ่มต้นทำงานปัจจุบัน</span>
-                                <span class="info-box-number" id="personStartLabel"></span>
-                            </div>
-                        </div>
-
-                        <div class="info-box mb-3 ml-auto text-right">
-                            <span class="info-box-icon bg-gray elevation-1"><i class="fas fa-user-times"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">การคาดการณ์อัตราการเกษียณปีปัจจุบัน</span>
-                                <span class="info-box-number" id="personPredictionRateLabel"></span>
-                            </div>
-                        </div>
-
-                        <div class="info-box mb-3 ml-auto text-right">
-                            <span class="info-box-icon bg-red elevation-1"><i class="fas fa-user-times"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">อัตราการเกษียณปีปัจจุบัน</span>
-                                <span class="info-box-number" id="personRetiredRateLabel"></span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
+                         </div>
                     </div>
-                    <!-- /.d-flex -->
                     <br />
                     <div class="position-relative mb-4" id="personForcastGenerationBox">
                         <canvas id="personForcastGeneration-chart" height="350"></canvas>
@@ -71,9 +77,9 @@
 <div id="personForcastGenerationModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="card card-success">
+            <div class="card card-info">
                 <div class="card-header border-0">
-                    <h3 class="card-title">รายชื่อบุคลากร <span id="personForcastGenerationLabel"></span> </h3>
+                    <h3 class="card-title">รายชื่อบุคลากรในปี <span id="personForcastGenerationLabel"></span> แยกตามประเภท<span id="personForcastGenerationTypeLabel"></span></h3>
                     <div class="card-tools">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
@@ -86,6 +92,7 @@
                                 <th>วันเกิด</th>
                                 <th>อายุ</th>
                                 <th>ตำแหน่ง</th>
+                                <th>แผนก/สังกัด</th>
                                 <th>หน่วยงาน</th>
                             </tr>
                         </thead>
