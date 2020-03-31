@@ -457,11 +457,12 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             return researchMoneyViewDataModelList;
         }
 
-        public List<ResearcherResearchDataModel> GetDcResearcherByName(string firstName, string lastName)
+        public List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input)
         {
-            var distinc = _dcResearchDepartmentRepository.GetAll().Where(m => !string.IsNullOrEmpty(firstName)?m.ResearcherName.Contains(firstName):true)
-                .Where(m => !string.IsNullOrEmpty(lastName) ? m.ResearcherName.Contains(lastName): true)
-                .Select(s=> new { s.ResearcherId, s.ResearcherName,s.DepartmentNameTh,s.DepartmentId,s.DepartmentCode}).Distinct();
+            var distinc = _dcResearchDepartmentRepository.GetAll().Where(m => !string.IsNullOrEmpty(input.FirstName) ? m.ResearcherName.Contains(input.FirstName) : true)
+                .Where(m => !string.IsNullOrEmpty(input.LastName) ? m.ResearcherName.Contains(input.LastName) : true)
+                .Where(m=> !string.IsNullOrEmpty(input.DepartmentName) ? m.DepartmentNameTh.Contains(input.DepartmentName) :true)
+                .Select(s => new { s.ResearcherId, s.ResearcherName, s.DepartmentNameTh, s.DepartmentId, s.DepartmentCode }).Distinct();
 
             return distinc.Select(s => new ResearcherResearchDataModel
             {
@@ -471,6 +472,62 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 DepartmentId = s.DepartmentId,
                 DepartmentNameTh = s.DepartmentNameTh
             }).ToList();
+        }
+
+        public ResearcherDetailModel GetResearcherDetail(int researcherId)
+        {
+            var researchDistinct = _dcResearchDataRepository.GetAll().Where(m => m.ResearcherId == researcherId).Select(s => s.ResearchId).Distinct();
+            var researchDepartment = _dcResearchDepartmentRepository.GetAll().FirstOrDefault(m => m.ResearcherId == researcherId);
+            var researchDataModels = new List<ResearchDataModel>();
+            foreach (var researchId in researchDistinct)
+            {
+                var researchData = _dcResearchDataRepository.GetAll().FirstOrDefault(m => m.ResearcherId == researcherId);
+                var researchGroupData = _dcResearchGroupRepository.GetAll().FirstOrDefault(m => m.ResearchId == researchId);
+                var researchGroupList = _dcResearchGroupRepository.GetAll().Where(m => m.ResearchId == researchId)
+                    .Select(s => new ResearcherGroupModel
+                    {
+                        ResearcherId = s.ResearcherId,
+                        ReseacherName = s.ResearcherName,
+                    }).ToList();
+
+                var researchGroup = new ResearchGroupModel
+                {
+                    ResearchGroupId = researchGroupData.PersonGroupId,
+                    ResearchGroupName = researchGroupData.PersonGroupName,
+                    ResearcherGroup = researchGroupList
+                };
+
+                var research = _dcResearchMoneyReoisitory.GetAll().Where(m => m.ResearchId == researchId).Select(s => new ResearchMoneyModel
+                {
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName
+                }).ToList();
+
+                var researchDataModel = new ResearchDataModel
+                {
+                    ResearchId = researchData.ResearchId,
+                    ResearchNameTh = researchData.ResearchNameTh,
+                    ResearchNameEn = researchData.ResearchNameEn,
+                    ResearchMoney = research,
+                    ResearchGroup = researchGroup,
+                    ResearchStartDate = researchData.ResearchStartDate,
+                    ResearchEndDate = researchData.ResearchEndDate
+                };
+                researchDataModels.Add(researchDataModel);
+            }
+
+            var researcherDetail = new ResearcherDetailModel
+            {
+                ResearcherId = researchDepartment.ResearcherId,
+                ResearcherName = researchDepartment.ResearcherName,
+                DepartmentiId = researchDepartment.DepartmentId,
+                DepartmentNameTh = researchDepartment.DepartmentNameTh,
+                ResearchData = researchDataModels
+            };
+
+
+
+            return researcherDetail;
         }
 
     }

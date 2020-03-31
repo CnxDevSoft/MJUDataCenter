@@ -23,9 +23,14 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         }
 
         [HttpGet("")]
-        public List<ResearcherResearchDataModel> Get(string firstName, string lastName)
+        public List<ResearcherResearchDataModel> Get([FromQuery]ResearcherInputDto input)
         {
-            return _researchAndExtensionService.GetDcResearcherByName(firstName, lastName);
+            return _researchAndExtensionService.GetDcResearcherByName(input);
+        }
+        [HttpGet("/Detail/{researcherId}")]
+        public ResearcherDetailModel Get(int researcherId)
+        {
+            return _researchAndExtensionService.GetResearcherDetail(researcherId);
         }
     }
 }
