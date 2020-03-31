@@ -132,7 +132,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
             modelBuilder.Entity<ResearchPaper>(entity =>
             {
-                entity.Property(e => e.PaperCreateData).HasColumnType("datetime");
+                entity.Property(e => e.PaperCreateDate).HasColumnType("datetime");
 
                 entity.Property(e => e.PaperNameEn).HasColumnName("PaperNameEN");
 
