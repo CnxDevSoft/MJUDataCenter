@@ -178,7 +178,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     PaperNameTh = string.Format("บทวิจัย{0}",i),
                     PaperNameEn = string.Format("Paper{0}", i),
                     Weigth = SeedData.HelperSeedData.RandomWeigthPaper(),
-                    PaperCreateDate = SeedData.HelperSeedData.RandomDateTimeResearch(),
+                    PaperCreateData = SeedData.HelperSeedData.RandomDateTimeResearch(),
                     MagazineId = magazine,
                     MagazineName = string.Format("MagazineName{0}", magazine),
                     MagzineVolum = SeedData.HelperSeedData.RandomResearchId(),

@@ -113,11 +113,10 @@ namespace MJU.DataCenter.Personnel
             app.UseSwaggerUI(
             options =>
             {
-                string swaggerJsonBasePath = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "." : "..";
-                // build a swagger endpoint for each discovered API version
-                foreach (var description in provider.ApiVersionDescriptions)
+                 // build a swagger endpoint for each discovered API version
+                 foreach (var description in provider.ApiVersionDescriptions)
                 {
-                    options.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/{description.GroupName}/swagger.json", "Maejo Personnel API " + description.GroupName.ToUpperInvariant());
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", "Maejo Personnel API " + description.GroupName.ToUpperInvariant());
                 }
             });
             app.UseHttpsRedirection();
