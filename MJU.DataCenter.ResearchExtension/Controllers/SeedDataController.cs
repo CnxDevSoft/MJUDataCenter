@@ -32,6 +32,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
+           // _newSeedDataService.GenerateSeed();
             return "value";
         }
 

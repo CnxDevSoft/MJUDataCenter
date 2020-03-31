@@ -137,14 +137,15 @@ namespace MJU.DataCenter.ResearchExtension
 
             app.UseSwagger();
             app.UseSwaggerUI(
-             options =>
-             {
+            options =>
+            {
+                string swaggerJsonBasePath = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "." : "..";
                  // build a swagger endpoint for each discovered API version
                  foreach (var description in provider.ApiVersionDescriptions)
-                 {
-                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", "Maejo Research API " + description.GroupName.ToUpperInvariant());
-                 }
-             });
+                {
+                    options.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/{description.GroupName}/swagger.json", "Maejo Research API " + description.GroupName.ToUpperInvariant());
+                }
+            });
             //app.UseSwaggerUI(c =>
             //{
             //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Maejo Researcher Pubic API");
