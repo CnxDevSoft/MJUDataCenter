@@ -67,7 +67,7 @@
             })
         })
 }
-async function PersonAgeGraph(){
+async function PersonAgeGraph() {
     fetch('https://localhost:44307/api/PersonnelPositionGeneration/1')
         .then(res => res.json())
         .then((data) => {
@@ -174,3 +174,231 @@ async function PersonTypeGraph() {
             })
         })
 }
+
+
+
+async function PersonForcastGenerationGraph() {
+    var url ='https://localhost:44307/api/PersonnelRetired/1/10'
+
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            PersonForcastGenerationRenderGraph(data);
+        });
+}
+async function PersonForcastGenerationRenderGraph(data) {
+    $("#personForcastGenerationBox").empty(); // this is my <canvas> element
+    $("#personForcastGenerationBox").append('<canvas id="personForcastGeneration-chart" height="350"><canvas>');
+
+    $('#personLabel').empty();
+    $('#personLabel').append(data.viewLabel.person +' คน');
+    $('#personStartLabel').empty();
+    $('#personStartLabel').append(data.viewLabel.personStart + ' คน');
+    $('#personPredictionRateLabel').empty();
+    $('#personPredictionRateLabel').append(data.viewLabel.predictionRetiredPersonRate + '%');
+    $('#personRetiredRateLabel').empty();
+    $('#personRetiredRateLabel').append(data.viewLabel.retiredPersonRate + '%');
+
+    'use strict'
+
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold'
+    }
+
+    var mode = 'nearest'
+    var intersect = true
+    var $personForcastGenerationChart = $('#personForcastGeneration-chart')
+    var personForcastGenerationChart = new Chart($personForcastGenerationChart, {
+        data: {
+            labels: data.label,
+            datasets: [{
+                type: 'line',
+                data: data.graphDataSet[0].data,
+                backgroundColor: 'transparent',
+                borderColor: '#017f3f',
+                pointBorderColor: '#017f3f',
+                pointBackgroundColor: '#017f3f',
+                fill: true
+                // pointHoverBackgroundColor: '#007bff',
+                // pointHoverBorderColor    : '#007bff'
+            },
+            {
+                type: 'line',
+                data: data.graphDataSet[1].data,
+                backgroundColor: 'tansparent',
+                borderColor: '#ced4da',
+                pointBorderColor: '#ced4da',
+                pointBackgroundColor: '#ced4da',
+                fill: false
+                // pointHoverBackgroundColor: '#ced4da',
+                // pointHoverBorderColor    : '#ced4da'
+            },
+            {
+                type: 'line',
+                data: data.graphDataSet[2].data,
+                backgroundColor: 'tansparent',
+                borderColor: 'red',
+                pointBorderColor: 'red',
+                pointBackgroundColor: 'red',
+                fill: false,
+            }
+
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            tooltips: {
+                mode: mode,
+                intersect: intersect
+            },
+            hover: {
+                mode: mode,
+                intersect: intersect
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    // display: false,
+                    gridLines: {
+                        display: true,
+                        lineWidth: '4px',
+                        color: 'rgba(0, 0, 0, .2)',
+                        zeroLineColor: 'transparent'
+                    },
+                    ticks: $.extend({
+                        beginAtZero: true,
+                        suggestedMax: 200
+                    }, ticksStyle)
+                }],
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: ticksStyle
+                }]
+            },
+        }
+    })
+    chartClicked(personForcastGenerationChart, "personForcastGeneration");
+}
+
+
+function chartClicked(chart, chartName) {
+
+    var element = '#' + chartName + "-chart";
+    // var modal = '#' + chartName + 'Modal';
+    $(element).click(function (event) {
+        var activePoint = chart.getElementAtEvent(event);
+
+        if (activePoint.length > 0) {
+            var clickedDatasetIndex = activePoint[0]._datasetIndex;
+            var clickedElementIndex = activePoint[0]._index;
+            var clickedDatasetPoint = chart.data.datasets[clickedDatasetIndex];
+            var modelLabel = chart.data.labels[clickedElementIndex];
+            var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
+
+            var url = 'https://localhost:44341/api/ResearchData?Type=1&api-version=1.0';
+
+            fetch(url)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    modalRender(chartName, element, modelLabel, data, clickedDatasetIndex)
+                });
+
+            console.log("Clicked: " + modelLabel + " - " + clickedDatasetIndex);
+        }
+    });
+}
+
+function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) {
+
+    var box = '#' + chartName + 'Box';
+    var section = '#' + chartName + 'Section';
+    var label = '#' + chartName + 'Label';
+    var labelType = '#' + chartName + 'TypeLabel';
+    var table = '#' + chartName + 'Table';
+    var modal = '#' + chartName + 'Modal';
+
+    $(section).empty();
+    $(label).empty();
+    $(label).text(modelLabel);
+
+    var labelTypeValue = '';
+    if (clickedDatasetIndex == 0) labelTypeValue = 'บุคลากรปัจจุบัน';
+    else if (clickedDatasetIndex == 1) labelTypeValue = 'บุคลากรที่คาดว่าจะเกษียณ';
+    else if (clickedDatasetIndex == 2) labelTypeValue = 'บุคลากรที่เกษียณแล้ว';
+    
+    $(labelType).empty();
+    $(labelType).text(labelTypeValue);
+    
+
+    var dataTable = $(table).DataTable();
+    dataTable.clear().destroy();
+
+    var url = 'https://localhost:44307/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel;
+
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            $.each(data, function (key, value) {
+                $(section).append('<tr><td>'+ value.personnelName +'</td><td>' +
+                    moment(value.dateOfBirth).format("DD/MM/YYYY") + '</td><td>' +
+                    value.age + '</td><td>' +
+                    value.position + '</td><td>' +
+                    value.division + '</td><td>' +
+                    value.faculty + '</td></tr > ')
+            });
+
+            $(modal).modal('show');
+            $(modal).on('shown.bs.modal', function () {
+            })
+            $(table).DataTable({
+                language: {
+                    sLengthMenu: "Show _MENU_"
+                }
+            });
+        });
+}
+
+
+async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
+
+    var table = '#researchInfoTable';
+    var modal = '#researchInfoModal';
+    var section = '#researchInfoSection';
+    var url = 'https://localhost:44341/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal;
+
+    var dataTable = $(table).DataTable();
+    dataTable.clear().destroy();
+
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            $.each(data, function (key, value) {
+                $(section).append('<tr><td><a href="#" class="text-green">' + value.researcherName + '</a></td><td>' +
+                    value.departmentNameTh + '</td></tr > ')
+            });
+
+            $(modal).modal('show');
+            $(modal).on('shown.bs.modal', function () {
+            })
+            $(table).DataTable({
+                language: {
+                    sLengthMenu: "Show _MENU_"
+                }
+            });
+        });
+}
+

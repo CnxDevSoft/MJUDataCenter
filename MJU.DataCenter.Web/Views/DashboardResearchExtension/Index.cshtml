@@ -10,28 +10,80 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="bootstrap-timepicker">
-                        <div class="form-group">
-                            <label>เลือก:</label>
-                            <div class="input-group date" id="datepicker" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#datepicker" />
-                                <div class="input-group-append" data-target="#datepicker" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>เลือกวันเริ่มต้น:</label>
+                                    <div class="input-group date" id="startDatePicker" data-target-input="nearest">
+                                        <input type="text" id="startDate" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#startDatePicker" />
+                                        <div class="input-group-append" data-target="#startDatePicker" data-toggle="datepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>เลือกวันสิ้นสุด:</label>
+                                    <div class="input-group date" id="endDatePicker" data-target-input="nearest">
+                                        <input type="text" id="endDate" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#endDatePicker" />
+                                        <div class="input-group-append" data-target="#endDatePicker" data-toggle="datepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>&nbsp;</label>
+                            <button id="dateBtn" class="form-control btn btn-green">ตกลง</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <label>&nbsp;</label>
-                    <button id="dateBtn" class="form-control btn btn-green">ตกลง</button>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>ระบุชื่อ</label>
+                                    <div class="input-group" id="searchFirstNamePerson" data-target-input="nearest">
+                                        @*<div class="input-group-append">
+                                                <div class="input-group-text"><i class="far fa-user"></i></div>
+                                            </div>*@
+                                        <input type="text" placeholder="ค้นหาด้วยชื่อ" id="firstNameTxt" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>ระบุนามสกุล</label>
+                                    <div class="input-group" id="searchLastNamePerson" data-target-input="nearest">
+                                        @*<div class="input-group-append">
+                                                <div class="input-group-text"><i class="far fa-user"></i></div>
+                                            </div>*@
+                                        <input type="text" placeholder="ค้นหาด้วยนามสกุล" id="lastNameTxt" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>&nbsp;</label>
+                            <button id="searchBtn" class="form-control btn btn-primary">ค้นหา</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
 
-                </div>
                 <div class="col-md-2">
                 </div>
+
             </div>
         </div>
     </div>
@@ -53,41 +105,90 @@
         <partial name="PartialViews/_ResearchMoneyTypeGraph" />
     </div>
 </div>
-@*
-<div class="form-group">
-    <div class='input-group date'>
-        <input type="text" id="yearPicker">
-    </div>
-</div>*@
-<script src="~/js/Custom/CustomResearchExtensionGraph.js"></script>
 
-<script type="text/javascript">$(function () {
-  
+<script src="~/js/Custom/CustomPersonnelGraph.js"></script>
+<script src="~/js/Custom/CustomResearchExtensionGraph.js"></script>
+<script type="text/javascript">
+    $(function () {
 
         $('#dateRangeTxt').datepicker({
             format: "dd/mm/yyyy",
         });
 
         $('#dateBtn').click(function () {
-            var dateVal = $(".datetimepicker-input").val();
 
-           // $('#allResearch-chart').destroy();
+            var startDateval = $('#startDate').val();
+            var endDateVal = $('#endDate').val();
 
-            ResearchDepartmentGraph(dateVal);
-            ResearchPersonGroupGraph(dateVal);
-            ResearchMoneyRangeGraph(dateVal);
-            ResearchMoneyTypeGraph(dateVal);
+            var startDate = moment(startDateval, "DD/MM/YYYY").format('MM/DD/YYYY');
+            var endDate = moment(endDateVal, "DD/MM/YYYY").format('MM/DD/YYYY');
+
+            console.log(startDate)
+            console.log(endDate)
+
+            ResearchDepartmentGraph(startDate, endDate);
+            ResearchPersonGroupGraph(startDate, endDate);
+            ResearchMoneyRangeGraph(startDate, endDate);
+            ResearchMoneyTypeGraph(startDate, endDate);
 
         });
-
-        //$('#yearPicker').datetimepicker({
-        //    format      :   "YYYY",
-        // viewMode    :   "years",
-        //});
 
         $('#datepicker').datetimepicker({
             format: 'YYYY',
         });
 
+        $('#searchBtn').click(function () {
+
+            var firstNameVal = $('#firstNameTxt').val();
+            var lastNameVal = $('#lastNameTxt').val();
+
+            DisplayPersonProfileModal(firstNameVal, lastNameVal);
+        });
+
     });</script>
 
+
+
+<script src="~/js/bootstrap-datepicker.js"></script>
+<script src="~/js/bootstrap-datepicker-thai.js"></script>
+<script src="~/js/locales/bootstrap-datepicker.th.js"></script>
+<script src="//getbootstrap.com/2.3.2/assets/js/google-code-prettify/prettify.js"></script>
+
+
+<link rel="stylesheet" href="~/css/datepicker.css" />
+<script type="text/javascript">
+
+    function RenderDatePicker() {
+        $('.startDatePicker').datepicker({ format: "dd/mm/yyyy" });
+        $('.endDatePicker').datepicker({ format: "dd/mm/yyyy" });
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('pre[data-source]').each(function () {
+            var $this = $(this),
+                $source = $($this.data('source'));
+
+            var text = [];
+            $source.each(function () {
+                var $s = $(this);
+                if ($s.attr('type') == 'text/javascript') {
+                    text.push($s.html().replace(/(\n)*/, ''));
+                } else {
+                    text.push($s.clone().wrap('<div>').parent().html()
+                        .replace(/(\"(?=[[{]))/g, '\'')
+                        .replace(/\]\"/g, ']\'').replace(/\}\"/g, '\'') // javascript not support lookbehind
+                        .replace(/\&quot\;/g, '"'));
+                }
+            });
+
+            $this.text(text.join('\n\n').replace(/\t/g, '    '));
+        });
+
+        prettyPrint();
+        RenderDatePicker();
+    });
+</script>
+
+<partial name="PartialViews/_ResearchInfoModal" />

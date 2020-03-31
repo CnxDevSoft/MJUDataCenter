@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MJU.DataCenter.ResearchExtension.Service.Interface;
-using MJU.DataCenter.ResearchExtension.ViewModels;
+using MJU.DataCenter.Personnel.Service.Interface;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace MJU.DataCenter.ResearchExtension.V2.Controllers
+namespace MJU.DataCenter.Personnel.Controllers
 {
-    [ApiVersion("2.0")]
     [Route("api/[controller]")]
-    [ApiController]
-    public class ResearchDataController : ControllerBase
+    public class PersonnelRetiredController : Controller
     {
-        private readonly IResearchAndExtensionService _researchAndExtensionService;
-        public ResearchDataController(IResearchAndExtensionService researchAndExtensionService)
+        private readonly IPersonnelService _personnelService;
+        public PersonnelRetiredController(IPersonnelService personnelService)
         {
-            _researchAndExtensionService = researchAndExtensionService;
+            _personnelService = personnelService;
         }
         // GET: api/values
         [HttpGet]
@@ -28,15 +25,18 @@ namespace MJU.DataCenter.ResearchExtension.V2.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{type}")]
-        public object Get(int type, string filter)
+        [HttpGet("{type}/{total}")]
+        public object Get(int type,int total)
         {
-            var input = new InputFilterGraphViewModel
-            {
-                Type = type,
-            };
-            return _researchAndExtensionService.GetResearchData(input);
+            return _personnelService.GetAllPersonRetired(total,type);
         }
+
+        [HttpGet("GetDataTablePersonRetired/{type}/{year}")]
+        public object GetDataTablePersonRetired(int type, string year)
+        {
+            return _personnelService.GetDataTablePersonRetired(year,type);
+        }
+
 
         // POST api/values
         [HttpPost]

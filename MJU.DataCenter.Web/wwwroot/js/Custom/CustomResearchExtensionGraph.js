@@ -1,5 +1,5 @@
-﻿async function ResearchDepartmentGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchDepartment/1?api-version=1&filter=' + filter : 'https://localhost:44341/api/ResearchDepartment/1?api-version=1'
+﻿async function ResearchDepartmentGraph(startDate, endDate) {
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchDepartment?Type=1&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -129,8 +129,8 @@ function RenderReseacherName(reseacherList) {
 }
 
 
-async function ResearchPersonGroupGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchGroup/1?api-version=1&filter=' + filter :'https://localhost:44341/api/ResearchGroup/1?api-version=1'
+async function ResearchPersonGroupGraph(startDate, endDate) {
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' :'https://localhost:44341/api/ResearchGroup?Type=1&api-version=1.0'
     
     fetch(url)
         .then((response) => {
@@ -229,8 +229,8 @@ async function moneyPersonGroupRender(data) {
     })
 }
 
-async function ResearchMoneyRangeGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchMoney/1?api-version=1&filter=' + filter : 'https://localhost:44341/api/ResearchMoney/1?api-version=1'
+async function ResearchMoneyRangeGraph(startDate,endDate) {
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchMoney/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchMoney?Type=1&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -342,8 +342,8 @@ async function ResearchMoneyRangeRender(data) {
     })
 }
 
-async function ResearchMoneyTypeGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchData/1?api-version=1&filter=' + filter : 'https://localhost:44341/api/ResearchData/1?api-version=1';
+async function ResearchMoneyTypeGraph(startDate,endDate) {
+    var url = startDate != null && endDate != null ? 'https://localhost:44341/api/ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost:44341/api/ResearchData?Type=1&api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -356,11 +356,8 @@ async function ResearchMoneyTypeGraph(filter) {
 
 async function moneyTypeRender(data) {
 
-
-
     $('#moneyTypeBox').empty(); // this is my <canvas> element
     $('#moneyTypeBox').append('<canvas id="moneyType-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
-
 
     'use strict'
     var ticksStyle = {
@@ -373,7 +370,8 @@ async function moneyTypeRender(data) {
     }
     var mode = 'index'
     var intersect = true
-    var $moneyTypeChart = $('#moneyType-chart')
+    var $moneyTypeChart = $('#moneyType-chart');
+
     var chart = new Chart($moneyTypeChart, {
         type: 'horizontalBar',
         data: {
@@ -449,4 +447,7 @@ async function moneyTypeRender(data) {
             }
         }
     })
+
+ 
+
 }

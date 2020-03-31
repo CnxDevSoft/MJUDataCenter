@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using MJU.DataCenter.ResearchExtension.Models;
 using MJU.DataCenter.ResearchExtension.ViewModels;
 
 namespace MJU.DataCenter.ResearchExtension.Service.Interface
@@ -10,6 +12,10 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         object GetResearchGroup(InputFilterGraphViewModel input);
         object GetResearchData(InputFilterGraphViewModel input);
         object GetAllResearchMoney(InputFilterGraphViewModel input);
+
+        List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input);
+
+        ResearcherDetailModel GetResearcherDetail(int researcherId);
 
 
     }
