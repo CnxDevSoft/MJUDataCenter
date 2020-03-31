@@ -93,7 +93,7 @@ CREATE TABLE [dbo].[ResearchPaper](
 	[PaperNameTH] [nvarchar](max) NULL,
 	[PaperNameEN] [nvarchar](max) NULL,
 	[Weigth] [int] NULL,
-	[PaperCreateData] [datetime] NULL,
+	[PaperCreateDate] [datetime] NULL,
 	[MagazineId] [int] NULL,
 	[MagazineName] [nvarchar](max) NULL,
 	[MagzineVolum] [int] NULL,
