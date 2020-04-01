@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://localhost/MJU.DataCenter.ResearchExtension",
+      "applicationUrl": "https://localhost/MJU.DataCenter.ResearchExtension",
       "sslPort": 0
     },
     "iisExpress": {
@@ -29,6 +29,11 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:44341"
+    },
+    "IIS": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "launchUrl": "swagger"
     }
   }
 }

@@ -60,31 +60,6 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddTransient<INewSeedDataService, NewSeedDataService>();
             services.AddTransient<IResearchAndExtensionService, ResearchAndExtensionService>();
 
-            //swagger
-            //services.AddSwaggerGen(c =>
-            //{
-            //   /*  c.DocInclusionPredicate((docName, apiDoc) =>
-            //    {
-            //        if (!apiDoc.TryGetMethodInfo(out MethodInfo methodInfo)) return false;
-
-            //        var versions = methodInfo.DeclaringType.GetCustomAttributes(true).OfType<ApiVersionAttribute>()
-            //        .SelectMany(a => a.Versions);
-
-            //        return versions.Any(v => $"v{v.ToString()}" == docName);
-            //    });*/
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Maejo Research Public API", Description = "API สำหรับการดึงข้อมูลงานวิจัยภายนอกหน่วยงานมหาวิทยาลัยแม่โจ้", Version = "v1" });
-            //    c.SwaggerDoc("v2", new OpenApiInfo { Title = "Maejo Research Private API",  Description = "API สำหรับการดึงข้อมูลงานวิจัยภายในหน่วยงานมหาวิทยาลัยแม่โจ้", Version = "v2" });
-            //});
-            //services.AddApiVersioning(o => { 
-            //    o.ReportApiVersions = true; 
-            //    o.AssumeDefaultVersionWhenUnspecified = true;
-            //    o.DefaultApiVersion = new ApiVersion(1, 0);
-
-
-            //    o.Conventions.Controller<ResearchMoney>().HasApiVersion(new ApiVersion(1, 0));
-            //    o.Conventions.Controller<ResearchMoney>().HasApiVersion(new ApiVersion(2, 0));
-            //});
-
             services.AddApiVersioning(
               options =>
               {
@@ -146,11 +121,6 @@ namespace MJU.DataCenter.ResearchExtension
                     options.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/{description.GroupName}/swagger.json", "Maejo Research API " + description.GroupName.ToUpperInvariant());
                 }
             });
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Maejo Researcher Pubic API");
-            //    c.SwaggerEndpoint("/swagger/v2/swagger.json", "Maejo Researcher Private API");
-            //});
 
             app.UseHttpsRedirection();
 

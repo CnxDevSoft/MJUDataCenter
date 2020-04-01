@@ -5,7 +5,7 @@
     }
     var mode = 'index'
     var intersect = true
-    fetch('https://localhost:44307/api/PersonnelGroup/1?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $allPersonalChart = $('#allpersonal-chart')
@@ -68,7 +68,7 @@
         })
 }
 async function PersonAgeGraph() {
-    fetch('https://localhost:44307/api/PersonnelPositionGeneration/1?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionGeneration/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var barChartData = {
@@ -121,7 +121,7 @@ async function PersonAgeGraph() {
         })
 }
 async function PersonEducationGraph() {
-    fetch('https://localhost:44307/api/PersonnelEducation/1?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var donutChartCanvas = $('#pieChart').get(0).getContext('2d')
@@ -148,7 +148,7 @@ async function PersonEducationGraph() {
         })
 }
 async function PersonTypeGraph() {
-    fetch('https://localhost:44307/api/PersonnelPosition/1?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var donutChartCanvas = $('#pie2Chart').get(0).getContext('2d')
@@ -178,7 +178,7 @@ async function PersonTypeGraph() {
 
 
 async function PersonForcastGenerationGraph() {
-    var url ='https://localhost:44307/api/PersonnelRetired/1/10?api-version=1.0'
+    var url ='https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/1/10?api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -303,7 +303,7 @@ function chartClicked(chart, chartName) {
             var modelLabel = chart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
 
-            var url = 'https://localhost:44341/api/ResearchData?Type=1&api-version=1.0';
+            var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1&api-version=1.0';
 
             fetch(url)
                 .then((response) => {
@@ -343,7 +343,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
 
-    var url = 'https://localhost:44307/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel;
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel;
 
     fetch(url)
         .then((response) => {
@@ -376,7 +376,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost:44341/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal;
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal;
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
