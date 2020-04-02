@@ -34,6 +34,12 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             return _researchAndExtensionService.GetResearchData(input);
         }
 
+        [HttpGet("GetDataSource")]
+        public List<ResearchDataDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input)
+        {
+            return _researchAndExtensionService.GetResearchDataDataSource(input);
+        }
+
         // POST api/values
         //[HttpPost]
         //public void Post([FromBody]string value)

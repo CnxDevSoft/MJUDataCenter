@@ -26,5 +26,11 @@ namespace MJU.DataCenter.Personnel.Controllers
             return _personnelService.GetAllPersonnelPositionGeneration(type);
         }
 
+        [HttpGet("DataSource/{type}")]
+        public object Get()
+        {
+            return _personnelService.GetAllPersonnelEducationDataSource();
+        }
+
     }
 }

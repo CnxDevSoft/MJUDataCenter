@@ -12,11 +12,19 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelGroup(int type);
 
+        List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource();
+
         object GetAllPersonnelPosition(int type);
+
+        List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource();
 
         object GetAllPersonnelEducation(int type);
 
+        List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource();
+
         object GetAllPersonnelPositionGeneration(int type);
+
+        List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource();
 
         object GetAllPersonRetired(int total,int type);
 

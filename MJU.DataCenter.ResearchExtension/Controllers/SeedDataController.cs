@@ -20,21 +20,21 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             _newSeedDataService =newSeedDataService;
         }
         // GET: api/SeedData
-        //[HttpGet]
+        [HttpGet]
 
-        //public IEnumerable<string> Get()
-        //{
-        //    _newSeedDataService.GenerateSeed();
-        //    return new string[] { "value1", "value2" };
-        //}
+        public IEnumerable<string> Get()
+        {
+            _newSeedDataService.GenerateSeed();
+            return new string[] { "value1", "value2" };
+        }
 
         // GET: api/SeedData/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-           // _newSeedDataService.GenerateSeed();
-            return "value";
-        }
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //   // _newSeedDataService.GenerateSeed();
+        //    return "value";
+        //}
 
         // POST: api/SeedData
         //[HttpPost]
