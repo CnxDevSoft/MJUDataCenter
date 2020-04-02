@@ -1,7 +1,8 @@
 ﻿async function AllPersonGraph() {
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        fontSize: 16
     }
     var mode = 'index'
     var intersect = true
@@ -76,6 +77,9 @@
                 $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td>'
                     + item.val + '</td></tr>');
             });
+
+            AllPersonGraphDS();
+
         });
 }
 async function PersonAgeGraph() {
@@ -413,3 +417,61 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
         });
 }
 
+
+
+async function AllPersonGraphDS() {
+
+    //fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/2?api-version=1.0')
+    //    .then(res => res.json())
+    //    .then((data) => {
+
+    //        debugger;
+    //    });
+
+    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=2&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+
+            RenderAllPersonGraphDS(data);
+            Load();
+        });
+}
+
+async function RenderAllPersonGraphDS(data) {
+
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> ' + result.moneyTypeName +'</a>'
+
+        $('#allpersonalGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key +'">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-' + key +'-table">';
+        var startThead = '<thead id="sub-allpersonalGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>แผนก</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-allpersonalGraphDataSource-tbody">';
+        $.each(result.researchData, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researcherName + '</a></td><td>' + item.researcherName + '</td></tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#allpersonalGraphDataSourceModal-card-body').append(html);
+
+    });
+}
+
+async function Load() {
+    $('.dataTable-sub').DataTable({
+        language: {
+            sLengthMenu: ""
+        },
+        searching: false,
+        pageLength: 5
+    });
+}

@@ -8,7 +8,7 @@
                 <h3 class="card-title">กราฟแสดงจำนวนบุคลากรทั้งหมดแยกตามประเภทและบุคลากร</h3>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body bg-dark-sea-green">
             <div class="position-relative mb-4 text-center">
                 <div class="btn-group btn-group-toggle btn-toggle-green" data-toggle="buttons">
                     <label class="btn btn-success active" id="switch-allpersonal-label-canvas">
@@ -45,7 +45,7 @@
 <script>
     $(function () {
         AllPersonGraph();
-        ToggleChart("allpersonal-chart");
+        ToggleChart("allpersonal");
     })
 </script>
 <partial name="PartialViews/AllPersonGraph/_allPersonGraphDataSource" />

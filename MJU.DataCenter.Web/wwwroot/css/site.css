@@ -181,6 +181,22 @@ body {
     min-height: 90px;
 }
 
+.bg-dark-sea-green {
+    background: #aadcc6;
+}
+
+.collapse-ds {
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+    padding: 12px;
+    /* background: #69a4af;
+    color: white;*/
+    border: 0;
+}
+.multi-collapse.show{
+
+}
 
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse.layout-fixed .brand-text {

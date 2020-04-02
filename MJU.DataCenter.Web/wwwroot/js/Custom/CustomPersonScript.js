@@ -1,24 +1,24 @@
 ﻿
 async function ToggleChart(chartName) {
+    
+    var canvasTab = '#' + chartName + '-chart-canvas';
+    var tableTab = '#' + chartName + '-chart-table';
+    var modalTab = '#' + chartName + 'GraphDataSourceModal';
+    var labelCanvasTab = '#switch-' + chartName + '-label-canvas';
+    var labelTableTab = '#switch-' + chartName + '-label-table';
+    var datasourceTab = '#' + chartName + '-datasource';
 
-    var canvasTab = '#' + chartName + '-canvas';
-    var tableTab = '#' + chartName + '-table';
-    var modalTab = '#allPersonGraphDataSourceModal';
-
-    $("#switch-allpersonal-label-canvas").click(function () {
+    $(labelCanvasTab).click(function () {
         $(tableTab).hide();
         $(canvasTab).show();
-        //alert("1");
     });
-    $("#switch-allpersonal-label-table").click(function () {
+    $(labelTableTab).click(function () {
         $(canvasTab).hide();
         $(tableTab).show();
     });
-    $("#allpersonal-datasource").click(function () {
-
-        alert('1');
+    $(datasourceTab).click(function () {
+   
+       // AllPersonGraphDS();
         $(modalTab).modal('show');
     });
-
-
 }
