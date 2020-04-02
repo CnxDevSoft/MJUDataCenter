@@ -91,7 +91,37 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     Person = personnel.Where(m => m.PersonnelType == personnelType.PersonnelType && m.PersonnelTypeId == personnelType.PersonnelTypeId)
                     .Select(s => new PersonnelDataSourceViewModel
                     {
-
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education =s.Education,
+                        EducationLevel =s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate =s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate =s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+                       
                     }).ToList()
                 };
                 list.Add(personGroup);
@@ -163,7 +193,36 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     Person = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId).
                     Select(s => new PersonnelDataSourceViewModel
                     {
-
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
                     }).ToList()
                 };
                 list.Add(personPosition);
@@ -247,8 +306,38 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 {
                     EducationTypeName = educationLevel.EducationLevel,
                     Person = personnel.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId)
-                    .Select(s=>new PersonnelDataSourceViewModel { 
-                    
+                    .Select(s=>new PersonnelDataSourceViewModel {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+
                     }).ToList()
                 };
                 list.Add(personPosition);
@@ -259,6 +348,36 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 Person = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel))
                 .Select(s => new PersonnelDataSourceViewModel
                 {
+                    AdminPosition = s.AdminPosition,
+                    AdminPositionType = s.AdminPositionType,
+                    BloodType = s.BloodType,
+                    Country = s.Country,
+                    DateOfBirth = s.DateOfBirth,
+                    Division = s.Division,
+                    Education = s.Education,
+                    EducationLevel = s.EducationLevel,
+                    Faculty = s.Faculty,
+                    Gender = s.Gender,
+                    GraduateDate = s.GraduateDate,
+                    IdCard = s.IdCard,
+                    Major = s.Major,
+                    Nation = s.Nation,
+                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                    PersonnelId = s.PersonnelId,
+                    PersonnelType = s.PersonnelType,
+                    Position = s.Position,
+                    PositionLevel = s.PositionLevel,
+                    PositionType = s.PositionType,
+                    Province = s.Province,
+                    RetiredDate = s.RetiredDate,
+                    RetiredYear = s.RetiredYear,
+                    Salary = s.Salary,
+                    Section = s.Section,
+                    StartDate = s.StartDate,
+                    StartEducationDate = s.StartEducationDate,
+                    TitleEducation = s.TitleEducation,
+                    University = s.University,
+                    ZipCode = s.ZipCode
 
                 }).ToList()
 
@@ -369,23 +488,140 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 foreach (var positionType in distinctPosition)
                 {
                     var generationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231))
-                    .Select(s=>new PersonnelDataSourceViewModel { 
-                    
+                    .Select(s=>new PersonnelDataSourceViewModel {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+
                     }).ToList();
                     var generationGenX = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
-
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
                     }).ToList();
                 var generationGenY = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
-
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
                     }).ToList();
                 var generationGenZ = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19980101))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
-
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
                     }).ToList();
 
 
