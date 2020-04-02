@@ -421,13 +421,6 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 
 async function AllPersonGraphDS() {
 
-    //fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/2?api-version=1.0')
-    //    .then(res => res.json())
-    //    .then((data) => {
-
-    //        debugger;
-    //    });
-
     fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=2&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
