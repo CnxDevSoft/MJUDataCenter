@@ -421,7 +421,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 
 async function AllPersonGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=2&api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
 
@@ -433,19 +433,24 @@ async function AllPersonGraphDS() {
 async function RenderAllPersonGraphDS(data) {
 
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> ' + result.moneyTypeName +'</a>'
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> ' + result.personGroupTypeName +'</a>'
 
         $('#allpersonalGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key +'">';
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-' + key +'-table">';
         var startThead = '<thead id="sub-allpersonalGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>แผนก</th></tr>';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
 
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-allpersonalGraphDataSource-tbody">';
-        $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researcherName + '</a></td><td>' + item.researcherName + '</td></tr >';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+             
+                '</tr >';
         });
         var endbody = '</tbody>';
 
