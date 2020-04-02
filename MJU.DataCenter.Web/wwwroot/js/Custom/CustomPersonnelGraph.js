@@ -5,7 +5,7 @@
     }
     var mode = 'index'
     var intersect = true
-    fetch('https://localhost:44341/api/PersonnelGroup/1')
+    fetch('https://localhost:5000/api/PersonnelGroup/1')
         .then(res => res.json())
         .then((data) => {
             var $allPersonalChart = $('#allpersonal-chart')
@@ -15,8 +15,15 @@
                     labels: data.label,
                     datasets: [
                         {
-                            backgroundColor: '#007bff',
-                            borderColor: '#007bff',
+                            backgroundColor: [
+                                '#A560E5',
+                                '#9475E5',
+                                '#7677E8',
+                                '#7F9DF0',
+                                '#6BBCE8',
+                                '#7DDCF5',
+                                '#4BCADB'
+                            ],
                             data: data.graphDataSet[0].data
                         }
                     ]
@@ -68,7 +75,7 @@
         })
 }
 async function PersonAgeGraph(){
-    fetch('https://localhost:44341/api/PersonnelPositionGeneration/1')
+    fetch('https://localhost:5000/api/PersonnelPositionGeneration/1')
         .then(res => res.json())
         .then((data) => {
             var barChartData = {
@@ -121,7 +128,7 @@ async function PersonAgeGraph(){
         })
 }
 async function PersonEducationGraph() {
-    fetch('https://localhost:44341/api/PersonnelEducation/1')
+    fetch('https://localhost:5000/api/PersonnelEducation/1')
         .then(res => res.json())
         .then((data) => {
             var donutChartCanvas = $('#pieChart').get(0).getContext('2d')
@@ -130,7 +137,15 @@ async function PersonEducationGraph() {
                 datasets: [
                     {
                         data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        backgroundColor: [
+                            '#A560E5',
+                            '#9475E5',
+                            '#7677E8',
+                            '#7F9DF0',
+                            '#6BBCE8',
+                            '#7DDCF5',
+                            '#4BCADB'
+                        ],
                     }
                 ]
             }
@@ -148,7 +163,7 @@ async function PersonEducationGraph() {
         })
 }
 async function PersonTypeGraph() {
-    fetch('https://localhost:44341/api/PersonnelPosition/1')
+    fetch('https://localhost:5000/api/PersonnelPosition/1')
         .then(res => res.json())
         .then((data) => {
             var donutChartCanvas = $('#pie2Chart').get(0).getContext('2d')
@@ -157,7 +172,15 @@ async function PersonTypeGraph() {
                 datasets: [
                     {
                         data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        backgroundColor: [
+                            '#A560E5',
+                            '#9475E5',
+                            '#7677E8',
+                            '#7F9DF0',
+                            '#6BBCE8',
+                            '#7DDCF5',
+                            '#4BCADB'
+                        ],
                     }
                 ]
             }

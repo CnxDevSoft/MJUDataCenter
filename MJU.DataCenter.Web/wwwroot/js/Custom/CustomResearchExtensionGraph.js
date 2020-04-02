@@ -1,5 +1,5 @@
 ﻿async function ResearchDepartmentGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchDepartment/1?api-version=1&filter=' + filter : 'https://localhost:44341/api/ResearchDepartment/1?api-version=1'
+    var url = filter != null ? 'https://localhost:5000/api/ResearchDepartment/1?api-version=1&filter=' + filter : 'https://localhost:5000/api/ResearchDepartment/1?api-version=1'
 
     fetch(url)
         .then((response) => {
@@ -130,7 +130,7 @@ function RenderReseacherName(reseacherList) {
 
 
 async function ResearchPersonGroupGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchGroup/1?api-version=1&filter=' + filter :'https://localhost:44341/api/ResearchGroup/1?api-version=1'
+    var url = filter != null ? 'https://localhost:5000/api/ResearchGroup/1?api-version=1&filter=' + filter :'https://localhost:5000/api/ResearchGroup/1?api-version=1'
     
     fetch(url)
         .then((response) => {
@@ -230,7 +230,7 @@ async function moneyPersonGroupRender(data) {
 }
 
 async function ResearchMoneyRangeGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchMoney/1?api-version=1&filter=' + filter : 'https://localhost:44341/api/ResearchMoney/1?api-version=1'
+    var url = filter != null ? 'https://localhost:5000/api/ResearchMoney/1?api-version=1&filter=' + filter : 'https://localhost:5000/api/ResearchMoney/1?api-version=1'
 
     fetch(url)
         .then((response) => {
@@ -343,7 +343,7 @@ async function ResearchMoneyRangeRender(data) {
 }
 
 async function ResearchMoneyTypeGraph(filter) {
-    var url = filter != null ? 'https://localhost:44341/api/ResearchData/1?api-version=1&filter=' + filter : 'https://localhost:44341/api/ResearchData/1?api-version=1';
+    var url = filter != null ? 'https://localhost:5000/api/ResearchData/1?api-version=1&filter=' + filter : 'https://localhost:5000/api/ResearchData/1?api-version=1';
 
     fetch(url)
         .then((response) => {

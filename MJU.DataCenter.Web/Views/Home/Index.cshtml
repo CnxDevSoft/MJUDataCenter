@@ -1,8 +1,81 @@
 ﻿@page
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int[] news = { 1,1,1,1,1,1,1 };
 }
 
-<div class="content-wrapper">
-    <img src="~/img/datacenter3.jpg" style="width:100%;">
-</div>
+@*
+        <div class="content-wrapper">
+        <img src="~/img/datacenter3.jpg" style="width:100%;">
+    </div>
+*@
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Small boxes (Stat box) -->
+            <div class="col-lg-12 mb-4">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" style="height: 320px">
+                            <div class="d-block h-100 w-100 bg-primary text-light rounded justify-content-center" src="..." alt="First slide"></div>
+                        </div>
+                        <div class="carousel-item" style="height: 320px">
+                            <div class="d-block w-100 h-100 bg-secondary text-light rounded justify-content-center" src="..." alt="Second slide"></div>
+                        </div>
+                        <div class="carousel-item" style="height: 320px">
+                            <div class="d-block w-100 h-100 bg-success text-light rounded justify-content-center" src="..." alt="Third slide"></div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-4">
+                <div class="row">
+                    <div class="col col-lg-10 px-3">
+                        <div class="row p-3 bg-white rounded">
+                            <div class="col-lg-12 mb-3">
+                                <label>ข่าวประชาสัมพันธ์</label>
+                                <a class="float-right">เพิ่มเติม</a>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    @for (int i = 0; i < 4; i++)
+                                    {
+                                        <div class="col-lg-3">
+                                            <div class="card border-0 shadow-none">
+                                                <img class="card-img-top" src="..." alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Card title</h5>
+                                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-lg-2 px-3 h-100">
+                        <div class="row p-3 bg-white rounded">
+                            <div class="col-lg-12 mb-3">
+                                <label>ข่าวรับสมัคร</label>
+                                <a class="float-right">เพิ่มเติม</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
