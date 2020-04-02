@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "https://localhost/MJU.DataCenter.Personnel",
+      "applicationUrl": "http://localhost/MJU.DataCenter.Personnel",
       "sslPort": 0
     },
     "iisExpress": {
@@ -14,7 +14,7 @@
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
@@ -22,7 +22,7 @@
       }
     },
     "MJU.DataCenter.Personnel": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {

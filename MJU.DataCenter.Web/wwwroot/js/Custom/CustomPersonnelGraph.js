@@ -354,7 +354,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel;
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel +'?api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -387,7 +387,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal;
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal+'?api-version=1.0';
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
