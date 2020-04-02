@@ -9,10 +9,28 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="position-relative mb-4">
+            <div class="position-relative mb-4 text-center">
+                <div class="btn-group btn-group-toggle btn-toggle-green" data-toggle="buttons">
+                    <label class="btn btn-success active" id="switch-allpersonal-label-canvas">
+                        <input type="radio" name="options" id="switch-allpersonal-chart-1" autocomplete="off" checked=""> มุมมองกราฟ
+                    </label>
+                    <label class="btn btn-success btn-toggle-green" id="switch-allpersonal-label-table">
+                        <input type="radio" name="options" id="switch-allpersonal-chart-2" autocomplete="off"> มุมมองตาราง
+                    </label>
+                </div>
+                <a class="btn btn-app" style="position: absolute;right: 0;" id="allpersonal-datasource">
+                    <i class="fas fa-users"></i> ข้อมูล
+                </a>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="position-relative mb-4" id="allpersonal-chart-canvas">
                 <canvas id="allpersonal-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
             </div>
-
+            <div class="position-relative mb-4" id="allpersonal-chart-table" style="display:none;">
+                <partial name="PartialViews/AllPersonGraph/_allPersonGraphDataTable" />
+            </div>
             <div class="d-flex flex-row justify-content-end">
                 <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> จำนวนบุคลากร
@@ -27,5 +45,7 @@
 <script>
     $(function () {
         AllPersonGraph();
+        ToggleChart("allpersonal-chart");
     })
-</Script >
+</script>
+<partial name="PartialViews/AllPersonGraph/_allPersonGraphDataSource" />

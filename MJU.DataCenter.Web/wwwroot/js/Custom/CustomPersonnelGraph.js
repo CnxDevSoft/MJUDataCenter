@@ -65,7 +65,18 @@
                     }
                 }
             })
-        })
+
+            var tempData = [];
+
+            $.each(data.label, function (key, title) {
+                tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
+            });
+
+            $.each(tempData, function (key, item) {
+                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td>'
+                    + item.val + '</td></tr>');
+            });
+        });
 }
 async function PersonAgeGraph() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionGeneration/1?api-version=1.0')

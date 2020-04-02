@@ -87,7 +87,6 @@ async function allResearchRender(data) {
             },
             onClick: function (evt, item) {
 
-
                // $("#researchDepartmentTable").empty();
                 $("#researchDepartmentSection").empty();
                 $("#researchDepartmentLabel").empty();

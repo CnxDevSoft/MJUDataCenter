@@ -41,7 +41,10 @@ namespace MJU.DataCenter.ResearchExtension
             services.AddControllers();
 
             services.AddDbContext<ResearchExtensionContext>(option =>
-            option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), builder =>
+            {
+                builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+            }));
 
             //DI
             services.AddScoped<IPersonnelGroupRepository, PersonnelGroupRepository>();
