@@ -16,7 +16,6 @@ async function ToggleChart(chartName) {
     });
     $("#allpersonal-datasource").click(function () {
 
-        alert('1');
         $(modalTab).modal('show');
     });
 
