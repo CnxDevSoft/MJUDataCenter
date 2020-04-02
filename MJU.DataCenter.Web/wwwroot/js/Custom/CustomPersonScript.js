@@ -17,8 +17,6 @@ async function ToggleChart(chartName) {
         $(tableTab).show();
     });
     $(datasourceTab).click(function () {
-   
-       // AllPersonGraphDS();
         $(modalTab).modal('show');
     });
 }

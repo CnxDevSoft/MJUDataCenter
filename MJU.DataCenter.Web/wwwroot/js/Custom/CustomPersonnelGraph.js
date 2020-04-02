@@ -1,4 +1,5 @@
-﻿async function AllPersonGraph() {
+﻿
+async function AllPersonGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -74,12 +75,13 @@
             });
 
             $.each(tempData, function (key, item) {
-                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td>'
-                    + item.val + '</td></tr>');
+                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')'+'">'
+                    + item.val + '</button></td></tr>');
             });
 
             AllPersonGraphDS();
 
+            $('[data-toggle="tooltip"]').tooltip();
         });
 }
 async function PersonAgeGraph() {
@@ -433,7 +435,7 @@ async function AllPersonGraphDS() {
 async function RenderAllPersonGraphDS(data) {
 
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> ' + result.personGroupTypeName +'</a>'
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName +'</b></a>'
 
         $('#allpersonalGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key +'">';
