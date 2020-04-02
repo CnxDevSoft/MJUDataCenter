@@ -22,7 +22,7 @@
       }
     },
     "MJU.DataCenter.ResearchExtension": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
