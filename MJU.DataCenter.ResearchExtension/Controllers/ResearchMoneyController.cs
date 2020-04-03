@@ -34,6 +34,12 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             return _researchAndExtensionService.GetAllResearchMoney(input);
         }
 
+        [HttpGet("GetDataSource")]
+        public List<RankResearchMoneyDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input)
+        {
+            return _researchAndExtensionService.GetAllResearchMoneyDataSource(input);
+        }
+
         // POST: api/DcResearchMoney
 
         //[HttpPost]
