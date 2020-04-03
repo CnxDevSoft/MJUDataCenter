@@ -17,8 +17,15 @@ async function AllPersonGraph() {
                     labels: data.label,
                     datasets: [
                         {
-                            backgroundColor: '#007bff',
-                            borderColor: '#007bff',
+                            backgroundColor: [
+                                '#A560E5',
+                                '#9475E5',
+                                '#7677E8',
+                                '#7F9DF0',
+                                '#6BBCE8',
+                                '#7DDCF5',
+                                '#4BCADB'
+                            ],
                             data: data.graphDataSet[0].data
                         }
                     ]
@@ -147,7 +154,15 @@ async function PersonEducationGraph() {
                 datasets: [
                     {
                         data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        backgroundColor: [
+                            '#A560E5',
+                            '#9475E5',
+                            '#7677E8',
+                            '#7F9DF0',
+                            '#6BBCE8',
+                            '#7DDCF5',
+                            '#4BCADB'
+                        ],
                     }
                 ]
             }
@@ -174,7 +189,15 @@ async function PersonTypeGraph() {
                 datasets: [
                     {
                         data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        backgroundColor: [
+                            '#A560E5',
+                            '#9475E5',
+                            '#7677E8',
+                            '#7F9DF0',
+                            '#6BBCE8',
+                            '#7DDCF5',
+                            '#4BCADB'
+                        ],
                     }
                 ]
             }

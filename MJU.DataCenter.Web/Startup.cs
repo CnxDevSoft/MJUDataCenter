@@ -56,6 +56,7 @@ namespace MJU.DataCenter.Web
 
             services.Configure<IdentityOptions>(options =>
             {
+
                 // Password settings.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
@@ -81,7 +82,7 @@ namespace MJU.DataCenter.Web
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
 
-                //options.LoginPath = "/Identity/Account/Login";
+                //options.LoginPath = "/Account/Login";
                 //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
@@ -116,6 +117,7 @@ namespace MJU.DataCenter.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultControllerRoute().RequireAuthorization();
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
                 //endpoints.MapRazorPages();
             });

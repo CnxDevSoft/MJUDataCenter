@@ -12,6 +12,8 @@ namespace MJU.DataCenter.Web.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["currentPage"] = "Home";
+            ViewData["Title"] = "Home";
             return View();
         }
 
