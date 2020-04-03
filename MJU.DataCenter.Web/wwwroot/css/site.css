@@ -184,7 +184,9 @@ body {
 .bg-dark-sea-green {
     background: #aadcc6;
 }
-
+.bg-light-sea-green {
+    background: #efef;
+}
 .collapse-ds {
     width: 100%;
     text-align: left;
@@ -202,7 +204,12 @@ body {
     background: white;
     color: green;
 }
-
+.sidebar-light-green-theme {
+    background: #aadcc6;
+}
+.bg-bule-filter {
+    background: #ccdef1;
+}
 
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse.layout-fixed .brand-text {
