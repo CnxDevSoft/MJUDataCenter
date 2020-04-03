@@ -38,7 +38,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
                 foreach (var personnelType in distinctPersonnelTypeId)
                 {
-                    label.Add(personnelType.PersonnelTypeId);
+                    label.Add(personnelType.PersonnelType);
                     data.Add(personnel.Where(m => m.PersonnelType == personnelType.PersonnelType && m.PersonnelTypeId == personnelType.PersonnelTypeId).Count());
                 }
                 var graphDataSet = new GraphDataSet
@@ -137,7 +137,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         {
             var personnel = _dcPersonRepository.GetAll();
 
-            var distinctPosition = personnel.Select(s => new { s.PositionType, s.PersonnelTypeId }).Distinct();
+            var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
             if (type == 1)
             {
@@ -182,7 +182,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         {
             var personnel = _dcPersonRepository.GetAll();
 
-            var distinctPosition = personnel.Select(s => new { s.PositionType, s.PersonnelTypeId }).Distinct();
+            var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
             var list = new List<PersonPostionDataSourceModel>();
             foreach (var positionType in distinctPosition)
