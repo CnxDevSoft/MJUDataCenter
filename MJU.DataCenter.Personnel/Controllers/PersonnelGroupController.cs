@@ -26,10 +26,10 @@ namespace MJU.DataCenter.Personnel.Controllers
             return _personnelService.GetAllPersonnelGroup(type);
         }
 
-        [HttpGet("DataSource/{type}")]
+        [HttpGet("DataSource")]
         public object Get()
         {
-            return _personnelService.GetAllPersonnelEducationDataSource();
+            return _personnelService.GetAllPersonnelGroupDataSource();
         }
 
 
