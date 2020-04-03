@@ -4,13 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
+using MJU.DataCenter.ResearchExtension.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MJU.DataCenter.ResearchExtension.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/[controller]")]
-    public class ResearchGroupController : Controller
+    [ApiController]
+    public class ResearchGroupController : ControllerBase
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
         public ResearchGroupController(IResearchAndExtensionService researchAndExtensionService)
@@ -18,35 +21,40 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             _researchAndExtensionService = researchAndExtensionService;
         }
         // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        [HttpGet("")]
+        public object Get([FromQuery]InputFilterGraphViewModel input)
         {
-            return new string[] { "value1", "value2" };
+            return _researchAndExtensionService.GetResearchGroup(input);
         }
 
-        // GET api/values/5
-        [HttpGet("{type}")]
-        public object Get(int type)
+        [HttpGet("GetDataSource")]
+        public List<ResearchGroupDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input)
         {
-            return _researchAndExtensionService.GetResearchGroup(type);
+            return _researchAndExtensionService.GetResearchGroupDataSource(input);
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        //[HttpPost]
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT api/values/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/values/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

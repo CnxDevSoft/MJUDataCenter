@@ -139,6 +139,71 @@ body {
     transition: margin-left .3s linear,opacity .3s ease,visibility .3s ease;
 }
 
+.pagination a.page-link {
+    color: rgba(1, 127, 63, 1) !important;
+}
+.page-item.active a.page-link {
+    background: rgba(1, 127, 63, 1) !important;
+    color: white !important;
+}
+.dataTables_length{
+    margin:10px;
+}
+.dataTables_filter {
+    margin: 10px;
+}
+.dataTables_info {
+    margin: 10px;
+}
+.dataTables_wrapper{
+    overflow:hidden;
+}
+.text-green {
+    color: #017f3f;
+}
+
+.card-green-theme:not(.card-outline) > .card-header {
+    color: #fff;
+}
+    .card-green-theme:not(.card-outline) > .card-header, .card-green-theme:not(.card-outline) > .card-header a {
+        background-color: #017f3f;
+    }
+
+.card-tools .close {
+    color: white !important;
+}
+.info-box .info-box-text.chartCard {
+    font-size: 14px;
+    white-space: normal;
+}
+
+.info-box {
+    min-height: 90px;
+}
+
+.bg-dark-sea-green {
+    background: #aadcc6;
+}
+
+.collapse-ds {
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+    padding: 12px;
+    /* background: #69a4af;
+    color: white;*/
+    border: 0;
+}
+.multi-collapse.show{
+
+}
+
+.label-default-bg {
+    background: white;
+    color: green;
+}
+
+
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse.layout-fixed .brand-text {
         opacity: 0;

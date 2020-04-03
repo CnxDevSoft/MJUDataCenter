@@ -115,7 +115,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearchCode = i,
                     ResearchNameEn = string.Format("Research {0}", i),
                     ResearchNameTh = string.Format("งานวิจัย {0}", i),
-                    StartDataResearch = rd1 > rd2 ? rd2 : rd1,
+                    StartDateResearch = rd1 > rd2 ? rd2 : rd1,
                     EndDateResearch = rd1 < rd2 ? rd2 : rd1,
                     ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
                 };
@@ -178,7 +178,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     PaperNameTh = string.Format("บทวิจัย{0}",i),
                     PaperNameEn = string.Format("Paper{0}", i),
                     Weigth = SeedData.HelperSeedData.RandomWeigthPaper(),
-                    PaperCreateData = SeedData.HelperSeedData.RandomDateTimeResearch(),
+                    PaperCreateDate = SeedData.HelperSeedData.RandomDateTimeResearch(),
                     MagazineId = magazine,
                     MagazineName = string.Format("MagazineName{0}", magazine),
                     MagzineVolum = SeedData.HelperSeedData.RandomResearchId(),

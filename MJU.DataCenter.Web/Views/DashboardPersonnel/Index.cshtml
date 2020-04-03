@@ -6,91 +6,13 @@
 <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        @*<partial name="PartialViews/_AllPersonGraph" />
-        <partial name="PartialViews/_PersonEducationGraph" />*@
+        <partial name="PartialViews/_AllPersonGraph" />
+        <partial name="PartialViews/_PersonEducationGraph" />
         <partial name="PartialViews/_PersonTypeGraph" />
         <partial name="PartialViews/_PersonAgeGraph" />
+        <partial name="PartialViews/_PersonForcastGeneration" />
     </div>
 </div><!-- /.container-fluid -->
 
-<script>
-    $(function () {
-  //'use strict'
-
-  //var ticksStyle = {
-  //  fontColor: '#495057',
-  //  fontStyle: 'bold'
-  //}
-
-  //var mode      = 'index'
-  //var intersect = true
-
-  //var $allpersonalchart = $('#all-personal-chart')
-  //var salesChart  = new Chart($allpersonalchart, {
-  //  type   : 'horizontalBar',
-  //  data   : {
-  //    labels  : ['ข้าราชการ', 'ลูกจ้างประจำ', 'พนักงานมหาวิทยาลัย', 'พนักงานมหาวิทยาลัยเงินรายได้', 'พนักงานราชการ', 'ลูกจ้างชั่วคราวเงินงบประมาณ', 'พนักงานส่วนงาน'],
-  //    datasets: [
-  //      {
-  //        backgroundColor: '#007bff',
-  //        borderColor    : '#007bff',
-  //        data           : [50, 25, 1300, 10, 30, 40, 200]
-  //      }
-  //    ]
-  //  },
-  //  options: {
-  //    maintainAspectRatio: false,
-  //    tooltips           : {
-  //      mode     : mode,
-  //      intersect: intersect
-  //    },
-  //    hover              : {
-  //      mode     : mode,
-  //      intersect: intersect
-  //    },
-  //    legend             : {
-  //      display: false
-  //    },
-  //    scales             : {
-  //      yAxes: [{
-  //        // display: false,
-  //        gridLines: {
-  //          display      : true,
-  //          lineWidth    : '4px',
-  //          color        : 'rgba(0, 0, 0, .2)',
-  //          zeroLineColor: 'transparent'
-  //        },
-  //        ticks    : $.extend({
-  //          beginAtZero: true,
-
-  //          // Include a dollar sign in the ticks
-  //          callback: function (value, index, values) {
-  //            if (value >= 1000) {
-  //              value /= 1000
-  //              value += 'k'
-  //            }
-  //              return value;// '$' + value
-  //          }
-  //        }, ticksStyle)
-  //      }],
-  //      xAxes: [{
-  //        display  : true,
-  //        gridLines: {
-  //          display: false
-  //        },
-  //        ticks    : ticksStyle
-  //      }]
-  //    }
-  //  }
-  //})
-
-
-
-
-
- 
-
-
-})
-
-</script>
+<script src="~/js/Custom/CustomPersonnelGraph.js"></script>
+<script src="~/js/Custom/CustomPersonScript.js"></script>
