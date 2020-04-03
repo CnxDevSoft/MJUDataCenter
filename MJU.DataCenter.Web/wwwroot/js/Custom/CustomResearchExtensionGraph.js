@@ -6,14 +6,14 @@
             return response.json();
         })
         .then((data) => {
-            allResearchRender(data);
+            ResearchDepartmentRender(data);
         });
 }
 
-async function allResearchRender(data) {
+async function ResearchDepartmentRender(data) {
 
-    $('#allResearchBox').empty(); // this is my <canvas> element
-    $('#allResearchBox').append('<canvas id="allResearch-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
+    $('#researchDepartmentBox').empty(); // this is my <canvas> element
+    $('#researchDepartmentBox').append('<canvas id="researchDepartment-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
 
     'use strict'
     var ticksStyle = {
@@ -26,7 +26,7 @@ async function allResearchRender(data) {
     }
     var mode = 'index'
     var intersect = true
-    var $allResearchChart = $('#allResearch-chart');
+    var $allResearchChart = $('#researchDepartment-chart');
 
    
     var chart = new Chart($allResearchChart, {
@@ -87,7 +87,7 @@ async function allResearchRender(data) {
             },
             onClick: function (evt, item) {
 
-               // $("#researchDepartmentTable").empty();
+                // $("#researchDepartmentTable").empty();
                 $("#researchDepartmentSection").empty();
                 $("#researchDepartmentLabel").empty();
                 //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
@@ -97,22 +97,40 @@ async function allResearchRender(data) {
                 table.clear().destroy();
 
                 $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    $("#researchDepartmentSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn +' </td><td>' +
-                        RenderReseacherName(value.researcher) + '</td><td>' +  moment(value.researchEndDate).format("DD/MM/YYYY")+ '</td></tr > ')
+                    $("#researchDepartmentSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
+                        RenderReseacherName(value.researcher) + '</td><td>' + moment(value.researchEndDate).format("DD/MM/YYYY") + '</td></tr > ')
                 });
 
                 $('#researchDepartmentModal').modal('show');
                 $('#researchDepartmentModal').on('shown.bs.modal', function () {
-     
+
                 })
                 $('#researchDepartmentTable').DataTable({
                     language: {
                         sLengthMenu: "Show _MENU_"
                     }
-                });      
+                });
             }
         }
-    })
+
+
+
+    });
+
+    var tempData = [];
+
+    $.each(data.label, function (key, title) {
+        tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
+    });
+
+    $.each(tempData, function (key, item) {
+        $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+            + item.val + '</button></td></tr>');
+    });
+
+    ResearchDepartmentGraphDS();
+
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function RenderReseacherName(reseacherList) {
@@ -446,7 +464,59 @@ async function moneyTypeRender(data) {
             }
         }
     })
-
- 
-
 }
+
+
+
+
+async function ResearchDepartmentGraphDS() {
+
+    fetch('https://localhost/MJU.DataCenter.researchextension/api/ResearchDepartment/GetDataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+
+            RenderResearchDepartmentGraphDS(data);
+            Load();
+        });
+}
+
+async function RenderResearchDepartmentGraphDS(data) {
+
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.departmentName + '</b></a>'
+
+        $('#researchDepartmentGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="researchDepartmentGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-' + key + '-table">';
+        var startThead = '<thead id="sub-researchDepartmentGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่องานวิจัย</th><th>ชื่อนักวิจัย</th><th>หน่วยงาน</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-researchDepartmentGraphDataSource-tbody">';
+        $.each(result.researchData, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
+                '</a></td><td>' + item.researcherName + '</td>' +
+                '<td>' + item.departmentNameTh + '</td >' +
+                '<td>' + moment(item.researchStartDate).format("DD/MM/YYYY") + '</td >' +
+                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+        var endTable = '</table>';
+        var endRow = '</div>';
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+        $('#researchDepartmentGraphDataSourceModal-card-body').append(html);
+    });
+}
+
+async function Load() {
+    $('.dataTable-sub').DataTable({
+        language: {
+            sLengthMenu: ""
+        },
+        searching: false,
+        pageLength: 5
+    });
+}
+
+
