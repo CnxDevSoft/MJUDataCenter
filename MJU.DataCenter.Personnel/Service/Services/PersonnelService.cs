@@ -1754,7 +1754,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonGroupPositionLevel(int type)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelId);
+            var personnel = _dcPersonRepository.GetAll().Where(m=>m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน").OrderBy(o => o.PersonnelId);
             if (type == 1)
             {
 
@@ -1827,7 +1827,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource()
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน").OrderBy(o => o.PersonnelId);
             var distinctPersonnelType = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
             var datatableList = new List<PersonGroupPositionLevelDataSourceModel>();
             foreach (var pt in distinctPersonnelType)
