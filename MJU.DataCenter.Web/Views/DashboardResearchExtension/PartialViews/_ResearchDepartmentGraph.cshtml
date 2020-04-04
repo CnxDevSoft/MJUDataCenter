@@ -8,11 +8,31 @@
                 <h3 class="card-title">กราฟแสดงงานวิจัยแยกตามหน่วยงาน</h3>
             </div>
         </div>
-        <div class="card-body">
-            <div class="position-relative mb-4" id="allResearchBox">
-                <canvas id="allResearch-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+        <div class="card-body bg-light-sea-green">
+            <div class="position-relative mb-4 text-center">
+                <div class="btn-group btn-group-toggle btn-toggle-green" data-toggle="buttons">
+                    <label class="btn btn-success label-default-bg active" id="switch-researchDepartment-label-canvas">
+                        <input type="radio" name="options" id="switch-researchDepartment-chart-1" autocomplete="off" checked="">
+                        <i class="fa fa-chart-bar" aria-hidden="true"></i><br /> มุมมองกราฟ
+                    </label>
+                    <label class="btn btn-success label-default-bg btn-toggle-green" id="switch-researchDepartment-label-table">
+                        <input type="radio" name="options" id="switch-researchDepartment-chart-2" autocomplete="off">
+                        <i class="fa fa-table" aria-hidden="true"></i><br /> มุมมองตาราง
+                    </label>
+                </div>
+                <a class="btn btn-app" style="position: absolute;right: 0;" id="researchDepartment-datasource">
+                    <i class="fas fa-info"></i> ข้อมูล
+                </a>
             </div>
-
+            <br />
+            <br />
+            <br />
+            <div class="position-relative mb-4" id="researchDepartment-chart-canvas">
+                <canvas id="researchDepartment-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+            </div>
+            <div class="position-relative mb-4" id="researchDepartment-chart-table" style="display:none;">
+                <partial name="PartialViews/ResearchDepartment/_researchDepartmentGraphDataTable" />
+            </div>
             <div class="d-flex flex-row justify-content-end">
                 <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> จำนวนงานวิจัย
@@ -39,7 +59,7 @@
                             <tr>
                                 <th><i class="fa fa-paper-plane"></i>  รายชื่องานวิจัย</th>
                                 <th><i class="fa fa-user"></i>  ผู้ทำวิจัย</th>
-                                <th><i class="fa fa-clock"></i> วันสิ้นสุดงานวิจัย</th>    
+                                <th><i class="fa fa-clock"></i> วันสิ้นสุดงานวิจัย</th>
                             </tr>
                         </thead>
                         <tbody id="researchDepartmentSection">
@@ -54,6 +74,8 @@
 <script>
     $(function () {
         ResearchDepartmentGraph(null);
+        ToggleResearchChart("researchDepartment");
     })
 </script>
 
+<partial name="PartialViews/ResearchDepartment/_researchDepartmentGraphDataSource" />
