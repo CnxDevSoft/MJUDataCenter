@@ -1012,7 +1012,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         {
             var personnel = _dcPersonRepository.GetAll();
             var PersonGender = personnel.Select(s => new { s.Gender, s.GenderId });
-           
+
             if (type == 1)
             {
                 var genderGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") && s.DateOfBirth <= DateTime.Parse("1964/12/31"));
@@ -1028,7 +1028,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         GenderM = "ชาย",
                         SumGenderM = genderGenerationBabyBoomber.Where(s=>s.GenderId == 1).Count(),
                         PersonGenderDataM = genderGenerationBabyBoomber.Where(s=>s.GenderId == 1).Select(s=>new PersonnelDataGenderViewModel
-                        { 
+                        {
                         PersonnelId = s.PersonnelId,
                         PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
                         Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
@@ -1287,7 +1287,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         }).OrderBy(o=>o.PersonnelId).ToList(),
                     }
                 };
-                    return genderPerson;
+                return genderPerson;
             }
             return null;
         }
@@ -1307,7 +1307,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         //        {
         //            new PersonnelDataGenderDataTableViewModel
         //            {
-                        
+
 
         //            }
 
@@ -1315,8 +1315,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
         //    }
         //}
 
-
-
+        public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource()
+        {
 
             var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId);
 
@@ -1473,5 +1473,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return personData;
 
         }
+
+
     }
 }
