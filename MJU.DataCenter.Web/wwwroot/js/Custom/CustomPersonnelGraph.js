@@ -255,7 +255,6 @@ async function PersonWorkAgeGraph() {
                             stacked: true,
                            // barPercentage: 0.5,
                         }
-
                     ],
                 },
                 options: {
@@ -328,7 +327,7 @@ async function PersonPositionGraph() {
     }
     var mode = 'index'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/1?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personPosition-chart')
@@ -337,37 +336,54 @@ async function PersonPositionGraph() {
                 data: {
                     labels: data.label,
                     datasets: [
-                        //{
-                        //    label: data.graphDataSet[0].label,
-                        //    backgroundColor: 'rgba(148,117,229,0.5)',
-                        //    borderColor: 'rgba(148,117,229,1)',
-                        //    data: data.graphDataSet[0].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[1].label,
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet[1].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[0].label,
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet[2].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[0].label[3],
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet[3].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[0].label[4],
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet.data
-                        //}
-
+                        {
+                            label: data.graphDataSet[0].label,
+                            backgroundColor: 'rgba(165,96,229,0.8)',
+                            borderColor: 'rgba(165,96,229,1)',
+                            data: data.graphDataSet[0].data,
+                            stacked: true
+                            //barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[1].label,
+                            backgroundColor: 'rgba(165,96,229,0.8)',
+                            borderColor: 'rgba(148,117,229,1)',
+                            data: data.graphDataSet[1].data,
+                            stacked: true
+                            //  barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[2].label,
+                            backgroundColor: 'rgba(118,119,232, 0.5)',
+                            borderColor: 'rgba(118,119,232, 1)',
+                            data: data.graphDataSet[2].data,
+                            //  barThickness: 10,
+                            stacked: true
+                        },
+                        {
+                            label: data.graphDataSet[3].label,
+                            backgroundColor: 'rgba(127,157,240, 0.8)',
+                            borderColor: 'rgba(127,157,240, 1)',
+                            data: data.graphDataSet[3].data,
+                            stacked: true
+                            // barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[4].label,
+                            backgroundColor: '#7DDCF5',
+                            borderColor: '#7DDCF5',
+                            data: data.graphDataSet[4].data,
+                            stacked: true
+                            // barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[5].label,
+                            backgroundColor: '#4BCADB',
+                            borderColor: '#4BCADB',
+                            data: data.graphDataSet[5].data,
+                            stacked: true,
+                            // barPercentage: 0.5,
+                        }
                     ],
                 },
                 options: {
@@ -386,6 +402,7 @@ async function PersonPositionGraph() {
                     scales: {
                         yAxes: [{
                             // display: false,
+                            stacked: true,
                             gridLines: {
                                 display: true,
                                 lineWidth: '4px',
