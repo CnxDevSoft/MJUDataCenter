@@ -1,0 +1,42 @@
+﻿<div class="col-lg-6">
+    <div class="card card-green-theme">
+        <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+                <h3 class="card-title">กราฟแสดงจำนวนบุคลากรทั้งหมดแยกตามตำแหน่งบริหาร และประเภทบุคลากร</h3>
+            </div>
+        </div>
+        <div class="card-body bg-light-sea-green">
+            <div class="position-relative mb-4 text-center">
+                <div class="btn-group btn-group-toggle btn-toggle-green" data-toggle="buttons">
+                    <label class="btn btn-success label-default-bg active" id="switch-personPosition-label-canvas">
+                        <input type="radio" name="options" id="switch-personPosition-chart-1" autocomplete="off" checked="">
+                        <i class="fa fa-chart-bar" aria-hidden="true"></i><br /> มุมมองกราฟ
+                    </label>
+                    <label class="btn btn-success label-default-bg btn-toggle-green" id="switch-personPosition-label-table">
+                        <input type="radio" name="options" id="switch-personPosition-chart-2" autocomplete="off">
+                        <i class="fa fa-table" aria-hidden="true"></i><br /> มุมมองตาราง
+                    </label>
+                </div>
+                <a class="btn btn-app" style="position: absolute;right: 0;" id="personPosition-datasource">
+                    <i class="fas fa-info"></i> ข้อมูล
+                </a>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="position-relative mb-4" id="personPosition-chart-canvas">
+                <canvas id="personPosition-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+            </div>
+            <div class="position-relative mb-4" id="personPosition-chart-table" style="display:none;">
+                <partial name="PartialViews/PersonPositionGraph/_personPositionGraphDataTable" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        PersonPositionGraph();
+        ToggleChart("personPosition");
+    })
+</script>
