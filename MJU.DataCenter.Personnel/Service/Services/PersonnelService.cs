@@ -1008,294 +1008,11 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return listGraphDataSet;
         }
 
-        public object GetAllPersonGender(int type)
-        {
-            var personnel = _dcPersonRepository.GetAll();
-            var PersonGender = personnel.Select(s => new { s.Gender, s.GenderId });
-
-            if (type == 1)
-            {
-                var genderGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") && s.DateOfBirth <= DateTime.Parse("1964/12/31"));
-                var genderGenerationGenX = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01") && s.DateOfBirth <= DateTime.Parse("1979/12/31"));
-                var genderGenerationGenY = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01") && s.DateOfBirth <= DateTime.Parse("1997/12/31"));
-                var genderGenerationGenZ = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01"));
-
-                var genderPerson = new List<PersonnelGenderViewModel>
-                {
-                    new PersonnelGenderViewModel
-                    {
-                        Generetion = "Baby Boomer (เกิดปี 2489 - 2507)",
-                        GenderM = "ชาย",
-                        SumGenderM = genderGenerationBabyBoomber.Where(s=>s.GenderId == 1).Count(),
-                        PersonGenderDataM = genderGenerationBabyBoomber.Where(s=>s.GenderId == 1).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-
-                        GenderFM = "หญิง",
-                        SumGenderFM = genderGenerationBabyBoomber.Where(s=>s.GenderId == 2).Count(),
-                        PersonGenderDataFM = genderGenerationBabyBoomber.Where(s=>s.GenderId == 2).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                        PersonGenderData = genderGenerationBabyBoomber.Select(s=>new PersonnelDataGenderViewModel
-                        {
-                         PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                    },
-                    new PersonnelGenderViewModel
-                    {
-                        Generetion = "Gen X (เกิดปี 2508 - 2522)",
-                        GenderM = "ชาย",
-                        SumGenderM = genderGenerationGenX.Where(s=>s.GenderId == 1).Count(),
-                        PersonGenderDataM = genderGenerationGenX.Where(s=>s.GenderId == 1).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-
-                        GenderFM = "หญิง",
-                        SumGenderFM = genderGenerationGenX.Where(s=>s.GenderId == 2).Count(),
-                        PersonGenderDataFM = genderGenerationGenX.Where(s=>s.GenderId == 2).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                        PersonGenderData = genderGenerationGenX.Select(s=>new PersonnelDataGenderViewModel
-                        {
-                         PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                    },
-                    new PersonnelGenderViewModel
-                    {
-                        Generetion = "Gen Y (เกิดปี 2523 - 2540)",
-                        GenderM = "ชาย",
-                        SumGenderM = genderGenerationGenY.Where(s=>s.GenderId == 1).Count(),
-                        PersonGenderDataM = genderGenerationGenY.Where(s=>s.GenderId == 1).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-
-                        GenderFM = "หญิง",
-                        SumGenderFM = genderGenerationGenY.Where(s=>s.GenderId == 2).Count(),
-                        PersonGenderDataFM = genderGenerationGenY.Where(s=>s.GenderId == 2).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                        PersonGenderData = genderGenerationGenY.Select(s=>new PersonnelDataGenderViewModel
-                        {
-                         PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                    },
-                    new PersonnelGenderViewModel
-                    {
-                        Generetion = "Gen Z (เกิดปี 2541 ขึ้นไป)",
-                        GenderM = "ชาย",
-                        SumGenderM = genderGenerationGenZ.Where(s=>s.GenderId == 1).Count(),
-                        PersonGenderDataM = genderGenerationGenZ.Where(s=>s.GenderId == 1).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-
-                        GenderFM = "หญิง",
-                        SumGenderFM = genderGenerationGenZ.Where(s=>s.GenderId == 2).Count(),
-                        PersonGenderDataFM = genderGenerationGenZ.Where(s=>s.GenderId == 2).Select(s=>new PersonnelDataGenderViewModel
-                        {
-                        PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                        PersonGenderData = genderGenerationGenZ.Select(s=>new PersonnelDataGenderViewModel
-                        {
-                         PersonnelId = s.PersonnelId,
-                        PersonnelName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
-                        Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
-                        DateOfBirth = s.DateOfBirth,
-                        Gender = s.Gender,
-                        GenderId = s.GenderId.GetValueOrDefault(),
-                        Division = s.Division,
-                        Faculty = s.Faculty,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Section = s.Section,
-                        StartDate =s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear
-                        }).OrderBy(o=>o.PersonnelId).ToList(),
-                    }
-                };
-                return genderPerson;
-            }
-            return null;
-        }
-
-        //public List<PersonnelDataGenderDataTableViewModel> GetDataTablePersonGender(int type)
+        //public object GetAllPersonGender(int type)
         //{
         //    var personnel = _dcPersonRepository.GetAll();
         //    var PersonGender = personnel.Select(s => new { s.Gender, s.GenderId });
+
         //    if (type == 1)
         //    {
         //        var genderGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") && s.DateOfBirth <= DateTime.Parse("1964/12/31"));
@@ -1310,7 +1027,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
 
         //            }
-
         //        };
         //    }
         //}
@@ -1483,6 +1199,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var lable = new List<string>();
                 var distinctPersonnelType = personnel.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
+
 
                 foreach (var p in distinctPersonnelType)
                 {
@@ -2177,5 +1894,351 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return datatableList;
         }
 
+
+        //public object GetAllPersonPositionLevel(int type)
+        //{
+        //    var personnel = _dcPersonRepository.GetAll();
+        //    var distinctPersonPositionLevel = personnel.Select(s => new { s.PositionLevelId, s.PositionLevel }).OrderBy(o => o.PositionLevelId).Distinct();
+
+        //    if (type == 1)
+        //    {
+        //        var lable = new List<string>();
+        //        foreach (var positionLevel in distinctPersonPositionLevel)
+        //        {
+        //            var data = personnel.Where(s => s.PositionLevelId == positionLevel.PositionLevelId && s.PositionLevel==positionLevel.PositionLevel);
+        //            var distintData = data.Select();
+
+        //            foreach (var personnelType in data)
+        //            {
+
+
+        //            }
+        //        }
+
+        //    }
+
+        //}
+
+        public List<PersonnelGenderDataTableViewModel> GetAllPersonGender(int type)
+        {
+            var personnel = _dcPersonRepository.GetAll();
+            var distinctPersonGender = personnel.Select(s =>
+            new { s.GenderId, s.Gender }).OrderBy(o => o.GenderId).Distinct();
+
+                var result = new List<PersonnelGenderDataTableViewModel>();
+                foreach (var PersonGender in distinctPersonGender)
+                {
+                    var genderGenerationBabyBoomberCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") 
+                    && s.DateOfBirth <= DateTime.Parse("1964/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
+                    var genderGenerationGenXCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01") 
+                    && s.DateOfBirth <= DateTime.Parse("1979/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
+                    var genderGenerationGenYCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01") 
+                    && s.DateOfBirth <= DateTime.Parse("1997/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
+                    var genderGenerationGenZCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01") && s.GenderId == PersonGender.GenderId 
+                    && s.Gender == PersonGender.Gender).Count();
+
+                    var data = new List<PersonnelGenderDataTable>
+                    {
+                        new PersonnelGenderDataTable
+                        {
+                            Generetion = "Baby Boomer (เกิดปี 2489 - 2507)",
+                            Person = genderGenerationBabyBoomberCount
+                        },
+                         new PersonnelGenderDataTable
+                        {
+                            Generetion = "Gen X (เกิดปี 2508 - 2522)",
+                            Person = genderGenerationGenXCount
+                        },
+                          new PersonnelGenderDataTable
+                        {
+                            Generetion = "Gen Y (เกิดปี 2523 - 2540)",
+                            Person = genderGenerationGenYCount
+                        },
+                          new PersonnelGenderDataTable
+                        {
+                            Generetion = "Gen Z (เกิดปี 2541 ขึ้นไป)",
+                            Person = genderGenerationGenZCount
+                        }
+
+
+                     };
+                    var model = new PersonnelGenderDataTableViewModel
+                    {
+                        GenderId = PersonGender.GenderId,
+                        Gender = PersonGender.Gender,
+                        PersonGenderGeneration = data
+                    };
+                    result.Add(model);
+                }
+                return result;
+        }
+
+        public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSource()
+        {
+            var personnel = _dcPersonRepository.GetAll();
+            var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o=>o.GenderId);
+
+            var result = new List<PersonnelGenderDataSourceViewModel>();
+            foreach (var personGender in distinctPersonGender)
+            {
+                var genderGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01")
+                    && s.DateOfBirth <= DateTime.Parse("1964/12/31")
+                    && s.GenderId == personGender.GenderId && s.Gender == personGender.Gender)
+                    .Select(s=> new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+                    }).ToList();
+                var genderGenerationGenX = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01")
+                    && s.DateOfBirth <= DateTime.Parse("1979/12/31") && s.GenderId == personGender.GenderId && s.Gender == personGender.Gender)
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+                    }).ToList();
+                var genderGenerationGenY = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01")
+                   && s.DateOfBirth <= DateTime.Parse("1997/12/31") && s.GenderId == personGender.GenderId && s.Gender == personGender.Gender)
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+                    }).ToList();
+                var genderGenerationGenZ = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01") && s.GenderId == personGender.GenderId
+                    && s.Gender == personGender.Gender)
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+                    }).ToList();
+
+                var model = new List<PersonnelDataGenderDataSource>
+                {
+                    new PersonnelDataGenderDataSource
+                    {
+                        Generetion = "Baby Boomer (เกิดปี 2489 - 2507)",
+                        Person = genderGenerationBabyBoomber
+                    },
+                    new PersonnelDataGenderDataSource
+                    {
+                        Generetion = "Gen X (เกิดปี 2508 - 2522)",
+                        Person = genderGenerationGenX
+                    },
+                    new PersonnelDataGenderDataSource
+                    {
+                        Generetion = "Gen Y (เกิดปี 2523 - 2540)",
+                        Person = genderGenerationGenY
+                    },
+                    new PersonnelDataGenderDataSource
+                    {
+                        Generetion = "Gen Z (เกิดปี 2541 ขึ้นไป)",
+                        Person = genderGenerationGenZ
+                    },
+                };
+
+                var personDataSet = new PersonnelGenderDataSourceViewModel
+                {
+                    GenderId = personGender.GenderId,
+                    Gender = personGender.Gender,
+                    PersonGenderGeneration = model
+                };
+                result.Add(personDataSet);
+            }
+            return result;
+        }
+        public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender,string genderName)
+        {
+            var personnel = _dcPersonRepository.GetAll().Where(s => s.GenderId == gender);
+            var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o => o.GenderId);
+            var generation = "";
+            switch (type)
+            {
+                case 0:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01")
+                    && s.DateOfBirth <= DateTime.Parse("1964/12/31"));
+                    generation = "Baby Boomer (เกิดปี 2489 - 2507)";
+                    break;
+                case 1:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01")
+                    && s.DateOfBirth <= DateTime.Parse("1979/12/31"));
+                    generation = "Gen X (เกิดปี 2508 - 2522)";
+                    break;
+                case 2:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01"));
+                    generation = "Gen Y (เกิดปี 2523 - 2540)";
+                    break;
+                case 3:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01"));
+                    generation = "Gen Z (เกิดปี 2541 ขึ้นไป)";
+                    break;
+            }
+            var result = new List<PersonnelGenderDataSourceViewModel>();
+            
+                var data = personnel
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+                    }).ToList();
+
+
+                var model = new List<PersonnelDataGenderDataSource>
+                {
+                    new PersonnelDataGenderDataSource
+                    {
+                        Generetion = generation,
+                        Person = data
+                    } 
+                };
+
+                var personDataSet = new PersonnelGenderDataSourceViewModel
+                {
+                    GenderId = gender,
+                    Gender = genderName,
+                    PersonGenderGeneration = model
+                };
+                result.Add(personDataSet);
+            
+            return result;
+        }
     }
 }

@@ -5,44 +5,36 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.Personnel.ViewModels
 {
-    public class PersonnelGenderViewModel
+    public class PersonnelGenderDataSourceViewModel
+    {
+        public int? GenderId { get; set; }
+        public string Gender { get; set; }
+
+        public List<PersonnelDataGenderDataSource> PersonGenderGeneration { get; set; }
+
+    }
+
+    public class PersonnelDataGenderDataSource
     {
         public string Generetion { get; set; }
-        public int SumGenderM { get; set; }
-        public string GenderM { get; set; }
-        public int SumGenderFM { get; set; }
-        public string GenderFM { get; set; }
-        public List<PersonnelDataGenderViewModel> PersonGenderData { get; set; }
-        public List<PersonnelDataGenderViewModel> PersonGenderDataM { get; set; }
-        public List<PersonnelDataGenderViewModel> PersonGenderDataFM { get; set; }
-    }
+        public List<PersonnelDataSourceViewModel> Person { get; set; }
 
-    public class PersonnelDataGenderViewModel
+
+
+    }
+    public class PersonnelGenderDataTableViewModel
     {
-        public int PersonnelId { get; set; }
-        public string PersonnelName { get; set; }
-        public DateTime? DateOfBirth { get; set; }
-        public int Age { get; set; }
-        public string PersonnelType { get; set; }
-        public string PositionType { get; set; }
-        public string Position { get; set; }
-        public string PositionLevel { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? RetiredDate { get; set; }
-        public int? RetiredYear { get; set; }
-        public string Section { get; set; }
-        public string Division { get; set; }
-        public string Faculty { get; set; }
-        public int GenderId { get; set; }
+        public int? GenderId { get; set; }
         public string Gender { get; set; }
+
+        public List<PersonnelGenderDataTable> PersonGenderGeneration { get; set; }
+
     }
 
-    public class PersonnelDataGenderDataTableViewModel
+    public class PersonnelGenderDataTable
     {
-        public string Generetion { get; set; }  
-        public string GenderM { get; set; }
-        public string GenderFM { get; set; }
-        public List<PersonnelDataGenderViewModel> PersonnelDataTableGender { get; set; }
+        public string Generetion { get; set; }
+        public int Person { get; set; }
 
     }
 }
