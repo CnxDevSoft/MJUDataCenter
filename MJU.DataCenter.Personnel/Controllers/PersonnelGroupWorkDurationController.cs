@@ -32,6 +32,12 @@ namespace MJU.DataCenter.Personnel.Controllers
             return _personnelService.GetAllPersonnelGroupWorkDurationDataSource();
         }
 
+        [HttpGet("DataSourceByType/{personType}/{type}")]
+        public object Get(string personType,int type)
+        {
+            return _personnelService.GetAllPersonnelGroupWorkDurationDataSourceByType(personType,type);
+        }
+
 
     }
 }

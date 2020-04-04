@@ -30,6 +30,8 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource();
 
+        List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, int type);
+
         object GetAllPersonRetired(int total,int type);
 
         List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type);
