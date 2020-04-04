@@ -90,7 +90,6 @@ async function PersonAgeGraph() {
         .then((data) => {
             var barChartData = {
                 labels: data.label,
-                //  labels: ["January\nFirst Month\nJellyfish\n30 of them", "February\nSecond Month\nFoxes\n20 of them", "March\nThird Month\nMosquitoes\nNone of them", "April", "May", "June", "July"],
                 datasets: [
                     {
                         label: data.graphDataSet[0].label,
@@ -393,7 +392,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal+'?api-version=1.0';
+    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal+'?api-version=1.0';
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
