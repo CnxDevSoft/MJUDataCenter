@@ -32,6 +32,9 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType,string personGroupTypeId, int type);
 
+        object GetAllPersonGroupAdminPositionType(int type);
+
+
         object GetAllPersonRetired(int total,int type);
 
         List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type);
