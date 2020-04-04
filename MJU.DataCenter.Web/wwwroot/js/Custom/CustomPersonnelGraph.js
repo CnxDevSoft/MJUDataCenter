@@ -94,24 +94,24 @@ async function PersonAgeGraph() {
                 datasets: [
                     {
                         label: data.graphDataSet[0].label,
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
+                        backgroundColor: 'rgba(148,117,229,0.5)',
+                        borderColor: 'rgba(148,117,229,0.5)',
                         pointRadius: false,
                         pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointStrokeColor: 'rgba(148,117,229,1)',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        pointHighlightStroke: 'rgba(148,117,229,1)',
                         data: data.graphDataSet[0].data
                     },
                     {
                         label: data.graphDataSet[1].label,
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
+                        backgroundColor: 'rgba(75,202,219, 0.5)',
+                        borderColor: 'rgba(75,202,219, 0.5)',
                         pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointColor: 'rgba(75,202,219, 1)',
                         pointStrokeColor: '#c1c7d1',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        pointHighlightStroke: 'rgba(75,202,219,1)',
                         data: data.graphDataSet[1].data
                     },
                 ]
@@ -174,7 +174,7 @@ async function PersonTypeGraph() {
                 datasets: [
                     {
                         data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        backgroundColor: ['#9475E5', '#4BCADB', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                     }
                 ]
             }
