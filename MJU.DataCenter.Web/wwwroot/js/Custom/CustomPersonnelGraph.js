@@ -93,24 +93,24 @@ async function PersonAgeGraph() {
                 datasets: [
                     {
                         label: data.graphDataSet[0].label,
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
+                        backgroundColor: 'rgba(148,117,229,0.5)',
+                        borderColor: 'rgba(148,117,229,0.5)',
                         pointRadius: false,
                         pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointStrokeColor: 'rgba(148,117,229,1)',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        pointHighlightStroke: 'rgba(148,117,229,1)',
                         data: data.graphDataSet[0].data
                     },
                     {
                         label: data.graphDataSet[1].label,
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
+                        backgroundColor: 'rgba(75,202,219, 0.5)',
+                        borderColor: 'rgba(75,202,219, 0.5)',
                         pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointColor: 'rgba(75,202,219, 1)',
                         pointStrokeColor: '#c1c7d1',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        pointHighlightStroke: 'rgba(75,202,219,1)',
                         data: data.graphDataSet[1].data
                     },
                 ]
@@ -173,7 +173,7 @@ async function PersonTypeGraph() {
                 datasets: [
                     {
                         data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        backgroundColor: ['#9475E5', '#4BCADB', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                     }
                 ]
             }
@@ -190,8 +190,271 @@ async function PersonTypeGraph() {
             })
         })
 }
+async function PersonWorkAgeGraph() {
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold',
+        fontSize: 16
+    }
+    var mode = 'index'
+    var intersect = true
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/1?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            var $chart = $('#personWorkAge-chart')
+            var chart = new Chart($chart, {
+                type: 'horizontalBar',
+                data: {
+                    labels: data.label,
+                    datasets: [
+                        {
+                            label: data.graphDataSet[0].label,
+                            backgroundColor: 'rgba(165,96,229,0.8)',
+                            borderColor: 'rgba(165,96,229,1)',
+                            data: data.graphDataSet[0].data,
+                            stacked: true
+                            //barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[1].label,
+                            backgroundColor: 'rgba(165,96,229,0.8)',
+                            borderColor: 'rgba(148,117,229,1)',
+                            data: data.graphDataSet[1].data,
+                            stacked: true
+                          //  barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[2].label,
+                            backgroundColor: 'rgba(118,119,232, 0.5)',
+                            borderColor: 'rgba(118,119,232, 1)',
+                            data: data.graphDataSet[2].data,
+                          //  barThickness: 10,
+                            stacked: true
+                        },
+                        {
+                            label: data.graphDataSet[3].label,
+                            backgroundColor: 'rgba(127,157,240, 0.8)',
+                            borderColor: 'rgba(127,157,240, 1)',
+                            data: data.graphDataSet[3].data,
+                            stacked: true
+                           // barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[4].label,
+                            backgroundColor: '#7DDCF5',
+                            borderColor: '#7DDCF5',
+                            data: data.graphDataSet[4].data,
+                            stacked: true
+                           // barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[5].label,
+                            backgroundColor: '#4BCADB',
+                            borderColor: '#4BCADB',
+                            data: data.graphDataSet[5].data,
+                            stacked: true,
+                           // barPercentage: 0.5,
+                        }
+                    ],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            stacked: true,
+                            // display: false,
+                            gridLines: {
+                                display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            ticks: $.extend({
+                                beginAtZero: true,
+                                // Include a dollar sign in the ticks
+                                callback: function (value, index, values) {
+                                    if (value >= 1000) {
+                                        value /= 1000
+                                        value += 'k'
+                                    }
+                                    return value;// '$' + value
+                                }
+                            }, ticksStyle)
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: ticksStyle
+                        }]
+                    }
+                }
+            })
 
+            $.each(data.label, function (key, item) {
+                $("#personWorkAgeGraphDataTable-tbody").append(
+                    '<tr><td>' + item + '</td>' +
+                    '<td>' + data.graphDataSet[0].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[1].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[2].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[3].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[4].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[5].data[key] + '</td></tr>'
+                );
+            });
 
+            PersonWorkAgeGraphDS();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+}
+async function PersonPositionGraph() {
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold',
+        fontSize: 16
+    }
+    var mode = 'index'
+    var intersect = true
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/1?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            var $chart = $('#personPosition-chart')
+            var chart = new Chart($chart, {
+                type: 'horizontalBar',
+                data: {
+                    labels: data.label,
+                    datasets: [
+                        {
+                            label: data.graphDataSet[0].label,
+                            backgroundColor: 'rgba(165,96,229,0.8)',
+                            borderColor: 'rgba(165,96,229,1)',
+                            data: data.graphDataSet[0].data,
+                            stacked: true
+                            //barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[1].label,
+                            backgroundColor: 'rgba(165,96,229,0.8)',
+                            borderColor: 'rgba(148,117,229,1)',
+                            data: data.graphDataSet[1].data,
+                            stacked: true
+                            //  barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[2].label,
+                            backgroundColor: 'rgba(118,119,232, 0.5)',
+                            borderColor: 'rgba(118,119,232, 1)',
+                            data: data.graphDataSet[2].data,
+                            //  barThickness: 10,
+                            stacked: true
+                        },
+                        {
+                            label: data.graphDataSet[3].label,
+                            backgroundColor: 'rgba(127,157,240, 0.8)',
+                            borderColor: 'rgba(127,157,240, 1)',
+                            data: data.graphDataSet[3].data,
+                            stacked: true
+                            // barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[4].label,
+                            backgroundColor: '#7DDCF5',
+                            borderColor: '#7DDCF5',
+                            data: data.graphDataSet[4].data,
+                            stacked: true
+                            // barThickness: 10
+                        },
+                        {
+                            label: data.graphDataSet[5].label,
+                            backgroundColor: '#4BCADB',
+                            borderColor: '#4BCADB',
+                            data: data.graphDataSet[5].data,
+                            stacked: true,
+                            // barPercentage: 0.5,
+                        }
+                    ],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            // display: false,
+                            stacked: true,
+                            gridLines: {
+                                display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            ticks: $.extend({
+                                beginAtZero: true,
+                                // Include a dollar sign in the ticks
+                                callback: function (value, index, values) {
+                                    if (value >= 1000) {
+                                        value /= 1000
+                                        value += 'k'
+                                    }
+                                    return value;// '$' + value
+                                }
+                            }, ticksStyle)
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: ticksStyle
+                        }]
+                    }
+                }
+            })
+
+            $("#personPositionGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
+            $.each(data.label, function (key, item) {
+                $("#personPositionGraphDataTable-thead > tr").append(
+                    '<th>' + item + '</th>'
+                );
+            });
+
+            $.each(data.label, function (key, item) {
+                $("#personPositionGraphDataTable-tbody").append(
+                    '<tr><td>' + item + '</td>' +
+                    '<td>' + data.graphDataSet[0].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[1].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[2].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[3].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[4].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[5].data[key] + '</td></tr>'
+                );
+            });
+
+            //PersonWorkAgeGraphDS();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+}
 
 async function PersonForcastGenerationGraph() {
     var url ='https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/1/10?api-version=1.0'
@@ -221,7 +484,8 @@ async function PersonForcastGenerationRenderGraph(data) {
 
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        stepSize:10
     }
 
     var mode = 'nearest'
@@ -288,7 +552,7 @@ async function PersonForcastGenerationRenderGraph(data) {
                     },
                     ticks: $.extend({
                         beginAtZero: true,
-                        suggestedMax: 200
+                        suggestedMax: 200,
                     }, ticksStyle)
                 }],
                 xAxes: [{
@@ -319,7 +583,7 @@ function chartClicked(chart, chartName) {
             var modelLabel = chart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
 
-            var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1&api-version=1.0';
+            var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?api-version=1.0';
 
             fetch(url)
                 .then((response) => {
@@ -425,12 +689,9 @@ async function AllPersonGraphDS() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
-
             RenderAllPersonGraphDS(data);
-            Load();
         });
 }
-
 async function RenderAllPersonGraphDS(data) {
 
     $.each(data, function (key, result) {
@@ -438,7 +699,7 @@ async function RenderAllPersonGraphDS(data) {
 
         $('#allpersonalGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key +'">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-' + key +'-table">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="sub-allpersonal-' + key +'-table">';
         var startThead = '<thead id="sub-allpersonalGraphDataSource-thead">';
         var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
 
@@ -465,8 +726,69 @@ async function RenderAllPersonGraphDS(data) {
     });
 }
 
+async function PersonWorkAgeGraphDS() {
+
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/DataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonWorkAgeGraphDS(data);
+        });
+}
+async function RenderPersonWorkAgeGraphDS(data) {
+
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personWorkAgeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkAgeGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+
+        $('#personWorkAgeGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personWorkAgeGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personWorkAge" id="sub-personWorkAge-' + key + '-table">';
+        var startThead = '<thead id="sub-personWorkAgeGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th><th>ช่วงอายุงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personWorkAgeGraphDataSource-tbody">';
+
+        $.each(result.personGroupWorkDuration, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '<td>' + item.workDuration + '</td>' +
+                    '</tr >';
+                });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personWorkAgeGraphDataSourceModal-card-body').append(html);
+    });
+}
+
+
+
+
+async function LoadDataTable(name,key) {
+
+    var dataTableName = '#sub-' + name+'-' + key + '-table';
+    $(dataTableName).DataTable({
+        language: {
+            sLengthMenu: ""
+        },
+        searching: false,
+        pageLength: 5
+    });
+}
+
 async function Load() {
-    $('.dataTable-sub').DataTable({
+
+    $('.dataTable-sub-allpersonal').DataTable({
         language: {
             sLengthMenu: ""
         },

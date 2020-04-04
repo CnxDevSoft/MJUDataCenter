@@ -44,6 +44,21 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource();
 
+        object GetAllPersonGroupFaculty(int type);
+
+        List<PersonGroupFacultyDataSourceModel> GetAllPersonGroupFacultyDataSource();
+
+        object GetAllPersonPositionFaculty(int type);
+
+        public List<PersonPositionFacultyDataSourceModel> GetAllPersonPositionFacultyDataSource();
+
+        object GetAllPersonGroupRetiredYear(int type);
+
+        List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource();
+
+        object GetAllPersonGroupPositionLevel(int type);
+
+        List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource();
 
     }
 }
