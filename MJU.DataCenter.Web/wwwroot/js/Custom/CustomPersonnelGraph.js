@@ -137,8 +137,23 @@ async function PersonAgeGraph() {
         })
 
 
-    //fetch()
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGenderGeneration/1?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
 
+            $("#bb-male").text(data[0].personGenderGeneration[0].person);
+            $("#bb-female").text(data[1].personGenderGeneration[0].person);
+
+            $("#x-male").text(data[0].personGenderGeneration[1].person);
+            $("#x-female").text(data[1].personGenderGeneration[1].person);
+
+            $("#y-male").text(data[0].personGenderGeneration[2].person);
+            $("#y-female").text(data[1].personGenderGeneration[2].person);
+
+            $("#z-male").text(data[0].personGenderGeneration[3].person);
+            $("#z-female").text(data[1].personGenderGeneration[3].person);
+
+        });
 
 
 }
@@ -369,22 +384,22 @@ async function PersonPositionGraph() {
                     scales: {
                         xAxes: [{
                             stacked: true,
-                            ticks: ticksStyle
+                          //  ticks: ticksStyle
                         }],
                         yAxes: [{
                             stacked: true,
                             gridLines: {
-                                display: true,
+                              //  display: true,
                                 lineWidth: '4px',
                                 color: 'rgba(0, 0, 0, .2)',
                                 zeroLineColor: 'transparent'
                             },
-                            ticks: ticksStyle
+                          //  ticks: ticksStyle
                         }]
                     },
                     tooltips: {
-                        mode: mode,
-                        intersect: intersect
+                       // mode: mode,
+                       // intersect: intersect
                     },
                 }
             })
@@ -450,7 +465,7 @@ async function PersonForcastGenerationRenderGraph(data) {
             datasets: [{
                 type: 'line',
                 data: data.graphDataSet[0].data,
-                backgroundColor: 'transparent',
+                backgroundColor: 'rgba(214,237,154,0.5)',
                 borderColor: '#017f3f',
                 pointBorderColor: '#017f3f',
                 pointBackgroundColor: '#017f3f',
@@ -461,35 +476,36 @@ async function PersonForcastGenerationRenderGraph(data) {
             {
                 type: 'line',
                 data: data.graphDataSet[1].data,
-                backgroundColor: 'tansparent',
+                backgroundColor: '#ced4da',
                 borderColor: '#ced4da',
                 pointBorderColor: '#ced4da',
                 pointBackgroundColor: '#ced4da',
-                fill: false
+                fill: true
                 // pointHoverBackgroundColor: '#ced4da',
                 // pointHoverBorderColor    : '#ced4da'
             },
             {
                 type: 'line',
                 data: data.graphDataSet[2].data,
-                backgroundColor: 'tansparent',
+                backgroundColor: 'red',
                 borderColor: 'red',
                 pointBorderColor: 'red',
                 pointBackgroundColor: 'red',
-                fill: false,
+                fill: true,
             }
 
             ]
         },
         options: {
+            responsive: true,
             maintainAspectRatio: false,
             tooltips: {
-                mode: mode,
-                intersect: intersect
+               // mode: mode,
+               // intersect: intersect
             },
             hover: {
-                mode: mode,
-                intersect: intersect
+              //  mode: mode,
+              //  intersect: intersect
             },
             legend: {
                 display: false
@@ -497,23 +513,23 @@ async function PersonForcastGenerationRenderGraph(data) {
             scales: {
                 yAxes: [{
                     // display: false,
-                    gridLines: {
-                        display: true,
-                        lineWidth: '4px',
-                        color: 'rgba(0, 0, 0, .2)',
-                        zeroLineColor: 'transparent'
-                    },
-                    ticks: $.extend({
-                        beginAtZero: true,
-                        suggestedMax: 200,
-                    }, ticksStyle)
+                    //gridLines: {
+                    //    display: true,
+                    //    lineWidth: '4px',
+                    //    color: 'rgba(0, 0, 0, .2)',
+                    //    zeroLineColor: 'transparent'
+                    //},
+                    //ticks: $.extend({
+                    //    beginAtZero: true,
+                    //    suggestedMax: 200,
+                    //}, ticksStyle)
                 }],
                 xAxes: [{
-                    display: true,
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: ticksStyle
+                    //display: true,
+                    //gridLines: {
+                    //    display: false
+                    //},
+                    //ticks: ticksStyle
                 }]
             },
         }
