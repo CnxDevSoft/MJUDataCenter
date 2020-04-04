@@ -1531,7 +1531,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             Person = personnelType.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId).Count()
                         };
                         dataList.Add(data);
-                        
+
                     }
                     var dataTable = new PersonGroupAdminPositionDataTableModel
                     {
@@ -1627,7 +1627,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 {
                     var data = new List<int>();
                     var facultyByPersonnelType = personnel.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId);
-                    var distinctfacultyByPersonnelType = facultyByPersonnelType.Select(s => new { s.FacultyId,s.Faculty}).Distinct();
+                    var distinctfacultyByPersonnelType = facultyByPersonnelType.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
 
                     foreach (var fc in distinctfacultyByPersonnelType)
                     {
@@ -1653,12 +1653,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             else
             {
-                var facultyByPersonnelType = personnel.Select(s => new { s.Faculty,s.FacultyId }).Distinct();
+                var facultyByPersonnelType = personnel.Select(s => new { s.Faculty, s.FacultyId }).Distinct();
                 var datatableList = new List<PersonGroupFacultyDataTableModel>();
                 foreach (var fc in facultyByPersonnelType)
                 {
 
-                    var personnelType = personnel.Where(m => m.Faculty == fc.Faculty&&m.FacultyId == fc.FacultyId);
+                    var personnelType = personnel.Where(m => m.Faculty == fc.Faculty && m.FacultyId == fc.FacultyId);
                     var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                     var dataList = new List<PersonGroupFacultyDataTable>();
                     foreach (var p in distinctPersonnelType)
@@ -1808,7 +1808,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         var data = new PersonPositionFacultyDataTable
                         {
                             PersonPosition = position,
-                            Person = personnelType.Where(m =>m.Position == position).Count()
+                            Person = personnelType.Where(m => m.Position == position).Count()
                         };
                         dataList.Add(data);
 
@@ -1887,6 +1887,288 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     FacultyId = fc.FacultyId,
                     Faculty = fc.Faculty,
                     PersonPositionFaculty = dataList
+                };
+                datatableList.Add(dataTable);
+
+            }
+
+            return datatableList;
+        }
+
+        public object GetAllPersonGroupRetiredYear(int type)
+        {
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.RetiredYear);
+            if (type == 1)
+            {
+
+                var lable = new List<string>();
+                var distinctPersonnelType = personnel.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
+                var graphDatasetList = new List<GraphDataSet>();
+
+                foreach (var p in distinctPersonnelType)
+                {
+                    var data = new List<int>();
+                    var retiredYearByPersonnelType = personnel.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId);
+                    var distinctretiredYearByPersonnelType = retiredYearByPersonnelType.Select(s => s.RetiredYear).Distinct();
+
+                    foreach (var ry in distinctretiredYearByPersonnelType)
+                    {
+                        data.Add(retiredYearByPersonnelType.Where(m => m.RetiredYear == ry).Count());
+                        lable.Add(ry.Value.ToLocalYear().ToString());
+                    }
+                    var graphDataset = new GraphDataSet
+                    {
+                        Label = p.PersonnelType,
+                        Data = data
+
+                    };
+                    graphDatasetList.Add(graphDataset);
+                }
+                var graphData = new GraphData
+                {
+                    Label = lable.Distinct().ToList(),
+                    GraphDataSet = graphDatasetList
+                };
+
+                return graphData;
+
+            }
+            else
+            {
+                var distinctretiredYear = personnel.Select(s => s.RetiredYear).Distinct();
+                var datatableList = new List<PersonGroupRetiredYearDataTableModel>();
+                foreach (var ry in distinctretiredYear)
+                {
+
+                    var personnelType = personnel.Where(m => m.RetiredYear == ry);
+                    var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
+                    var dataList = new List<PersonGroupRetiredYearDataTable>();
+                    foreach (var p in distinctPersonnelType)
+                    {
+                        var data = new PersonGroupRetiredYearDataTable
+                        {
+                            PersonGroupTypeId = p.PersonnelTypeId,
+                            PersonGroupTypeName = p.PersonnelType,
+                            Person = personnelType.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId).Count()
+                        };
+                        dataList.Add(data);
+
+                    }
+                    var dataTable = new PersonGroupRetiredYearDataTableModel
+                    {
+                        ReitredYear = ry.Value.ToLocalYear(),
+                        PersonGroupRetiredYear = dataList
+                    };
+                    datatableList.Add(dataTable);
+
+                }
+
+                return datatableList;
+            }
+        }
+
+        public List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource()
+        {
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.RetiredYear);
+            var distinctretiredYear = personnel.Select(s => s.RetiredYear).Distinct();
+            var datatableList = new List<PersonGroupRetiredYearDataSourceModel>();
+            foreach (var ry in distinctretiredYear)
+            {
+
+                var personnelType = personnel.Where(m => m.RetiredYear == ry);
+                var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
+                var dataList = new List<PersonGroupRetiredYearDataSource>();
+                foreach (var p in distinctPersonnelType)
+                {
+                    var data = new PersonGroupRetiredYearDataSource
+                    {
+                        PersonGroupTypeId = p.PersonnelTypeId,
+                        PersonGroupTypeName = p.PersonnelType,
+                        Person = personnelType.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId)
+                         .Select(s => new PersonnelDataSourceViewModel
+                         {
+                             AdminPosition = s.AdminPosition,
+                             AdminPositionType = s.AdminPositionType,
+                             BloodType = s.BloodType,
+                             Country = s.Country,
+                             DateOfBirth = s.DateOfBirth,
+                             Division = s.Division,
+                             Education = s.Education,
+                             EducationLevel = s.EducationLevel,
+                             Faculty = s.Faculty,
+                             Gender = s.Gender,
+                             GraduateDate = s.GraduateDate,
+                             IdCard = s.IdCard,
+                             Major = s.Major,
+                             Nation = s.Nation,
+                             PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                             PersonnelId = s.PersonnelId,
+                             PersonnelType = s.PersonnelType,
+                             Position = s.Position,
+                             PositionLevel = s.PositionLevel,
+                             PositionType = s.PositionType,
+                             Province = s.Province,
+                             RetiredDate = s.RetiredDate,
+                             RetiredYear = s.RetiredYear,
+                             Salary = s.Salary,
+                             Section = s.Section,
+                             StartDate = s.StartDate,
+                             StartEducationDate = s.StartEducationDate,
+                             TitleEducation = s.TitleEducation,
+                             University = s.University,
+                             ZipCode = s.ZipCode
+
+                         }).ToList()
+                    };
+                    dataList.Add(data);
+
+                }
+                var dataTable = new PersonGroupRetiredYearDataSourceModel
+                {
+                    ReitredYear = ry.Value.ToLocalYear(),
+                    PersonGroupRetiredYear = dataList
+                };
+                datatableList.Add(dataTable);
+
+            }
+
+            return datatableList;
+        }
+
+        public object GetAllPersonGroupPositionLevel(int type)
+        {
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelId);
+            if (type == 1)
+            {
+
+                var lable = new List<string>();
+                var distinctPositionLevel = personnel.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
+                var graphDatasetList = new List<GraphDataSet>();
+
+                foreach (var pl in distinctPositionLevel)
+                {
+                    var data = new List<int>();
+                    var personnelTypeByPositionLevel = personnel.Where(m => m.PositionLevelId == pl.PositionLevelId && m.PositionLevel == pl.PositionLevel);
+                    var distinctPersonnelTypeByPositionLevel = personnelTypeByPositionLevel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
+
+                    foreach (var pp in distinctPersonnelTypeByPositionLevel)
+                    {
+                        data.Add(personnelTypeByPositionLevel.Where(m => m.PersonnelTypeId == pp.PersonnelTypeId && m.PersonnelType == pp.PersonnelType).Count());
+                        lable.Add(pp.PersonnelType);
+                    }
+                    var graphDataset = new GraphDataSet
+                    {
+                        Label = pl.PositionLevel,
+                        Data = data
+
+                    };
+                    graphDatasetList.Add(graphDataset);
+                }
+                var graphData = new GraphData
+                {
+                    Label = lable.Distinct().ToList(),
+                    GraphDataSet = graphDatasetList
+                };
+
+                return graphData;
+
+            }
+            else
+            {
+                var distinctPersonnelType = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
+                var datatableList = new List<PersonGroupPositionLevelDataTableModel>();
+                foreach (var pt in distinctPersonnelType)
+                {
+
+                    var positionLevelByPersonnelType = personnel.Where(m => m.PersonnelTypeId == pt.PersonnelTypeId && m.PersonnelType == pt.PersonnelType);
+                    var distinctPositionLevelByPersonnelType = positionLevelByPersonnelType.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
+                    var dataList = new List<PersonGroupPositionLevelDataTable>();
+                    foreach (var pp in distinctPositionLevelByPersonnelType)
+                    {
+                        var data = new PersonGroupPositionLevelDataTable
+                        {
+                            PositionLevelId = pp.PositionLevelId,
+                            PositionLevel = pp.PositionLevel,
+                            Person = positionLevelByPersonnelType.Where(m => m.PositionLevelId == pp.PositionLevelId && m.PositionLevel == pp.PositionLevel).Count()
+                        };
+                        dataList.Add(data);
+
+                    }
+                    var dataTable = new PersonGroupPositionLevelDataTableModel
+                    {
+                        PersonGroupTypeId = pt.PersonnelTypeId,
+                        PersonGroupTypeName = pt.PersonnelType,
+                        PersonGroupPosition = dataList
+                    };
+                    datatableList.Add(dataTable);
+
+                }
+
+                return datatableList;
+            }
+        }
+
+        public List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource()
+        {
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelId);
+            var distinctPersonnelType = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
+            var datatableList = new List<PersonGroupPositionLevelDataSourceModel>();
+            foreach (var pt in distinctPersonnelType)
+            {
+
+                var positionLevelByPersonnelType = personnel.Where(m => m.PersonnelTypeId == pt.PersonnelTypeId && m.PersonnelType == pt.PersonnelType);
+                var distinctPositionLevelByPersonnelType = positionLevelByPersonnelType.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
+                var dataList = new List<PersonGroupPositionLevelDataSource>();
+                foreach (var pp in distinctPositionLevelByPersonnelType)
+                {
+                    var data = new PersonGroupPositionLevelDataSource
+                    {
+                        PositionLevelId = pp.PositionLevelId,
+                        PositionLevel = pp.PositionLevel,
+                        Person = positionLevelByPersonnelType.Where(m => m.PositionLevelId == pp.PositionLevelId && m.PositionLevel == pp.PositionLevel)
+                         .Select(s => new PersonnelDataSourceViewModel
+                         {
+                             AdminPosition = s.AdminPosition,
+                             AdminPositionType = s.AdminPositionType,
+                             BloodType = s.BloodType,
+                             Country = s.Country,
+                             DateOfBirth = s.DateOfBirth,
+                             Division = s.Division,
+                             Education = s.Education,
+                             EducationLevel = s.EducationLevel,
+                             Faculty = s.Faculty,
+                             Gender = s.Gender,
+                             GraduateDate = s.GraduateDate,
+                             IdCard = s.IdCard,
+                             Major = s.Major,
+                             Nation = s.Nation,
+                             PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                             PersonnelId = s.PersonnelId,
+                             PersonnelType = s.PersonnelType,
+                             Position = s.Position,
+                             PositionLevel = s.PositionLevel,
+                             PositionType = s.PositionType,
+                             Province = s.Province,
+                             RetiredDate = s.RetiredDate,
+                             RetiredYear = s.RetiredYear,
+                             Salary = s.Salary,
+                             Section = s.Section,
+                             StartDate = s.StartDate,
+                             StartEducationDate = s.StartEducationDate,
+                             TitleEducation = s.TitleEducation,
+                             University = s.University,
+                             ZipCode = s.ZipCode
+
+                         }).ToList()
+                    };
+                    dataList.Add(data);
+
+                }
+                var dataTable = new PersonGroupPositionLevelDataSourceModel
+                {
+                    PersonGroupTypeId = pt.PersonnelTypeId,
+                    PersonGroupTypeName = pt.PersonnelType,
+                    PersonGroupPosition = dataList
                 };
                 datatableList.Add(dataTable);
 

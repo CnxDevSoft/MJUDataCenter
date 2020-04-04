@@ -15,5 +15,11 @@ namespace MJU.DataCenter.Personnel.Helper
         {
             return new DateTime(dt.Year, 12, 31);
         }
+
+        public static int ToLocalYear(this int year)
+        {
+            return year+543;
+        }
+
     }
 }
