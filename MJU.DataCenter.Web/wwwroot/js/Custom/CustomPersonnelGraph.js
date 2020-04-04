@@ -135,6 +135,12 @@ async function PersonAgeGraph() {
                 options: stackedBarChartOptions
             })
         })
+
+
+    //fetch()
+
+
+
 }
 async function PersonEducationGraph() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/1?api-version=1.0')
@@ -193,8 +199,9 @@ async function PersonTypeGraph() {
 async function PersonWorkAgeGraph() {
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold',
-        fontSize: 16
+      //  fontStyle: 'bold',
+      //  fontSize: 16,
+        beginAtZero: true,
     }
     var mode = 'index'
     var intersect = true
@@ -212,94 +219,69 @@ async function PersonWorkAgeGraph() {
                             backgroundColor: 'rgba(165,96,229,0.8)',
                             borderColor: 'rgba(165,96,229,1)',
                             data: data.graphDataSet[0].data,
-                            stacked: true
-                            //barThickness: 10
+                            barThickness: 30,
                         },
                         {
                             label: data.graphDataSet[1].label,
-                            backgroundColor: 'rgba(165,96,229,0.8)',
-                            borderColor: 'rgba(148,117,229,1)',
+                            backgroundColor: 'rgba(127,157,240, 0.8)',
+                            borderColor: 'rgba(127,157,240, 1)',
                             data: data.graphDataSet[1].data,
-                            stacked: true
-                          //  barThickness: 10
-                        },
+                            barThickness: 30,
+                        },               
                         {
                             label: data.graphDataSet[2].label,
                             backgroundColor: 'rgba(118,119,232, 0.5)',
                             borderColor: 'rgba(118,119,232, 1)',
                             data: data.graphDataSet[2].data,
-                          //  barThickness: 10,
-                            stacked: true
+                            barThickness: 30,
                         },
                         {
                             label: data.graphDataSet[3].label,
-                            backgroundColor: 'rgba(127,157,240, 0.8)',
-                            borderColor: 'rgba(127,157,240, 1)',
+                            backgroundColor: 'rgba(41, 182, 246, 0.5)',
+                            borderColor: 'rgba(41, 182, 246, 0.5)',
                             data: data.graphDataSet[3].data,
-                            stacked: true
-                           // barThickness: 10
+                            barThickness: 30,
+                            // stacked: true
                         },
                         {
                             label: data.graphDataSet[4].label,
-                            backgroundColor: '#7DDCF5',
-                            borderColor: '#7DDCF5',
+                            backgroundColor: 'rgba(75, 202, 219,0.5)',
+                            borderColor: 'rgba(75, 202, 219,1)',
                             data: data.graphDataSet[4].data,
-                            stacked: true
-                           // barThickness: 10
+                            barThickness: 30,
                         },
                         {
                             label: data.graphDataSet[5].label,
-                            backgroundColor: '#4BCADB',
-                            borderColor: '#4BCADB',
+                            backgroundColor: 'rgba(214,237,154,0.5)',
+                            borderColor: 'rgba(214,237,154,1)',
                             data: data.graphDataSet[5].data,
-                            stacked: true,
-                           // barPercentage: 0.5,
+                            barThickness: 30,
                         }
                     ],
                 },
                 options: {
+                    responsive: true,
                     maintainAspectRatio: false,
-                    tooltips: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    hover: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    legend: {
-                        display: false
-                    },
                     scales: {
+                        xAxes: [{
+                            stacked: true,
+                            ticks: ticksStyle
+                        }],
                         yAxes: [{
                             stacked: true,
-                            // display: false,
                             gridLines: {
                                 display: true,
                                 lineWidth: '4px',
                                 color: 'rgba(0, 0, 0, .2)',
                                 zeroLineColor: 'transparent'
                             },
-                            ticks: $.extend({
-                                beginAtZero: true,
-                                // Include a dollar sign in the ticks
-                                callback: function (value, index, values) {
-                                    if (value >= 1000) {
-                                        value /= 1000
-                                        value += 'k'
-                                    }
-                                    return value;// '$' + value
-                                }
-                            }, ticksStyle)
-                        }],
-                        xAxes: [{
-                            display: true,
-                            gridLines: {
-                                display: false
-                            },
                             ticks: ticksStyle
                         }]
-                    }
+                    },
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },              
                 }
             })
 
@@ -341,67 +323,55 @@ async function PersonPositionGraph() {
                             backgroundColor: 'rgba(165,96,229,0.8)',
                             borderColor: 'rgba(165,96,229,1)',
                             data: data.graphDataSet[0].data,
-                            stacked: true
-                            //barThickness: 10
+                            barThickness: 30,
                         },
                         {
                             label: data.graphDataSet[1].label,
-                            backgroundColor: 'rgba(165,96,229,0.8)',
-                            borderColor: 'rgba(148,117,229,1)',
+                            backgroundColor: 'rgba(127,157,240, 0.8)',
+                            borderColor: 'rgba(127,157,240, 1)',
                             data: data.graphDataSet[1].data,
-                            stacked: true
-                            //  barThickness: 10
+                            barThickness: 30,
                         },
                         {
                             label: data.graphDataSet[2].label,
                             backgroundColor: 'rgba(118,119,232, 0.5)',
                             borderColor: 'rgba(118,119,232, 1)',
                             data: data.graphDataSet[2].data,
-                            //  barThickness: 10,
-                            stacked: true
+                            barThickness: 30,
                         },
                         {
                             label: data.graphDataSet[3].label,
-                            backgroundColor: 'rgba(127,157,240, 0.8)',
-                            borderColor: 'rgba(127,157,240, 1)',
+                            backgroundColor: 'rgba(41, 182, 246, 0.5)',
+                            borderColor: 'rgba(41, 182, 246, 0.5)',
                             data: data.graphDataSet[3].data,
-                            stacked: true
-                            // barThickness: 10
+                            barThickness: 30,
+                            // stacked: true
                         },
                         {
                             label: data.graphDataSet[4].label,
-                            backgroundColor: '#7DDCF5',
-                            borderColor: '#7DDCF5',
+                            backgroundColor: 'rgba(75, 202, 219,0.5)',
+                            borderColor: 'rgba(75, 202, 219,1)',
                             data: data.graphDataSet[4].data,
-                            stacked: true
-                            // barThickness: 10
+                            barThickness: 30,
                         },
                         {
                             label: data.graphDataSet[5].label,
-                            backgroundColor: '#4BCADB',
-                            borderColor: '#4BCADB',
+                            backgroundColor: 'rgba(214,237,154,0.5)',
+                            borderColor: 'rgba(214,237,154,1)',
                             data: data.graphDataSet[5].data,
-                            stacked: true,
-                            // barPercentage: 0.5,
+                            barThickness: 30,
                         }
                     ],
                 },
                 options: {
+                    responsive: true,
                     maintainAspectRatio: false,
-                    tooltips: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    hover: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    legend: {
-                        display: false
-                    },
                     scales: {
+                        xAxes: [{
+                            stacked: true,
+                            ticks: ticksStyle
+                        }],
                         yAxes: [{
-                            // display: false,
                             stacked: true,
                             gridLines: {
                                 display: true,
@@ -409,49 +379,32 @@ async function PersonPositionGraph() {
                                 color: 'rgba(0, 0, 0, .2)',
                                 zeroLineColor: 'transparent'
                             },
-                            ticks: $.extend({
-                                beginAtZero: true,
-                                // Include a dollar sign in the ticks
-                                callback: function (value, index, values) {
-                                    if (value >= 1000) {
-                                        value /= 1000
-                                        value += 'k'
-                                    }
-                                    return value;// '$' + value
-                                }
-                            }, ticksStyle)
-                        }],
-                        xAxes: [{
-                            display: true,
-                            gridLines: {
-                                display: false
-                            },
                             ticks: ticksStyle
                         }]
-                    }
+                    },
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
                 }
             })
-
             $("#personPositionGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
-            $.each(data.label, function (key, item) {
+            $.each(data.graphDataSet, function (key, item) {
                 $("#personPositionGraphDataTable-thead > tr").append(
-                    '<th>' + item + '</th>'
+                    '<th>' + item.label + '</th>'
                 );
             });
 
             $.each(data.label, function (key, item) {
+                var html = '';
+                $.each(data.graphDataSet, function (skey, sItem) {
+                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
+                });
                 $("#personPositionGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' +
-                    '<td>' + data.graphDataSet[0].data[key] + '</td>' +
-                    '<td>' + data.graphDataSet[1].data[key] + '</td>' +
-                    '<td>' + data.graphDataSet[2].data[key] + '</td>' +
-                    '<td>' + data.graphDataSet[3].data[key] + '</td>' +
-                    '<td>' + data.graphDataSet[4].data[key] + '</td>' +
-                    '<td>' + data.graphDataSet[5].data[key] + '</td></tr>'
-                );
+                    '<tr><td>' + item + '</td>' + html +'</tr>');
             });
 
-            //PersonWorkAgeGraphDS();
+            PersonPositionGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -771,7 +724,49 @@ async function RenderPersonWorkAgeGraphDS(data) {
     });
 }
 
+async function PersonPositionGraphDS() {
 
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/DataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionGraphDS(data);
+        });
+}
+async function RenderPersonPositionGraphDS(data) {
+    debugger;
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.adminPositionType + '</b></a>'
+
+        $('#personPositionGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personPositionGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="sub-personPosition-' + key + '-table">';
+        var startThead = '<thead id="sub-personPositionGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
+
+        $.each(result.personGroupAdminPosition, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personPositionGraphDataSourceModal-card-body').append(html);
+    });
+}
 
 
 async function LoadDataTable(name,key) {
