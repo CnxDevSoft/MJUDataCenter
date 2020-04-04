@@ -17,6 +17,17 @@ async function ToggleChart(chartName) {
         $(tableTab).show();
     });
     $(datasourceTab).click(function () {
+        var checkDatableLoaded = $('.dataTable-sub-' + chartName).hasClass("datableLoaded");
+        if (checkDatableLoaded == false) {
+            $('.dataTable-sub-' + chartName).DataTable({
+                language: {
+                    sLengthMenu: ""
+                },
+                searching: false,
+                pageLength: 5
+            });
+            $('.dataTable-sub-' + chartName).addClass('datableLoaded');
+        }
         $(modalTab).modal('show');
     });
 }
