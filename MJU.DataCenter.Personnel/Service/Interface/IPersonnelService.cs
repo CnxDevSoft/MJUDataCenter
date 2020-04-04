@@ -26,14 +26,22 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource();
 
+        object GetAllPersonRetired(int total,int type);
+
+        List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type);
+
+        object GetAllPersonGender(int type);
+
         object GetAllPersonnelGroupWorkDuration(int type);
 
         List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource();
 
-        List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, int type);
+        List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, string personGroupTypeId, int type);
 
-        object GetAllPersonRetired(int total,int type);
+        object GetAllPersonGroupAdminPositionType(int type);
 
-        List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type);
+        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource();
+
+
     }
 }

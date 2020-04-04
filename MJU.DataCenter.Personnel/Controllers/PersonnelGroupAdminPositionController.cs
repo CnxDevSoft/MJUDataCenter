@@ -12,10 +12,10 @@ namespace MJU.DataCenter.Personnel.Controllers
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonnelGroupWorkDurationController : Controller
+    public class PersonnelGroupAdminPositionController : Controller
     {
         private readonly IPersonnelService _personnelService;
-        public PersonnelGroupWorkDurationController(IPersonnelService personnelService)
+        public PersonnelGroupAdminPositionController(IPersonnelService personnelService)
         {
             _personnelService = personnelService;
         }
@@ -23,19 +23,13 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{type}")]
         public object Get(int type)
         {
-            return _personnelService.GetAllPersonnelGroupWorkDuration(type);
+            return _personnelService.GetAllPersonGroupAdminPositionType(type);
         }
 
         [HttpGet("DataSource")]
         public object Get()
         {
-            return _personnelService.GetAllPersonnelGroupWorkDurationDataSource();
-        }
-
-        [HttpGet("DataSourceByType/{personType}/{personTypeId}/{type}")]
-        public object Get(string personType,string personTypeId, int type)
-        {
-            return _personnelService.GetAllPersonnelGroupWorkDurationDataSourceByType(personType, personTypeId, type);
+            return _personnelService.GetAllPersonGroupAdminPositionTypeDataSource();
         }
 
 
