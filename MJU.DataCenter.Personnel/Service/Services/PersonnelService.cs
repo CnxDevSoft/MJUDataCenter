@@ -962,8 +962,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
             {
                 var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
                 dataCoutTenToFifteen.Add(count);
-                l4.Add(model.PersonnelType);
-                if (model.PersonnelType == "ข้าราชกาล") a += count;
             }
             var dataTenToFifteen = new GraphDataSet
             {
