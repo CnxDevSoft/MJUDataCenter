@@ -1292,29 +1292,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return null;
         }
 
-        //public List<PersonnelDataGenderDataTableViewModel> GetDataTablePersonGender(int type)
-        //{
-        //    var personnel = _dcPersonRepository.GetAll();
-        //    var PersonGender = personnel.Select(s => new { s.Gender, s.GenderId });
-        //    if (type == 1)
-        //    {
-        //        var genderGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") && s.DateOfBirth <= DateTime.Parse("1964/12/31"));
-        //        var genderGenerationGenX = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01") && s.DateOfBirth <= DateTime.Parse("1979/12/31"));
-        //        var genderGenerationGenY = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01") && s.DateOfBirth <= DateTime.Parse("1997/12/31"));
-        //        var genderGenerationGenZ = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01"));
-
-        //        var dataTavle = new List<PersonnelDataGenderDataTableViewModel>
-        //        {
-        //            new PersonnelDataGenderDataTableViewModel
-        //            {
-
-
-        //            }
-
-        //        };
-        //    }
-        //}
-
         public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource()
         {
 
@@ -1474,6 +1451,25 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
+        public object GetAllPersonPositionLevel(int type)
+        {
+            var personnel = _dcPersonRepository.GetAll();
+            var distinctPersonPositionLevel = personnel.Select(s => new { s.PositionLevelId, s.PositionLevel }).OrderBy(o => o.PositionLevelId).Distinct();
 
+            foreach (var positionLevel in distinctPersonPositionLevel)
+            {
+
+                var data = distinctPersonPositionLevel.Where(s=>s.PositionLevelId == positionLevel.PositionLevelId);
+
+                
+                foreach (var personnelType in data)
+                {
+
+
+                }
+
+            }
+            return null;
+        }
     }
 }
