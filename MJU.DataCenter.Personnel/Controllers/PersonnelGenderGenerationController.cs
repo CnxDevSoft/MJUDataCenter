@@ -24,6 +24,13 @@ namespace MJU.DataCenter.Personnel.Controllers
         {
             return _personnelService.GetAllPersonGender(type);
         }
+
+        [HttpGet("DataSource")]
+        public object Get()
+        {
+            return _personnelService.GetAllPersonGenderDataSource();
+        }
+
     }
 
 
