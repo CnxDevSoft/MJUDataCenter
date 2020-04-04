@@ -207,36 +207,42 @@ async function PersonWorkAgeGraph() {
                 data: {
                     labels: data.label,
                     datasets: [
-                        //{
-                        //    label: data.graphDataSet[0].label,
-                        //    backgroundColor: 'rgba(148,117,229,0.5)',
-                        //    borderColor: 'rgba(148,117,229,1)',
-                        //    data: data.graphDataSet[0].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[1].label,
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet[1].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[0].label,
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet[2].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[0].label[3],
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet[3].data
-                        //},
-                        //{
-                        //    label: data.graphDataSet[0].label[4],
-                        //    backgroundColor: '#007bff',
-                        //    borderColor: '#007bff',
-                        //    data: data.graphDataSet.data
-                        //}
+                        {
+                            label: data.graphDataSet[0].label,
+                            backgroundColor: 'rgba(148,117,229,0.5)',
+                            borderColor: 'rgba(148,117,229,1)',
+                            data: data.graphDataSet[0].data
+                        },
+                        {
+                            label: data.graphDataSet[1].label,
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[1].data
+                        },
+                        {
+                            label: data.graphDataSet[2].label,
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[2].data
+                        },
+                        {
+                            label: data.graphDataSet[3].label,
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[3].data
+                        },
+                        {
+                            label: data.graphDataSet[4].label,
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[4].data
+                        },
+                        {
+                            label: data.graphDataSet[5].label,
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[5].data
+                        }
 
                     ],
                 },
@@ -288,12 +294,12 @@ async function PersonWorkAgeGraph() {
             $.each(data.label, function (key, item) {
                 $("#personWorkAgeGraphDataTable-tbody").append(
                     '<tr><td>' + item + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[0] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[1] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[2] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[3] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[4] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[5] + '</td></tr>'
+                    '<td>' + data.graphDataSet[0].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[1].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[2].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[3].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[4].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[5].data[key] + '</td></tr>'
                 );
             });
 
@@ -405,14 +411,14 @@ async function PersonPositionGraph() {
             });
 
             $.each(data.label, function (key, item) {
-                $("#personPositionDataTable-tbody").append(
+                $("#personPositionGraphDataTable-tbody").append(
                     '<tr><td>' + item + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[0] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[1] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[2] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[3] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[4] + '</td>' +
-                    '<td>' + data.graphDataSet[key].data[5] + '</td></tr>'
+                    '<td>' + data.graphDataSet[0].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[1].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[2].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[3].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[4].data[key] + '</td>' +
+                    '<td>' + data.graphDataSet[5].data[key] + '</td></tr>'
                 );
             });
 
@@ -420,12 +426,6 @@ async function PersonPositionGraph() {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-
-
-
-
-
-
 
 async function PersonForcastGenerationGraph() {
     var url ='https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/1/10?api-version=1.0'
