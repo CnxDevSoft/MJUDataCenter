@@ -1,7 +1,6 @@
 ﻿
 async function ToggleResearchChart(chartName) {
 
-    debugger;
     var canvasTab = '#' + chartName + '-chart-canvas';
     var tableTab = '#' + chartName + '-chart-table';
     var modalTab = '#' + chartName + 'GraphDataSourceModal';
