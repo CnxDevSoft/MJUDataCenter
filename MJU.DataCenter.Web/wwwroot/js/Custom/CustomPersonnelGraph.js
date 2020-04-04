@@ -198,7 +198,7 @@ async function PersonWorkAgeGraph() {
     }
     var mode = 'index'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/1?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personWorkAge-chart')
@@ -207,24 +207,37 @@ async function PersonWorkAgeGraph() {
                 data: {
                     labels: data.label,
                     datasets: [
-                        {
-                            label: '1',
-                            backgroundColor: 'rgba(148,117,229,0.5)',
-                            borderColor: 'rgba(148,117,229,1)',
-                            data: data.graphDataSet[0].data
-                        },
-                        {
-                            label: '2',
-                            backgroundColor: '#007bff',
-                            borderColor: '#007bff',
-                            data: data.graphDataSet[0].data
-                        },
-                        {
-                            label: '3',
-                            backgroundColor: '#007bff',
-                            borderColor: '#007bff',
-                            data: data.graphDataSet[0].data
-                        }
+                        //{
+                        //    label: data.graphDataSet[0].label,
+                        //    backgroundColor: 'rgba(148,117,229,0.5)',
+                        //    borderColor: 'rgba(148,117,229,1)',
+                        //    data: data.graphDataSet[0].data
+                        //},
+                        //{
+                        //    label: data.graphDataSet[1].label,
+                        //    backgroundColor: '#007bff',
+                        //    borderColor: '#007bff',
+                        //    data: data.graphDataSet[1].data
+                        //},
+                        //{
+                        //    label: data.graphDataSet[0].label,
+                        //    backgroundColor: '#007bff',
+                        //    borderColor: '#007bff',
+                        //    data: data.graphDataSet[2].data
+                        //},
+                        //{
+                        //    label: data.graphDataSet[0].label[3],
+                        //    backgroundColor: '#007bff',
+                        //    borderColor: '#007bff',
+                        //    data: data.graphDataSet[3].data
+                        //},
+                        //{
+                        //    label: data.graphDataSet[0].label[4],
+                        //    backgroundColor: '#007bff',
+                        //    borderColor: '#007bff',
+                        //    data: data.graphDataSet.data
+                        //}
+
                     ],
                 },
                 options: {
@@ -272,25 +285,22 @@ async function PersonWorkAgeGraph() {
                 }
             })
 
-            var tempData = [];
+            $.each(data.label, function (key, item) {
+                $("#personWorkAgeGraphDataTable-tbody").append(
+                    '<tr><td>' + item + '</td>' +
+                    '<td>' + data.graphDataSet[key].data[0] + '</td>' +
+                    '<td>' + data.graphDataSet[key].data[1] + '</td>' +
+                    '<td>' + data.graphDataSet[key].data[2] + '</td>' +
+                    '<td>' + data.graphDataSet[key].data[3] + '</td>' +
+                    '<td>' + data.graphDataSet[key].data[4] + '</td>' +
+                    '<td>' + data.graphDataSet[key].data[5] + '</td></tr>'
+                );
+            });
 
-            //$.each(data.label, function (key, title) {
-            //    tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
-            //});
-
-            //$.each(tempData, function (key, item) {
-            //    $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
-            //        + item.val + '</button></td></tr>');
-            //});
-
-          //  AllPersonGraphDS();
-
+            //PersonWorkAgeGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-
-
-
 
 
 
@@ -534,7 +544,6 @@ async function AllPersonGraphDS() {
             Load();
         });
 }
-
 async function RenderAllPersonGraphDS(data) {
 
     $.each(data, function (key, result) {
@@ -568,6 +577,53 @@ async function RenderAllPersonGraphDS(data) {
 
     });
 }
+
+async function PersonWorkAgeGraphDS() {
+
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+
+            RenderAllPersonGraphDS(data);
+            Load();
+        });
+}
+async function RenderPersonWorkAgeGraphDS(data) {
+
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+
+        $('#allpersonalGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-' + key + '-table">';
+        var startThead = '<thead id="sub-allpersonalGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-allpersonalGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#allpersonalGraphDataSourceModal-card-body').append(html);
+
+    });
+}
+
+
+
 
 async function Load() {
     $('.dataTable-sub').DataTable({
