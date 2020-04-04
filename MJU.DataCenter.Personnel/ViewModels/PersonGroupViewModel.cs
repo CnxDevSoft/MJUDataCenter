@@ -18,4 +18,5 @@ namespace MJU.DataCenter.Personnel.ViewModels
         public string PersonGroupTypeName { get; set; }
         public List<PersonnelDataSourceViewModel> Person { get; set; }
     }
+
 }

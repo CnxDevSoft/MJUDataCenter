@@ -97,15 +97,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         Country = s.Country,
                         DateOfBirth = s.DateOfBirth,
                         Division = s.Division,
-                        Education =s.Education,
-                        EducationLevel =s.EducationLevel,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate =s.GraduateDate,
+                        GraduateDate = s.GraduateDate,
                         IdCard = s.IdCard,
                         Major = s.Major,
                         Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}",s.TitleName,s.FirstName,s.LastName),
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
                         PersonnelId = s.PersonnelId,
                         PersonnelType = s.PersonnelType,
                         Position = s.Position,
@@ -117,11 +117,11 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         Salary = s.Salary,
                         Section = s.Section,
                         StartDate = s.StartDate,
-                        StartEducationDate =s.StartEducationDate,
+                        StartEducationDate = s.StartEducationDate,
                         TitleEducation = s.TitleEducation,
                         University = s.University,
                         ZipCode = s.ZipCode
-                       
+
                     }).ToList()
                 };
                 list.Add(personGroup);
@@ -306,7 +306,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 {
                     EducationTypeName = educationLevel.EducationLevel,
                     Person = personnel.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId)
-                    .Select(s=>new PersonnelDataSourceViewModel {
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
                         AdminPosition = s.AdminPosition,
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
@@ -390,7 +391,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         {
             var personnel = _dcPersonRepository.GetAll();
 
-            var distinctPosition = personnel.Select(s => new{s.PositionType,s.PositionTypeId}).Distinct();
+            var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
             if (type == 1)
             {
@@ -410,7 +411,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
                     var graphDataSet = new GraphDataSet
                     {
-                        Label = positionType.PositionType,
+                        Label = new List<string> { positionType.PositionType },
                         Data = new List<int>{
                         distinctGenerationBabyBoomber,
                         distinctGenerationGenX,
@@ -483,78 +484,79 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
-           
-                var result = new List<PersonPostionGenertionDataSourceViewModel>();
-                foreach (var positionType in distinctPosition)
-                {
-                    var generationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231))
-                    .Select(s=>new PersonnelDataSourceViewModel {
-                        AdminPosition = s.AdminPosition,
-                        AdminPositionType = s.AdminPositionType,
-                        BloodType = s.BloodType,
-                        Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
-                        Division = s.Division,
-                        Education = s.Education,
-                        EducationLevel = s.EducationLevel,
-                        Faculty = s.Faculty,
-                        Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
-                        IdCard = s.IdCard,
-                        Major = s.Major,
-                        Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        PersonnelId = s.PersonnelId,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
-                        Salary = s.Salary,
-                        Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
-                        TitleEducation = s.TitleEducation,
-                        University = s.University,
-                        ZipCode = s.ZipCode
 
-                    }).ToList();
-                    var generationGenX = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231))
-                    .Select(s => new PersonnelDataSourceViewModel
-                    {
-                        AdminPosition = s.AdminPosition,
-                        AdminPositionType = s.AdminPositionType,
-                        BloodType = s.BloodType,
-                        Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
-                        Division = s.Division,
-                        Education = s.Education,
-                        EducationLevel = s.EducationLevel,
-                        Faculty = s.Faculty,
-                        Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
-                        IdCard = s.IdCard,
-                        Major = s.Major,
-                        Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        PersonnelId = s.PersonnelId,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
-                        Salary = s.Salary,
-                        Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
-                        TitleEducation = s.TitleEducation,
-                        University = s.University,
-                        ZipCode = s.ZipCode
-                    }).ToList();
+            var result = new List<PersonPostionGenertionDataSourceViewModel>();
+            foreach (var positionType in distinctPosition)
+            {
+                var generationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231))
+                .Select(s => new PersonnelDataSourceViewModel
+                {
+                    AdminPosition = s.AdminPosition,
+                    AdminPositionType = s.AdminPositionType,
+                    BloodType = s.BloodType,
+                    Country = s.Country,
+                    DateOfBirth = s.DateOfBirth,
+                    Division = s.Division,
+                    Education = s.Education,
+                    EducationLevel = s.EducationLevel,
+                    Faculty = s.Faculty,
+                    Gender = s.Gender,
+                    GraduateDate = s.GraduateDate,
+                    IdCard = s.IdCard,
+                    Major = s.Major,
+                    Nation = s.Nation,
+                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                    PersonnelId = s.PersonnelId,
+                    PersonnelType = s.PersonnelType,
+                    Position = s.Position,
+                    PositionLevel = s.PositionLevel,
+                    PositionType = s.PositionType,
+                    Province = s.Province,
+                    RetiredDate = s.RetiredDate,
+                    RetiredYear = s.RetiredYear,
+                    Salary = s.Salary,
+                    Section = s.Section,
+                    StartDate = s.StartDate,
+                    StartEducationDate = s.StartEducationDate,
+                    TitleEducation = s.TitleEducation,
+                    University = s.University,
+                    ZipCode = s.ZipCode
+
+                }).ToList();
+                var generationGenX = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231))
+                .Select(s => new PersonnelDataSourceViewModel
+                {
+                    AdminPosition = s.AdminPosition,
+                    AdminPositionType = s.AdminPositionType,
+                    BloodType = s.BloodType,
+                    Country = s.Country,
+                    DateOfBirth = s.DateOfBirth,
+                    Division = s.Division,
+                    Education = s.Education,
+                    EducationLevel = s.EducationLevel,
+                    Faculty = s.Faculty,
+                    Gender = s.Gender,
+                    GraduateDate = s.GraduateDate,
+                    IdCard = s.IdCard,
+                    Major = s.Major,
+                    Nation = s.Nation,
+                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                    PersonnelId = s.PersonnelId,
+                    PersonnelType = s.PersonnelType,
+                    Position = s.Position,
+                    PositionLevel = s.PositionLevel,
+                    PositionType = s.PositionType,
+                    Province = s.Province,
+                    RetiredDate = s.RetiredDate,
+                    RetiredYear = s.RetiredYear,
+                    Salary = s.Salary,
+                    Section = s.Section,
+                    StartDate = s.StartDate,
+                    StartEducationDate = s.StartEducationDate,
+                    TitleEducation = s.TitleEducation,
+                    University = s.University,
+                    ZipCode = s.ZipCode
+                }).ToList();
                 var generationGenY = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
@@ -647,19 +649,19 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             Person = generationGenZ
                         }
                     };
-                    var personPostionGenertionViewModel = new PersonPostionGenertionDataSourceViewModel()
-                    {
-                        PersionPostionName = positionType.PositionType,
-                        PersonPostionGeneration = personPostionGenertion
+                var personPostionGenertionViewModel = new PersonPostionGenertionDataSourceViewModel()
+                {
+                    PersionPostionName = positionType.PositionType,
+                    PersonPostionGeneration = personPostionGenertion
 
-                    };
-                    result.Add(personPostionGenertionViewModel);
+                };
+                result.Add(personPostionGenertionViewModel);
 
 
-                }
+            }
 
-                return result;
-            
+            return result;
+
         }
 
         public async Task<IEnumerable<Person>> GetAllPerson()
@@ -793,17 +795,17 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     GraphDataSet = new List<GraphDataSet>{
                       new GraphDataSet
                       {
-                        Label = "Person",
+                        Label = new List<string> {"Person"},
                         Data = personData
                       },
                       new GraphDataSet
                       {
-                        Label = "PredictionRetired",
+                        Label = new List<string> {"PredictionRetired" },
                         Data = predictRetiredPersondata
                       },
                       new GraphDataSet
                       {
-                        Label = "Retired",
+                        Label = new List<string> {"Retired" },
                         Data = retiredPersonData
                       }
                 },
@@ -831,6 +833,196 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 }
                 return result.OrderBy(o => o.Year);
             }
+        }
+
+        public object GetAllPersonnelGroupWorkDuration(int type)
+        {
+
+            var personnel = _dcPersonRepository.GetAll();
+
+            var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
+
+            if (type == 1)
+            {
+                var label = new List<string>();
+                var listGraphDataSet = new List<GraphDataSet>();
+
+                foreach (var personnelType in distinctPersonnelTypeId)
+                {
+
+                    label.Add(personnelType.PersonnelType);
+                    var personenlTypeModel = personnel.Where(m => m.PersonnelType == personnelType.PersonnelType
+                    && m.PersonnelTypeId == personnelType.PersonnelTypeId);
+
+                    var lessThanThree = personenlTypeModel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).Count();
+                    var threeToFive = personenlTypeModel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).Count();
+                    var sixToNine = personenlTypeModel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).Count();
+                    var tenToFifteen = personenlTypeModel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).Count();
+                    var sixteenToTwenty = personenlTypeModel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).Count();
+                    var morethanTwenty = personenlTypeModel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).Count();
+                    var labelData = new List<string>() { "น้อยกว่า 3 ปี", "3 - 5 ปี", "6 - 9 ปี", "10 - 15 ปี", "16 - 20 ปี", "20 ปีขึ้นไป" };
+                    var data = new GraphDataSet
+                    {
+                        Label = labelData,
+                        Data = new List<int> { lessThanThree, threeToFive, sixToNine, tenToFifteen, sixteenToTwenty, morethanTwenty }
+
+                    };
+                    listGraphDataSet.Add(data);
+
+                }
+
+                var result = new GraphData
+                {
+                    GraphDataSet = listGraphDataSet,
+                    Label = label
+                };
+                return result;
+            }
+            else
+            {
+                var list = new List<PersonGroupWorkDurationDataTableModel>();
+                foreach (var personnelType in distinctPersonnelTypeId)
+                {
+                    var person = personnel.Where(m => m.PersonnelType == personnelType.PersonnelType && m.PersonnelTypeId == personnelType.PersonnelTypeId);
+                    var personGroup = new PersonGroupWorkDurationDataTableModel
+                    {
+                        PersonGroupTypeId = personnelType.PersonnelTypeId,
+                        PersonGroupTypeName = personnelType.PersonnelType,
+                        PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataTable>
+                        {
+                           new PersonGroupWorkDurationDataTable
+                           {
+                               WorkDuration = "น้อยกว่า 3 ปี",
+                               Person =  person.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).Count()
+                           } ,
+                           new PersonGroupWorkDurationDataTable
+                           {
+                               WorkDuration = "3 - 5 ปี",
+                               Person =  person.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).Count()
+                           },
+                           new PersonGroupWorkDurationDataTable
+                           {
+                               WorkDuration = "6 - 9 ปี",
+                               Person =  person.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).Count()
+                            },
+                            new PersonGroupWorkDurationDataTable
+                           {
+                               WorkDuration = "10 - 15 ปี",
+                               Person =  person.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).Count()
+                           },
+                            new PersonGroupWorkDurationDataTable
+                           {
+                               WorkDuration = "16 - 20 ปี",
+                               Person =  person.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).Count()
+                           },
+                            new PersonGroupWorkDurationDataTable
+                           {
+                               WorkDuration = "20 ปีขึ้นไป",
+                               Person =  person.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).Count()
+                           }
+
+                        }
+
+                    };
+                    list.Add(personGroup);
+                }
+                return list;
+            }
+
+
+        }
+
+        public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource()
+        {
+
+            var personnel = _dcPersonRepository.GetAll();
+
+            var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
+
+            var list = new List<PersonGroupWorkDurationDataSourceModel>();
+            foreach (var personnelType in distinctPersonnelTypeId)
+            {
+                var personData = personnel.Where(m => m.PersonnelType == personnelType.PersonnelType && m.PersonnelTypeId == personnelType.PersonnelTypeId)
+                   .Select(s => new PersonnelDataSourceViewModel
+                   {
+                       AdminPosition = s.AdminPosition,
+                       AdminPositionType = s.AdminPositionType,
+                       BloodType = s.BloodType,
+                       Country = s.Country,
+                       DateOfBirth = s.DateOfBirth,
+                       Division = s.Division,
+                       Education = s.Education,
+                       EducationLevel = s.EducationLevel,
+                       Faculty = s.Faculty,
+                       Gender = s.Gender,
+                       GraduateDate = s.GraduateDate,
+                       IdCard = s.IdCard,
+                       Major = s.Major,
+                       Nation = s.Nation,
+                       PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                       PersonnelId = s.PersonnelId,
+                       PersonnelType = s.PersonnelType,
+                       Position = s.Position,
+                       PositionLevel = s.PositionLevel,
+                       PositionType = s.PositionType,
+                       Province = s.Province,
+                       RetiredDate = s.RetiredDate,
+                       RetiredYear = s.RetiredYear,
+                       Salary = s.Salary,
+                       Section = s.Section,
+                       StartDate = s.StartDate,
+                       StartEducationDate = s.StartEducationDate,
+                       TitleEducation = s.TitleEducation,
+                       University = s.University,
+                       ZipCode = s.ZipCode
+
+                   });
+                var personGroup = new PersonGroupWorkDurationDataSourceModel
+                {
+                   
+                    PersonGroupTypeId = personnelType.PersonnelTypeId,
+                    PersonGroupTypeName = personnelType.PersonnelType,
+                    PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataSource>
+                    {
+                            new PersonGroupWorkDurationDataSource
+                           {
+                               WorkDuration = "น้อยกว่า 3 ปี",
+                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).ToList()
+                           } ,
+                           new PersonGroupWorkDurationDataSource
+                           {
+                               WorkDuration = "3 - 5 ปี",
+                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).ToList()
+                           },
+                           new PersonGroupWorkDurationDataSource
+                           {
+                               WorkDuration = "6 - 9 ปี",
+                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).ToList()
+                            },
+                            new PersonGroupWorkDurationDataSource
+                           {
+                               WorkDuration = "10 - 15 ปี",
+                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).ToList()
+                           },
+                            new PersonGroupWorkDurationDataSource
+                           {
+                               WorkDuration = "16 - 20 ปี",
+                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).ToList()
+                           },
+                            new PersonGroupWorkDurationDataSource
+                           {
+                               WorkDuration = "20 ปีขึ้นไป",
+                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).ToList()
+                           }
+                    }
+                };
+                list.Add(personGroup);
+            }
+
+            return list;
+
+
+
         }
 
 
