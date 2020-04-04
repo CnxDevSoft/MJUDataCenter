@@ -29,7 +29,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("DataSource")]
         public object Get()
         {
-            return _personnelService.GetAllPersonnelGroupDataSource();
+            return _personnelService.GetAllPersonGroupAdminPositionTypeDataSource();
         }
 
 

@@ -40,8 +40,8 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonGroupAdminPositionType(int type);
 
+        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource();
 
-        object GetAllPersonRetired(int total,int type);
 
     }
 }
