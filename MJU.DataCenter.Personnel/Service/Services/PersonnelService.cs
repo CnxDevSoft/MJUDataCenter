@@ -2157,5 +2157,88 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             return result;
         }
+        public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender,string genderName)
+        {
+            var personnel = _dcPersonRepository.GetAll().Where(s => s.GenderId == gender);
+            var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o => o.GenderId);
+            var generation = "";
+            switch (type)
+            {
+                case 0:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01")
+                    && s.DateOfBirth <= DateTime.Parse("1964/12/31"));
+                    generation = "Baby Boomer (เกิดปี 2489 - 2507)";
+                    break;
+                case 1:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01")
+                    && s.DateOfBirth <= DateTime.Parse("1979/12/31"));
+                    generation = "Gen X (เกิดปี 2508 - 2522)";
+                    break;
+                case 2:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01"));
+                    generation = "Gen Y (เกิดปี 2523 - 2540)";
+                    break;
+                case 3:
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01"));
+                    generation = "Gen Z (เกิดปี 2541 ขึ้นไป)";
+                    break;
+            }
+            var result = new List<PersonnelGenderDataSourceViewModel>();
+            
+                var data = personnel
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth,
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate,
+                        IdCard = s.IdCard,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate,
+                        RetiredYear = s.RetiredYear,
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate,
+                        StartEducationDate = s.StartEducationDate,
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode
+                    }).ToList();
+
+
+                var model = new List<PersonnelDataGenderDataSource>
+                {
+                    new PersonnelDataGenderDataSource
+                    {
+                        Generetion = generation,
+                        Person = data
+                    } 
+                };
+
+                var personDataSet = new PersonnelGenderDataSourceViewModel
+                {
+                    GenderId = gender,
+                    Gender = genderName,
+                    PersonGenderGeneration = model
+                };
+                result.Add(personDataSet);
+            
+            return result;
+        }
     }
 }

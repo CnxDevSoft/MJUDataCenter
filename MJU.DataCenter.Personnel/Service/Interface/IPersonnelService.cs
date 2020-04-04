@@ -59,6 +59,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
         object GetAllPersonGroupPositionLevel(int type);
 
         List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource();
+        List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender, string genderName);
 
     }
 }
