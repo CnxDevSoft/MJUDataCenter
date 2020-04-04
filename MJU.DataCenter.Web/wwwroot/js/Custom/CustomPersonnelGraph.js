@@ -191,6 +191,110 @@ async function PersonTypeGraph() {
             })
         })
 }
+async function PersonWorkAgeGraph() {
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold',
+        fontSize: 16
+    }
+    var mode = 'index'
+    var intersect = true
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/1?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            var $chart = $('#personWorkAge-chart')
+            var chart = new Chart($chart, {
+                type: 'horizontalBar',
+                data: {
+                    labels: data.label,
+                    datasets: [
+                        {
+                            label: '1',
+                            backgroundColor: 'rgba(148,117,229,0.5)',
+                            borderColor: 'rgba(148,117,229,1)',
+                            data: data.graphDataSet[0].data
+                        },
+                        {
+                            label: '2',
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[0].data
+                        },
+                        {
+                            label: '3',
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.graphDataSet[0].data
+                        }
+                    ],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            // display: false,
+                            gridLines: {
+                                display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            ticks: $.extend({
+                                beginAtZero: true,
+                                // Include a dollar sign in the ticks
+                                callback: function (value, index, values) {
+                                    if (value >= 1000) {
+                                        value /= 1000
+                                        value += 'k'
+                                    }
+                                    return value;// '$' + value
+                                }
+                            }, ticksStyle)
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: ticksStyle
+                        }]
+                    }
+                }
+            })
+
+            var tempData = [];
+
+            //$.each(data.label, function (key, title) {
+            //    tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
+            //});
+
+            //$.each(tempData, function (key, item) {
+            //    $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+            //        + item.val + '</button></td></tr>');
+            //});
+
+          //  AllPersonGraphDS();
+
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+}
+
+
+
+
+
+
 
 
 
