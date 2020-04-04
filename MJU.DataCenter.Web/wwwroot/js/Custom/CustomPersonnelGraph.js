@@ -90,7 +90,6 @@ async function PersonAgeGraph() {
         .then((data) => {
             var barChartData = {
                 labels: data.label,
-                //  labels: ["January\nFirst Month\nJellyfish\n30 of them", "February\nSecond Month\nFoxes\n20 of them", "March\nThird Month\nMosquitoes\nNone of them", "April", "May", "June", "July"],
                 datasets: [
                     {
                         label: data.graphDataSet[0].label,
