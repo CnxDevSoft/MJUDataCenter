@@ -46,5 +46,9 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonGroupFacultyDataSourceModel> GetAllPersonGroupFacultyDataSource();
 
+        object GetAllPersonPositionFaculty(int type);
+
+        public List<PersonPositionFacultyDataSourceModel> GetAllPersonPositionFacultyDataSource();
+
     }
 }

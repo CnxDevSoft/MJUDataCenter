@@ -1660,10 +1660,10 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
                     var personnelType = personnel.Where(m => m.Faculty == fc.Faculty&&m.FacultyId == fc.FacultyId);
                     var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
-                    var dataList = new List<PersonFacultyPositionDataTable>();
+                    var dataList = new List<PersonGroupFacultyDataTable>();
                     foreach (var p in distinctPersonnelType)
                     {
-                        var data = new PersonFacultyPositionDataTable
+                        var data = new PersonGroupFacultyDataTable
                         {
                             PersonGroupTypeId = p.PersonnelTypeId,
                             PersonGroupTypeName = p.PersonnelType,
@@ -1676,7 +1676,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     {
                         FacultyId = fc.FacultyId,
                         Faculty = fc.Faculty,
-                        PersonGrouFaculty = dataList
+                        PersonGroupFaculty = dataList
                     };
                     datatableList.Add(dataTable);
 
@@ -1746,7 +1746,147 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 {
                     FacultyId = fc.FacultyId,
                     Faculty = fc.Faculty,
-                    PersonGrouFaculty = dataList
+                    PersonGroupFaculty = dataList
+                };
+                datatableList.Add(dataTable);
+
+            }
+
+            return datatableList;
+        }
+
+        public object GetAllPersonPositionFaculty(int type)
+        {
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.FacultyId);
+            if (type == 1)
+            {
+
+                var lable = new List<string>();
+                var distinctPersonPosition = personnel.Select(s => s.Position).Distinct();
+                var graphDatasetList = new List<GraphDataSet>();
+
+                foreach (var position in distinctPersonPosition)
+                {
+                    var data = new List<int>();
+                    var facultyByPosition = personnel.Where(m => m.Position == position);
+                    var distinctFacultyByPosition = facultyByPosition.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
+
+                    foreach (var fp in distinctFacultyByPosition)
+                    {
+                        data.Add(facultyByPosition.Where(m => m.Faculty == fp.Faculty && m.FacultyId == fp.FacultyId).Count());
+                        lable.Add(fp.Faculty);
+                    }
+                    var graphDataset = new GraphDataSet
+                    {
+                        Label = position,
+                        Data = data
+
+                    };
+                    graphDatasetList.Add(graphDataset);
+                }
+                var graphData = new GraphData
+                {
+                    Label = lable.Distinct().ToList(),
+                    GraphDataSet = graphDatasetList
+                };
+
+                return graphData;
+
+            }
+            else
+            {
+                var facultyByPersonnelType = personnel.Select(s => new { s.Faculty, s.FacultyId }).Distinct();
+                var datatableList = new List<PersonPositionFacultyDataTableModel>();
+                foreach (var fc in facultyByPersonnelType)
+                {
+
+                    var personnelType = personnel.Where(m => m.Faculty == fc.Faculty && m.FacultyId == fc.FacultyId);
+                    var distinctPosition = personnelType.Select(s => s.Position).Distinct();
+                    var dataList = new List<PersonPositionFacultyDataTable>();
+                    foreach (var position in distinctPosition)
+                    {
+                        var data = new PersonPositionFacultyDataTable
+                        {
+                            PersonPosition = position,
+                            Person = personnelType.Where(m =>m.Position == position).Count()
+                        };
+                        dataList.Add(data);
+
+                    }
+                    var dataTable = new PersonPositionFacultyDataTableModel
+                    {
+                        FacultyId = fc.FacultyId,
+                        Faculty = fc.Faculty,
+                        PersonPositionFaculty = dataList
+                    };
+                    datatableList.Add(dataTable);
+
+                }
+
+                return datatableList;
+            }
+        }
+
+        public List<PersonPositionFacultyDataSourceModel> GetAllPersonPositionFacultyDataSource()
+        {
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.FacultyId);
+            var facultyByPersonnelType = personnel.Select(s => new { s.Faculty, s.FacultyId }).Distinct();
+            var datatableList = new List<PersonPositionFacultyDataSourceModel>();
+            foreach (var fc in facultyByPersonnelType)
+            {
+
+                var personnelType = personnel.Where(m => m.Faculty == fc.Faculty && m.FacultyId == fc.FacultyId);
+                var distinctPosition = personnelType.Select(s => s.Position).Distinct();
+                var dataList = new List<PersonPosiotionFacultyDataSource>();
+                foreach (var position in distinctPosition)
+                {
+                    var data = new PersonPosiotionFacultyDataSource
+                    {
+                        PersonPosition = position,
+                        Person = personnelType.Where(m => m.Position == position)
+                        .Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth,
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate,
+                            IdCard = s.IdCard,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate,
+                            RetiredYear = s.RetiredYear,
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate,
+                            StartEducationDate = s.StartEducationDate,
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode
+
+                        }).ToList()
+                    };
+                    dataList.Add(data);
+
+                }
+                var dataTable = new PersonPositionFacultyDataSourceModel
+                {
+                    FacultyId = fc.FacultyId,
+                    Faculty = fc.Faculty,
+                    PersonPositionFaculty = dataList
                 };
                 datatableList.Add(dataTable);
 
