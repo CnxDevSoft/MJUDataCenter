@@ -38,6 +38,10 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, string personGroupTypeId, int type);
 
+        object GetAllPersonGroupAdminPositionType(int type);
+
+        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource();
+
 
     }
 }
