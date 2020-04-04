@@ -1101,10 +1101,10 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        public List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, int type)
+        public List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, string personGroupTypeId, int type)
         {
 
-            var personnel = _dcPersonRepository.GetAll().Where(m => m.PersonnelType == personGroupType);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PersonnelType == personGroupType && m.PersonnelTypeId == personGroupTypeId);
 
             switch (type)
             {
