@@ -916,6 +916,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
             var lessThanThree = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
             var dataCoutLessThanThree = new List<int>();
+            var index = 0;
             foreach (var model in lessThanThree)
             {
                 var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
@@ -924,9 +925,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var dataLessThanThree = new GraphDataSet
             {
                 Label = "น้อยกว่า 3 ปี",
-                Data = dataCoutLessThanThree
+                Data = dataCoutLessThanThree,
+                BackgroundColor = index.BackgroundColor(),
+                BorderColor = index.BorderColor()
 
             };
+            index++;
 
             var threeToFive = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
             var dataCoutThreeToFive = new List<int>();
@@ -938,9 +942,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var dataThreeToFive = new GraphDataSet
             {
                 Label = "3 - 5 ปี",
-                Data = dataCoutThreeToFive
+                Data = dataCoutThreeToFive  ,
+                BackgroundColor = index.BackgroundColor(),
+                BorderColor = index.BorderColor()
 
             };
+            index++;
 
             var sixToNine = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
             var dataCoutSixToNine = new List<int>();
@@ -952,9 +959,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var dataSixToNine = new GraphDataSet
             {
                 Label = "6 - 9 ปี",
-                Data = dataCoutSixToNine
+                Data = dataCoutSixToNine,
+                BackgroundColor = index.BackgroundColor(),
+                BorderColor = index.BorderColor()
 
             };
+            index++;
 
             var tenToFifteen = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
             var dataCoutTenToFifteen = new List<int>();
@@ -966,9 +976,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var dataTenToFifteen = new GraphDataSet
             {
                 Label = "10 - 15 ปี",
-                Data = dataCoutTenToFifteen
+                Data = dataCoutTenToFifteen ,
+                 BackgroundColor = index.BackgroundColor(),
+                BorderColor = index.BorderColor()
 
             };
+            index++;
 
             var sixteenToTwenty = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
             var dataCoutSixteenToTwenty = new List<int>();
@@ -980,9 +993,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var dataSixteenToTwenty = new GraphDataSet
             {
                 Label = "16 - 20 ปี",
-                Data = dataCoutSixteenToTwenty
+                Data = dataCoutSixteenToTwenty,
+                BackgroundColor = index.BackgroundColor(),
+                BorderColor = index.BorderColor()
 
             };
+            index++;
             var morethanTwenty = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
             var dataCoutMorethanTwenty = new List<int>();
             foreach (var model in morethanTwenty)
@@ -993,7 +1009,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var dataMorethanTwenty = new GraphDataSet
             {
                 Label = "20 ปีขึ้นไป",
-                Data = dataCoutMorethanTwenty
+                Data = dataCoutMorethanTwenty,
+                BackgroundColor = index.BackgroundColor(),
+                BorderColor = index.BorderColor()
 
             };
             var listGraphDataSet = new List<GraphDataSet> {
@@ -1007,29 +1025,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
             return listGraphDataSet;
         }
-
-        //public object GetAllPersonGender(int type)
-        //{
-        //    var personnel = _dcPersonRepository.GetAll();
-        //    var PersonGender = personnel.Select(s => new { s.Gender, s.GenderId });
-
-        //    if (type == 1)
-        //    {
-        //        var genderGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") && s.DateOfBirth <= DateTime.Parse("1964/12/31"));
-        //        var genderGenerationGenX = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01") && s.DateOfBirth <= DateTime.Parse("1979/12/31"));
-        //        var genderGenerationGenY = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01") && s.DateOfBirth <= DateTime.Parse("1997/12/31"));
-        //        var genderGenerationGenZ = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01"));
-
-        //        var dataTavle = new List<PersonnelDataGenderDataTableViewModel>
-        //        {
-        //            new PersonnelDataGenderDataTableViewModel
-        //            {
-
-
-        //            }
-        //        };
-        //    }
-        //}
 
         public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource()
         {
@@ -1200,7 +1195,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var distinctPersonnelType = personnel.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
 
-
+                var index = 0;
                 foreach (var p in distinctPersonnelType)
                 {
                     var data = new List<int>();
@@ -1215,10 +1210,14 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var graphDataset = new GraphDataSet
                     {
                         Label = p.PersonnelType,
-                        Data = data
+                        Data = data,
+                        BackgroundColor = index.BackgroundColor(),
+                        BorderColor = index.BorderColor()
+
 
                     };
                     graphDatasetList.Add(graphDataset);
+                    index++;
                 }
                 var graphData = new GraphData
                 {
@@ -1339,7 +1338,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var lable = new List<string>();
                 var distinctPersonnelType = personnel.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
-
+                var index = 0;
                 foreach (var p in distinctPersonnelType)
                 {
                     var data = new List<int>();
@@ -1354,10 +1353,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var graphDataset = new GraphDataSet
                     {
                         Label = p.PersonnelType,
-                        Data = data
+                        Data = data,
+                        BackgroundColor = index.BackgroundColor(),
+                        BorderColor = index.BorderColor()
 
                     };
                     graphDatasetList.Add(graphDataset);
+                    index++;
                 }
                 var graphData = new GraphData
                 {
@@ -1481,7 +1483,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var lable = new List<string>();
                 var distinctPersonPosition = personnel.Select(s => s.Position).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
-
+                var index = 0;
                 foreach (var position in distinctPersonPosition)
                 {
                     var data = new List<int>();
@@ -1496,10 +1498,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var graphDataset = new GraphDataSet
                     {
                         Label = position,
-                        Data = data
+                        Data = data,
+                        BackgroundColor = index.BackgroundColor(),
+                        BorderColor = index.BorderColor()
 
                     };
                     graphDatasetList.Add(graphDataset);
+                    index++;
                 }
                 var graphData = new GraphData
                 {
@@ -1754,14 +1759,14 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonGroupPositionLevel(int type)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m=>m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน").OrderBy(o => o.PersonnelId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน").OrderBy(o => o.PersonnelId);
             if (type == 1)
             {
 
                 var lable = new List<string>();
                 var distinctPositionLevel = personnel.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
-
+                var index = 0;
                 foreach (var pl in distinctPositionLevel)
                 {
                     var data = new List<int>();
@@ -1776,10 +1781,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var graphDataset = new GraphDataSet
                     {
                         Label = pl.PositionLevel,
-                        Data = data
+                        Data = data,
+                        BackgroundColor = index.BackgroundColor(),
+                        BorderColor = index.BorderColor()
 
                     };
                     graphDatasetList.Add(graphDataset);
+                    index++;
                 }
                 var graphData = new GraphData
                 {
@@ -1894,50 +1902,25 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return datatableList;
         }
 
-
-        //public object GetAllPersonPositionLevel(int type)
-        //{
-        //    var personnel = _dcPersonRepository.GetAll();
-        //    var distinctPersonPositionLevel = personnel.Select(s => new { s.PositionLevelId, s.PositionLevel }).OrderBy(o => o.PositionLevelId).Distinct();
-
-        //    if (type == 1)
-        //    {
-        //        var lable = new List<string>();
-        //        foreach (var positionLevel in distinctPersonPositionLevel)
-        //        {
-        //            var data = personnel.Where(s => s.PositionLevelId == positionLevel.PositionLevelId && s.PositionLevel==positionLevel.PositionLevel);
-        //            var distintData = data.Select();
-
-        //            foreach (var personnelType in data)
-        //            {
-
-
-        //            }
-        //        }
-
-        //    }
-
-        //}
-
         public List<PersonnelGenderDataTableViewModel> GetAllPersonGender(int type)
         {
             var personnel = _dcPersonRepository.GetAll();
             var distinctPersonGender = personnel.Select(s =>
             new { s.GenderId, s.Gender }).OrderBy(o => o.GenderId).Distinct();
 
-                var result = new List<PersonnelGenderDataTableViewModel>();
-                foreach (var PersonGender in distinctPersonGender)
-                {
-                    var genderGenerationBabyBoomberCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") 
-                    && s.DateOfBirth <= DateTime.Parse("1964/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
-                    var genderGenerationGenXCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01") 
-                    && s.DateOfBirth <= DateTime.Parse("1979/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
-                    var genderGenerationGenYCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01") 
-                    && s.DateOfBirth <= DateTime.Parse("1997/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
-                    var genderGenerationGenZCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01") && s.GenderId == PersonGender.GenderId 
-                    && s.Gender == PersonGender.Gender).Count();
+            var result = new List<PersonnelGenderDataTableViewModel>();
+            foreach (var PersonGender in distinctPersonGender)
+            {
+                var genderGenerationBabyBoomberCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01")
+                && s.DateOfBirth <= DateTime.Parse("1964/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
+                var genderGenerationGenXCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01")
+                && s.DateOfBirth <= DateTime.Parse("1979/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
+                var genderGenerationGenYCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01")
+                && s.DateOfBirth <= DateTime.Parse("1997/12/31") && s.GenderId == PersonGender.GenderId && s.Gender == PersonGender.Gender).Count();
+                var genderGenerationGenZCount = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01") && s.GenderId == PersonGender.GenderId
+                && s.Gender == PersonGender.Gender).Count();
 
-                    var data = new List<PersonnelGenderDataTable>
+                var data = new List<PersonnelGenderDataTable>
                     {
                         new PersonnelGenderDataTable
                         {
@@ -1962,21 +1945,21 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
 
                      };
-                    var model = new PersonnelGenderDataTableViewModel
-                    {
-                        GenderId = PersonGender.GenderId,
-                        Gender = PersonGender.Gender,
-                        PersonGenderGeneration = data
-                    };
-                    result.Add(model);
-                }
-                return result;
+                var model = new PersonnelGenderDataTableViewModel
+                {
+                    GenderId = PersonGender.GenderId,
+                    Gender = PersonGender.Gender,
+                    PersonGenderGeneration = data
+                };
+                result.Add(model);
+            }
+            return result;
         }
 
         public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSource()
         {
             var personnel = _dcPersonRepository.GetAll();
-            var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o=>o.GenderId);
+            var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o => o.GenderId);
 
             var result = new List<PersonnelGenderDataSourceViewModel>();
             foreach (var personGender in distinctPersonGender)
@@ -1984,7 +1967,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var genderGenerationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01")
                     && s.DateOfBirth <= DateTime.Parse("1964/12/31")
                     && s.GenderId == personGender.GenderId && s.Gender == personGender.Gender)
-                    .Select(s=> new PersonnelDataSourceViewModel
+                    .Select(s => new PersonnelDataSourceViewModel
                     {
                         AdminPosition = s.AdminPosition,
                         AdminPositionType = s.AdminPositionType,
@@ -2157,7 +2140,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             return result;
         }
-        public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender,string genderName)
+        public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender, string genderName)
         {
             var personnel = _dcPersonRepository.GetAll().Where(s => s.GenderId == gender);
             var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o => o.GenderId);
@@ -2184,60 +2167,60 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     break;
             }
             var result = new List<PersonnelGenderDataSourceViewModel>();
-            
-                var data = personnel
-                    .Select(s => new PersonnelDataSourceViewModel
-                    {
-                        AdminPosition = s.AdminPosition,
-                        AdminPositionType = s.AdminPositionType,
-                        BloodType = s.BloodType,
-                        Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
-                        Division = s.Division,
-                        Education = s.Education,
-                        EducationLevel = s.EducationLevel,
-                        Faculty = s.Faculty,
-                        Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
-                        IdCard = s.IdCard,
-                        Major = s.Major,
-                        Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        PersonnelId = s.PersonnelId,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
-                        Salary = s.Salary,
-                        Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
-                        TitleEducation = s.TitleEducation,
-                        University = s.University,
-                        ZipCode = s.ZipCode
-                    }).ToList();
+
+            var data = personnel
+                .Select(s => new PersonnelDataSourceViewModel
+                {
+                    AdminPosition = s.AdminPosition,
+                    AdminPositionType = s.AdminPositionType,
+                    BloodType = s.BloodType,
+                    Country = s.Country,
+                    DateOfBirth = s.DateOfBirth,
+                    Division = s.Division,
+                    Education = s.Education,
+                    EducationLevel = s.EducationLevel,
+                    Faculty = s.Faculty,
+                    Gender = s.Gender,
+                    GraduateDate = s.GraduateDate,
+                    IdCard = s.IdCard,
+                    Major = s.Major,
+                    Nation = s.Nation,
+                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                    PersonnelId = s.PersonnelId,
+                    PersonnelType = s.PersonnelType,
+                    Position = s.Position,
+                    PositionLevel = s.PositionLevel,
+                    PositionType = s.PositionType,
+                    Province = s.Province,
+                    RetiredDate = s.RetiredDate,
+                    RetiredYear = s.RetiredYear,
+                    Salary = s.Salary,
+                    Section = s.Section,
+                    StartDate = s.StartDate,
+                    StartEducationDate = s.StartEducationDate,
+                    TitleEducation = s.TitleEducation,
+                    University = s.University,
+                    ZipCode = s.ZipCode
+                }).ToList();
 
 
-                var model = new List<PersonnelDataGenderDataSource>
+            var model = new List<PersonnelDataGenderDataSource>
                 {
                     new PersonnelDataGenderDataSource
                     {
                         Generetion = generation,
                         Person = data
-                    } 
+                    }
                 };
 
-                var personDataSet = new PersonnelGenderDataSourceViewModel
-                {
-                    GenderId = gender,
-                    Gender = genderName,
-                    PersonGenderGeneration = model
-                };
-                result.Add(personDataSet);
-            
+            var personDataSet = new PersonnelGenderDataSourceViewModel
+            {
+                GenderId = gender,
+                Gender = genderName,
+                PersonGenderGeneration = model
+            };
+            result.Add(personDataSet);
+
             return result;
         }
     }

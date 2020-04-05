@@ -228,51 +228,52 @@ async function PersonWorkAgeGraph() {
                 type: 'horizontalBar',
                 data: {
                     labels: data.label,
-                    datasets: [
-                        {
-                            label: data.graphDataSet[0].label,
-                            backgroundColor: 'rgba(165,96,229,0.8)',
-                            borderColor: 'rgba(165,96,229,1)',
-                            data: data.graphDataSet[0].data,
-                            barThickness: 30,
-                        },
-                        {
-                            label: data.graphDataSet[1].label,
-                            backgroundColor: 'rgba(127,157,240, 0.8)',
-                            borderColor: 'rgba(127,157,240, 1)',
-                            data: data.graphDataSet[1].data,
-                            barThickness: 30,
-                        },               
-                        {
-                            label: data.graphDataSet[2].label,
-                            backgroundColor: 'rgba(118,119,232, 0.5)',
-                            borderColor: 'rgba(118,119,232, 1)',
-                            data: data.graphDataSet[2].data,
-                            barThickness: 30,
-                        },
-                        {
-                            label: data.graphDataSet[3].label,
-                            backgroundColor: 'rgba(41, 182, 246, 0.5)',
-                            borderColor: 'rgba(41, 182, 246, 0.5)',
-                            data: data.graphDataSet[3].data,
-                            barThickness: 30,
-                            // stacked: true
-                        },
-                        {
-                            label: data.graphDataSet[4].label,
-                            backgroundColor: 'rgba(75, 202, 219,0.5)',
-                            borderColor: 'rgba(75, 202, 219,1)',
-                            data: data.graphDataSet[4].data,
-                            barThickness: 30,
-                        },
-                        {
-                            label: data.graphDataSet[5].label,
-                            backgroundColor: 'rgba(214,237,154,0.5)',
-                            borderColor: 'rgba(214,237,154,1)',
-                            data: data.graphDataSet[5].data,
-                            barThickness: 30,
-                        }
-                    ],
+                    datasets: data.graphDataSet,
+                    //datasets: [
+                    //    {
+                    //        label: data.graphDataSet[0].label,
+                    //        backgroundColor: 'rgba(165,96,229,0.8)',
+                    //        borderColor: 'rgba(165,96,229,1)',
+                    //        data: data.graphDataSet[0].data,
+                    //        barThickness: 30,
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[1].label,
+                    //        backgroundColor: 'rgba(127,157,240, 0.8)',
+                    //        borderColor: 'rgba(127,157,240, 1)',
+                    //        data: data.graphDataSet[1].data,
+                    //        barThickness: 30,
+                    //    },               
+                    //    {
+                    //        label: data.graphDataSet[2].label,
+                    //        backgroundColor: 'rgba(118,119,232, 0.5)',
+                    //        borderColor: 'rgba(118,119,232, 1)',
+                    //        data: data.graphDataSet[2].data,
+                    //        barThickness: 30,
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[3].label,
+                    //        backgroundColor: 'rgba(41, 182, 246, 0.5)',
+                    //        borderColor: 'rgba(41, 182, 246, 0.5)',
+                    //        data: data.graphDataSet[3].data,
+                    //        barThickness: 30,
+                    //        // stacked: true
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[4].label,
+                    //        backgroundColor: 'rgba(75, 202, 219,0.5)',
+                    //        borderColor: 'rgba(75, 202, 219,1)',
+                    //        data: data.graphDataSet[4].data,
+                    //        barThickness: 30,
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[5].label,
+                    //        backgroundColor: 'rgba(214,237,154,0.5)',
+                    //        borderColor: 'rgba(214,237,154,1)',
+                    //        data: data.graphDataSet[5].data,
+                    //        barThickness: 30,
+                    //    }
+                    //],
                 },
                 options: {
                     responsive: true,
@@ -332,51 +333,52 @@ async function PersonPositionGraph() {
                 type: 'horizontalBar',
                 data: {
                     labels: data.label,
-                    datasets: [
-                        {
-                            label: data.graphDataSet[0].label,
-                            backgroundColor: 'rgba(165,96,229,0.8)',
-                            borderColor: 'rgba(165,96,229,1)',
-                            data: data.graphDataSet[0].data,
-                            barThickness: 30,
-                        },
-                        {
-                            label: data.graphDataSet[1].label,
-                            backgroundColor: 'rgba(127,157,240, 0.8)',
-                            borderColor: 'rgba(127,157,240, 1)',
-                            data: data.graphDataSet[1].data,
-                            barThickness: 30,
-                        },
-                        {
-                            label: data.graphDataSet[2].label,
-                            backgroundColor: 'rgba(118,119,232, 0.5)',
-                            borderColor: 'rgba(118,119,232, 1)',
-                            data: data.graphDataSet[2].data,
-                            barThickness: 30,
-                        },
-                        {
-                            label: data.graphDataSet[3].label,
-                            backgroundColor: 'rgba(41, 182, 246, 0.5)',
-                            borderColor: 'rgba(41, 182, 246, 0.5)',
-                            data: data.graphDataSet[3].data,
-                            barThickness: 30,
-                            // stacked: true
-                        },
-                        {
-                            label: data.graphDataSet[4].label,
-                            backgroundColor: 'rgba(75, 202, 219,0.5)',
-                            borderColor: 'rgba(75, 202, 219,1)',
-                            data: data.graphDataSet[4].data,
-                            barThickness: 30,
-                        },
-                        {
-                            label: data.graphDataSet[5].label,
-                            backgroundColor: 'rgba(214,237,154,0.5)',
-                            borderColor: 'rgba(214,237,154,1)',
-                            data: data.graphDataSet[5].data,
-                            barThickness: 30,
-                        }
-                    ],
+                    datasets: data.graphDataSet,
+                    //datasets: [
+                    //    {
+                    //        label: data.graphDataSet[0].label,
+                    //        backgroundColor: 'rgba(165,96,229,0.8)',
+                    //        borderColor: 'rgba(165,96,229,1)',
+                    //        data: data.graphDataSet[0].data,
+                    //        barThickness: 30,
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[1].label,
+                    //        backgroundColor: 'rgba(127,157,240, 0.8)',
+                    //        borderColor: 'rgba(127,157,240, 1)',
+                    //        data: data.graphDataSet[1].data,
+                    //        barThickness: 30,
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[2].label,
+                    //        backgroundColor: 'rgba(118,119,232, 0.5)',
+                    //        borderColor: 'rgba(118,119,232, 1)',
+                    //        data: data.graphDataSet[2].data,
+                    //        barThickness: 30,
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[3].label,
+                    //        backgroundColor: 'rgba(41, 182, 246, 0.5)',
+                    //        borderColor: 'rgba(41, 182, 246, 0.5)',
+                    //        data: data.graphDataSet[3].data,
+                    //        barThickness: 30,
+                    //        // stacked: true
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[4].label,
+                    //        backgroundColor: 'rgba(75, 202, 219,0.5)',
+                    //        borderColor: 'rgba(75, 202, 219,1)',
+                    //        data: data.graphDataSet[4].data,
+                    //        barThickness: 30,
+                    //    },
+                    //    {
+                    //        label: data.graphDataSet[5].label,
+                    //        backgroundColor: 'rgba(214,237,154,0.5)',
+                    //        borderColor: 'rgba(214,237,154,1)',
+                    //        data: data.graphDataSet[5].data,
+                    //        barThickness: 30,
+                    //    }
+                    //],
                 },
                 options: {
                     responsive: true,
@@ -423,7 +425,71 @@ async function PersonPositionGraph() {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonSupportGraph() {
+async function PersonPositionLevelGraph() {
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold',
+        fontSize: 16
+    }
+    var mode = 'index'
+    var intersect = true
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/1?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            var $chart = $('#personPositionLevel-chart')
+            var chart = new Chart($chart, {
+                type: 'horizontalBar',
+                data: {
+                    labels: data.label,
+                    datasets: data.graphDataSet,
+                   
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            //  ticks: ticksStyle
+                        }],
+                        yAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                //  display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            //  ticks: ticksStyle
+                        }]
+                    },
+                    tooltips: {
+                        // mode: mode,
+                        // intersect: intersect
+                    },
+                }
+            })
+            $("#personPositionLevelGraphDataTable-thead").append('<th>ประเภทบุคลากร</th>');
+            $.each(data.graphDataSet, function (key, item) {
+                $("#personPositionLevelGraphDataTable-thead").append(
+                    '<th>' + item.label + '</th>'
+                );
+            });
+
+            $.each(data.label, function (key, item) {
+                var html = '';
+                $.each(data.graphDataSet, function (skey, sItem) {
+                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
+                });
+                $("#personPositionLevelGraphDataTable-tbody").append(
+                    '<tr><td>' + item + '</td>' + html + '</tr>');
+            });
+
+            PersonPositionLevelGraphDS();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+}
+async function PersonFacultyGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -435,7 +501,7 @@ async function PersonSupportGraph() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupFaculty/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
-            var $chart = $('#personSupport-chart')
+            var $chart = $('#personFaculty-chart')
 
         
             var ctx = $($chart).get(0).getContext('2d')
@@ -450,64 +516,8 @@ async function PersonSupportGraph() {
                 type: 'line',
                 data: {
                     labels: data.label,
-                    datasets: RenderDataSet(data, gradientStroke),
+                    datasets: data.graphDataSet,
 
-                    // LoopDataSet(data),
-
-                    //    [
-                    //    {
-                    //        label: data.graphDataSet[0].label,
-                    //        backgroundColor: 'rgba(165,96,229,0.8)',
-                    //        borderColor: 'rgba(165,96,229,1)',
-                    //        data: data.graphDataSet[0].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[1].label,
-                    //        backgroundColor: 'rgba(127,157,240, 0.8)',
-                    //        borderColor: 'rgba(127,157,240, 1)',
-                    //        data: data.graphDataSet[1].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[2].label,
-                    //        backgroundColor: 'rgba(118,119,232, 0.5)',
-                    //        borderColor: 'rgba(118,119,232, 1)',
-                    //        data: data.graphDataSet[2].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[3].label,
-                    //        backgroundColor: 'rgba(41, 182, 246, 0.5)',
-                    //        borderColor: 'rgba(41, 182, 246, 0.5)',
-                    //        data: data.graphDataSet[3].data,
-                    //        barThickness: 30,
-                    //        // stacked: true
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[4].label,
-                    //        backgroundColor: 'rgba(75, 202, 219,0.5)',
-                    //        borderColor: 'rgba(75, 202, 219,1)',
-                    //        data: data.graphDataSet[4].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[5].label,
-                    //        backgroundColor: 'rgba(214,237,154,0.5)',
-                    //        borderColor: 'rgba(214,237,154,1)',
-                    //        data: data.graphDataSet[5].data,
-                    //        barThickness: 30,
-                    //        fill:true
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[6].label,
-                    //        backgroundColor: 'rgba(214,237,154,0.5)',
-                    //        borderColor: 'rgba(214,237,154,1)',
-                    //        data: data.graphDataSet[6].data,
-                    //        barThickness: 30,
-                    //        fill: true
-                    //    }
-                    //],
                 },
                 options: {
                     responsive: true,
@@ -538,9 +548,9 @@ async function PersonSupportGraph() {
      
 
 
-            $("#personSupportGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
+            $("#personFacultyGraphDataTable-thead").append('<th>ประเภทและบุคลากร</th>');
             $.each(data.graphDataSet, function (key, item) {
-                $("#personSupportGraphDataTable-thead > tr").append(
+                $("#personFacultyGraphDataTable-thead").append(
                     '<th>' + item.label + '</th>'
                 );
             });
@@ -550,11 +560,81 @@ async function PersonSupportGraph() {
                 $.each(data.graphDataSet, function (skey, sItem) {
                     html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
                 });
-                $("#personSupportGraphDataTable-tbody").append(
+                $("#personFacultyGraphDataTable-tbody").append(
                     '<tr><td>' + item + '</td>' + html + '</tr>');
             });
 
-            PersonSupportGraphDS();
+            PersonFacultyGraphDS();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+}
+async function PersonPositionFacultyGraph() {
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold',
+        // fontSize: 16,
+        stepSize: 1
+    }
+    var mode = 'nearest'
+    var intersect = true
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionFaculty/1?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            var $chart = $('#personPositionFaculty-chart')
+
+            var chart = new Chart($chart, {
+                type: 'horizontalBar',
+                data: {
+                    labels: data.label,
+                    datasets: data.graphDataSet,
+
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            //  ticks: ticksStyle
+                        }],
+                        yAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                //  display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            //  ticks: ticksStyle
+                        }]
+                    },
+                    tooltips: {
+                        // mode: mode,
+                        // intersect: intersect
+                    },
+                }
+            })
+
+
+
+
+            $("#personPositionFacultyGraphDataTable-thead").append('<th>ประเภทและบุคลากร</th>');
+            $.each(data.graphDataSet, function (key, item) {
+                $("#personPositionFacultyGraphDataTable-thead").append(
+                    '<th>' + item.label + '</th>'
+                );
+            });
+
+            $.each(data.label, function (key, item) {
+                var html = '';
+                $.each(data.graphDataSet, function (skey, sItem) {
+                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
+                });
+                $("#personPositionFacultyGraphDataTable-tbody").append(
+                    '<tr><td>' + item + '</td>' + html + '</tr>');
+            });
+
+            PersonPositionFacultyGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -941,32 +1021,76 @@ async function RenderPersonPositionGraphDS(data) {
     });
 }
 
+async function PersonPositionLevelGraphDS() {
 
-async function PersonSupportGraphDS() {
-
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupFaculty/DataSource?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/DataSource?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
-            RenderPersonSupportGraphDS(data);
+            RenderPersonPositionLevelGraphDS(data);
         });
 }
-async function RenderPersonSupportGraphDS(data) {
+async function RenderPersonPositionLevelGraphDS(data) {
     debugger;
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personSupportGraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="personSupportGraphDSCollapse'
-            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
-            + result.faculty + '</b></a>'
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionLevelGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
 
-        $('#personSupportGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personSupportGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personSupport" id="sub-personSupport-' + key + '-table">';
-        var startThead = '<thead id="sub-personSupportGraphDataSource-thead">';
+        $('#personPositionLevelGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personPositionLevelGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="sub-personPosition-' + key + '-table">';
+        var startThead = '<thead id="sub-personPositionGraphDataSource-thead">';
         var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
 
         var endThead = '</thead>';
 
-        var startBody = '<tbody id="sub-personSupportGraphDataSource-tbody">';
+        var startBody = '<tbody id="sub-personPositionLevelGraphDataSource-tbody">';
+
+        $.each(result.personGroupPosition, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personPositionLevelGraphDataSourceModal-card-body').append(html);
+    });
+}
+
+
+async function PersonFacultyGraphDS() {
+
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupFaculty/DataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonFacultyGraphDS(data);
+        });
+}
+async function RenderPersonFacultyGraphDS(data) {
+    debugger;
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personFacultyGraphDSCollapse' + key
+            + '" role="button" aria-expanded="false" aria-controls="personFacultyGraphDSCollapse'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + result.faculty + '</b></a>'
+
+        $('#personFacultyGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personFacultyGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personFaculty" id="sub-personFaculty-' + key + '-table">';
+        var startThead = '<thead id="sub-personFacultyGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personFacultyGraphDataSource-tbody">';
         debugger;
         $.each(result.personGroupFaculty, function (key, item) {
             $.each(item.person, function (index, sItem) {
@@ -985,10 +1109,56 @@ async function RenderPersonSupportGraphDS(data) {
 
         var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
 
-        $('#personSupportGraphDataSourceModal-card-body').append(html);
+        $('#personFacultyGraphDataSourceModal-card-body').append(html);
     });
 }
 
+async function PersonPositionFacultyGraphDS() {
+
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionFaculty/DataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionFacultyGraphDS(data);
+        });
+}
+async function RenderPersonPositionFacultyGraphDS(data) {
+    debugger;
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionFacultyGraphDSCollapse' + key
+            + '" role="button" aria-expanded="false" aria-controls="personPositionFacultyGraphDSCollapse'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + result.faculty + '</b></a>'
+
+        $('#personPositionFacultyGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personPositionFacultyGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionFaculty" id="sub-personPositionFaculty-' + key + '-table">';
+        var startThead = '<thead id="sub-personPositionFacultyGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
+        debugger;
+        $.each(result.personPositionFaculty, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personPositionFacultyGraphDataSourceModal-card-body').append(html);
+    });
+}
 
 
 async function LoadDataTable(name,key) {
