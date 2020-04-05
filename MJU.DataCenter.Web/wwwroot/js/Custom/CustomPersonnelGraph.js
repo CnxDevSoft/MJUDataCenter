@@ -719,9 +719,6 @@ async function PersonRetiredGraph() {
                 }
             })
 
-
-
-
             $("#personRetiredGraphDataTable-thead").append('<th>ปีที่เกษียน</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personRetiredGraphDataTable-thead").append(
