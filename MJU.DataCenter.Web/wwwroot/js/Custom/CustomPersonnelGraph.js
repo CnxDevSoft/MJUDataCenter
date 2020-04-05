@@ -803,7 +803,6 @@ function chartClicked(chart, chartName) {
         }
     });
 }
-
 function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) {
 
     var box = '#' + chartName + 'Box';
@@ -855,7 +854,6 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
             });
         });
 }
-
 
 async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 
@@ -1161,6 +1159,9 @@ async function RenderPersonPositionFacultyGraphDS(data) {
 }
 
 
+
+
+
 async function LoadDataTable(name,key) {
 
     var dataTableName = '#sub-' + name+'-' + key + '-table';
@@ -1172,7 +1173,6 @@ async function LoadDataTable(name,key) {
         pageLength: 5
     });
 }
-
 async function Load() {
 
     $('.dataTable-sub-allpersonal').DataTable({
