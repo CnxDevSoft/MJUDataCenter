@@ -1293,11 +1293,11 @@ async function RenderRetiredGraphDS(data) {
         var endRow = '</div>';
 
         var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-async function PersonEducationGraphDS() {
         $('#personRetiredGraphDataSourceModal-card-body').append(html);
     });
 }
+async function PersonEducationGraphDS() {
+
 
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/DataSource?api-version=1.0')
         .then(res => res.json())
