@@ -618,7 +618,7 @@ async function PersonPositionFacultyGraph() {
 
 
 
-            $("#personPositionFacultyGraphDataTable-thead").append('<th>ประเภทและบุคลากร</th>');
+            $("#personPositionFacultyGraphDataTable-thead").append('<th>หน่วยงาน</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personPositionFacultyGraphDataTable-thead").append(
                     '<th>' + item.label + '</th>'
