@@ -535,9 +535,6 @@ async function PersonSupportGraph() {
                 }
             })
 
-     
-
-
             $("#personSupportGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personSupportGraphDataTable-thead > tr").append(
@@ -723,7 +720,6 @@ function chartClicked(chart, chartName) {
         }
     });
 }
-
 function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) {
 
     var box = '#' + chartName + 'Box';
@@ -775,7 +771,6 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
             });
         });
 }
-
 
 async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 
@@ -941,7 +936,6 @@ async function RenderPersonPositionGraphDS(data) {
     });
 }
 
-
 async function PersonSupportGraphDS() {
 
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupFaculty/DataSource?api-version=1.0')
@@ -991,6 +985,9 @@ async function RenderPersonSupportGraphDS(data) {
 
 
 
+
+
+
 async function LoadDataTable(name,key) {
 
     var dataTableName = '#sub-' + name+'-' + key + '-table';
@@ -1002,7 +999,6 @@ async function LoadDataTable(name,key) {
         pageLength: 5
     });
 }
-
 async function Load() {
 
     $('.dataTable-sub-allpersonal').DataTable({
