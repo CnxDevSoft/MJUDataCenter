@@ -161,7 +161,7 @@ async function PersonEducationGraph() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
-            var donutChartCanvas = $('#pieChart').get(0).getContext('2d')
+            var $chart = $('#personEducation-Chart').get(0).getContext('2d')
             var donutData = {
                 labels: data.label,
                 datasets: [
@@ -175,20 +175,33 @@ async function PersonEducationGraph() {
                 maintainAspectRatio: false,
                 responsive: true,
             }
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            var donutChart = new Chart(donutChartCanvas, {
+
+            var donutChart = new Chart($chart, {
                 type: 'pie',
                 data: donutData,
                 options: donutOptions
-            })
-        })
+            });
+
+            var tempData = [];
+
+            $.each(data.label, function (key, title) {
+                tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
+            });
+
+            $.each(tempData, function (key, item) {
+                $("#personEducationGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                    + item.val + '</button></td></tr>');
+            });
+
+            PersonEducationGraphDS();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 }
 async function PersonTypeGraph() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/1?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
-            var donutChartCanvas = $('#pie2Chart').get(0).getContext('2d')
+            var $chart = $('#personType-chart').get(0).getContext('2d')
             var donutData = {
                 labels: data.label,
                 datasets: [
@@ -204,12 +217,25 @@ async function PersonTypeGraph() {
             }
             //Create pie or douhnut chart
             // You can switch between pie and douhnut using the method below.
-            var donutChart = new Chart(donutChartCanvas, {
+            var donutChart = new Chart($chart, {
                 type: 'pie',
                 data: donutData,
                 options: donutOptions
-            })
-        })
+            });
+
+            var tempData = [];
+            $.each(data.label, function (key, title) {
+                tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
+            });
+
+            $.each(tempData, function (key, item) {
+                $("#personTypeGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                    + item.val + '</button></td></tr>');
+            });
+
+            PersonTypeGraphDS();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 }
 async function PersonWorkAgeGraph() {
     var ticksStyle = {
@@ -692,9 +718,6 @@ async function PersonRetiredGraph() {
                     },
                 }
             })
-
-
-
 
             $("#personRetiredGraphDataTable-thead").append('<th>ปีที่เกษียน</th>');
             $.each(data.graphDataSet, function (key, item) {
@@ -1259,11 +1282,8 @@ async function RenderRetiredGraphDS(data) {
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="sub-personRetired-' + key + '-table">';
         var startThead = '<thead id="sub-personRetiredGraphDataSource-thead">';
         var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
         var endThead = '</thead>';
-
         var startBody = '<tbody id="sub-personRetiredGraphDataSource-tbody">';
-        debugger;
         $.each(result.personGroupRetiredYear, function (key, item) {
             $.each(item.person, function (index, sItem) {
                 startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
@@ -1275,19 +1295,95 @@ async function RenderRetiredGraphDS(data) {
             });
         });
         var endbody = '</tbody>';
+        var endTable = '</table>';
+        var endRow = '</div>';
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+        $('#personRetiredGraphDataSourceModal-card-body').append(html);
+    });
+}
+
+async function PersonEducationGraphDS() {
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/DataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonEducationGraphDS(data);
+        });
+}
+async function RenderPersonEducationGraphDS(data) {
+
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personEducationGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.educationTypeName + '</b></a>'
+
+        $('#personEducationGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personEducationGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personEducation" id="sub-personEducation-' + key + '-table">';
+        var startThead = '<thead id="sub-personEducationGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
 
         var endTable = '</table>';
         var endRow = '</div>';
 
         var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
 
-        $('#personRetiredGraphDataSourceModal-card-body').append(html);
+        $('#personEducationGraphDataSourceModal-card-body').append(html);
+
     });
 }
 
 
+async function PersonTypeGraphDS() {
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/DataSource?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonTypeGraphDS(data);
+        });
+}
+async function RenderPersonTypeGraphDS(data) {
 
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personTypeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personTypeDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personPosionTypeName + '</b></a>'
 
+        $('#personTypeGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personTypeGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personType" id="sub-personType-' + key + '-table">';
+        var startThead = '<thead id="sub-personTypeGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personTypeGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personTypeGraphDataSourceModal-card-body').append(html);
+
+    });
+}
 
 async function LoadDataTable(name,key) {
 
