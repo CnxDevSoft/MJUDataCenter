@@ -1620,14 +1620,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonGroupRetiredYear(RetiredGraphInputDto input)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m =>input.StartDate != null && input.EndDate !=null ?  m.RetiredDate >= input.StartDate && m.RetiredDate <= input.EndDate &&
-            m.RetiredYear >= input.StartDate.Value.Year && m.RetiredYear <= input.EndDate.Value.Year : m.RetiredYear <= DateTime.UtcNow.Year).OrderBy(o => o.RetiredYear);
+            var personnel = _dcPersonRepository.GetAll().Where(m =>input.StartDate != null && input.EndDate !=null ?  
+            m.RetiredDate >= input.StartDate.ToUtcDateTime() && m.RetiredDate <= input.EndDate.ToUtcDateTime() &&
+            m.RetiredYear >= input.StartDate.ToUtcRetiredYear() && m.RetiredYear <= input.EndDate.ToUtcRetiredYear()
+            : m.RetiredYear <= DateTime.UtcNow.Year).OrderBy(o => o.RetiredYear);
             if (input.Type == 1)
             {
                 var distinctPersonnelType = personnel.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
 
                 var label = personnel.Select(s => s.RetiredYear.Value.ToLocalYear().ToString()).Distinct();
-
 
                 var graphDatasetList = new List<GraphDataSet>();
                 var index = 0;
@@ -1696,8 +1697,11 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource(RetiredInputDto input)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? m.RetiredDate >= input.StartDate && m.RetiredDate <= input.EndDate &&
-            m.RetiredYear >= input.StartDate.Value.Year && m.RetiredYear <= input.EndDate.Value.Year : m.RetiredYear <= DateTime.UtcNow.Year).OrderBy(o => o.RetiredYear);
+            var personnel = _dcPersonRepository.GetAll().Where(m => input.StartDate != null && input.EndDate != null ?
+                        m.RetiredDate >= input.StartDate.ToUtcDateTime() && m.RetiredDate <= input.EndDate.ToUtcDateTime() &&
+                        m.RetiredYear >= input.StartDate.ToUtcRetiredYear() && m.RetiredYear <= input.EndDate.ToUtcRetiredYear()
+                        : m.RetiredYear <= DateTime.UtcNow.Year).OrderBy(o => o.RetiredYear);
+
             var distinctretiredYear = personnel.Select(s => s.RetiredYear).Distinct();
             var datatableList = new List<PersonGroupRetiredYearDataSourceModel>();
             foreach (var ry in distinctretiredYear)
