@@ -673,7 +673,9 @@ async function PersonRetiredGraph() {
     }
     var mode = 'nearest'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupRetiredYear/1?api-version=1.0')
+    var date = new Date();
+    var lastDate = date.setDate(date.getFullYear() - 10).toLocaleString();
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupRetiredYear?Type=1&StartDate=2553-01-01&EndDate=2563-01-01&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personRetired-chart')
@@ -1263,7 +1265,7 @@ async function RenderPersonPositionFacultyGraphDS(data) {
 
 async function PersonRetiredGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupRetiredYear/DataSource?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupRetiredYear/DataSource?StartDate=2553-01-01&EndDate=2563-01-01&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderRetiredGraphDS(data);
