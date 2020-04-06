@@ -1978,68 +1978,107 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             else
             {
-                var list = new List<PersonPostionDataTableModel>();
+                var list = new List<PersonPostionEducationDataTableModel>();
                 foreach (var positionType in distinctPosition)
                 {
-                    var personPosition = new PersonPostionDataTableModel
+                    var listEducation = new List<PersonPostionEducationDataTable>();
+                    var educate = new List<string>() { "ปริญญาเอก", "ปริญญาตรี", "ปริญญาโท" };
+                    var personPosition = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId
+                    && educate.Contains(m.EducationLevel));
+                    var distinctEducationLevel = personPosition.Select(s => new { s.EducationLevel, s.EducationLevelId }).Distinct();
+                    var lowerBachelor = personPosition.Where(m => !educate.Contains(m.EducationLevel)).Count();
+
+                    var dataInPosition = new List<int>();
+                    foreach (var educationLevel in distinctEducationLevel)
+                    {
+                        var model = new PersonPostionEducationDataTable
+                        {
+                            EducationLevel = educationLevel.EducationLevel,
+                            EducationLevelId = educationLevel.EducationLevelId,
+                            Person = personPosition.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId).Count()
+                        };
+                        listEducation.Add(model);
+                    }
+                    var personPositionEducation = new PersonPostionEducationDataTableModel
                     {
                         PersonPosionTypeName = positionType.PositionType,
-                        Person = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId).Count()
+                        PersonPosionTypeId = positionType.PositionTypeId,
+                        PersonPostionEducation = listEducation
                     };
-                    list.Add(personPosition);
+                    list.Add(personPositionEducation);
                 }
                 return list;
             }
         }
 
-        public List<PersonPostionDataSourceModel> GetAllPersonnelPositionEducationDataSource()
+        public List<PersonPostionEducationDataSourceModel> GetAllPersonnelPositionEducationDataSource()
         {
             var personnel = _dcPersonRepository.GetAll();
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
-            var list = new List<PersonPostionDataSourceModel>();
+            var list = new List<PersonPostionEducationDataSourceModel>();
             foreach (var positionType in distinctPosition)
             {
-                var personPosition = new PersonPostionDataSourceModel
+                var listEducation = new List<PersonPostionEducationDataSource>();
+                var educate = new List<string>() { "ปริญญาเอก", "ปริญญาตรี", "ปริญญาโท" };
+                var personPosition = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId
+                && educate.Contains(m.EducationLevel));
+                var distinctEducationLevel = personPosition.Select(s => new { s.EducationLevel, s.EducationLevelId }).Distinct();
+                var lowerBachelor = personPosition.Where(m => !educate.Contains(m.EducationLevel)).Count();
+
+                var dataInPosition = new List<int>();
+                foreach (var educationLevel in distinctEducationLevel)
+                {
+                    var model = new PersonPostionEducationDataSource
+                    {
+                        EducationLevel = educationLevel.EducationLevel,
+                        EducationLevelId = educationLevel.EducationLevelId,
+                        Person = personPosition.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId)
+                          .Select(s => new PersonnelDataSourceViewModel
+                          {
+                              AdminPosition = s.AdminPosition,
+                              AdminPositionType = s.AdminPositionType,
+                              BloodType = s.BloodType,
+                              Country = s.Country,
+                              DateOfBirth = s.DateOfBirth,
+                              Division = s.Division,
+                              Education = s.Education,
+                              EducationLevel = s.EducationLevel,
+                              Faculty = s.Faculty,
+                              Gender = s.Gender,
+                              GraduateDate = s.GraduateDate,
+                              IdCard = s.IdCard,
+                              Major = s.Major,
+                              Nation = s.Nation,
+                              PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                              PersonnelId = s.PersonnelId,
+                              PersonnelType = s.PersonnelType,
+                              Position = s.Position,
+                              PositionLevel = s.PositionLevel,
+                              PositionType = s.PositionType,
+                              Province = s.Province,
+                              RetiredDate = s.RetiredDate,
+                              RetiredYear = s.RetiredYear,
+                              Salary = s.Salary,
+                              Section = s.Section,
+                              StartDate = s.StartDate,
+                              StartEducationDate = s.StartEducationDate,
+                              TitleEducation = s.TitleEducation,
+                              University = s.University,
+                              ZipCode = s.ZipCode
+
+                          }).ToList()
+                    };
+                    listEducation.Add(model);
+                }
+                var personPositionEducation = new PersonPostionEducationDataSourceModel
                 {
                     PersonPosionTypeName = positionType.PositionType,
-                    Person = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId).
-                    Select(s => new PersonnelDataSourceViewModel
-                    {
-                        AdminPosition = s.AdminPosition,
-                        AdminPositionType = s.AdminPositionType,
-                        BloodType = s.BloodType,
-                        Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
-                        Division = s.Division,
-                        Education = s.Education,
-                        EducationLevel = s.EducationLevel,
-                        Faculty = s.Faculty,
-                        Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
-                        IdCard = s.IdCard,
-                        Major = s.Major,
-                        Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        PersonnelId = s.PersonnelId,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
-                        Salary = s.Salary,
-                        Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
-                        TitleEducation = s.TitleEducation,
-                        University = s.University,
-                        ZipCode = s.ZipCode
-                    }).ToList()
+                    PersonPosionTypeId = positionType.PositionTypeId,
+                    PersonPostionEducation = listEducation
                 };
-                list.Add(personPosition);
+                list.Add(personPositionEducation);
             }
             return list;
 

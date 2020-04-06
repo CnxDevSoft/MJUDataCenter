@@ -61,7 +61,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelPositionEducation(int type);
 
-        List<PersonPostionDataSourceModel> GetAllPersonnelPositionEducationDataSource();
+        List<PersonPostionEducationDataSourceModel> GetAllPersonnelPositionEducationDataSource();
 
 
         List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource();
