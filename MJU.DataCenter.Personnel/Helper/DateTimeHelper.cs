@@ -21,5 +21,17 @@ namespace MJU.DataCenter.Personnel.Helper
             return year+543;
         }
 
+        public static DateTime ToUtcDateTime(this DateTime? dateTime)
+        {
+
+            return dateTime != null ? dateTime.GetValueOrDefault().AddYears(-543).ToUniversalTime() : DateTime.UtcNow;
+        }
+
+        public static int ToUtcRetiredYear(this DateTime? dateTime)
+        {
+
+            return dateTime != null ? dateTime.GetValueOrDefault().AddYears(-543).Year : DateTime.UtcNow.Year;
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.ViewModels;
+using MJU.DataCenter.Personnel.ViewModels.dtos;
 
 namespace MJU.DataCenter.Personnel.Service.Interface
 {
@@ -52,11 +53,16 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         public List<PersonPositionFacultyDataSourceModel> GetAllPersonPositionFacultyDataSource();
 
-        object GetAllPersonGroupRetiredYear(int type);
+        object GetAllPersonGroupRetiredYear(RetiredGraphInputDto input);
 
-        List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource();
+        List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource(RetiredInputDto input);
 
         object GetAllPersonGroupPositionLevel(int type);
+
+        object GetAllPersonnelPositionEducation(int type);
+
+        List<PersonPostionEducationDataSourceModel> GetAllPersonnelPositionEducationDataSource();
+
 
         List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource();
         List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender, string genderName);
