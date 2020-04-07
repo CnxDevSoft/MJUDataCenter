@@ -84,6 +84,10 @@ async function AllPersonGraph() {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
+function genderClick(type,gender,genderName) {
+
+
+}
 async function PersonAgeGraph() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionGeneration/1?api-version=1.0')
         .then(res => res.json())
@@ -152,10 +156,93 @@ async function PersonAgeGraph() {
 
             $("#z-male").text(data[0].personGenderGeneration[3].person);
             $("#z-female").text(data[1].personGenderGeneration[3].person);
+    
+            $("#click-bb-male").click(function (evt) {
+                var genderId = data[0].genderId;
+                var genderName = data[0].gender;
+                var generationType = 0;
 
+                genderClick(genderId, genderName, generationType);
+            });
+            $("#click-bb-female").click(function (evt) {
+                var genderId = data[1].genderId;
+                var genderName = data[1].gender;
+                var generationType = 0;
+
+                genderClick(genderId, genderName, generationType);
+            });
+            $("#click-x-male").click(function (evt) {
+                var genderId = data[0].genderId;
+                var genderName = data[0].gender;
+                var generationType = 1;
+
+                genderClick(genderId, genderName, generationType);
+            });
+            $("#click-x-female").click(function (evt) {
+                var genderId = data[1].genderId;
+                var genderName = data[1].gender;
+                var generationType = 1;
+
+                genderClick(genderId, genderName, generationType);
+            });
+            $("#click-y-male").click(function (evt) {
+                var genderId = data[0].genderId;
+                var genderName = data[0].gender;
+                var generationType = 2;
+
+                genderClick(genderId, genderName, generationType);
+            });
+            $("#click-y-female").click(function (evt) {
+                var genderId = data[1].genderId;
+                var genderName = data[1].gender;
+                var generationType = 2;
+
+                genderClick(genderId, genderName, generationType);
+            });
+            $("#click-z-male").click(function (evt) {
+                var genderId = data[0].genderId;
+                var genderName = data[0].gender;
+                var generationType = 3;
+
+                genderClick(genderId, genderName, generationType);
+            });
+            $("#click-z-female").click(function (evt) {
+                var genderId = data[1].genderId;
+                var genderName = data[1].gender;
+                var generationType = 3;
+            
+                genderClick(genderId, genderName, generationType);
+            });
         });
+}
 
+function genderClick(genderId, genderName, generationType) {
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGenderGeneration/DataSourceByType/' + generationType + '/' + genderId + '/' + genderName + '?api-version=1.0'
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
 
+            console.log("test111", data[0].personGenderGeneration[0].person);
+            $("#personGenderSection").empty();
+            $("#personGenderLabel").empty();
+            $("#personGenderLabel").text(data[0].gender);
+            var table = $('#personGenderTable').DataTable();
+          table.clear().destroy();
+
+            $.each(data[0].personGenderGeneration[0].person, function (key, value) {
+                $("#personGenderSection").append('<tr><td>TH: ' + value.personName + ' </td>'/*<td>' +
+                    RenderReseacherName(value.researcher) + '</td>*/+ '<td>' + value.position + '</td></tr > ')
+
+            });
+            $('#personGenderModal').modal('show');
+            $('#personGenderModal').on('shown.bs.modal', function () {
+            })
+            $('#personGenderTable').DataTable({
+                language: {
+                    sLengthMenu: "Show _MENU_"
+                }
+            });
+        });
 }
 async function PersonEducationGraph() {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/1?api-version=1.0')
