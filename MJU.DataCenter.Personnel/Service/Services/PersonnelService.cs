@@ -841,19 +841,111 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
             var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId);
             var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
+
             if (type == 1)
             {
                 var label = new List<string>();
-
+                var dataCoutLessThanThree = new List<int>();
+                var dataCoutThreeToFive = new List<int>();
+                var dataCoutSixToNine = new List<int>();
+                var dataCoutTenToFifteen = new List<int>();
+                var dataCoutSixteenToTwenty = new List<int>();
+                var dataCoutMorethanTwenty = new List<int>();
+                var index = 0;
                 foreach (var personnelType in distinctPersonnelTypeId)
                 {
 
+
                     label.Add(personnelType.PersonnelType);
+
+                    var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutLessThanThree.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutThreeToFive.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutSixToNine.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutTenToFifteen.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutSixteenToTwenty.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutMorethanTwenty.Add(count);
+
+
                 }
+                var dataLessThanThree = new GraphDataSet
+                {
+                    Label = "น้อยกว่า 3 ปี",
+                    Data = dataCoutLessThanThree,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataSixToNine = new GraphDataSet
+                {
+                    Label = "6 - 9 ปี",
+                    Data = dataCoutSixToNine,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataThreeToFive = new GraphDataSet
+                {
+                    Label = "3 - 5 ปี",
+                    Data = dataCoutThreeToFive,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataTenToFifteen = new GraphDataSet
+                {
+                    Label = "10 - 15 ปี",
+                    Data = dataCoutTenToFifteen,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataSixteenToTwenty = new GraphDataSet
+                {
+                    Label = "16 - 20 ปี",
+                    Data = dataCoutSixteenToTwenty,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataMorethanTwenty = new GraphDataSet
+                {
+                    Label = "20 ปีขึ้นไป",
+                    Data = dataCoutMorethanTwenty,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+
+                var listGraphDataSet = new List<GraphDataSet>
+                {
+            dataLessThanThree,
+            dataThreeToFive,
+            dataSixToNine,
+            dataTenToFifteen,
+            dataSixteenToTwenty,
+            dataMorethanTwenty
+            };
+
 
                 var result = new GraphData
                 {
-                    GraphDataSet = this.GetPersonWorkDurationGraphDataSet(personnel),
+                    GraphDataSet = listGraphDataSet,
                     Label = label
                 };
                 return result;
@@ -910,121 +1002,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
 
 
-        }
-
-        private List<GraphDataSet> GetPersonWorkDurationGraphDataSet(IEnumerable<DC_Person> personnel)
-        {
-
-            var lessThanThree = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutLessThanThree = new List<int>();
-            var index = 0;
-            foreach (var model in lessThanThree)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutLessThanThree.Add(count);
-            }
-            var dataLessThanThree = new GraphDataSet
-            {
-                Label = "น้อยกว่า 3 ปี",
-                Data = dataCoutLessThanThree,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var threeToFive = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutThreeToFive = new List<int>();
-            foreach (var model in threeToFive)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutThreeToFive.Add(count);
-            }
-            var dataThreeToFive = new GraphDataSet
-            {
-                Label = "3 - 5 ปี",
-                Data = dataCoutThreeToFive,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var sixToNine = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutSixToNine = new List<int>();
-            foreach (var model in sixToNine)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutSixToNine.Add(count);
-            }
-            var dataSixToNine = new GraphDataSet
-            {
-                Label = "6 - 9 ปี",
-                Data = dataCoutSixToNine,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var tenToFifteen = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutTenToFifteen = new List<int>();
-            foreach (var model in tenToFifteen)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutTenToFifteen.Add(count);
-            }
-            var dataTenToFifteen = new GraphDataSet
-            {
-                Label = "10 - 15 ปี",
-                Data = dataCoutTenToFifteen,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var sixteenToTwenty = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutSixteenToTwenty = new List<int>();
-            foreach (var model in sixteenToTwenty)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutSixteenToTwenty.Add(count);
-            }
-            var dataSixteenToTwenty = new GraphDataSet
-            {
-                Label = "16 - 20 ปี",
-                Data = dataCoutSixteenToTwenty,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-            var morethanTwenty = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutMorethanTwenty = new List<int>();
-            foreach (var model in morethanTwenty)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutMorethanTwenty.Add(count);
-            }
-            var dataMorethanTwenty = new GraphDataSet
-            {
-                Label = "20 ปีขึ้นไป",
-                Data = dataCoutMorethanTwenty,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            var listGraphDataSet = new List<GraphDataSet> {
-            dataLessThanThree,
-            dataThreeToFive,
-            dataSixToNine,
-            dataTenToFifteen,
-            dataSixteenToTwenty,
-            dataMorethanTwenty
-            };
-
-            return listGraphDataSet;
         }
 
         public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource()
@@ -1477,7 +1454,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonPositionFaculty(int type)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.FacultyId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ก" && m.PositionType == "ประเภทวิชาการ").OrderBy(o => o.FacultyId);
             if (type == 1)
             {
 
@@ -1620,7 +1597,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonGroupRetiredYear(RetiredGraphInputDto input)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m =>input.StartDate != null && input.EndDate !=null ?  
+            var personnel = _dcPersonRepository.GetAll().Where(m => input.StartDate != null && input.EndDate != null ?
             m.RetiredDate >= input.StartDate.ToUtcDateTime() && m.RetiredDate <= input.EndDate.ToUtcDateTime() &&
             m.RetiredYear >= input.StartDate.ToUtcRetiredYear() && m.RetiredYear <= input.EndDate.ToUtcRetiredYear()
             : m.RetiredYear <= DateTime.UtcNow.Year).OrderBy(o => o.RetiredYear);
@@ -1917,7 +1894,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var personnel = _dcPersonRepository.GetAll();
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
-            
+
             if (type == 1)
             {
                 var label = new List<string>();
