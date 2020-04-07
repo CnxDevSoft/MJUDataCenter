@@ -456,21 +456,21 @@ async function ResearchMoneyRangeGraphDS() {
 async function RenderResearchMoneyRangeGraphDS(data) {
 
     var chartName = 'researchMoneyRange';
-
+    console.log(data.dataResearchMoney);
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#' + chartName +'GraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchName + '</b></a>'
+            + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
         $('#' + chartName +'GraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="' + chartName +'GraphDSCollapse' + key + '">';
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-' + chartName + '" id="sub-' + chartName +'-' + key + '-table">';
         var startThead = '<thead id="sub-' + chartName +'GraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>งานวิจัย</th><th>ชื่อผู้จัดทำ</th><th>งบประมาณ</th><th>วันที่เริ่ม</th><th>วันที่สิ้นสุด</th></tr>';
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName +'GraphDataSource-tbody">';
-        $.each(result.researchMoney, function (key, item) {
+        $.each(result.dataResearchMoney, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
                 '</a></td><td>' + item.researcherName + '</td>' +
-                '<td>' + item.departmentNameTh + '</td >' +
+                '<td>' + item.researchMoney + '</td >' +
                 '<td>' + moment(item.researchStartDate).format("DD/MM/YYYY") + '</td >' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
                 '</tr >';
