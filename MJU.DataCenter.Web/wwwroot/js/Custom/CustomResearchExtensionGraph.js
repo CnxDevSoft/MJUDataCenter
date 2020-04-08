@@ -89,7 +89,7 @@ async function ResearchDepartmentRender(data) {
                 // $("#researchDepartmentTable").empty();
                 $("#researchDepartmentSection").empty();
                 $("#researchDepartmentLabel").empty();
-                //  $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
+                // $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
                 $("#researchDepartmentLabel").text(item[0]._model.label);
 
                 var table = $('#researchDepartmentTable').DataTable();
@@ -125,6 +125,8 @@ async function ResearchDepartmentRender(data) {
     $.each(tempData, function (key, item) {
         $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
+
+        //.....onclick even+any funtion
     });
 
     ResearchDepartmentGraphDS();

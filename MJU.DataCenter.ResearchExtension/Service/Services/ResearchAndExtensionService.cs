@@ -504,10 +504,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
                 (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
-
-
             var result = new List<RankResearchRageMoneyDataSourceModel>();
-
             var Lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Select(s => new DataModelReserachMoney
             {
                 ResearchId = s.ResearchId,
