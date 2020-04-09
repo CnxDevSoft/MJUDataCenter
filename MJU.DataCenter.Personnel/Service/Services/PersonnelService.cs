@@ -75,10 +75,10 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        public List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource()
+        public List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource(string type)
         {
 
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId);
+            var personnel = _dcPersonRepository.GetAll().Where(m=>!string.IsNullOrEmpty(type)?m.PersonnelType == type:true).OrderBy(o => o.PersonnelTypeId);
 
             var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
 
