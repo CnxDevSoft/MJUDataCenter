@@ -74,10 +74,15 @@ async function AllPersonGraph() {
                 tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
             });
 
+            var sumValue = 0;
             $.each(tempData, function (key, item) {
-                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')'+'">'
-                    + item.val + '</button></td></tr>');
+                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="PsersonGroupDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                    + item.val + '</a></td></tr>');
+                sumValue += item.val;
             });
+
+            $("#allPersonGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PsersonGroupDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+                + sumValue + '</a></td></tr>');
 
             AllPersonGraphDS();
 
@@ -275,10 +280,15 @@ async function PersonEducationGraph() {
                 tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
             });
 
+            var sumValue = 0;
             $.each(tempData, function (key, item) {
                 $("#personEducationGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
                     + item.val + '</button></td></tr>');
+                sumValue += item.val;
             });
+
+            $("#personEducationGraphDataTable-tbody").append('<tr><td> รวม </td><td><a data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+                + sumValue + '</button></td></tr>');
 
             PersonEducationGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
@@ -315,10 +325,15 @@ async function PersonTypeGraph() {
                 tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
             });
 
+            var sumValue = 0;
             $.each(tempData, function (key, item) {
                 $("#personTypeGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
                     + item.val + '</button></td></tr>');
+                sumValue += item.val;
             });
+
+            $("#personTypeGraphDataTable-tbody").append('<tr><td> รวม </td><td><a data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+                + sumValue + '</button></td></tr>');
 
             PersonTypeGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
@@ -327,8 +342,8 @@ async function PersonTypeGraph() {
 async function PersonWorkAgeGraph() {
     var ticksStyle = {
         fontColor: '#495057',
-      //  fontStyle: 'bold',
-      //  fontSize: 16,
+        //  fontStyle: 'bold',
+        //  fontSize: 16,
         beginAtZero: true,
     }
     var mode = 'index'
@@ -342,51 +357,7 @@ async function PersonWorkAgeGraph() {
                 data: {
                     labels: data.label,
                     datasets: data.graphDataSet,
-                    //datasets: [
-                    //    {
-                    //        label: data.graphDataSet[0].label,
-                    //        backgroundColor: 'rgba(165,96,229,0.8)',
-                    //        borderColor: 'rgba(165,96,229,1)',
-                    //        data: data.graphDataSet[0].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[1].label,
-                    //        backgroundColor: 'rgba(127,157,240, 0.8)',
-                    //        borderColor: 'rgba(127,157,240, 1)',
-                    //        data: data.graphDataSet[1].data,
-                    //        barThickness: 30,
-                    //    },               
-                    //    {
-                    //        label: data.graphDataSet[2].label,
-                    //        backgroundColor: 'rgba(118,119,232, 0.5)',
-                    //        borderColor: 'rgba(118,119,232, 1)',
-                    //        data: data.graphDataSet[2].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[3].label,
-                    //        backgroundColor: 'rgba(41, 182, 246, 0.5)',
-                    //        borderColor: 'rgba(41, 182, 246, 0.5)',
-                    //        data: data.graphDataSet[3].data,
-                    //        barThickness: 30,
-                    //        // stacked: true
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[4].label,
-                    //        backgroundColor: 'rgba(75, 202, 219,0.5)',
-                    //        borderColor: 'rgba(75, 202, 219,1)',
-                    //        data: data.graphDataSet[4].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[5].label,
-                    //        backgroundColor: 'rgba(214,237,154,0.5)',
-                    //        borderColor: 'rgba(214,237,154,1)',
-                    //        data: data.graphDataSet[5].data,
-                    //        barThickness: 30,
-                    //    }
-                    //],
+
                 },
                 options: {
                     responsive: true,
@@ -410,11 +381,15 @@ async function PersonWorkAgeGraph() {
                     tooltips: {
                         mode: mode,
                         intersect: intersect
-                    },              
+                    },
                 }
             })
-
+            var sumColumns = [];
+            var sumValue = 0;
             $.each(data.label, function (key, item) {
+                var sumRow = data.graphDataSet[0].data[key] + data.graphDataSet[1].data[key] + data.graphDataSet[2].data[key] + data.graphDataSet[3].data[key]
+                    + data.graphDataSet[4].data[key] + data.graphDataSet[5].data[key];
+
                 $("#personWorkAgeGraphDataTable-tbody").append(
                     '<tr><td>' + item + '</td>' +
                     '<td>' + data.graphDataSet[0].data[key] + '</td>' +
@@ -422,9 +397,32 @@ async function PersonWorkAgeGraph() {
                     '<td>' + data.graphDataSet[2].data[key] + '</td>' +
                     '<td>' + data.graphDataSet[3].data[key] + '</td>' +
                     '<td>' + data.graphDataSet[4].data[key] + '</td>' +
-                    '<td>' + data.graphDataSet[5].data[key] + '</td></tr>'
+                    '<td>' + data.graphDataSet[5].data[key] + '</td>' +
+                    '<td>' + sumRow + '</td></tr>'
                 );
+                var sumColumn = 0;
+                $.each(data.graphDataSet, function (keys, items) {
+                    sumColumn += data.graphDataSet[keys].data[key];
+                });
+
+                sumValue += sumColumn;
+                sumColumns.push(sumColumn);
+
+
+
             });
+
+            $("#personWorkAgeGraphDataTable-tbody").append(
+                '<tr><td>รวม</td>' +
+                '<td>' + sumColumns[0] + '</td>' +
+                '<td>' + sumColumns[1] + '</td>' +
+                '<td>' + sumColumns[2] + '</td>' +
+                '<td>' + sumColumns[3] + '</td>' +
+                '<td>' + sumColumns[4] + '</td>' +
+                '<td>' + sumColumns[5] + '</td>' +
+                '<td>' + sumValue + '</td></tr > '
+            );
+
 
             PersonWorkAgeGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
@@ -447,115 +445,7 @@ async function PersonPositionGraph() {
                 data: {
                     labels: data.label,
                     datasets: data.graphDataSet,
-                    //datasets: [
-                    //    {
-                    //        label: data.graphDataSet[0].label,
-                    //        backgroundColor: 'rgba(165,96,229,0.8)',
-                    //        borderColor: 'rgba(165,96,229,1)',
-                    //        data: data.graphDataSet[0].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[1].label,
-                    //        backgroundColor: 'rgba(127,157,240, 0.8)',
-                    //        borderColor: 'rgba(127,157,240, 1)',
-                    //        data: data.graphDataSet[1].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[2].label,
-                    //        backgroundColor: 'rgba(118,119,232, 0.5)',
-                    //        borderColor: 'rgba(118,119,232, 1)',
-                    //        data: data.graphDataSet[2].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[3].label,
-                    //        backgroundColor: 'rgba(41, 182, 246, 0.5)',
-                    //        borderColor: 'rgba(41, 182, 246, 0.5)',
-                    //        data: data.graphDataSet[3].data,
-                    //        barThickness: 30,
-                    //        // stacked: true
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[4].label,
-                    //        backgroundColor: 'rgba(75, 202, 219,0.5)',
-                    //        borderColor: 'rgba(75, 202, 219,1)',
-                    //        data: data.graphDataSet[4].data,
-                    //        barThickness: 30,
-                    //    },
-                    //    {
-                    //        label: data.graphDataSet[5].label,
-                    //        backgroundColor: 'rgba(214,237,154,0.5)',
-                    //        borderColor: 'rgba(214,237,154,1)',
-                    //        data: data.graphDataSet[5].data,
-                    //        barThickness: 30,
-                    //    }
-                    //],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        xAxes: [{
-                            stacked: true,
-                          //  ticks: ticksStyle
-                        }],
-                        yAxes: [{
-                            stacked: true,
-                            gridLines: {
-                              //  display: true,
-                                lineWidth: '4px',
-                                color: 'rgba(0, 0, 0, .2)',
-                                zeroLineColor: 'transparent'
-                            },
-                          //  ticks: ticksStyle
-                        }]
-                    },
-                    tooltips: {
-                       // mode: mode,
-                       // intersect: intersect
-                    },
-                }
-            })
-            $("#personPositionGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
-            $.each(data.graphDataSet, function (key, item) {
-                $("#personPositionGraphDataTable-thead > tr").append(
-                    '<th>' + item.label + '</th>'
-                );
-            });
 
-            $.each(data.label, function (key, item) {
-                var html = '';
-                $.each(data.graphDataSet, function (skey, sItem) {
-                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
-                });
-                $("#personPositionGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html +'</tr>');
-            });
-
-            PersonPositionGraphDS();
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-}
-async function PersonPositionLevelGraph() {
-    var ticksStyle = {
-        fontColor: '#495057',
-        fontStyle: 'bold',
-        fontSize: 16
-    }
-    var mode = 'index'
-    var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/1?api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            var $chart = $('#personPositionLevel-chart')
-            var chart = new Chart($chart, {
-                type: 'horizontalBar',
-                data: {
-                    labels: data.label,
-                    datasets: data.graphDataSet,
-                   
                 },
                 options: {
                     responsive: true,
@@ -582,21 +472,144 @@ async function PersonPositionLevelGraph() {
                     },
                 }
             })
+            $("#personPositionGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
+
+            var sumColumns = [];
+            var sumRows = [];
+
+            $.each(data.graphDataSet, function (key, item) {
+                $("#personPositionGraphDataTable-thead > tr").append(
+                    '<th>' + item.label + '</th>'
+                );
+                var sumColumn = 0;
+
+                $.each(data.label, function (keys, item) {
+                    sumColumn += data.graphDataSet[key].data[keys];
+                });
+                sumColumns.push(sumColumn);
+            });
+
+            $("#personPositionGraphDataTable-thead > tr").append(
+                '<th>รวม</th>'
+            );
+
+            var sumValue = 0;
+            $.each(data.label, function (key, item) {
+                var html = '';
+
+                var sumRow = 0;
+                $.each(data.graphDataSet, function (keys, sItem) {
+                    html += '<td>' + data.graphDataSet[keys].data[key] + '</td>';
+                    sumRow += data.graphDataSet[keys].data[key];
+                });
+
+                sumValue += sumRow;
+                sumRows.push(sumRow);
+
+                $("#personPositionGraphDataTable-tbody").append(
+                    '<tr><td>' + item + '</td>' + html + '<td>' + sumRow + '</td></tr>');
+            });
+            var lastHtml;
+            $.each(sumColumns, function (key, item) {
+                lastHtml += '<td>' + item + '</td>';
+
+            });
+            lastHtml += '<td>' + sumValue + '</td>';
+            $("#personPositionGraphDataTable-tbody").append(
+                '<tr><td>รวม</td>' + lastHtml + '</tr>');
+
+            PersonPositionGraphDS();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+}
+async function PersonPositionLevelGraph() {
+    var ticksStyle = {
+        fontColor: '#495057',
+        fontStyle: 'bold',
+        fontSize: 16
+    }
+    var mode = 'index'
+    var intersect = true
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/1?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            var $chart = $('#personPositionLevel-chart')
+            var chart = new Chart($chart, {
+                type: 'horizontalBar',
+                data: {
+                    labels: data.label,
+                    datasets: data.graphDataSet,
+
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            //  ticks: ticksStyle
+                        }],
+                        yAxes: [{
+                            stacked: true,
+                            gridLines: {
+                                //  display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            //  ticks: ticksStyle
+                        }]
+                    },
+                    tooltips: {
+                        // mode: mode,
+                        // intersect: intersect
+                    },
+                }
+            })
+            var sumColumns = [];
+            var sumRows = [];
+            var sumValue = 0;
+
             $("#personPositionLevelGraphDataTable-thead").append('<th>ประเภทบุคลากร</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personPositionLevelGraphDataTable-thead").append(
                     '<th>' + item.label + '</th>'
                 );
+                var sumColumn = 0;
+
+                $.each(data.label, function (keys, item) {
+                    sumColumn += data.graphDataSet[key].data[keys];
+                });
+                sumColumns.push(sumColumn);
             });
+            $("#personPositionLevelGraphDataTable-thead").append(
+                '<th>รวม</th>'
+            );
 
             $.each(data.label, function (key, item) {
                 var html = '';
-                $.each(data.graphDataSet, function (skey, sItem) {
-                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
+
+                var sumRow = 0;
+                $.each(data.graphDataSet, function (keys, sItem) {
+                    html += '<td>' + data.graphDataSet[keys].data[key] + '</td>';
+                    sumRow += data.graphDataSet[keys].data[key];
                 });
+
+                sumValue += sumRow;
+                sumRows.push(sumRow);
+
                 $("#personPositionLevelGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '</tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td>' + sumRow + '</td></tr>');
             });
+
+            var lastHtml;
+            $.each(sumColumns, function (key, item) {
+                lastHtml += '<td>' + item + '</td>';
+
+            });
+            lastHtml += '<td>' + sumValue + '</td>';
+            $("#personPositionLevelGraphDataTable-tbody").append(
+                '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
             PersonPositionLevelGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
@@ -606,8 +619,8 @@ async function PersonFacultyGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
-       // fontSize: 16,
-        stepSize:1
+        // fontSize: 16,
+        stepSize: 1
     }
     var mode = 'nearest'
     var intersect = true
@@ -616,7 +629,7 @@ async function PersonFacultyGraph() {
         .then((data) => {
             var $chart = $('#personFaculty-chart')
 
-        
+
             var ctx = $($chart).get(0).getContext('2d')
             var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
             gradientStroke.addColorStop(0, "#80b6f4");
@@ -658,7 +671,10 @@ async function PersonFacultyGraph() {
                 }
             })
 
-     
+
+            var sumColumns = [];
+            var sumRows = [];
+            var sumValue = 0;
 
 
             $("#personFacultyGraphDataTable-thead").append('<th>ประเภทและบุคลากร</th>');
@@ -666,16 +682,44 @@ async function PersonFacultyGraph() {
                 $("#personFacultyGraphDataTable-thead").append(
                     '<th>' + item.label + '</th>'
                 );
+                var sumColumn = 0;
+
+                $.each(data.label, function (keys, item) {
+                    sumColumn += data.graphDataSet[key].data[keys];
+                });
+                sumColumns.push(sumColumn);
             });
+
+            $("#personFacultyGraphDataTable-thead").append(
+                '<th>รวม</th>'
+            );
 
             $.each(data.label, function (key, item) {
                 var html = '';
-                $.each(data.graphDataSet, function (skey, sItem) {
-                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
+
+                var sumRow = 0;
+                $.each(data.graphDataSet, function (keys, sItem) {
+                    html += '<td>' + data.graphDataSet[keys].data[key] + '</td>';
+                    sumRow += data.graphDataSet[keys].data[key];
                 });
+
+                sumValue += sumRow;
+                sumRows.push(sumRow);
+
                 $("#personFacultyGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '</tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td>' + sumRow + '</td></tr>');
             });
+
+            console.log(sumColumns);
+
+            var lastHtml;
+            $.each(sumColumns, function (key, item) {
+                lastHtml += '<td>' + item + '</td>';
+
+            });
+            lastHtml += '<td>' + sumValue + '</td>';
+            $("#personFacultyGraphDataTable-tbody").append(
+                '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
             PersonFacultyGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
@@ -728,7 +772,9 @@ async function PersonPositionFacultyGraph() {
                 }
             })
 
-
+            var sumColumns = [];
+            var sumRows = [];
+            var sumValue = 0;
 
 
             $("#personPositionFacultyGraphDataTable-thead").append('<th>หน่วยงาน</th>');
@@ -736,16 +782,44 @@ async function PersonPositionFacultyGraph() {
                 $("#personPositionFacultyGraphDataTable-thead").append(
                     '<th>' + item.label + '</th>'
                 );
+
+                var sumColumn = 0;
+
+                $.each(data.label, function (keys, item) {
+                    sumColumn += data.graphDataSet[key].data[keys];
+                });
+                sumColumns.push(sumColumn);
             });
+
+            $("#personPositionFacultyGraphDataTable-thead").append(
+                '<th>รวม</th>'
+            );
 
             $.each(data.label, function (key, item) {
                 var html = '';
-                $.each(data.graphDataSet, function (skey, sItem) {
-                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
+
+                var sumRow = 0;
+                $.each(data.graphDataSet, function (keys, sItem) {
+                    html += '<td>' + data.graphDataSet[keys].data[key] + '</td>';
+                    sumRow += data.graphDataSet[keys].data[key];
                 });
+
+                sumValue += sumRow;
+                sumRows.push(sumRow);
+
                 $("#personPositionFacultyGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '</tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td>' + sumRow + '</td></tr>');
+
             });
+
+            var lastHtml;
+            $.each(sumColumns, function (key, item) {
+                lastHtml += '<td>' + item + '</td>';
+
+            });
+            lastHtml += '<td>' + sumValue + '</td>';
+            $("#personPositionFacultyGraphDataTable-tbody").append(
+                '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
             PersonPositionFacultyGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
@@ -808,22 +882,50 @@ async function PersonRetiredGraph() {
                 }
             })
 
+            var sumColumns = [];
+            var sumRows = [];
+            var sumValue = 0;
+
             $("#personRetiredGraphDataTable-thead").append('<th>ปีที่เกษียน</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personRetiredGraphDataTable-thead").append(
                     '<th>' + item.label + '</th>'
                 );
+                var sumColumn = 0;
+
+                $.each(data.label, function (keys, item) {
+                    sumColumn += data.graphDataSet[key].data[keys];
+                });
+                sumColumns.push(sumColumn);
             });
+            $("#personRetiredGraphDataTable-thead").append(
+                '<th>รวม</th>'
+            );
 
             $.each(data.label, function (key, item) {
                 var html = '';
-                $.each(data.graphDataSet, function (skey, sItem) {
-                    html += '<td>' + data.graphDataSet[skey].data[key] + '</td>';
+
+                var sumRow = 0;
+                $.each(data.graphDataSet, function (keys, sItem) {
+                    html += '<td>' + data.graphDataSet[keys].data[key] + '</td>';
+                    sumRow += data.graphDataSet[keys].data[key];
                 });
+
+                sumValue += sumRow;
+                sumRows.push(sumRow);
+
                 $("#personRetiredGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '</tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td>' + sumRow + '</td></tr>');
             });
 
+            var lastHtml;
+            $.each(sumColumns, function (key, item) {
+                lastHtml += '<td>' + item + '</td>';
+
+            });
+            lastHtml += '<td>' + sumValue + '</td>';
+            $("#personRetiredGraphDataTable-tbody").append(
+                '<tr><td>รวม</td>' + lastHtml + '</tr>');
             PersonRetiredGraphDS();
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -831,7 +933,6 @@ async function PersonRetiredGraph() {
 
 
 function RenderDataSet(data, gradientStroke) {
-    debugger;
     var datasets = [];
     $.each(data.graphDataSet, function (index, item) {
         var r = Math.floor(Math.random() * 255);
@@ -841,8 +942,8 @@ function RenderDataSet(data, gradientStroke) {
             "label": item.label, "data": item.data,
             "fill": true,
             //   "backgroundColor": ['rgb(255, 99, 132)','rgb(0, 255, 0)','rgb(255, 99, 132)','rgb(128, 255, 0)','rgb(0, 255, 255)','rgb(255, 255, 0)','rgb(255, 255, 128)'],
-           // "borderColor": ['rgb(255, 99, 132)', 'rgb(0, 255, 0)', 'rgb(255, 99, 132)', 'rgb(128, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 255, 0)', 'rgb(255, 255, 128)'],
-            "backgroundColor": 'rgba(' + r + ',' + g+',' + b +',0.5)',
+            // "borderColor": ['rgb(255, 99, 132)', 'rgb(0, 255, 0)', 'rgb(255, 99, 132)', 'rgb(128, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 255, 0)', 'rgb(255, 255, 128)'],
+            "backgroundColor": 'rgba(' + r + ',' + g + ',' + b + ',0.5)',
             "borderColor": 'rgba(' + r + ',' + g + ',' + b + ',1)',
         })
     });
@@ -851,7 +952,7 @@ function RenderDataSet(data, gradientStroke) {
 
 
 async function PersonForcastGenerationGraph() {
-    var url ='https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/1/10?api-version=1.0'
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/1/10?api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -866,7 +967,7 @@ async function PersonForcastGenerationRenderGraph(data) {
     $("#personForcastGenerationBox").append('<canvas id="personForcastGeneration-chart" height="350"><canvas>');
 
     $('#personLabel').empty();
-    $('#personLabel').append(data.viewLabel.person +' คน');
+    $('#personLabel').append(data.viewLabel.person + ' คน');
     $('#personStartLabel').empty();
     $('#personStartLabel').append(data.viewLabel.personStart + ' คน');
     $('#personPredictionRateLabel').empty();
@@ -879,7 +980,7 @@ async function PersonForcastGenerationRenderGraph(data) {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
-        stepSize:5
+        stepSize: 5
     }
 
     var mode = 'nearest'
@@ -896,7 +997,7 @@ async function PersonForcastGenerationRenderGraph(data) {
                 pointBorderColor: '#017f3f',
                 pointBackgroundColor: '#017f3f',
                 fill: true,
-               // steppedLine: true
+                // steppedLine: true
                 // pointHoverBackgroundColor: '#007bff',
                 // pointHoverBorderColor    : '#007bff'
             },
@@ -908,7 +1009,7 @@ async function PersonForcastGenerationRenderGraph(data) {
                 pointBorderColor: '#ced4da',
                 pointBackgroundColor: '#ced4da',
                 fill: true,
-              
+
                 // pointHoverBackgroundColor: '#ced4da',
                 // pointHoverBorderColor    : '#ced4da'
             },
@@ -928,19 +1029,19 @@ async function PersonForcastGenerationRenderGraph(data) {
             responsive: true,
             maintainAspectRatio: false,
             tooltips: {
-               // mode: mode,
-               // intersect: intersect
+                // mode: mode,
+                // intersect: intersect
             },
             hover: {
-              //  mode: mode,
-              //  intersect: intersect
+                //  mode: mode,
+                //  intersect: intersect
             },
             legend: {
                 display: false
             },
             scales: {
                 yAxes: [{
-              
+
                     // display: false,
                     //gridLines: {
                     //    display: true,
@@ -1012,15 +1113,15 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
     if (clickedDatasetIndex == 0) labelTypeValue = 'บุคลากรปัจจุบัน';
     else if (clickedDatasetIndex == 1) labelTypeValue = 'บุคลากรที่คาดว่าจะเกษียณ';
     else if (clickedDatasetIndex == 2) labelTypeValue = 'บุคลากรที่เกษียณแล้ว';
-    
+
     $(labelType).empty();
     $(labelType).text(labelTypeValue);
-    
+
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel +'?api-version=1.0';
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -1028,7 +1129,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
         })
         .then((data) => {
             $.each(data, function (key, value) {
-                $(section).append('<tr><td>'+ value.personnelName +'</td><td>' +
+                $(section).append('<tr><td>' + value.personnelName + '</td><td>' +
                     moment(value.dateOfBirth).format("DD/MM/YYYY") + '</td><td>' +
                     value.age + '</td><td>' +
                     value.position + '</td><td>' +
@@ -1052,7 +1153,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal+'?api-version=1.0';
+    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal + '?api-version=1.0';
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
@@ -1089,13 +1190,13 @@ async function AllPersonGraphDS() {
         });
 }
 async function RenderAllPersonGraphDS(data) {
-
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName +'</b></a>'
+        console.log(result);
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
 
         $('#allpersonalGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key +'">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="sub-allpersonal-' + key +'-table">';
+        var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="sub-allpersonal-' + key + '-table">';
         var startThead = '<thead id="sub-allpersonalGraphDataSource-thead">';
         var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
 
@@ -1107,7 +1208,7 @@ async function RenderAllPersonGraphDS(data) {
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
-             
+
                 '</tr >';
         });
         var endbody = '</tbody>';
@@ -1154,7 +1255,7 @@ async function RenderPersonWorkAgeGraphDS(data) {
                     '<td>' + sItem.faculty + '</td>' +
                     '<td>' + item.workDuration + '</td>' +
                     '</tr >';
-                });
+            });
         });
         var endbody = '</tbody>';
 
@@ -1176,7 +1277,6 @@ async function PersonPositionGraphDS() {
         });
 }
 async function RenderPersonPositionGraphDS(data) {
-    debugger;
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.adminPositionType + '</b></a>'
 
@@ -1220,7 +1320,6 @@ async function PersonPositionLevelGraphDS() {
         });
 }
 async function RenderPersonPositionLevelGraphDS(data) {
-    debugger;
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionLevelGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
 
@@ -1265,7 +1364,6 @@ async function PersonFacultyGraphDS() {
         });
 }
 async function RenderPersonFacultyGraphDS(data) {
-    debugger;
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personFacultyGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="personFacultyGraphDSCollapse'
@@ -1281,7 +1379,6 @@ async function RenderPersonFacultyGraphDS(data) {
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-personFacultyGraphDataSource-tbody">';
-        debugger;
         $.each(result.personGroupFaculty, function (key, item) {
             $.each(item.person, function (index, sItem) {
                 startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
@@ -1312,7 +1409,6 @@ async function PersonPositionFacultyGraphDS() {
         });
 }
 async function RenderPersonPositionFacultyGraphDS(data) {
-    debugger;
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionFacultyGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="personPositionFacultyGraphDSCollapse'
@@ -1328,7 +1424,6 @@ async function RenderPersonPositionFacultyGraphDS(data) {
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
-        debugger;
         $.each(result.personPositionFaculty, function (key, item) {
             $.each(item.person, function (index, sItem) {
                 startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
@@ -1359,7 +1454,6 @@ async function PersonRetiredGraphDS() {
         });
 }
 async function RenderRetiredGraphDS(data) {
-    debugger;
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personRetiredGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="personRetiredGraphDSCollapse'
@@ -1474,9 +1568,9 @@ async function RenderPersonTypeGraphDS(data) {
     });
 }
 
-async function LoadDataTable(name,key) {
+async function LoadDataTable(name, key) {
 
-    var dataTableName = '#sub-' + name+'-' + key + '-table';
+    var dataTableName = '#sub-' + name + '-' + key + '-table';
     $(dataTableName).DataTable({
         language: {
             sLengthMenu: ""
@@ -1494,4 +1588,75 @@ async function Load() {
         searching: false,
         pageLength: 5
     });
+}
+
+
+//DrillDown
+
+async function RenderAllPersonDrillDownGraphDS(data) {
+
+    $('#allpersonnelDrillDownGraphDataSourceModal-card-body').empty();
+    
+    $.each(data, function (key, result) {
+
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+
+        $('#allpersonnelDrillDownGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="allPersonDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataTable').DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="dataTable'+key+'">';
+        var startThead = '<thead id="sub-allpersonalDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-allpersonalDrillDownGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#allpersonnelDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#allpersonaleDrillDownGraphDataSourceModal').modal('show');
+        $('#allpersonaleDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataTable'+key).DataTable({
+            language: {
+                sLengthMenu: "Show _MENU_"
+            }
+        });
+
+    });
+}
+
+async function PsersonGroupDrillDown(type) {
+    var url = type != null ? 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?type=' + type + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?api-version=1.0'
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data)
+            console.log(url)
+            RenderAllPersonDrillDownGraphDS(data).then();
+        });
+
+
+
 }

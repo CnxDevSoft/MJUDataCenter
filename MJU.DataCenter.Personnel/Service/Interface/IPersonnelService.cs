@@ -13,7 +13,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelGroup(int type);
 
-        List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource();
+        List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource(string type);
 
         object GetAllPersonnelPosition(int type);
 
