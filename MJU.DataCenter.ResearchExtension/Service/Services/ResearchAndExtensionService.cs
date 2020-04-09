@@ -152,6 +152,55 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         }
 
+        public List<ResearchDepartmentDataSourceModel> GetResearchDepartmentDataSourceTable(InputFilterDataSourceViewModel input,int? departmentId,string departmentName)
+        {
+            var startDate = input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
+            var researchDepartment = departmentId == null && string.IsNullOrEmpty(departmentName) ?
+                _dcResearchDepartmentRepository.GetAll().ToList() :
+                _dcResearchDepartmentRepository.GetAll().Where(s=>s.DepartmentId == departmentId && s.DepartmentNameTh == departmentName).ToList();
+            var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh }).Distinct().OrderBy(o => o.DepartmentId);
+
+            var researchDepartmentWithDate = researchDepartment.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+            (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
+            var list = new List<ResearchDepartmentDataSourceModel>();
+            foreach (var rd in distinctResearchDepartment)
+            {
+                var model = new ResearchDepartmentDataSourceModel
+                {
+                    DepartmentId = rd.DepartmentId,
+                    DepartmentName = rd.DepartmentNameTh,
+                    ResearchData = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh).ToList()
+                };
+                list.Add(model);
+            }
+            return list;
+
+        }
+
+        public List<ResearchDepartmentDataSourceModel> GetAllResearchDepartmentDataSourceTable(InputFilterDataSourceViewModel input, int type)
+        {
+                var startDate = input.StartDate.ToUtcDateTime();
+                var endDate = input.EndDate.ToUtcDateTime();
+                var researchDepartment = _dcResearchDepartmentRepository.GetAll().ToList();
+                var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh }).Distinct().OrderBy(o => o.DepartmentId);
+
+                var researchDepartmentWithDate = researchDepartment.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
+                var list = new List<ResearchDepartmentDataSourceModel>();
+                foreach (var rd in distinctResearchDepartment)
+                {
+                    var model = new ResearchDepartmentDataSourceModel
+                    {
+                        DepartmentId = rd.DepartmentId,
+                        DepartmentName = rd.DepartmentNameTh,
+                        ResearchData = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh).ToList()
+                    };
+                    list.Add(model);
+                }
+                return list;
+        }
+
         public object GetResearchGroup(InputFilterGraphViewModel input)
         {
             var startDate = input.StartDate.ToUtcDateTime();
@@ -271,6 +320,32 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         }
 
+        public List<ResearchGroupDataSourceModel> GetResearchGroupDataSourceTable(InputFilterDataSourceViewModel input,int? personGroupId,string personGroupName)
+        {
+            var startDate = input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
+            var researchGroup = personGroupId == null && string.IsNullOrEmpty(personGroupName) ? 
+                _dcResearchGroupRepository.GetAll().ToList() 
+                : _dcResearchGroupRepository.GetAll().Where(s=>s.PersonGroupId == personGroupId && s.PersonGroupName == personGroupName).ToList();
+            var distinctResearchGroup = researchGroup.Select(m => new { m.PersonGroupId, m.PersonGroupName }).Distinct().OrderBy(o => o.PersonGroupId);
+
+            var researchGroupWithDate = researchGroup.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+            (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
+            var list = new List<ResearchGroupDataSourceModel>();
+            foreach (var rg in distinctResearchGroup)
+            {
+                var model = new ResearchGroupDataSourceModel
+                {
+                    PersonGroupId = rg.PersonGroupId,
+                    PersonGroupName = rg.PersonGroupName,
+                    ResearchData = researchGroupWithDate.Where(m => m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName).ToList()
+                };
+                list.Add(model);
+            }
+            return list;
+
+        }
+
         public object GetResearchData(InputFilterGraphViewModel input)
         {
             var startDate = input.StartDate.ToUtcDateTime();
@@ -370,6 +445,32 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
             var researchData = _dcResearchDataRepository.GetAll().ToList();
+            var distinctResearchData = researchData.Select(m => new { m.ResearchMoneyTypeId, m.MoneyTypeName }).Distinct().OrderBy(o => o.ResearchMoneyTypeId);
+
+            var researchDateWithDate = researchData.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+            (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
+
+            var list = new List<ResearchDataDataSourceModel>();
+            foreach (var rd in distinctResearchData)
+            {
+                var model = new ResearchDataDataSourceModel
+                {
+                    MoneyTypeId = rd.ResearchMoneyTypeId,
+                    MoneyTypeName = rd.MoneyTypeName,
+                    ResearchData = researchDateWithDate.Where(m => m.ResearchMoneyTypeId == rd.ResearchMoneyTypeId && m.MoneyTypeName == rd.MoneyTypeName).ToList()
+                };
+                list.Add(model);
+            }
+            return list;
+        }
+
+        public List<ResearchDataDataSourceModel> GetResearchMoneyTypeDataSourceTable(InputFilterDataSourceViewModel input,int? researchMoneyTypeId,string moneyTypeName)
+        {
+            var startDate = input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
+            var researchData = researchMoneyTypeId == null && string.IsNullOrEmpty(moneyTypeName) ? 
+                _dcResearchDataRepository.GetAll().ToList() : 
+                _dcResearchDataRepository.GetAll().Where(s=>s.ResearchMoneyTypeId == researchMoneyTypeId && s.MoneyTypeName == moneyTypeName).ToList();
             var distinctResearchData = researchData.Select(m => new { m.ResearchMoneyTypeId, m.MoneyTypeName }).Distinct().OrderBy(o => o.ResearchMoneyTypeId);
 
             var researchDateWithDate = researchData.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
@@ -647,6 +748,327 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         }
 
+        public List<RankResearchRageMoneyDataSourceModel> GetResearchMoneyDataSourceTable(InputFilterDataSourceViewModel input,int? type)
+        {
+            var startDate = input.StartDate.ToUtcDateTime();
+            var endDate = input.EndDate.ToUtcDateTime();
+            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
+            var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
+            var result = new List<RankResearchRageMoneyDataSourceModel>();
+            if (type != null)
+            {
+                if (type == 0)
+                {
+                    var Lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Select(s => new DataModelReserachMoney
+                    {
+                        ResearchId = s.ResearchId,
+                        ResearchCode = s.ResearchCode,
+                        ResearchNameEn = s.ResearchNameEn,
+                        ResearchNameTh = s.ResearchNameTh,
+                        ResearchStartDate = s.ResearchStartDate,
+                        ResearchEndDate = s.ResearchEndDate,
+                        ResearchMoney = s.ResearchMoney,
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearcherId = s.ResearcherId,
+                        ResearcherName = s.ResearcherName
+                    }).OrderBy(o => o.ResearchId).ToList();
+                    var modelLower100k = new RankResearchRageMoneyDataSourceModel
+                    {
+                        ResearchRankMoneyName = "งบประมาณ ตํ่ากว่า 100,000",
+                        DataResearchMoney = Lower100k
+                    };
+                    result.Add(modelLower100k);
+                    return result;
+                }
+                if (type == 1)
+                {
+                    var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).Select(s => new DataModelReserachMoney
+                    {
+                        ResearchId = s.ResearchId,
+                        ResearchCode = s.ResearchCode,
+                        ResearchNameEn = s.ResearchNameEn,
+                        ResearchNameTh = s.ResearchNameTh,
+                        ResearchStartDate = s.ResearchStartDate,
+                        ResearchEndDate = s.ResearchEndDate,
+                        ResearchMoney = s.ResearchMoney,
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearcherId = s.ResearcherId,
+                        ResearcherName = s.ResearcherName
+                    }).OrderBy(o => o.ResearchId).ToList();
+                    var modelBetween100kTo500k = new RankResearchRageMoneyDataSourceModel
+                    {
+                        ResearchRankMoneyName = "งบประมาณ 100,001 - 500,000",
+                        DataResearchMoney = between100kTo500k
+                    };
+                    result.Add(modelBetween100kTo500k);
+                    return result;
+                }
+
+                if (type == 2)
+                {
+                    var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Select(s => new DataModelReserachMoney
+                    {
+                        ResearchId = s.ResearchId,
+                        ResearchCode = s.ResearchCode,
+                        ResearchNameEn = s.ResearchNameEn,
+                        ResearchNameTh = s.ResearchNameTh,
+                        ResearchStartDate = s.ResearchStartDate,
+                        ResearchEndDate = s.ResearchEndDate,
+                        ResearchMoney = s.ResearchMoney,
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearcherId = s.ResearcherId,
+                        ResearcherName = s.ResearcherName
+                    }).OrderBy(o => o.ResearchId).ToList();
+                    var modelbetween500kTo1m = new RankResearchRageMoneyDataSourceModel
+                    {
+                        ResearchRankMoneyName = "งบประมาณ 500,001 - 1,000,000",
+                        DataResearchMoney = between500kTo1m
+                    };
+                    result.Add(modelbetween500kTo1m);
+                    return result;
+                }
+                if (type == 3)
+                {
+                    var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Select(s => new DataModelReserachMoney
+                    {
+                        ResearchId = s.ResearchId,
+                        ResearchCode = s.ResearchCode,
+                        ResearchNameEn = s.ResearchNameEn,
+                        ResearchNameTh = s.ResearchNameTh,
+                        ResearchStartDate = s.ResearchStartDate,
+                        ResearchEndDate = s.ResearchEndDate,
+                        ResearchMoney = s.ResearchMoney,
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearcherId = s.ResearcherId,
+                        ResearcherName = s.ResearcherName
+                    }).OrderBy(o => o.ResearchId).ToList();
+                    var modelbetween1mTo5m = new RankResearchRageMoneyDataSourceModel
+                    {
+                        ResearchRankMoneyName = "งบประมาณ 1,000,001 - 5,000,000",
+                        DataResearchMoney = between1mTo5m
+                    };
+                    result.Add(modelbetween1mTo5m);
+                    return result;
+
+                }
+                if (type == 4)
+                {
+                    var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Select(s => new DataModelReserachMoney
+                    {
+                        ResearchId = s.ResearchId,
+                        ResearchCode = s.ResearchCode,
+                        ResearchNameEn = s.ResearchNameEn,
+                        ResearchNameTh = s.ResearchNameTh,
+                        ResearchStartDate = s.ResearchStartDate,
+                        ResearchEndDate = s.ResearchEndDate,
+                        ResearchMoney = s.ResearchMoney,
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearcherId = s.ResearcherId,
+                        ResearcherName = s.ResearcherName
+                    }).OrderBy(o => o.ResearchId).ToList();
+                    var modelbetween5mTo10m = new RankResearchRageMoneyDataSourceModel
+                    {
+                        ResearchRankMoneyName = "งบประมาณ 5,000,001 - 10,000,000",
+                        DataResearchMoney = between5mTo10m
+                    };
+                    result.Add(modelbetween5mTo10m);
+                    return result;
+                }
+                if (type == 5)
+                {
+                    var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Select(s => new DataModelReserachMoney
+                    {
+                        ResearchId = s.ResearchId,
+                        ResearchCode = s.ResearchCode,
+                        ResearchNameEn = s.ResearchNameEn,
+                        ResearchNameTh = s.ResearchNameTh,
+                        ResearchStartDate = s.ResearchStartDate,
+                        ResearchEndDate = s.ResearchEndDate,
+                        ResearchMoney = s.ResearchMoney,
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearcherId = s.ResearcherId,
+                        ResearcherName = s.ResearcherName
+                    }).OrderBy(o => o.ResearchId).ToList();
+                    var modelbetween10mTo20m = new RankResearchRageMoneyDataSourceModel
+                    {
+                        ResearchRankMoneyName = "งบประมาณ 10,000,001 - 20,000,000",
+                        DataResearchMoney = between10mTo20m
+                    };
+                    result.Add(modelbetween10mTo20m);
+                    return result;
+
+                }
+                if (type == 6)
+                {
+                    var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Select(s => new DataModelReserachMoney
+                    {
+                        ResearchId = s.ResearchId,
+                        ResearchCode = s.ResearchCode,
+                        ResearchNameEn = s.ResearchNameEn,
+                        ResearchNameTh = s.ResearchNameTh,
+                        ResearchStartDate = s.ResearchStartDate,
+                        ResearchEndDate = s.ResearchEndDate,
+                        ResearchMoney = s.ResearchMoney,
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearcherId = s.ResearcherId,
+                        ResearcherName = s.ResearcherName
+                    }).OrderBy(o => o.ResearchId).ToList();
+                    var modelover20m = new RankResearchRageMoneyDataSourceModel
+                    {
+                        ResearchRankMoneyName = "งบประมาณ 20,000,000 ขึ้นไป",
+                        DataResearchMoney = over20m
+                    };
+                    result.Add(modelover20m);
+                    return result;
+                }
+            }
+            else
+            {
+                var Lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Select(s => new DataModelReserachMoney
+                {
+                    ResearchId = s.ResearchId,
+                    ResearchCode = s.ResearchCode,
+                    ResearchNameEn = s.ResearchNameEn,
+                    ResearchNameTh = s.ResearchNameTh,
+                    ResearchStartDate = s.ResearchStartDate,
+                    ResearchEndDate = s.ResearchEndDate,
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName,
+                    ResearcherId = s.ResearcherId,
+                    ResearcherName = s.ResearcherName
+                }).OrderBy(o => o.ResearchId).ToList();
+                var modelLower100k = new RankResearchRageMoneyDataSourceModel
+                {
+                    ResearchRankMoneyName = "งบประมาณ ตํ่ากว่า 100,000",
+                    DataResearchMoney = Lower100k
+                };
+                result.Add(modelLower100k);
+                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).Select(s => new DataModelReserachMoney
+                {
+                    ResearchId = s.ResearchId,
+                    ResearchCode = s.ResearchCode,
+                    ResearchNameEn = s.ResearchNameEn,
+                    ResearchNameTh = s.ResearchNameTh,
+                    ResearchStartDate = s.ResearchStartDate,
+                    ResearchEndDate = s.ResearchEndDate,
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName,
+                    ResearcherId = s.ResearcherId,
+                    ResearcherName = s.ResearcherName
+                }).OrderBy(o => o.ResearchId).ToList();
+                var modelBetween100kTo500k = new RankResearchRageMoneyDataSourceModel
+                {
+                    ResearchRankMoneyName = "งบประมาณ 100,001 - 500,000",
+                    DataResearchMoney = between100kTo500k
+                };
+                result.Add(modelBetween100kTo500k);
+                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Select(s => new DataModelReserachMoney
+                {
+                    ResearchId = s.ResearchId,
+                    ResearchCode = s.ResearchCode,
+                    ResearchNameEn = s.ResearchNameEn,
+                    ResearchNameTh = s.ResearchNameTh,
+                    ResearchStartDate = s.ResearchStartDate,
+                    ResearchEndDate = s.ResearchEndDate,
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName,
+                    ResearcherId = s.ResearcherId,
+                    ResearcherName = s.ResearcherName
+                }).OrderBy(o => o.ResearchId).ToList();
+                var modelbetween500kTo1m = new RankResearchRageMoneyDataSourceModel
+                {
+                    ResearchRankMoneyName = "งบประมาณ 500,001 - 1,000,000",
+                    DataResearchMoney = between500kTo1m
+                };
+                result.Add(modelbetween500kTo1m);
+                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Select(s => new DataModelReserachMoney
+                {
+                    ResearchId = s.ResearchId,
+                    ResearchCode = s.ResearchCode,
+                    ResearchNameEn = s.ResearchNameEn,
+                    ResearchNameTh = s.ResearchNameTh,
+                    ResearchStartDate = s.ResearchStartDate,
+                    ResearchEndDate = s.ResearchEndDate,
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName,
+                    ResearcherId = s.ResearcherId,
+                    ResearcherName = s.ResearcherName
+                }).OrderBy(o => o.ResearchId).ToList();
+                var modelbetween1mTo5m = new RankResearchRageMoneyDataSourceModel
+                {
+                    ResearchRankMoneyName = "งบประมาณ 1,000,001 - 5,000,000",
+                    DataResearchMoney = between1mTo5m
+                };
+                result.Add(modelbetween1mTo5m);
+                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Select(s => new DataModelReserachMoney
+                {
+                    ResearchId = s.ResearchId,
+                    ResearchCode = s.ResearchCode,
+                    ResearchNameEn = s.ResearchNameEn,
+                    ResearchNameTh = s.ResearchNameTh,
+                    ResearchStartDate = s.ResearchStartDate,
+                    ResearchEndDate = s.ResearchEndDate,
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName,
+                    ResearcherId = s.ResearcherId,
+                    ResearcherName = s.ResearcherName
+                }).OrderBy(o => o.ResearchId).ToList();
+                var modelbetween5mTo10m = new RankResearchRageMoneyDataSourceModel
+                {
+                    ResearchRankMoneyName = "งบประมาณ 5,000,001 - 10,000,000",
+                    DataResearchMoney = between5mTo10m
+                };
+                result.Add(modelbetween5mTo10m);
+                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Select(s => new DataModelReserachMoney
+                {
+                    ResearchId = s.ResearchId,
+                    ResearchCode = s.ResearchCode,
+                    ResearchNameEn = s.ResearchNameEn,
+                    ResearchNameTh = s.ResearchNameTh,
+                    ResearchStartDate = s.ResearchStartDate,
+                    ResearchEndDate = s.ResearchEndDate,
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName,
+                    ResearcherId = s.ResearcherId,
+                    ResearcherName = s.ResearcherName
+                }).OrderBy(o => o.ResearchId).ToList();
+                var modelbetween10mTo20m = new RankResearchRageMoneyDataSourceModel
+                {
+                    ResearchRankMoneyName = "งบประมาณ 10,000,001 - 20,000,000",
+                    DataResearchMoney = between10mTo20m
+                };
+                result.Add(modelbetween10mTo20m);
+                var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Select(s => new DataModelReserachMoney
+                {
+                    ResearchId = s.ResearchId,
+                    ResearchCode = s.ResearchCode,
+                    ResearchNameEn = s.ResearchNameEn,
+                    ResearchNameTh = s.ResearchNameTh,
+                    ResearchStartDate = s.ResearchStartDate,
+                    ResearchEndDate = s.ResearchEndDate,
+                    ResearchMoney = s.ResearchMoney,
+                    MoneyTypeName = s.MoneyTypeName,
+                    ResearcherId = s.ResearcherId,
+                    ResearcherName = s.ResearcherName
+                }).OrderBy(o => o.ResearchId).ToList();
+                var modelover20m = new RankResearchRageMoneyDataSourceModel
+                {
+                    ResearchRankMoneyName = "งบประมาณ 20,000,000 ขึ้นไป",
+                    DataResearchMoney = over20m
+                };
+                result.Add(modelover20m);
+
+
+
+
+                return result;
+               
+            }
+            return result;
+        }
+
+
         private List<ResearchMoneyViewDataModel> GetResearchMoneyViewDataModel(List<DcResearchMoney> researchMoneyData)
         {
             var distinctMoney = researchMoneyData.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
@@ -752,6 +1174,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
             return researcherDetail;
         }
+
+       
 
     }
 }
