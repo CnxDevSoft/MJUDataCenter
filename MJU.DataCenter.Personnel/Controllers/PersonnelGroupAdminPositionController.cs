@@ -27,9 +27,9 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
 
         [HttpGet("DataSource")]
-        public object Get()
+        public object Get(string adminPositionType, string personnelType)
         {
-            return _personnelService.GetAllPersonGroupAdminPositionTypeDataSource();
+            return _personnelService.GetAllPersonGroupAdminPositionTypeDataSource(adminPositionType, personnelType);
         }
 
 

@@ -17,7 +17,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelPosition(int type);
 
-        List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource();
+        List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource(string type);
 
         object GetAllPersonnelEducation(int type);
 
@@ -43,7 +43,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonGroupAdminPositionType(int type);
 
-        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource();
+        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource(string adminPositionType, string personnelType);
 
         object GetAllPersonGroupFaculty(int type);
 

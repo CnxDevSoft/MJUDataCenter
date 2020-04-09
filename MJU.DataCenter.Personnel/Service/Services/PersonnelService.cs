@@ -170,7 +170,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 {
                     var personPosition = new PersonPostionDataTableModel
                     {
-                        PersonPosionTypeName = positionType.PositionType,
+                        PersonPositionTypeId = positionType.PositionTypeId,
+                        PersonPositionTypeName = positionType.PositionType,
                         Person = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId).Count()
                     };
                     list.Add(personPosition);
@@ -179,9 +180,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource()
+        public List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource(string type)
         {
-            var personnel = _dcPersonRepository.GetAll();
+            var personnel = _dcPersonRepository.GetAll().Where(m=> !string.IsNullOrEmpty(type) ? m.PositionType == type : true);
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
@@ -190,7 +191,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
             {
                 var personPosition = new PersonPostionDataSourceModel
                 {
-                    PersonPosionTypeName = positionType.PositionType,
+                    PersonPositionTypeId = positionType.PositionTypeId,
+                    PersonPositionTypeName = positionType.PositionType,
                     Person = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId).
                     Select(s => new PersonnelDataSourceViewModel
                     {
@@ -1246,16 +1248,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 return datatableList;
             }
         }
-        public List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource()
+        public List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource(string adminPositionType,string personnelType)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.AdminPositionType);
+            var personnel = _dcPersonRepository.GetAll().Where(m=>!string.IsNullOrEmpty(adminPositionType)?m.AdminPositionType == adminPositionType:true).OrderBy(o => o.AdminPositionType);
             var adminPositionTypeBy = personnel.Select(s => s.AdminPositionType).Distinct();
             var datatableList = new List<PersonGroupAdminPositionDataSourceModel>();
             foreach (var ap in adminPositionTypeBy)
             {
 
-                var personnelType = personnel.Where(m => m.AdminPositionType == ap);
-                var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
+                var personnelTypeData = personnel.Where(m => m.AdminPositionType == ap);
+                var distinctPersonnelType = personnelTypeData.Where(m=>!string.IsNullOrEmpty(personnelType)? m.PersonnelType == personnelType : true).Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var dataList = new List<PersonGroupAdminPositionDataSource>();
                 foreach (var p in distinctPersonnelType)
                 {
@@ -1263,7 +1265,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     {
                         PersonGroupTypeId = p.PersonnelTypeId,
                         PersonGroupTypeName = p.PersonnelType,
-                        Person = personnelType.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId)
+                        Person = personnelTypeData.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId)
                          .Select(s => new PersonnelDataSourceViewModel
                          {
                              AdminPosition = s.AdminPosition,
