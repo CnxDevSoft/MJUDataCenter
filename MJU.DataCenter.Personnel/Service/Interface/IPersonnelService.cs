@@ -21,7 +21,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelEducation(int type);
 
-        List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource();
+        List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource(string type);
 
         object GetAllPersonnelPositionGeneration(int type);
 

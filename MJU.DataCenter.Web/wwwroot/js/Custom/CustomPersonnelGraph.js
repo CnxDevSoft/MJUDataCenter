@@ -76,12 +76,12 @@ async function AllPersonGraph() {
 
             var sumValue = 0;
             $.each(tempData, function (key, item) {
-                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="PsersonGroupDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="PersonGroupDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
                     + item.val + '</a></td></tr>');
                 sumValue += item.val;
             });
 
-            $("#allPersonGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PsersonGroupDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#allPersonGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PersonGroupDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</a></td></tr>');
 
             AllPersonGraphDS();
@@ -195,12 +195,12 @@ async function PersonEducationGraph() {
 
             var sumValue = 0;
             $.each(tempData, function (key, item) {
-                $("#personEducationGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                $("#personEducationGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a  onClick="PersonEducationDrillDown(' + "'" + item.title+"'" +')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
                     + item.val + '</button></td></tr>');
                 sumValue += item.val;
             });
 
-            $("#personEducationGraphDataTable-tbody").append('<tr><td> รวม </td><td><a data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#personEducationGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PersonEducationDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
 
             PersonEducationGraphDS();
@@ -1506,6 +1506,20 @@ async function Load() {
 
 //DrillDown
 
+async function PersonGroupDrillDown(type) {
+    var url = type != null ? 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?type=' + type + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?api-version=1.0'
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data)
+            console.log(url)
+            RenderAllPersonDrillDownGraphDS(data).then();
+        });
+
+
+
+}
+
 async function RenderAllPersonDrillDownGraphDS(data) {
 
     $('#allpersonnelDrillDownGraphDataSourceModal-card-body').empty();
@@ -1519,7 +1533,7 @@ async function RenderAllPersonDrillDownGraphDS(data) {
         var table = $('#dataTable').DataTable();
         table.clear().destroy();
 
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="dataTable'+key+'">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="dataPersonnelTable'+key+'">';
         var startThead = '<thead id="sub-allpersonalDrillDownGraphDataSource-thead">';
         var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
 
@@ -1551,7 +1565,7 @@ async function RenderAllPersonDrillDownGraphDS(data) {
 
         })
 
-        $('#dataTable'+key).DataTable({
+        $('#dataPersonnelTable'+key).DataTable({
             language: {
                 sLengthMenu: "Show _MENU_"
             }
@@ -1560,16 +1574,70 @@ async function RenderAllPersonDrillDownGraphDS(data) {
     });
 }
 
-async function PsersonGroupDrillDown(type) {
-    var url = type != null ? 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?type=' + type + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?api-version=1.0'
+
+async function PersonEducationDrillDown(type) {
+    var url = type != null ? 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/DataSource?type=' + type + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/DataSource?api-version=1.0'
+    console.log(url)
     fetch(url)
         .then(res => res.json())
         .then((data) => {
-            console.log(data)
-            console.log(url)
-            RenderAllPersonDrillDownGraphDS(data).then();
+            RenderPersonEducationDrillDownGraphDS(data).then();
         });
 
 
 
 }
+
+async function RenderPersonEducationDrillDownGraphDS(data) {
+    console.log(data);
+    $('#personEducationDrillDownGraphDataSourceModal-card-body').empty();
+
+    $.each(data, function (key, result) {
+
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personEducationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.educationTypeName + '</b></a>'
+
+        $('#personEducationDrillDownGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personEducationDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataTable').DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personEducation" id="dataPersonEducationTable' + key + '">';
+        var startThead = '<thead id="sub-personEducationDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personEducationDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personEducationDrillDownGraphDataSourceModal').modal('show');
+        $('#personEducationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonEducationTable' + key).DataTable({
+            language: {
+                sLengthMenu: "Show _MENU_"
+            }
+        });
+
+    });
+}
+

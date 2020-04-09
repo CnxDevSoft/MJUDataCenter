@@ -78,7 +78,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         public List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource(string type)
         {
 
-            var personnel = _dcPersonRepository.GetAll().Where(m=>!string.IsNullOrEmpty(type)?m.PersonnelType == type:true).OrderBy(o => o.PersonnelTypeId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(type) ? m.PersonnelType == type : true).OrderBy(o => o.PersonnelTypeId);
 
             var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
 
@@ -290,100 +290,107 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource()
+        public List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource(string type)
         {
             var educate = new List<string>() { "ปริญญาเอก", "ปริญญาตรี", "ปริญญาโท" };
-            var personnel = _dcPersonRepository.GetAll().Where(m => educate.Contains(m.EducationLevel));
-            var lowerBachelor = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel)).Count();
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(type) ? m.EducationLevel == type : educate.Contains(m.EducationLevel));
 
             var distinctEducationLevel = personnel.Select(s => new { s.EducationLevel, s.EducationLevelId }
             ).Distinct();
 
 
             var list = new List<PersonEducationDataSourceModel>();
-            foreach (var educationLevel in distinctEducationLevel)
+            if (personnel.Any())
             {
-                var personPosition = new PersonEducationDataSourceModel
+                foreach (var educationLevel in distinctEducationLevel)
                 {
-                    EducationTypeName = educationLevel.EducationLevel,
-                    Person = personnel.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId)
-                    .Select(s => new PersonnelDataSourceViewModel
+                    var personPosition = new PersonEducationDataSourceModel
                     {
-                        AdminPosition = s.AdminPosition,
-                        AdminPositionType = s.AdminPositionType,
-                        BloodType = s.BloodType,
-                        Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
-                        Division = s.Division,
-                        Education = s.Education,
-                        EducationLevel = s.EducationLevel,
-                        Faculty = s.Faculty,
-                        Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
-                        IdCard = s.IdCard,
-                        Major = s.Major,
-                        Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        PersonnelId = s.PersonnelId,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
-                        Salary = s.Salary,
-                        Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
-                        TitleEducation = s.TitleEducation,
-                        University = s.University,
-                        ZipCode = s.ZipCode
+                        EducationTypeName = educationLevel.EducationLevel,
+                        Person = personnel.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId)
+                        .Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth,
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate,
+                            IdCard = s.IdCard,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate,
+                            RetiredYear = s.RetiredYear,
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate,
+                            StartEducationDate = s.StartEducationDate,
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode
 
-                    }).ToList()
-                };
-                list.Add(personPosition);
+                        }).ToList()
+                    };
+                    list.Add(personPosition);
+                }
             }
-            list.Add(new PersonEducationDataSourceModel
+            
+            if (string.IsNullOrEmpty(type) || !educate.Contains(type))
             {
-                EducationTypeName = "ต่ำกว่าปริญญาตรี",
-                Person = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel))
-                .Select(s => new PersonnelDataSourceViewModel
+                list.Add(new PersonEducationDataSourceModel
                 {
-                    AdminPosition = s.AdminPosition,
-                    AdminPositionType = s.AdminPositionType,
-                    BloodType = s.BloodType,
-                    Country = s.Country,
-                    DateOfBirth = s.DateOfBirth,
-                    Division = s.Division,
-                    Education = s.Education,
-                    EducationLevel = s.EducationLevel,
-                    Faculty = s.Faculty,
-                    Gender = s.Gender,
-                    GraduateDate = s.GraduateDate,
-                    IdCard = s.IdCard,
-                    Major = s.Major,
-                    Nation = s.Nation,
-                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                    PersonnelId = s.PersonnelId,
-                    PersonnelType = s.PersonnelType,
-                    Position = s.Position,
-                    PositionLevel = s.PositionLevel,
-                    PositionType = s.PositionType,
-                    Province = s.Province,
-                    RetiredDate = s.RetiredDate,
-                    RetiredYear = s.RetiredYear,
-                    Salary = s.Salary,
-                    Section = s.Section,
-                    StartDate = s.StartDate,
-                    StartEducationDate = s.StartEducationDate,
-                    TitleEducation = s.TitleEducation,
-                    University = s.University,
-                    ZipCode = s.ZipCode
+                    EducationTypeName = "ต่ำกว่าปริญญาตรี",
+                    Person = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel))
+             .Select(s => new PersonnelDataSourceViewModel
+             {
+                 AdminPosition = s.AdminPosition,
+                 AdminPositionType = s.AdminPositionType,
+                 BloodType = s.BloodType,
+                 Country = s.Country,
+                 DateOfBirth = s.DateOfBirth,
+                 Division = s.Division,
+                 Education = s.Education,
+                 EducationLevel = s.EducationLevel,
+                 Faculty = s.Faculty,
+                 Gender = s.Gender,
+                 GraduateDate = s.GraduateDate,
+                 IdCard = s.IdCard,
+                 Major = s.Major,
+                 Nation = s.Nation,
+                 PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                 PersonnelId = s.PersonnelId,
+                 PersonnelType = s.PersonnelType,
+                 Position = s.Position,
+                 PositionLevel = s.PositionLevel,
+                 PositionType = s.PositionType,
+                 Province = s.Province,
+                 RetiredDate = s.RetiredDate,
+                 RetiredYear = s.RetiredYear,
+                 Salary = s.Salary,
+                 Section = s.Section,
+                 StartDate = s.StartDate,
+                 StartEducationDate = s.StartEducationDate,
+                 TitleEducation = s.TitleEducation,
+                 University = s.University,
+                 ZipCode = s.ZipCode
 
-                }).ToList()
+             }).ToList()
 
-            });
+                });
+            }
+
             return list;
 
         }
