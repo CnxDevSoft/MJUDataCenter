@@ -23,7 +23,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{type}/{total}")]
         public object Get(int type,int total)
         {
-            return _personnelService.GetAllPersonRetired(total,type);
+            return _personnelService.GetAllPersonnelRetired(total,type);
         }
 
         [HttpGet("GetDataTablePersonRetired/{type}/{year}")]

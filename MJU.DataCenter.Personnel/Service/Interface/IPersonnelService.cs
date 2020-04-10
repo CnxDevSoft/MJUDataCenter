@@ -27,13 +27,9 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource();
 
-        object GetAllPersonRetired(int total,int type);
+        object GetAllPersonnelRetired(int total,int type);
 
         List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type);
-
-        List<PersonnelGenderDataTableViewModel> GetAllPersonGender(int type);
-
-        List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSource();
 
         object GetAllPersonnelGroupWorkDuration(int type);
 
@@ -41,31 +37,33 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, string personGroupTypeId, int type);
 
-        object GetAllPersonGroupAdminPositionType(int type);
+        object GetAllPersonnelGroupAdminPositionType(int type);
 
-        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource(string adminPositionType, string personnelType);
+        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonnelGroupAdminPositionTypeDataSource(string adminPositionType, string personnelType);
 
-        object GetAllPersonGroupFaculty(int type);
+        object GetAllPersonnelGroupFaculty(int type);
 
-        List<PersonGroupFacultyDataSourceModel> GetAllPersonGroupFacultyDataSource();
+        List<PersonGroupFacultyDataSourceModel> GetAllPersonnelGroupFacultyDataSource(string faculty, string personnelType);
 
-        object GetAllPersonPositionFaculty(int type);
+        object GetAllPersonnelPositionFaculty(int type);
 
-        public List<PersonPositionFacultyDataSourceModel> GetAllPersonPositionFacultyDataSource();
+        public List<PersonPositionFacultyDataSourceModel> GetAllPersonnelPositionFacultyDataSource(string faculty, string position);
 
-        object GetAllPersonGroupRetiredYear(RetiredGraphInputDto input);
+        object GetAllPersonnelGroupRetiredYear(RetiredGraphInputDto input);
 
-        List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource(RetiredInputDto input);
+        List<PersonGroupRetiredYearDataSourceModel> GetAllPersonnelGroupRetiredYearDataSource(RetiredInputDto input);
 
-        object GetAllPersonGroupPositionLevel(int type);
+        object GetAllPersonnelGroupPositionLevel(int type);
 
         object GetAllPersonnelPositionEducation(int type);
 
         List<PersonPostionEducationDataSourceModel> GetAllPersonnelPositionEducationDataSource();
 
+        List<PersonGroupPositionLevelDataSourceModel> GetAllPersonnelGroupPositionLevelDataSource(string personnelType, string positionLevel);
+        List<PersonnelGenderDataSourceViewModel> GetAllPersonnelGenderDataSourceByType(int type, int gender, string genderName);
 
-        List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource();
-        List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender, string genderName);
+        List<PersonnelGenderDataTableViewModel> GetAllPersonnelGender(int type);
+        List<PersonnelGenderDataSourceViewModel> GetAllPersonnelGenderDataSource();
 
     }
 }

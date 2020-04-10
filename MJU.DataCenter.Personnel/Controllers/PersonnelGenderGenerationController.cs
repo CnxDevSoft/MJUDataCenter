@@ -22,19 +22,19 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{type}")]
         public object Get(int type)
         {
-            return _personnelService.GetAllPersonGender(type);
+            return _personnelService.GetAllPersonnelGender(type);
         }
 
         [HttpGet("DataSource")]
         public object Get()
         {
-            return _personnelService.GetAllPersonGenderDataSource();
+            return _personnelService.GetAllPersonnelGenderDataSource();
         }
 
         [HttpGet("DataSourceByType/{type}/{gender}/{genderName}")]
         public object Get(int type,int gender, string genderName)
         {
-            return _personnelService.GetAllPersonGenderDataSourceByType(type, gender, genderName);
+            return _personnelService.GetAllPersonnelGenderDataSourceByType(type, gender, genderName);
         }
 
     }
