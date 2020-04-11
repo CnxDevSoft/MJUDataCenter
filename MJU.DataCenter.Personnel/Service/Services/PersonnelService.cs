@@ -75,10 +75,10 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        public List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource()
+        public List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource(string type)
         {
 
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(type) ? m.PersonnelType == type : true).OrderBy(o => o.PersonnelTypeId);
 
             var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
 
@@ -136,7 +136,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonnelPosition(int type)
         {
-            var personnel = _dcPersonRepository.GetAll();
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PositionTypeId);
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
@@ -170,7 +170,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 {
                     var personPosition = new PersonPostionDataTableModel
                     {
-                        PersonPosionTypeName = positionType.PositionType,
+                        PersonPositionTypeId = positionType.PositionTypeId,
+                        PersonPositionTypeName = positionType.PositionType,
                         Person = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId).Count()
                     };
                     list.Add(personPosition);
@@ -179,9 +180,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource()
+        public List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource(string type)
         {
-            var personnel = _dcPersonRepository.GetAll();
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(type) ? m.PositionType == type : true).OrderBy(o => o.PositionTypeId);
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
@@ -190,7 +191,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
             {
                 var personPosition = new PersonPostionDataSourceModel
                 {
-                    PersonPosionTypeName = positionType.PositionType,
+                    PersonPositionTypeId = positionType.PositionTypeId,
+                    PersonPositionTypeName = positionType.PositionType,
                     Person = personnel.Where(m => m.PositionType == positionType.PositionType && m.PositionTypeId == m.PositionTypeId).
                     Select(s => new PersonnelDataSourceViewModel
                     {
@@ -290,107 +292,114 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource()
+        public List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource(string type)
         {
             var educate = new List<string>() { "ปริญญาเอก", "ปริญญาตรี", "ปริญญาโท" };
-            var personnel = _dcPersonRepository.GetAll().Where(m => educate.Contains(m.EducationLevel));
-            var lowerBachelor = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel)).Count();
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(type) ? m.EducationLevel == type : educate.Contains(m.EducationLevel));
 
             var distinctEducationLevel = personnel.Select(s => new { s.EducationLevel, s.EducationLevelId }
             ).Distinct();
 
 
             var list = new List<PersonEducationDataSourceModel>();
-            foreach (var educationLevel in distinctEducationLevel)
+            if (personnel.Any())
             {
-                var personPosition = new PersonEducationDataSourceModel
+                foreach (var educationLevel in distinctEducationLevel)
                 {
-                    EducationTypeName = educationLevel.EducationLevel,
-                    Person = personnel.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId)
-                    .Select(s => new PersonnelDataSourceViewModel
+                    var personPosition = new PersonEducationDataSourceModel
                     {
-                        AdminPosition = s.AdminPosition,
-                        AdminPositionType = s.AdminPositionType,
-                        BloodType = s.BloodType,
-                        Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
-                        Division = s.Division,
-                        Education = s.Education,
-                        EducationLevel = s.EducationLevel,
-                        Faculty = s.Faculty,
-                        Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
-                        IdCard = s.IdCard,
-                        Major = s.Major,
-                        Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        PersonnelId = s.PersonnelId,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
-                        Salary = s.Salary,
-                        Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
-                        TitleEducation = s.TitleEducation,
-                        University = s.University,
-                        ZipCode = s.ZipCode
+                        EducationTypeName = educationLevel.EducationLevel,
+                        Person = personnel.Where(m => m.EducationLevel == educationLevel.EducationLevel && m.EducationLevelId == educationLevel.EducationLevelId)
+                        .Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth,
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate,
+                            IdCard = s.IdCard,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate,
+                            RetiredYear = s.RetiredYear,
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate,
+                            StartEducationDate = s.StartEducationDate,
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode
 
-                    }).ToList()
-                };
-                list.Add(personPosition);
+                        }).ToList()
+                    };
+                    list.Add(personPosition);
+                }
             }
-            list.Add(new PersonEducationDataSourceModel
+
+            if (string.IsNullOrEmpty(type) || !educate.Contains(type))
             {
-                EducationTypeName = "ต่ำกว่าปริญญาตรี",
-                Person = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel))
-                .Select(s => new PersonnelDataSourceViewModel
+                list.Add(new PersonEducationDataSourceModel
                 {
-                    AdminPosition = s.AdminPosition,
-                    AdminPositionType = s.AdminPositionType,
-                    BloodType = s.BloodType,
-                    Country = s.Country,
-                    DateOfBirth = s.DateOfBirth,
-                    Division = s.Division,
-                    Education = s.Education,
-                    EducationLevel = s.EducationLevel,
-                    Faculty = s.Faculty,
-                    Gender = s.Gender,
-                    GraduateDate = s.GraduateDate,
-                    IdCard = s.IdCard,
-                    Major = s.Major,
-                    Nation = s.Nation,
-                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                    PersonnelId = s.PersonnelId,
-                    PersonnelType = s.PersonnelType,
-                    Position = s.Position,
-                    PositionLevel = s.PositionLevel,
-                    PositionType = s.PositionType,
-                    Province = s.Province,
-                    RetiredDate = s.RetiredDate,
-                    RetiredYear = s.RetiredYear,
-                    Salary = s.Salary,
-                    Section = s.Section,
-                    StartDate = s.StartDate,
-                    StartEducationDate = s.StartEducationDate,
-                    TitleEducation = s.TitleEducation,
-                    University = s.University,
-                    ZipCode = s.ZipCode
+                    EducationTypeName = "ต่ำกว่าปริญญาตรี",
+                    Person = _dcPersonRepository.GetAll().Where(m => !educate.Contains(m.EducationLevel))
+             .Select(s => new PersonnelDataSourceViewModel
+             {
+                 AdminPosition = s.AdminPosition,
+                 AdminPositionType = s.AdminPositionType,
+                 BloodType = s.BloodType,
+                 Country = s.Country,
+                 DateOfBirth = s.DateOfBirth,
+                 Division = s.Division,
+                 Education = s.Education,
+                 EducationLevel = s.EducationLevel,
+                 Faculty = s.Faculty,
+                 Gender = s.Gender,
+                 GraduateDate = s.GraduateDate,
+                 IdCard = s.IdCard,
+                 Major = s.Major,
+                 Nation = s.Nation,
+                 PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                 PersonnelId = s.PersonnelId,
+                 PersonnelType = s.PersonnelType,
+                 Position = s.Position,
+                 PositionLevel = s.PositionLevel,
+                 PositionType = s.PositionType,
+                 Province = s.Province,
+                 RetiredDate = s.RetiredDate,
+                 RetiredYear = s.RetiredYear,
+                 Salary = s.Salary,
+                 Section = s.Section,
+                 StartDate = s.StartDate,
+                 StartEducationDate = s.StartEducationDate,
+                 TitleEducation = s.TitleEducation,
+                 University = s.University,
+                 ZipCode = s.ZipCode
 
-                }).ToList()
+             }).ToList()
 
-            });
+                });
+            }
+
             return list;
 
         }
 
         public object GetAllPersonnelPositionGeneration(int type)
         {
-            var personnel = _dcPersonRepository.GetAll();
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PositionTypeId);
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
@@ -481,7 +490,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource()
         {
-            var personnel = _dcPersonRepository.GetAll();
+            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PositionTypeId);
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
@@ -749,7 +758,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public object GetAllPersonRetired(int total, int type)
+        public object GetAllPersonnelRetired(int total, int type)
         {
             var half = total / 2 - 1;
             var yearBack = DateTime.UtcNow.AddYears(-half);
@@ -841,19 +850,111 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
             var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId);
             var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
+
             if (type == 1)
             {
                 var label = new List<string>();
-
+                var dataCoutLessThanThree = new List<int>();
+                var dataCoutThreeToFive = new List<int>();
+                var dataCoutSixToNine = new List<int>();
+                var dataCoutTenToFifteen = new List<int>();
+                var dataCoutSixteenToTwenty = new List<int>();
+                var dataCoutMorethanTwenty = new List<int>();
+                var index = 0;
                 foreach (var personnelType in distinctPersonnelTypeId)
                 {
 
+
                     label.Add(personnelType.PersonnelType);
+
+                    var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutLessThanThree.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutThreeToFive.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutSixToNine.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutTenToFifteen.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutSixteenToTwenty.Add(count);
+
+                    count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20 && m.PersonnelTypeId == personnelType.PersonnelTypeId && m.PersonnelType == personnelType.PersonnelType).Count();
+                    dataCoutMorethanTwenty.Add(count);
+
+
                 }
+                var dataLessThanThree = new GraphDataSet
+                {
+                    Label = "น้อยกว่า 3 ปี",
+                    Data = dataCoutLessThanThree,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataSixToNine = new GraphDataSet
+                {
+                    Label = "6 - 9 ปี",
+                    Data = dataCoutSixToNine,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataThreeToFive = new GraphDataSet
+                {
+                    Label = "3 - 5 ปี",
+                    Data = dataCoutThreeToFive,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataTenToFifteen = new GraphDataSet
+                {
+                    Label = "10 - 15 ปี",
+                    Data = dataCoutTenToFifteen,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataSixteenToTwenty = new GraphDataSet
+                {
+                    Label = "16 - 20 ปี",
+                    Data = dataCoutSixteenToTwenty,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+                index++;
+                var dataMorethanTwenty = new GraphDataSet
+                {
+                    Label = "20 ปีขึ้นไป",
+                    Data = dataCoutMorethanTwenty,
+                    BackgroundColor = index.BackgroundColor(),
+                    BorderColor = index.BorderColor()
+
+                };
+
+                var listGraphDataSet = new List<GraphDataSet>
+                {
+            dataLessThanThree,
+            dataThreeToFive,
+            dataSixToNine,
+            dataTenToFifteen,
+            dataSixteenToTwenty,
+            dataMorethanTwenty
+            };
+
 
                 var result = new GraphData
                 {
-                    GraphDataSet = this.GetPersonWorkDurationGraphDataSet(personnel),
+                    GraphDataSet = listGraphDataSet,
                     Label = label
                 };
                 return result;
@@ -912,125 +1013,10 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        private List<GraphDataSet> GetPersonWorkDurationGraphDataSet(IEnumerable<DC_Person> personnel)
+        public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource(string personType, int? index)
         {
 
-            var lessThanThree = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutLessThanThree = new List<int>();
-            var index = 0;
-            foreach (var model in lessThanThree)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutLessThanThree.Add(count);
-            }
-            var dataLessThanThree = new GraphDataSet
-            {
-                Label = "น้อยกว่า 3 ปี",
-                Data = dataCoutLessThanThree,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var threeToFive = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutThreeToFive = new List<int>();
-            foreach (var model in threeToFive)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutThreeToFive.Add(count);
-            }
-            var dataThreeToFive = new GraphDataSet
-            {
-                Label = "3 - 5 ปี",
-                Data = dataCoutThreeToFive,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var sixToNine = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutSixToNine = new List<int>();
-            foreach (var model in sixToNine)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutSixToNine.Add(count);
-            }
-            var dataSixToNine = new GraphDataSet
-            {
-                Label = "6 - 9 ปี",
-                Data = dataCoutSixToNine,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var tenToFifteen = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutTenToFifteen = new List<int>();
-            foreach (var model in tenToFifteen)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutTenToFifteen.Add(count);
-            }
-            var dataTenToFifteen = new GraphDataSet
-            {
-                Label = "10 - 15 ปี",
-                Data = dataCoutTenToFifteen,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-
-            var sixteenToTwenty = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutSixteenToTwenty = new List<int>();
-            foreach (var model in sixteenToTwenty)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutSixteenToTwenty.Add(count);
-            }
-            var dataSixteenToTwenty = new GraphDataSet
-            {
-                Label = "16 - 20 ปี",
-                Data = dataCoutSixteenToTwenty,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            index++;
-            var morethanTwenty = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).Select(s => new { s.PersonnelType, s.PersonnelTypeId }).OrderBy(o => o.PersonnelTypeId).Distinct();
-            var dataCoutMorethanTwenty = new List<int>();
-            foreach (var model in morethanTwenty)
-            {
-                var count = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20 && m.PersonnelTypeId == model.PersonnelTypeId && m.PersonnelType == model.PersonnelType).Count();
-                dataCoutMorethanTwenty.Add(count);
-            }
-            var dataMorethanTwenty = new GraphDataSet
-            {
-                Label = "20 ปีขึ้นไป",
-                Data = dataCoutMorethanTwenty,
-                BackgroundColor = index.BackgroundColor(),
-                BorderColor = index.BorderColor()
-
-            };
-            var listGraphDataSet = new List<GraphDataSet> {
-            dataLessThanThree,
-            dataThreeToFive,
-            dataSixToNine,
-            dataTenToFifteen,
-            dataSixteenToTwenty,
-            dataMorethanTwenty
-            };
-
-            return listGraphDataSet;
-        }
-
-        public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource()
-        {
-
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(personType) ? m.PersonnelType == personType:true).OrderBy(o => o.PersonnelTypeId);
 
             var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
 
@@ -1111,6 +1097,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
                            }
                     }
                 };
+                if (index != null) { 
+                    personGroup.PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataSource> 
+                    {
+                        personGroup.PersonGroupWorkDuration[index.Value]
+                    }; 
+                }
                 list.Add(personGroup);
             }
 
@@ -1120,73 +1112,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        public List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, string personGroupTypeId, int type)
-        {
-
-            var personnel = _dcPersonRepository.GetAll().Where(m => m.PersonnelType == personGroupType && m.PersonnelTypeId == personGroupTypeId);
-
-            switch (type)
-            {
-                case 0:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3);
-                    break;
-                case 1:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5);
-                    break;
-                case 2:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9);
-                    break;
-                case 3:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15);
-                    break;
-                case 4:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20);
-                    break;
-                case 5:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20);
-                    break;
-            }
-            var personData = personnel
-               .Select(s => new PersonnelDataSourceViewModel
-               {
-                   AdminPosition = s.AdminPosition,
-                   AdminPositionType = s.AdminPositionType,
-                   BloodType = s.BloodType,
-                   Country = s.Country,
-                   DateOfBirth = s.DateOfBirth,
-                   Division = s.Division,
-                   Education = s.Education,
-                   EducationLevel = s.EducationLevel,
-                   Faculty = s.Faculty,
-                   Gender = s.Gender,
-                   GraduateDate = s.GraduateDate,
-                   IdCard = s.IdCard,
-                   Major = s.Major,
-                   Nation = s.Nation,
-                   PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                   PersonnelId = s.PersonnelId,
-                   PersonnelType = s.PersonnelType,
-                   Position = s.Position,
-                   PositionLevel = s.PositionLevel,
-                   PositionType = s.PositionType,
-                   Province = s.Province,
-                   RetiredDate = s.RetiredDate,
-                   RetiredYear = s.RetiredYear,
-                   Salary = s.Salary,
-                   Section = s.Section,
-                   StartDate = s.StartDate,
-                   StartEducationDate = s.StartEducationDate,
-                   TitleEducation = s.TitleEducation,
-                   University = s.University,
-                   ZipCode = s.ZipCode
-
-               }).ToList();
-
-            return personData;
-
-        }
-
-        public object GetAllPersonGroupAdminPositionType(int type)
+        public object GetAllPersonnelGroupAdminPositionType(int type)
         {
             var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.AdminPositionType);
             if (type == 1)
@@ -1262,16 +1188,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 return datatableList;
             }
         }
-        public List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource()
+        public List<PersonGroupAdminPositionDataSourceModel> GetAllPersonnelGroupAdminPositionTypeDataSource(string adminPositionType, string personnelType)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.AdminPositionType);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(adminPositionType) ? m.AdminPositionType == adminPositionType : true).OrderBy(o => o.AdminPositionType);
             var adminPositionTypeBy = personnel.Select(s => s.AdminPositionType).Distinct();
             var datatableList = new List<PersonGroupAdminPositionDataSourceModel>();
             foreach (var ap in adminPositionTypeBy)
             {
 
-                var personnelType = personnel.Where(m => m.AdminPositionType == ap);
-                var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
+                var personnelTypeData = personnel.Where(m => m.AdminPositionType == ap);
+                var distinctPersonnelType = personnelTypeData.Where(m => !string.IsNullOrEmpty(personnelType) ? m.PersonnelType == personnelType : true).Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var dataList = new List<PersonGroupAdminPositionDataSource>();
                 foreach (var p in distinctPersonnelType)
                 {
@@ -1279,7 +1205,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     {
                         PersonGroupTypeId = p.PersonnelTypeId,
                         PersonGroupTypeName = p.PersonnelType,
-                        Person = personnelType.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId)
+                        Person = personnelTypeData.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId)
                          .Select(s => new PersonnelDataSourceViewModel
                          {
                              AdminPosition = s.AdminPosition,
@@ -1330,7 +1256,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return datatableList;
         }
 
-        public object GetAllPersonGroupFaculty(int type)
+        public object GetAllPersonnelGroupFaculty(int type)
         {
             var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.FacultyId);
             if (type == 1)
@@ -1343,7 +1269,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 foreach (var p in distinctPersonnelType)
                 {
                     var data = new List<int>();
-                    var facultyByPersonnelType = personnel.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId);
+                    var facultyByPersonnelType = personnel.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId).OrderBy(o => o.PersonnelTypeId);
                     var distinctfacultyByPersonnelType = facultyByPersonnelType.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
 
                     foreach (var fc in distinctfacultyByPersonnelType)
@@ -1406,16 +1332,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonGroupFacultyDataSourceModel> GetAllPersonGroupFacultyDataSource()
+        public List<PersonGroupFacultyDataSourceModel> GetAllPersonnelGroupFacultyDataSource(string faculty, string personnelType)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.FacultyId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(faculty) ? m.Faculty == faculty : true).OrderBy(o => o.FacultyId);
             var facultyByPersonnelType = personnel.Select(s => new { s.Faculty, s.FacultyId }).Distinct();
             var datatableList = new List<PersonGroupFacultyDataSourceModel>();
             foreach (var fc in facultyByPersonnelType)
             {
 
-                var personnelType = personnel.Where(m => m.Faculty == fc.Faculty && m.FacultyId == fc.FacultyId);
-                var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
+                var personnelTypeData = personnel.Where(m => m.Faculty == fc.Faculty && m.FacultyId == fc.FacultyId).OrderBy(o => o.PersonnelTypeId);
+                var distinctPersonnelType = personnelTypeData.Where(m => !string.IsNullOrEmpty(personnelType) ? m.PersonnelType == personnelType : true).Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var dataList = new List<PersonGroupFacultyDataSource>();
                 foreach (var p in distinctPersonnelType)
                 {
@@ -1423,7 +1349,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     {
                         PersonGroupTypeId = p.PersonnelTypeId,
                         PersonGroupTypeName = p.PersonnelType,
-                        Person = personnelType.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId)
+                        Person = personnelTypeData.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId)
                         .Select(s => new PersonnelDataSourceViewModel
                         {
                             AdminPosition = s.AdminPosition,
@@ -1475,9 +1401,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return datatableList;
         }
 
-        public object GetAllPersonPositionFaculty(int type)
+        public object GetAllPersonnelPositionFaculty(int type)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.FacultyId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ก" && m.PositionType == "ประเภทวิชาการ").OrderBy(o => o.FacultyId);
             if (type == 1)
             {
 
@@ -1550,23 +1476,23 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonPositionFacultyDataSourceModel> GetAllPersonPositionFacultyDataSource()
+        public List<PersonPositionFacultyDataSourceModel> GetAllPersonnelPositionFacultyDataSource(string faculty, string position)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.FacultyId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(faculty) ? m.Faculty == faculty : true).OrderBy(o => o.FacultyId);
             var facultyByPersonnelType = personnel.Select(s => new { s.Faculty, s.FacultyId }).Distinct();
             var datatableList = new List<PersonPositionFacultyDataSourceModel>();
             foreach (var fc in facultyByPersonnelType)
             {
 
                 var personnelType = personnel.Where(m => m.Faculty == fc.Faculty && m.FacultyId == fc.FacultyId);
-                var distinctPosition = personnelType.Select(s => s.Position).Distinct();
+                var distinctPosition = personnelType.Where(m => !string.IsNullOrEmpty(position) ? m.Position == position : true).Select(s => s.Position).Distinct();
                 var dataList = new List<PersonPosiotionFacultyDataSource>();
-                foreach (var position in distinctPosition)
+                foreach (var positionData in distinctPosition)
                 {
                     var data = new PersonPosiotionFacultyDataSource
                     {
-                        PersonPosition = position,
-                        Person = personnelType.Where(m => m.Position == position)
+                        PersonPosition = positionData,
+                        Person = personnelType.Where(m => m.Position == positionData)
                         .Select(s => new PersonnelDataSourceViewModel
                         {
                             AdminPosition = s.AdminPosition,
@@ -1618,9 +1544,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return datatableList;
         }
 
-        public object GetAllPersonGroupRetiredYear(RetiredGraphInputDto input)
+        public object GetAllPersonnelGroupRetiredYear(RetiredGraphInputDto input)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m =>input.StartDate != null && input.EndDate !=null ?  
+            var personnel = _dcPersonRepository.GetAll().Where(m => input.StartDate != null && input.EndDate != null ?
             m.RetiredDate >= input.StartDate.ToUtcDateTime() && m.RetiredDate <= input.EndDate.ToUtcDateTime() &&
             m.RetiredYear >= input.StartDate.ToUtcRetiredYear() && m.RetiredYear <= input.EndDate.ToUtcRetiredYear()
             : m.RetiredYear <= DateTime.UtcNow.Year).OrderBy(o => o.RetiredYear);
@@ -1695,12 +1621,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource(RetiredInputDto input)
+        public List<PersonGroupRetiredYearDataSourceModel> GetAllPersonnelGroupRetiredYearDataSource(RetiredInputDto input)
         {
             var personnel = _dcPersonRepository.GetAll().Where(m => input.StartDate != null && input.EndDate != null ?
                         m.RetiredDate >= input.StartDate.ToUtcDateTime() && m.RetiredDate <= input.EndDate.ToUtcDateTime() &&
                         m.RetiredYear >= input.StartDate.ToUtcRetiredYear() && m.RetiredYear <= input.EndDate.ToUtcRetiredYear()
-                        : m.RetiredYear <= DateTime.UtcNow.Year).OrderBy(o => o.RetiredYear);
+                        : m.RetiredYear <= DateTime.UtcNow.Year)
+                .Where(m => !string.IsNullOrEmpty(input.RetiredYear) ? m.RetiredYear == Int32.Parse(input.RetiredYear) - 543 : true).OrderBy(o => o.RetiredYear);
 
             var distinctretiredYear = personnel.Select(s => s.RetiredYear).Distinct();
             var datatableList = new List<PersonGroupRetiredYearDataSourceModel>();
@@ -1708,7 +1635,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
             {
 
                 var personnelType = personnel.Where(m => m.RetiredYear == ry);
-                var distinctPersonnelType = personnelType.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
+                var distinctPersonnelType = personnelType.Where(m => !string.IsNullOrEmpty(input.PersonnelType) ? m.PersonnelType == input.PersonnelType : true)
+                    .Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var dataList = new List<PersonGroupRetiredYearDataSource>();
                 foreach (var p in distinctPersonnelType)
                 {
@@ -1767,9 +1695,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return datatableList;
         }
 
-        public object GetAllPersonGroupPositionLevel(int type)
+        public object GetAllPersonnelGroupPositionLevel(int type)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน").OrderBy(o => o.PersonnelId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน").OrderBy(o => o.PersonnelTypeId);
             if (type == 1)
             {
 
@@ -1780,7 +1708,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 foreach (var pl in distinctPositionLevel)
                 {
                     var data = new List<int>();
-                    var personnelTypeByPositionLevel = personnel.Where(m => m.PositionLevelId == pl.PositionLevelId && m.PositionLevel == pl.PositionLevel);
+                    var personnelTypeByPositionLevel = personnel.Where(m => m.PositionLevelId == pl.PositionLevelId && m.PositionLevel == pl.PositionLevel).OrderBy(o => o.PersonnelTypeId);
+                    var ad = personnelTypeByPositionLevel.Count();
                     var distinctPersonnelTypeByPositionLevel = personnelTypeByPositionLevel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
 
                     foreach (var pp in distinctPersonnelTypeByPositionLevel)
@@ -1815,7 +1744,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 foreach (var pt in distinctPersonnelType)
                 {
 
-                    var positionLevelByPersonnelType = personnel.Where(m => m.PersonnelTypeId == pt.PersonnelTypeId && m.PersonnelType == pt.PersonnelType);
+                    var positionLevelByPersonnelType = personnel.Where(m => m.PersonnelTypeId == pt.PersonnelTypeId && m.PersonnelType == pt.PersonnelType).OrderBy(o => o.PersonnelTypeId);
                     var distinctPositionLevelByPersonnelType = positionLevelByPersonnelType.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
                     var dataList = new List<PersonGroupPositionLevelDataTable>();
                     foreach (var pp in distinctPositionLevelByPersonnelType)
@@ -1843,16 +1772,17 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource()
+        public List<PersonGroupPositionLevelDataSourceModel> GetAllPersonnelGroupPositionLevelDataSource(string personnelType, string positionLevel)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน").OrderBy(o => o.PersonnelId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน")
+                .Where(m => !string.IsNullOrEmpty(personnelType) ? m.PersonnelType == personnelType : true).OrderBy(o => o.PersonnelTypeId);
             var distinctPersonnelType = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
             var datatableList = new List<PersonGroupPositionLevelDataSourceModel>();
             foreach (var pt in distinctPersonnelType)
             {
 
                 var positionLevelByPersonnelType = personnel.Where(m => m.PersonnelTypeId == pt.PersonnelTypeId && m.PersonnelType == pt.PersonnelType);
-                var distinctPositionLevelByPersonnelType = positionLevelByPersonnelType.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
+                var distinctPositionLevelByPersonnelType = positionLevelByPersonnelType.Where(m => !string.IsNullOrEmpty(positionLevel) ? m.PositionLevel == positionLevel : true).Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
                 var dataList = new List<PersonGroupPositionLevelDataSource>();
                 foreach (var pp in distinctPositionLevelByPersonnelType)
                 {
@@ -1917,7 +1847,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var personnel = _dcPersonRepository.GetAll();
 
             var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
-            
+
             if (type == 1)
             {
                 var label = new List<string>();
@@ -2088,7 +2018,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        public List<PersonnelGenderDataTableViewModel> GetAllPersonGender(int type)
+        public List<PersonnelGenderDataTableViewModel> GetAllPersonnelGender(int type)
         {
             var personnel = _dcPersonRepository.GetAll();
             var distinctPersonGender = personnel.Select(s =>
@@ -2142,7 +2072,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return result;
         }
 
-        public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSource()
+        public List<PersonnelGenderDataSourceViewModel> GetAllPersonnelGenderDataSource()
         {
             var personnel = _dcPersonRepository.GetAll();
             var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o => o.GenderId);
@@ -2326,7 +2256,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
             return result;
         }
-        public List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender, string genderName)
+        public List<PersonnelGenderDataSourceViewModel> GetAllPersonnelGenderDataSourceByType(int type, int gender, string genderName)
         {
             var personnel = _dcPersonRepository.GetAll().Where(s => s.GenderId == gender);
             var distinctPersonGender = personnel.Select(s => new { s.Gender, s.GenderId }).Distinct().OrderBy(o => o.GenderId);

@@ -23,13 +23,13 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{type}")]
         public object Get(int type)
         {
-            return _personnelService.GetAllPersonGroupAdminPositionType(type);
+            return _personnelService.GetAllPersonnelGroupAdminPositionType(type);
         }
 
         [HttpGet("DataSource")]
-        public object Get()
+        public object Get(string adminPositionType, string personnelType)
         {
-            return _personnelService.GetAllPersonGroupAdminPositionTypeDataSource();
+            return _personnelService.GetAllPersonnelGroupAdminPositionTypeDataSource(adminPositionType, personnelType);
         }
 
 

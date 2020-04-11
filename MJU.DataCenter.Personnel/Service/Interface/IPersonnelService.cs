@@ -13,59 +13,55 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelGroup(int type);
 
-        List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource();
+        List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource(string type);
 
         object GetAllPersonnelPosition(int type);
 
-        List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource();
+        List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource(string type);
 
         object GetAllPersonnelEducation(int type);
 
-        List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource();
+        List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource(string type);
 
         object GetAllPersonnelPositionGeneration(int type);
 
         List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource();
 
-        object GetAllPersonRetired(int total,int type);
+        object GetAllPersonnelRetired(int total,int type);
 
         List<RetiredPersonDataTableModel> GetDataTablePersonRetired(string year, int type);
 
-        List<PersonnelGenderDataTableViewModel> GetAllPersonGender(int type);
-
-        List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSource();
-
         object GetAllPersonnelGroupWorkDuration(int type);
 
-        List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource();
+        List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource(string personType, int? index);
 
-        List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, string personGroupTypeId, int type);
+        object GetAllPersonnelGroupAdminPositionType(int type);
 
-        object GetAllPersonGroupAdminPositionType(int type);
+        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonnelGroupAdminPositionTypeDataSource(string adminPositionType, string personnelType);
 
-        List<PersonGroupAdminPositionDataSourceModel> GetAllPersonGroupAdminPositionTypeDataSource();
+        object GetAllPersonnelGroupFaculty(int type);
 
-        object GetAllPersonGroupFaculty(int type);
+        List<PersonGroupFacultyDataSourceModel> GetAllPersonnelGroupFacultyDataSource(string faculty, string personnelType);
 
-        List<PersonGroupFacultyDataSourceModel> GetAllPersonGroupFacultyDataSource();
+        object GetAllPersonnelPositionFaculty(int type);
 
-        object GetAllPersonPositionFaculty(int type);
+        public List<PersonPositionFacultyDataSourceModel> GetAllPersonnelPositionFacultyDataSource(string faculty, string position);
 
-        public List<PersonPositionFacultyDataSourceModel> GetAllPersonPositionFacultyDataSource();
+        object GetAllPersonnelGroupRetiredYear(RetiredGraphInputDto input);
 
-        object GetAllPersonGroupRetiredYear(RetiredGraphInputDto input);
+        List<PersonGroupRetiredYearDataSourceModel> GetAllPersonnelGroupRetiredYearDataSource(RetiredInputDto input);
 
-        List<PersonGroupRetiredYearDataSourceModel> GetAllPersonGroupRetiredYearDataSource(RetiredInputDto input);
-
-        object GetAllPersonGroupPositionLevel(int type);
+        object GetAllPersonnelGroupPositionLevel(int type);
 
         object GetAllPersonnelPositionEducation(int type);
 
         List<PersonPostionEducationDataSourceModel> GetAllPersonnelPositionEducationDataSource();
 
+        List<PersonGroupPositionLevelDataSourceModel> GetAllPersonnelGroupPositionLevelDataSource(string personnelType, string positionLevel);
+        List<PersonnelGenderDataSourceViewModel> GetAllPersonnelGenderDataSourceByType(int type, int gender, string genderName);
 
-        List<PersonGroupPositionLevelDataSourceModel> GetAllPersonGroupPositionLevelDataSource();
-        List<PersonnelGenderDataSourceViewModel> GetAllPersonGenderDataSourceByType(int type, int gender, string genderName);
+        List<PersonnelGenderDataTableViewModel> GetAllPersonnelGender(int type);
+        List<PersonnelGenderDataSourceViewModel> GetAllPersonnelGenderDataSource();
 
     }
 }
