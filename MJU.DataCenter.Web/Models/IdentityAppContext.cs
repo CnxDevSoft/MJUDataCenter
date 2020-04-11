@@ -9,7 +9,7 @@ namespace MJU.DataCenter.Web.Models
 {
     public class IdentityAppContext : IdentityDbContext<AppUser, AppRole, int>
     {
-        public IdentityAppContext(DbContextOptions<IdentityAppContext> options) 
+        public IdentityAppContext(DbContextOptions<IdentityAppContext> options)
             : base(options)
         {
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,11 +9,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MJU.DataCenter.Web.Models;
+using MJU.DataCenter.Web.Repository;
+using MJU.DataCenter.Web.Repository.Interface;
+using MJU.DataCenter.Web.Services;
+using MJU.DataCenter.Web.Services.Interface;
 
 namespace MJU.DataCenter.Web
 {
@@ -42,17 +48,27 @@ namespace MJU.DataCenter.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
             services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
             })
-                .AddEntityFrameworkStores<IdentityAppContext>()
-             .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<IdentityAppContext>()
+            .AddDefaultTokenProviders();
 
             services.AddDbContext<IdentityAppContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddDbContext<DataCenterContext>(cfg =>
+            {
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddScoped<IUserDepartmentRoleRepository, UserDepartmentRoleRepository>();
+            services.AddTransient<IUserDepartmentRoleService, UserDepartmentRoleService>();
+
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -89,7 +105,12 @@ namespace MJU.DataCenter.Web
           //  services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddMvc(options =>
+            {
+                options.InputFormatters.Add(new TextPlainInputFormatter());
+            });
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -121,6 +142,36 @@ namespace MJU.DataCenter.Web
             });
 
         
+        }
+    }
+
+    public class TextPlainInputFormatter : TextInputFormatter
+    {
+        public TextPlainInputFormatter()
+        {
+            SupportedMediaTypes.Add("text/plain");
+            SupportedEncodings.Add(UTF8EncodingWithoutBOM);
+            SupportedEncodings.Add(UTF16EncodingLittleEndian);
+        }
+
+        protected override bool CanReadType(Type type)
+        {
+            return type == typeof(string);
+        }
+
+        public override async Task<InputFormatterResult> ReadRequestBodyAsync(
+            InputFormatterContext context,
+            Encoding encoding)
+        {
+            string data = null;
+            using (var streamReader = context.ReaderFactory(
+                context.HttpContext.Request.Body,
+                encoding))
+            {
+                data = await streamReader.ReadToEndAsync();
+            }
+
+            return InputFormatterResult.Success(data);
         }
     }
 }

@@ -43,7 +43,8 @@ namespace MJU.DataCenter.Web.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(nullable: true),
+                    AccessToken = table.Column<Guid>(nullable: true),
                 },
                 constraints: table =>
                 {
