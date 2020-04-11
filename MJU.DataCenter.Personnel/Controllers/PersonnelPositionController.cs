@@ -22,15 +22,21 @@ namespace MJU.DataCenter.Personnel.Controllers
             _personnelService = personnelService;
         }
        
-        [HttpGet("{type}")]
-        public object Get(int type)
+        [HttpGet("{type}/{token}/{userName}")]
+        public object Get(int type, string token, string userName)
         {
-
-           var result = AuthenticationApi.Authenticated("C8F28971-CA16-48CF-AAEB-FEB79A027695", "office@office.com");
-            
-           return _personnelService.GetAllPersonnelPosition(type);
-            
-            //return result;
+            var result = AuthenticationApi.Authenticated(token, userName);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x=>x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                        DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                } 
+                return _personnelService.GetAllPersonnelPosition(type, filter);
+            }
+            return null;
         }
 
         [HttpGet("DataSource")]

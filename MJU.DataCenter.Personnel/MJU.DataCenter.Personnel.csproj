@@ -39,4 +39,7 @@
     <Folder Include="Repository\Common\" />
     <Folder Include="Repository\Repositories\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MJU.DataCenter.Core\MJU.DataCenter.Core.csproj" />
+  </ItemGroup>
 </Project>

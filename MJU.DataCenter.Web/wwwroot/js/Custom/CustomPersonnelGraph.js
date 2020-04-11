@@ -215,8 +215,8 @@ async function PersonEducationGraph() {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonTypeGraph() {
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/1?api-version=1.0')
+async function PersonTypeGraph(token,userName) {
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/1/' + token + '/' + userName +'?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personType-chart').get(0).getContext('2d')
@@ -353,7 +353,7 @@ async function PersonWorkAgeGraph() {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonPositionGraph() {
+async function PersonPositionGraph(token,userName) {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -361,7 +361,7 @@ async function PersonPositionGraph() {
     }
     var mode = 'index'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/1?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/1/?api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personPosition-chart')
