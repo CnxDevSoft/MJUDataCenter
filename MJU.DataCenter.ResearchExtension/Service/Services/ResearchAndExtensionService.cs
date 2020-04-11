@@ -132,7 +132,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchDepartment = _dcResearchDepartmentRepository.GetAll().ToList();
+            var researchDepartment = _dcResearchDepartmentRepository.GetAll().Where(m=> !string.IsNullOrEmpty(input.Type) ? m.DepartmentNameTh == input.Type : true).ToList();
             var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh }).Distinct().OrderBy(o => o.DepartmentId);
 
             var researchDepartmentWithDate = researchDepartment.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
@@ -152,31 +152,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         }
 
-        public List<ResearchDepartmentDataSourceModel> GetResearchDepartmentDataSourceTable(InputFilterDataSourceViewModel input,int? departmentId,string departmentName)
-        {
-            var startDate = input.StartDate.ToUtcDateTime();
-            var endDate = input.EndDate.ToUtcDateTime();
-            var researchDepartment = departmentId == null && string.IsNullOrEmpty(departmentName) ?
-                _dcResearchDepartmentRepository.GetAll().ToList() :
-                _dcResearchDepartmentRepository.GetAll().Where(s=>s.DepartmentId == departmentId && s.DepartmentNameTh == departmentName).ToList();
-            var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh }).Distinct().OrderBy(o => o.DepartmentId);
-
-            var researchDepartmentWithDate = researchDepartment.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
-            (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true).ToList();
-            var list = new List<ResearchDepartmentDataSourceModel>();
-            foreach (var rd in distinctResearchDepartment)
-            {
-                var model = new ResearchDepartmentDataSourceModel
-                {
-                    DepartmentId = rd.DepartmentId,
-                    DepartmentName = rd.DepartmentNameTh,
-                    ResearchData = researchDepartment.Where(m => m.DepartmentId == rd.DepartmentId && m.DepartmentNameTh == rd.DepartmentNameTh).ToList()
-                };
-                list.Add(model);
-            }
-            return list;
-
-        }
+      
 
         public List<ResearchDepartmentDataSourceModel> GetAllResearchDepartmentDataSourceTable(InputFilterDataSourceViewModel input, int type)
         {
@@ -300,7 +276,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchGroup = _dcResearchGroupRepository.GetAll().ToList();
+            var researchGroup = _dcResearchGroupRepository.GetAll().Where(s=> !string.IsNullOrEmpty(input.Type) ? s.PersonGroupName ==input.Type : true).ToList();
             var distinctResearchGroup = researchGroup.Select(m => new { m.PersonGroupId, m.PersonGroupName }).Distinct().OrderBy(o => o.PersonGroupId);
 
             var researchGroupWithDate = researchGroup.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
@@ -444,7 +420,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchData = _dcResearchDataRepository.GetAll().ToList();
+            var researchData = _dcResearchDataRepository.GetAll().Where(s => !string.IsNullOrEmpty(input.Type) ? s.MoneyTypeName == input.Type : true).ToList();
             var distinctResearchData = researchData.Select(m => new { m.ResearchMoneyTypeId, m.MoneyTypeName }).Distinct().OrderBy(o => o.ResearchMoneyTypeId);
 
             var researchDateWithDate = researchData.Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
@@ -748,7 +724,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         }
 
-        public List<RankResearchRageMoneyDataSourceModel> GetResearchMoneyDataSourceTable(InputFilterDataSourceViewModel input,int? type)
+        public List<RankResearchRageMoneyDataSourceModel> GetResearchMoneyDataSourceTable(InputFilterDataSourceViewModel input,string type)
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
@@ -758,7 +734,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var result = new List<RankResearchRageMoneyDataSourceModel>();
             if (type != null)
             {
-                if (type == 0)
+                if (type == "ตํ่ากว่า 100,000")
                 {
                     var Lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).Select(s => new DataModelReserachMoney
                     {
@@ -781,7 +757,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     result.Add(modelLower100k);
                     return result;
                 }
-                if (type == 1)
+                if (type == "100,001 - 500,000")
                 {
                     var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).Select(s => new DataModelReserachMoney
                     {
@@ -805,7 +781,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     return result;
                 }
 
-                if (type == 2)
+                if (type == "500,001 - 1,000,000")
                 {
                     var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).Select(s => new DataModelReserachMoney
                     {
@@ -828,7 +804,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     result.Add(modelbetween500kTo1m);
                     return result;
                 }
-                if (type == 3)
+                if (type == "1,000,001 - 5,000,000")
                 {
                     var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).Select(s => new DataModelReserachMoney
                     {
@@ -852,7 +828,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     return result;
 
                 }
-                if (type == 4)
+                if (type == "5,000,001 - 10,000,000")
                 {
                     var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).Select(s => new DataModelReserachMoney
                     {
@@ -875,7 +851,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     result.Add(modelbetween5mTo10m);
                     return result;
                 }
-                if (type == 5)
+                if (type == "10,000,001 - 20,000,000")
                 {
                     var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).Select(s => new DataModelReserachMoney
                     {
@@ -899,7 +875,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     return result;
 
                 }
-                if (type == 6)
+                if (type == "20,000,000 ขึ้นไป")
                 {
                     var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000).Select(s => new DataModelReserachMoney
                     {

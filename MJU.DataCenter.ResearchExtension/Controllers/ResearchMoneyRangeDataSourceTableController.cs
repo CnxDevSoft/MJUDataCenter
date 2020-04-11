@@ -23,7 +23,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         }
 
         [HttpGet("GetDataSourceTable")]
-        public List<RankResearchRageMoneyDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input,int? type)
+        public List<RankResearchRageMoneyDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input,string type)
         {
             return _researchAndExtensionService.GetResearchMoneyDataSourceTable(input, type);
         }

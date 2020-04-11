@@ -19,13 +19,11 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input);
         ResearcherDetailModel GetResearcherDetail(int researcherId);
 
-        List<ResearchDepartmentDataSourceModel> GetResearchDepartmentDataSourceTable(InputFilterDataSourceViewModel input, int? departmentId, string departmentName);
-
         List<ResearchDepartmentDataSourceModel> GetAllResearchDepartmentDataSourceTable(InputFilterDataSourceViewModel input, int type);
 
         List<ResearchGroupDataSourceModel> GetResearchGroupDataSourceTable(InputFilterDataSourceViewModel input, int? personGroupId, string personGroupName);
 
-        List<RankResearchRageMoneyDataSourceModel> GetResearchMoneyDataSourceTable(InputFilterDataSourceViewModel input, int? type);
+        List<RankResearchRageMoneyDataSourceModel> GetResearchMoneyDataSourceTable(InputFilterDataSourceViewModel input, string type);
 
         List<ResearchDataDataSourceModel> GetResearchMoneyTypeDataSourceTable(InputFilterDataSourceViewModel input, int? researchMoneyTypeId, string moneyTypeName);
 

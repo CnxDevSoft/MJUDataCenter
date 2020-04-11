@@ -227,7 +227,7 @@ function genderClick(genderId, genderName, generationType) {
         .then(res => res.json())
         .then((data) => {
 
-            console.log("test111", data[0].personGenderGeneration[0].person);
+            /*console.log("test111", data[0].personGenderGeneration[0].person);
             $("#personGenderSection").empty();
             $("#personGenderLabel").empty();
             $("#personGenderLabel").text(data[0].gender);
@@ -236,7 +236,7 @@ function genderClick(genderId, genderName, generationType) {
 
             $.each(data[0].personGenderGeneration[0].person, function (key, value) {
                 $("#personGenderSection").append('<tr><td>TH: ' + value.personName + ' </td>'/*<td>' +
-                    RenderReseacherName(value.researcher) + '</td>*/+ '<td>' + value.position + '</td></tr > ')
+                    RenderReseacherName(value.researcher) + '</td>+ '<td>' + value.position + '</td></tr > ')
 
             });
             $('#personGenderModal').modal('show');
@@ -246,7 +246,61 @@ function genderClick(genderId, genderName, generationType) {
                 language: {
                     sLengthMenu: "Show _MENU_"
                 }
+            });*/
+            $('#researcherGenderDrillDownGraphDataSourceModal-card-body').empty();
+            console.log("ไอ่สัสออกมาดิ", data);
+            $.each(data, function (key, result) {
+
+                var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researcherGenderDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researcherGenderDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.gender + '</b></a>'
+                var labelEmty = $("#researcherGenderDrillDownGraphDataSourceLabel").empty();
+                var label = $("#researcherGenderDrillDownGraphDataSourceLabel").text(data[0].gender + data[0].personGenderGeneration[0].generetion);
+                $('#researcherGenderDrillDownGraphDataSourceModal-card-body').append(link)
+                var startRow = '<div class="collapse multi-collapse" id="researcherGenderDrillDownGraphDSCollapse' + key + '">';
+                var table = $('#dataTable').DataTable();
+                table.clear().destroy();
+
+                var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researcherGenderDrillDown" id="dataTableResearcherGenderDrillDown' + key + '">';
+
+                var startThead = '<thead id="sub-researcherGenderDrillDownGraphDataSource-thead">';
+                var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+                var endThead = '</thead>';
+
+                var startBody = '<tbody id="sub-researcherGenderDrillDownGraphDataSource-tbody">';
+                $.each(result.personGenderGeneration[0].person, function (key, item) {
+                    startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                        '<td>' + item.dateOfBirth + '</td >' +
+                        '<td>' + item.position + '</td >' +
+                        '<td>' + item.division + '</td>' +
+
+                        '</tr >';
+
+                });
+                var endbody = '</tbody>';
+
+                var endTable = '</table>';
+                var endRow = '</div>';
+
+                var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+                    : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+                $('#researcherGenderDrillDownGraphDataSourceModal-card-body').append(html);
+
+                $('#researcherGenderDrillDownGraphDataSourceModal').modal('show');
+                $('#researcherGenderDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+                })
+
+                $('#dataTableResearcherGenderDrillDown' + key).DataTable({
+                    language: {
+                        sLengthMenu: "Show _MENU_"
+                    }
+                });
+
             });
+
+
         });
 }
 async function PersonEducationGraph() {
@@ -1660,3 +1714,6 @@ async function PsersonGroupDrillDown(type) {
 
 
 }
+
+//DrillAownGender
+

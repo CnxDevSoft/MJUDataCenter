@@ -123,11 +123,14 @@ async function ResearchDepartmentRender(data) {
     });
 
     $.each(tempData, function (key, item) {
-        $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+        $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="ResearchDepartmentTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
 
         //.....onclick even+any funtion
     });
+
+    /*$("#researchDepartmentGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+        + sumValue + '</a></td></tr>');*/
 
     ResearchDepartmentGraphDS();
 
@@ -273,7 +276,7 @@ async function ResearchPersonGroupRender(data) {
         tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
     });
     $.each(tempData, function (key, item) {
-        $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+        $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="ResearchGroupTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
     });
     ReseachPersonGroupGraphDS();
@@ -438,7 +441,7 @@ async function ResearchMoneyRangeRender(data) {
     });
 
     $.each(tempData, function (key, item) {
-        $('#' + chartName +'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a onClick="ResearchMoneyRangeDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
     });
 
@@ -598,7 +601,7 @@ async function ResearchMoneyTypeRender(data) {
     });
 
     $.each(tempData, function (key, item) {
-        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a  onClick="ResearchMoneyTypeDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
     });
 
@@ -669,3 +672,288 @@ async function Load() {
         pageLength: 5
     });
 }
+
+//drilldown department
+async function RenderResearchDepartmentDrillDownGraphDS(data) {
+
+    $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').empty();
+    console.log("ไอ่สัสออกมาดิ",data);
+    $.each(data, function (key, result) {
+
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.departmentName + '</b></a>'
+        var labelEmty = $("#researchDepartmentDrillDownGraphDataSourceLabel").empty();
+        var label = $("#researchDepartmentDrillDownGraphDataSourceLabel").text(data[0].departmentName);
+        $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="researchDepartmentDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataTable').DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchDepartmentDrillDown" id="dataTableResearchDepartmentDrillDown' + key + '">';
+       
+        var startThead = '<thead id="sub-researchDepartmentDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-researchDepartmentDrillDownGraphDataSource-tbody">';
+        $.each(result.researchData, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researcherName + '</a></td><td>' + item.departmentNameTh + '</td>' +
+                '<td>' + item.researchNameTh + '</td >' +
+                '<td>' + item.researchStartDate + '</td >' +
+                '<td>' + item.researchEndDate + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#researchDepartmentDrillDownGraphDataSourceModal').modal('show');
+        $('#researchDepartmentDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataTableResearchDepartmentDrillDown' + key).DataTable({
+            language: {
+                sLengthMenu: "Show _MENU_"
+            }
+        });
+
+    });
+}
+
+async function ResearchDepartmentTableDrillDown(type) {
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource?Type=' + type
+        + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource?api-version=1.0';
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderResearchDepartmentDrillDownGraphDS(data).then();
+        });
+
+}
+
+//drilldown researchGroup
+
+async function ResearchGroupTableDrillDown(type)
+{
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource?Type=' + type + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource?api-version=1.0';
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data)
+            console.log(url)
+            RenderResearchGroupTableDrillDown(data).then();
+        });
+}
+
+async function RenderResearchGroupTableDrillDown(data)
+{
+    $('#researchGroupDrillDownGraphDataSourceModal-card-body').empty();
+    console.log("ไอ่สัสออกมาดิ", data);
+    $.each(data, function (key, result) {
+
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchGroupDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchGroupDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
+        var labelEmty = $("#researchGroupmentDrillDownGraphDataSourceLabel").empty();
+        var label = $("#researchGroupDrillDownGraphDataSourceLabel").text(data[0].personGroupName);
+        $('#researchGroupDrillDownGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="researchDepartmentDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataTable').DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchGroupDrillDown" id="dataTableResearchGroupDrillDown' + key + '">';
+
+        var startThead = '<thead id="sub-researchGroupDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-researchGroupDrillDownGraphDataSource-tbody">';
+        $.each(result.researchData, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.personGroupName + '</td>' +
+                '<td>' + item.researcherName + '</td >' +
+                '<td>' + item.researchStartDate + '</td >' +
+                '<td>' + item.researchEndDate + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#researchGroupDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#researchGroupDrillDownGraphDataSourceModal').modal('show');
+        $('#researchGroupDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataTableResearchGroupDrillDown' + key).DataTable({
+            language: {
+                sLengthMenu: "Show _MENU_"
+            }
+        });
+
+    });
+
+}
+
+//drilldown researchMoneyRange
+
+async function RenderResearchMoneyRangeDrillDown(data) {
+
+    $('#researchMoneyRangeDrillDownGraphDataSourceModal-card-body').empty();
+    console.log("ไอ่สัสออกมาดิ", data);
+    $.each(data, function (key, result) {
+
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyRangeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyRangeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
+        var labelEmty = $("#researchMoneyRangeDrillDownGraphDataSourceLabel").empty();
+        var label = $("#researchMoneyRangeDrillDownGraphDataSourceLabel").text(data[0].researchRankMoneyName);
+        $('#researchMoneyRangeDrillDownGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="researchMoneyRangeDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataTable').DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyRangeDrillDown" id="dataTableResearchMoneyRangeDrillDown' + key + '">';
+
+        var startThead = '<thead id="sub-researchMoneyRangeDrillDownDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
+        $.each(result.dataResearchMoney, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
+                '<td>' + item.researchMoney + '</td >' +
+                '<td>' + item.researchStartDate + '</td >' +
+                '<td>' + item.researchEndDate + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#researchMoneyRangeDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#researchMoneyRangeDrillDownGraphDataSourceModal').modal('show');
+        $('#researchMoneyRangeDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataTableResearchMoneyRangeDrillDown' + key).DataTable({
+            language: {
+                sLengthMenu: "Show _MENU_"
+            }
+        });
+
+    });
+
+}
+
+async function ResearchMoneyRangeDrillDown(type) {
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable?Type=' + type + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable?api-version=1.0';
+
+    console.log(type);
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderResearchMoneyRangeDrillDown(data).then();
+        });
+}
+
+//drilldown researchMoneyType
+async function RenderResearchMoneyTypeDrillDown(data) {
+    $('#researchMoneyTypeDrillDownGraphDataSourceModal-card-body').empty();
+    console.log("เข้าไหม", data);
+    $.each(data, function (key, result) {
+
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyTypeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyTypeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
+        var labelEmty = $("#researchMoneyTypeDrillDownGraphDataSourceLabel").empty();
+        var label = $("#researchMoneyTypeDrillDownGraphDataSourceLabel").text(data[0].moneyTypeName);
+       
+        $('#researchMoneyTypeDrillDownGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="researchMoneyTypeDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataTable').DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyTypeDrillDown" id="dataTableResearchMoneyTypeNameDrillDown' + key + '">';
+
+        var startThead = '<thead id="sub-researchMoneyTypeDrillDownDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
+        $.each(result.researchData, function (key, item) {
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
+                '<td>' + item.researchMoney + '</td >' +
+                '<td>' + item.researchStartDate + '</td >' +
+                '<td>' + item.researchEndDate + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#researchMoneyTypeDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#researchMoneyTypeDrillDownGraphDataSourceModal').modal('show');
+        $('#researchMoneyTypeDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataTableResearchMoneyTypeNameDrillDown' + key).DataTable({
+            language: {
+                sLengthMenu: "Show _MENU_"
+            }
+        });
+
+    });
+}
+
+async function ResearchMoneyTypeDrillDown(type) {
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource?Type=' + type + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource?api-version=1.0';
+    console.log("test");
+    console.log(type);
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderResearchMoneyTypeDrillDown(data).then();
+        });
+}
+
+
+
+
+

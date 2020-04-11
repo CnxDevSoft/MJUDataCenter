@@ -2321,7 +2321,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     generation = "Gen X (เกิดปี 2508 - 2522)";
                     break;
                 case 2:
-                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01"));
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01") 
+                    && s.DateOfBirth <= DateTime.Parse("1997/12/31"));
                     generation = "Gen Y (เกิดปี 2523 - 2540)";
                     break;
                 case 3:
