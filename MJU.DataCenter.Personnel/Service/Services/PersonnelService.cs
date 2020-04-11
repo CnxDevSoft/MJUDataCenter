@@ -1013,10 +1013,10 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource()
+        public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource(string personType, int? index)
         {
 
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(personType) ? m.PersonnelType == personType:true).OrderBy(o => o.PersonnelTypeId);
 
             var distinctPersonnelTypeId = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
 
@@ -1097,78 +1097,18 @@ namespace MJU.DataCenter.Personnel.Service.Services
                            }
                     }
                 };
+                if (index != null) { 
+                    personGroup.PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataSource> 
+                    {
+                        personGroup.PersonGroupWorkDuration[index.Value]
+                    }; 
+                }
                 list.Add(personGroup);
             }
 
             return list;
 
 
-
-        }
-
-        public List<PersonnelDataSourceViewModel> GetAllPersonnelGroupWorkDurationDataSourceByType(string personGroupType, string personGroupTypeId, int type)
-        {
-
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PersonnelTypeId).Where(m => m.PersonnelType == personGroupType && m.PersonnelTypeId == personGroupTypeId);
-
-            switch (type)
-            {
-                case 0:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3);
-                    break;
-                case 1:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5);
-                    break;
-                case 2:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9);
-                    break;
-                case 3:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15);
-                    break;
-                case 4:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20);
-                    break;
-                case 5:
-                    personnel = personnel.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20);
-                    break;
-            }
-            var personData = personnel
-               .Select(s => new PersonnelDataSourceViewModel
-               {
-                   AdminPosition = s.AdminPosition,
-                   AdminPositionType = s.AdminPositionType,
-                   BloodType = s.BloodType,
-                   Country = s.Country,
-                   DateOfBirth = s.DateOfBirth,
-                   Division = s.Division,
-                   Education = s.Education,
-                   EducationLevel = s.EducationLevel,
-                   Faculty = s.Faculty,
-                   Gender = s.Gender,
-                   GraduateDate = s.GraduateDate,
-                   IdCard = s.IdCard,
-                   Major = s.Major,
-                   Nation = s.Nation,
-                   PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                   PersonnelId = s.PersonnelId,
-                   PersonnelType = s.PersonnelType,
-                   Position = s.Position,
-                   PositionLevel = s.PositionLevel,
-                   PositionType = s.PositionType,
-                   Province = s.Province,
-                   RetiredDate = s.RetiredDate,
-                   RetiredYear = s.RetiredYear,
-                   Salary = s.Salary,
-                   Section = s.Section,
-                   StartDate = s.StartDate,
-                   StartEducationDate = s.StartEducationDate,
-                   TitleEducation = s.TitleEducation,
-                   University = s.University,
-                   ZipCode = s.ZipCode
-
-               }).ToList();
-
-            return personData;
 
         }
 
@@ -1687,7 +1627,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         m.RetiredDate >= input.StartDate.ToUtcDateTime() && m.RetiredDate <= input.EndDate.ToUtcDateTime() &&
                         m.RetiredYear >= input.StartDate.ToUtcRetiredYear() && m.RetiredYear <= input.EndDate.ToUtcRetiredYear()
                         : m.RetiredYear <= DateTime.UtcNow.Year)
-                .Where(m => !string.IsNullOrEmpty(input.RetiredYear) ? m.RetiredYear == Int32.Parse(input.RetiredYear)-543 : true).OrderBy(o => o.RetiredYear);
+                .Where(m => !string.IsNullOrEmpty(input.RetiredYear) ? m.RetiredYear == Int32.Parse(input.RetiredYear) - 543 : true).OrderBy(o => o.RetiredYear);
 
             var distinctretiredYear = personnel.Select(s => s.RetiredYear).Distinct();
             var datatableList = new List<PersonGroupRetiredYearDataSourceModel>();
@@ -1695,7 +1635,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             {
 
                 var personnelType = personnel.Where(m => m.RetiredYear == ry);
-                var distinctPersonnelType = personnelType.Where(m=> !string.IsNullOrEmpty(input.PersonnelType) ? m.PersonnelType == input.PersonnelType : true)
+                var distinctPersonnelType = personnelType.Where(m => !string.IsNullOrEmpty(input.PersonnelType) ? m.PersonnelType == input.PersonnelType : true)
                     .Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var dataList = new List<PersonGroupRetiredYearDataSource>();
                 foreach (var p in distinctPersonnelType)
