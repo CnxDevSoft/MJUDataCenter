@@ -7,14 +7,14 @@ namespace MJU.DataCenter.Personnel.ViewModels
 {
     public class PersonPostionDataTableModel
     {
-        public string PersonPosionTypeId { get; set; }
-        public string PersonPosionTypeName { get; set; }
+        public string PersonPositionTypeId { get; set; }
+        public string PersonPositionTypeName { get; set; }
         public int Person { get; set; }
     }
     public class PersonPostionDataSourceModel
     {
-        public string PersonPosionTypeId { get; set; }
-        public string PersonPosionTypeName { get; set; }
+        public string PersonPositionTypeId { get; set; }
+        public string PersonPositionTypeName { get; set; }
         public List<PersonnelDataSourceViewModel> Person { get; set; }
     }
 }

@@ -10,6 +10,8 @@ namespace MJU.DataCenter.Personnel.ViewModels.dtos
     {
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public string RetiredYear { get; set; }
+        public string PersonnelType { get; set; }
     }
 
     public class RetiredGraphInputDto

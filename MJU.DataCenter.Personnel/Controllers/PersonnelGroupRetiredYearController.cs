@@ -24,13 +24,13 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("")]
         public object Get([FromQuery]RetiredGraphInputDto input)
         {
-            return _personnelService.GetAllPersonGroupRetiredYear(input);
+            return _personnelService.GetAllPersonnelGroupRetiredYear(input);
         }
 
         [HttpGet("DataSource")]
         public object Get([FromQuery]RetiredInputDto input)
         {
-            return _personnelService.GetAllPersonGroupRetiredYearDataSource(input);
+            return _personnelService.GetAllPersonnelGroupRetiredYearDataSource(input);
         }
 
 
