@@ -109,6 +109,9 @@ namespace MJU.DataCenter.Web
             {
                 options.InputFormatters.Add(new TextPlainInputFormatter());
             });
+
+
+
         }
 
 

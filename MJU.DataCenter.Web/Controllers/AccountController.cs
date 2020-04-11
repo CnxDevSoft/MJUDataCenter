@@ -30,7 +30,7 @@ namespace MJU.DataCenter.Web.Controllers
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             //  IEmailSender emailSender,
-         // 
+            // 
             ILogger<AccountController> logger,
             IUserDepartmentRoleService userDepartmentService)
         {
@@ -102,7 +102,7 @@ namespace MJU.DataCenter.Web.Controllers
             if (token == null) return BadRequest(new LoginApiModel
             {
                 IsSuccess = false,
-                Description = "Token is not valid"           
+                Description = "Token is not valid"
             });
 
             // This doesn't count login failures towards account lockout
@@ -112,9 +112,9 @@ namespace MJU.DataCenter.Web.Controllers
             {
                 _logger.LogInformation("User logged in.");
                 var user = await _userManager.FindByNameAsync(userName);
-                if(user != null)
+                if (user != null)
                 {
-                    if(Guid.Parse(token) == user.AccessToken)
+                    if (Guid.Parse(token) == user.AccessToken)
                     {
                         var data = _userDepartmentService.GetById(user.Id);
                         //find user role with token
@@ -130,6 +130,54 @@ namespace MJU.DataCenter.Web.Controllers
             }
             return BadRequest(model);
         }
+        
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AuthenticatedToken(string token, string userName)
+        {
+            var model = new LoginApiModel
+            {
+                IsSuccess = false
+            };
+
+            if (token == null) return BadRequest(new LoginApiModel
+            {
+                IsSuccess = false,
+                Description = "Token is not valid"
+            });
+
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user != null)
+            {
+                if (Guid.Parse(token) == user.AccessToken)
+                {
+                    var data = _userDepartmentService.GetById(user.Id);
+                    //find user role with token
+                    model = new LoginApiModel
+                    {
+                        IsSuccess = true,
+                        AccessToken = token,
+                        DepartmentRoleList = data.Select(x => x.DepartmentRole).ToList()
+                    };
+                    return Ok(model);
+                }
+            }
+
+            return BadRequest(model);
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Test()
+        {
+            var user = await _userManager.FindByNameAsync("general@general.com");
+
+            return Ok("test");
+        }
+
+
+
 
         //[HttpGet]
         //[AllowAnonymous]

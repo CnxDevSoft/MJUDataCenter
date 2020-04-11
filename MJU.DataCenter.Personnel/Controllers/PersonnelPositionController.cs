@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,7 +25,12 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{type}")]
         public object Get(int type)
         {
-            return _personnelService.GetAllPersonnelPosition(type);
+
+           var result = AuthenticationApi.Authenticated("C8F28971-CA16-48CF-AAEB-FEB79A027695", "office@office.com");
+            
+           return _personnelService.GetAllPersonnelPosition(type);
+            
+            //return result;
         }
 
         [HttpGet("DataSource")]
