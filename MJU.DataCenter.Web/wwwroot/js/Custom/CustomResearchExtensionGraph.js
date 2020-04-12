@@ -121,13 +121,15 @@ async function ResearchDepartmentRender(data) {
     $.each(data.label, function (key, title) {
         tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
     });
-
+    var sumValue = 0;
     $.each(tempData, function (key, item) {
         $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="ResearchDepartmentTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
-
+        sumValue += item.val;
         //.....onclick even+any funtion
     });
+    $("#researchDepartmentGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+        + sumValue + '</a></td></tr>');
 
     /*$("#researchDepartmentGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');*/
@@ -155,15 +157,13 @@ async function RenderResearchDepartmentGraphDS(data) {
         var startRow = '<div class="collapse multi-collapse" id="researchDepartmentGraphDSCollapse' + key + '">';
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-' + key + '-table">';
         var startThead = '<thead id="sub-researchDepartmentGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่องานวิจัย</th><th>ชื่อนักวิจัย</th><th>หน่วยงาน</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-researchDepartmentGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
                 '</a></td><td>' + item.researcherName + '</td>' +
-                '<td>' + item.departmentNameTh + '</td >' +
-                '<td>' + moment(item.researchStartDate).format("DD/MM/YYYY") + '</td >' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
                 '</tr >';
         });
@@ -275,10 +275,14 @@ async function ResearchPersonGroupRender(data) {
     $.each(data.label, function (key, title) {
         tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
     });
+    var sumValue = 0;
     $.each(tempData, function (key, item) {
         $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="ResearchGroupTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
+        sumValue += item.val;
     });
+    $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchGroupTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+        + sumValue + '</a></td></tr>');
     ReseachPersonGroupGraphDS();
     $('[data-toggle="tooltip"]').tooltip();
 }
@@ -299,14 +303,12 @@ async function RenderReseachPersonGroupGraphDS(data) {
         var startRow = '<div class="collapse multi-collapse" id="researchPersonGroupGraphDSCollapse' + key + '">';
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchPersonGroup" id="sub-researchPersonGroup-' + key + '-table">';
         var startThead = '<thead id="sub-researchPersonGroupGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-researchPersonGroupGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
                 '</a></td><td>' + item.researcherName + '</td>' +
-                '<td>' + item.departmentNameTh + '</td >' +
-                '<td>' + moment(item.researchStartDate).format("DD/MM/YYYY") + '</td >' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
                 '</tr >';
         });
@@ -439,12 +441,14 @@ async function ResearchMoneyRangeRender(data) {
     $.each(data.label, function (key, title) {
         tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
     });
-
+    var sumValue = 0;
     $.each(tempData, function (key, item) {
         $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a onClick="ResearchMoneyRangeDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
+        sumValue += item.val;
     });
-
+    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td> รวม </td><td><a onClick="ResearchMoneyRangeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+        + sumValue + '</a></td></tr>');
     ResearchMoneyRangeGraphDS();
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -469,15 +473,13 @@ async function RenderResearchMoneyRangeGraphDS(data) {
         var startRow = '<div class="collapse multi-collapse" id="' + chartName +'GraphDSCollapse' + key + '">';
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-' + chartName + '" id="sub-' + chartName +'-' + key + '-table">';
         var startThead = '<thead id="sub-' + chartName +'GraphDataSource-thead">';
-        var thead = '<tr><th>งานวิจัย</th><th>ชื่อผู้จัดทำ</th><th>งบประมาณ</th><th>วันที่เริ่ม</th><th>วันที่สิ้นสุด</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>จำนวนเงิน</th></tr>';
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName +'GraphDataSource-tbody">';
         $.each(result.dataResearchMoney, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
                 '</a></td><td>' + item.researcherName + '</td>' +
                 '<td>' + item.researchMoney + '</td >' +
-                '<td>' + moment(item.researchStartDate).format("DD/MM/YYYY") + '</td >' +
-                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
                 '</tr >';
         });
         var endbody = '</tbody>';
@@ -599,12 +601,14 @@ async function ResearchMoneyTypeRender(data) {
     $.each(data.label, function (key, title) {
         tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
     });
-
+    var sumValue = 0;
     $.each(tempData, function (key, item) {
         $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a  onClick="ResearchMoneyTypeDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
+        sumValue += item.val;
     });
-
+    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td> รวม </td><td><a onClick="ResearchMoneyTypeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+        + sumValue + '</a></td></tr>');
     ResearchMoneyTypeGraphDS();
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -629,15 +633,14 @@ async function RenderResearchMoneyTypeGraphDS(data) {
         var startRow = '<div class="collapse multi-collapse" id="' + chartName + 'GraphDSCollapse' + key + '">';
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-' + chartName + '" id="sub-' + chartName + '-' + key + '-table">';
         var startThead = '<thead id="sub-' + chartName + 'GraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>จำนวนเงิน</th></tr>';
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
                 '</a></td><td>' + item.researcherName + '</td>' +
-                '<td>' + item.departmentNameTh + '</td >' +
-                '<td>' + moment(item.researchStartDate).format("DD/MM/YYYY") + '</td >' +
-                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+                '<td>' + item.researchMoney + '</td >' +
+
                 '</tr >';
         });
         var endbody = '</tbody>';
@@ -677,13 +680,19 @@ async function Load() {
 async function RenderResearchDepartmentDrillDownGraphDS(data) {
 
     $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').empty();
-    console.log("ไอ่สัสออกมาดิ",data);
+    $('#researchDepartmentDrillDownGraphDataSourceLabel').empty()
+    $('#researchDepartmentDrillDownGraphDataSourceLabel').append("ประเภทหน่วยงาน")
+
     $.each(data, function (key, result) {
 
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.departmentName + '</b></a>'
-        var labelEmty = $("#researchDepartmentDrillDownGraphDataSourceLabel").empty();
-        var label = $("#researchDepartmentDrillDownGraphDataSourceLabel").text(data[0].departmentName);
-        $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').append(link)
+        if (data.length>1) {
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.departmentName + '</b></a>'
+            $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').append(link)
+        } else
+        {
+            $('#researchDepartmentDrillDownGraphDataSourceLabel').empty()
+            $('#researchDepartmentDrillDownGraphDataSourceLabel').append(result.departmentName)
+        }
         var startRow = '<div class="collapse multi-collapse" id="researchDepartmentDrillDownGraphDSCollapse' + key + '">';
         var table = $('#dataTable').DataTable();
         table.clear().destroy();
@@ -691,15 +700,13 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchDepartmentDrillDown" id="dataTableResearchDepartmentDrillDown' + key + '">';
        
         var startThead = '<thead id="sub-researchDepartmentDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
 
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-researchDepartmentDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researcherName + '</a></td><td>' + item.departmentNameTh + '</td>' +
-                '<td>' + item.researchNameTh + '</td >' +
-                '<td>' + item.researchStartDate + '</td >' +
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
                 '<td>' + item.researchEndDate + '</td>' +
 
                 '</tr >';
@@ -710,7 +717,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
         var endTable = '</table>';
         var endRow = '</div>';
 
-        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
             : startTable + startThead + thead + endThead + startBody + endbody + endTable;
 
 
@@ -758,32 +765,35 @@ async function ResearchGroupTableDrillDown(type)
 
 async function RenderResearchGroupTableDrillDown(data)
 {
+
     $('#researchGroupDrillDownGraphDataSourceModal-card-body').empty();
-    console.log("ไอ่สัสออกมาดิ", data);
+    $('#researchGroupDrillDownGraphDataSourceLabel').empty()
+    $('#researchGroupDrillDownGraphDataSourceLabel').append("รายชื่อกลุ่มบุคลากร")
     $.each(data, function (key, result) {
 
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchGroupDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchGroupDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
-        var labelEmty = $("#researchGroupmentDrillDownGraphDataSourceLabel").empty();
-        var label = $("#researchGroupDrillDownGraphDataSourceLabel").text(data[0].personGroupName);
-        $('#researchGroupDrillDownGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="researchDepartmentDrillDownGraphDSCollapse' + key + '">';
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchGroupDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchGroupDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
+            $('#researchGroupDrillDownGraphDataSourceModal-card-body').append(link)
+
+        } else {
+            $('#researchGroupmentDrillDownGraphDataSourceLabel').empty()
+            $('#researchGroupmentDrillDownGraphDataSourceLabel').append(result.personGroupName)
+        }
+        var startRow = '<div class="collapse multi-collapse" id="researchGroupDrillDownGraphDSCollapse' + key + '">';
         var table = $('#dataTable').DataTable();
         table.clear().destroy();
 
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchGroupDrillDown" id="dataTableResearchGroupDrillDown' + key + '">';
 
         var startThead = '<thead id="sub-researchGroupDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
 
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-researchGroupDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.personGroupName + '</td>' +
-                '<td>' + item.researcherName + '</td >' +
-                '<td>' + item.researchStartDate + '</td >' +
-                '<td>' + item.researchEndDate + '</td>' +
-
+            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
+                '<td>' + item.researchEndDate + '</td>'+
                 '</tr >';
 
         });
@@ -792,7 +802,7 @@ async function RenderResearchGroupTableDrillDown(data)
         var endTable = '</table>';
         var endRow = '</div>';
 
-        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
             : startTable + startThead + thead + endThead + startBody + endbody + endTable;
 
 
@@ -818,13 +828,18 @@ async function RenderResearchGroupTableDrillDown(data)
 async function RenderResearchMoneyRangeDrillDown(data) {
 
     $('#researchMoneyRangeDrillDownGraphDataSourceModal-card-body').empty();
-    console.log("ไอ่สัสออกมาดิ", data);
+    $('#researchMoneyRangeDrillDownGraphDataSourceLabel').empty()
+    $('#researchMoneyRangeDrillDownGraphDataSourceLabel').append("งบประมาณ")
     $.each(data, function (key, result) {
 
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyRangeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyRangeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
-        var labelEmty = $("#researchMoneyRangeDrillDownGraphDataSourceLabel").empty();
-        var label = $("#researchMoneyRangeDrillDownGraphDataSourceLabel").text(data[0].researchRankMoneyName);
-        $('#researchMoneyRangeDrillDownGraphDataSourceModal-card-body').append(link)
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyRangeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyRangeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
+            $('#researchMoneyRangeDrillDownGraphDataSourceModal-card-body').append(link)
+
+        } else {
+            $('#researchMoneyRangeDrillDownGraphDataSourceLabel').empty()
+            $('#researchMoneyRangeDrillDownGraphDataSourceLabel').append(result.researchRankMoneyName)
+        }
         var startRow = '<div class="collapse multi-collapse" id="researchMoneyRangeDrillDownGraphDSCollapse' + key + '">';
         var table = $('#dataTable').DataTable();
         table.clear().destroy();
@@ -832,16 +847,14 @@ async function RenderResearchMoneyRangeDrillDown(data) {
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyRangeDrillDown" id="dataTableResearchMoneyRangeDrillDown' + key + '">';
 
         var startThead = '<thead id="sub-researchMoneyRangeDrillDownDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>จำนวนเงิน</th></tr>';
 
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
         $.each(result.dataResearchMoney, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
-                '<td>' + item.researchMoney + '</td >' +
-                '<td>' + item.researchStartDate + '</td >' +
-                '<td>' + item.researchEndDate + '</td>' +
+                '<td>' + item.researchMoney + '</td>' +
 
                 '</tr >';
 
@@ -851,7 +864,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
         var endTable = '</table>';
         var endRow = '</div>';
 
-        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
             : startTable + startThead + thead + endThead + startBody + endbody + endTable;
 
 
@@ -886,15 +899,20 @@ async function ResearchMoneyRangeDrillDown(type) {
 
 //drilldown researchMoneyType
 async function RenderResearchMoneyTypeDrillDown(data) {
+
     $('#researchMoneyTypeDrillDownGraphDataSourceModal-card-body').empty();
-    console.log("เข้าไหม", data);
+    $('#researchMoneyTypeDrillDownGraphDataSourceLabel').empty()
+    $('#researchMoneyTypeDrillDownGraphDataSourceLabel').append("แหล่งทุน")
     $.each(data, function (key, result) {
 
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyTypeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyTypeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
-        var labelEmty = $("#researchMoneyTypeDrillDownGraphDataSourceLabel").empty();
-        var label = $("#researchMoneyTypeDrillDownGraphDataSourceLabel").text(data[0].moneyTypeName);
-       
-        $('#researchMoneyTypeDrillDownGraphDataSourceModal-card-body').append(link)
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyTypeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyTypeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
+            $('#researchMoneyTypeDrillDownGraphDataSourceModal-card-body').append(link)
+
+        } else {
+            $('#researchMoneyTypeDrillDownGraphDataSourceLabel').empty()
+            $('#researchMoneyTypeDrillDownGraphDataSourceLabel').append(result.moneyTypeName)
+        }
         var startRow = '<div class="collapse multi-collapse" id="researchMoneyTypeDrillDownGraphDSCollapse' + key + '">';
         var table = $('#dataTable').DataTable();
         table.clear().destroy();
@@ -902,7 +920,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyTypeDrillDown" id="dataTableResearchMoneyTypeNameDrillDown' + key + '">';
 
         var startThead = '<thead id="sub-researchMoneyTypeDrillDownDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>จำนวนเงิน</th></tr>';
 
         var endThead = '</thead>';
 
@@ -910,8 +928,6 @@ async function RenderResearchMoneyTypeDrillDown(data) {
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
                 '<td>' + item.researchMoney + '</td >' +
-                '<td>' + item.researchStartDate + '</td >' +
-                '<td>' + item.researchEndDate + '</td>' +
 
                 '</tr >';
 
@@ -921,7 +937,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
         var endTable = '</table>';
         var endRow = '</div>';
 
-        var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
             : startTable + startThead + thead + endThead + startBody + endbody + endTable;
 
 
