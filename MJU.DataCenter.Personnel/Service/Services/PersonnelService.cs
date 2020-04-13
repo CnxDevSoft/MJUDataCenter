@@ -1478,7 +1478,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public List<PersonPositionFacultyDataSourceModel> GetAllPersonnelPositionFacultyDataSource(string faculty, string position)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(faculty) ? m.Faculty == faculty : true).OrderBy(o => o.FacultyId);
+            var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ก" && m.PositionType == "ประเภทวิชาการ").Where(m => !string.IsNullOrEmpty(faculty) ? m.Faculty == faculty : true).OrderBy(o => o.FacultyId);
             var facultyByPersonnelType = personnel.Select(s => new { s.Faculty, s.FacultyId }).Distinct();
             var datatableList = new List<PersonPositionFacultyDataSourceModel>();
             foreach (var fc in facultyByPersonnelType)

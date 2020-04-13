@@ -26,10 +26,12 @@
             <br />
             <div class="position-relative mb-4" id="personWorkAge-chart-canvas">
                 <canvas id="personWorkAge-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                <button onclick="clickHandler()">test</button>
             </div>
             <div class="position-relative mb-4" id="personWorkAge-chart-table" style="display:none;">
                 <partial name="PartialViews/PersonWorkAgeGraph/_personWorkAgeGraphDataTable" />
             </div>
+            
         </div>
     </div>
 </div>
@@ -38,6 +40,8 @@
     $(function () {
         PersonWorkAgeGraph();
         ToggleChart("personWorkAge");
+
     })
+
 </script>
 <partial name="PartialViews/PersonWorkAgeGraph/_personWorkAgeGraphDataSource" />

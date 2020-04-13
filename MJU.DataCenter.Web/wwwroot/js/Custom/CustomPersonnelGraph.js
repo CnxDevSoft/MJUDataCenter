@@ -271,7 +271,7 @@ async function PersonWorkAgeGraph() {
         //  fontSize: 16,
         beginAtZero: true,
     }
-    var mode = 'index'
+    var mode = 'point'
     var intersect = true
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/1?api-version=1.0')
         .then(res => res.json())
@@ -290,7 +290,6 @@ async function PersonWorkAgeGraph() {
                     scales: {
                         xAxes: [{
                             stacked: true,
-                            ticks: ticksStyle
                         }],
                         yAxes: [{
                             stacked: true,
@@ -300,15 +299,22 @@ async function PersonWorkAgeGraph() {
                                 color: 'rgba(0, 0, 0, .2)',
                                 zeroLineColor: 'transparent'
                             },
-                            ticks: ticksStyle
                         }]
                     },
                     tooltips: {
                         mode: mode,
                         intersect: intersect
                     },
+                    onClick: handleClick
+
                 }
             })
+
+            function handleClick(evt) {
+                var activeElement = chart.getElementAtEvent(evt);
+                PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
+            }
+
             var sumColumns = [];
             var sumValue = 0;
             $.each(data.label, function (key, item) {
@@ -318,12 +324,12 @@ async function PersonWorkAgeGraph() {
                 $("#personWorkAgeGraphDataTable-tbody").append(
                     '<tr><td>' + item + '</td>' +
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',0)">' + data.graphDataSet[0].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key]  + "'" + ',1)">' + data.graphDataSet[1].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key]  + "'" + ',2)">' + data.graphDataSet[2].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key]  + "'" + ',3)">' + data.graphDataSet[3].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key]  + "'" + ',4)">' + data.graphDataSet[4].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key]  + "'" + ',5)">' + data.graphDataSet[5].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key]  + "'" + ','+"''"+')">' + sumRow + '</td></tr>'
+                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',1)">' + data.graphDataSet[1].data[key] + '</td>' +
+                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',2)">' + data.graphDataSet[2].data[key] + '</td>' +
+                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',3)">' + data.graphDataSet[3].data[key] + '</td>' +
+                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',4)">' + data.graphDataSet[4].data[key] + '</td>' +
+                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',5)">' + data.graphDataSet[5].data[key] + '</td>' +
+                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',' + "''" + ')">' + sumRow + '</td></tr>'
                 );
                 var sumColumn = 0;
                 $.each(data.graphDataSet, function (keys, items) {
@@ -345,7 +351,7 @@ async function PersonWorkAgeGraph() {
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',3)">' + sumColumns[3] + '</td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',4)">' + sumColumns[4] + '</td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',5)">' + sumColumns[5] + '</td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ','+"''"+')">' + sumValue + '</td></tr > '
+                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',' + "''" + ')">' + sumValue + '</td></tr > '
             );
 
 
@@ -359,7 +365,7 @@ async function PersonPositionGraph() {
         fontStyle: 'bold',
         fontSize: 16
     }
-    var mode = 'index'
+    var mode = 'point'
     var intersect = true
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/1?api-version=1.0')
         .then(res => res.json())
@@ -392,11 +398,19 @@ async function PersonPositionGraph() {
                         }]
                     },
                     tooltips: {
-                        // mode: mode,
-                        // intersect: intersect
+                         mode: mode,
+                         intersect: intersect
                     },
+                    onClick: handleClick
                 }
             })
+
+            function handleClick(evt) {
+                var activeElement = chart.getElementAtEvent(evt);
+                PersonPositionAdminDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+            }
+
+
             $("#personPositionGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
 
             var sumColumns = [];
@@ -454,7 +468,7 @@ async function PersonPositionLevelGraph() {
         fontStyle: 'bold',
         fontSize: 16
     }
-    var mode = 'index'
+    var mode = 'point'
     var intersect = true
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/1?api-version=1.0')
         .then(res => res.json())
@@ -487,11 +501,19 @@ async function PersonPositionLevelGraph() {
                         }]
                     },
                     tooltips: {
-                        // mode: mode,
-                        // intersect: intersect
+                         mode: mode,
+                         intersect: intersect
                     },
+                    onClick: handleClick
                 }
             })
+            function handleClick(evt) {
+                var activeElement = chart.getElementAtEvent(evt);
+                PersonPositionLevelDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+
+                console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+            }
+
             var sumColumns = [];
             var sumRows = [];
             var sumValue = 0;
@@ -596,9 +618,15 @@ async function PersonFacultyGraph() {
                         mode: mode,
                         // intersect: intersect
                     },
+                    onClick: handleClick
                 }
             })
+            function handleClick(evt) {
+                var activeElement = chart.getElementAtEvent(evt);
+                PersonGroupFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
 
+                console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+            }
 
             var sumColumns = [];
             var sumRows = [];
@@ -694,12 +722,19 @@ async function PersonPositionFacultyGraph() {
                         }]
                     },
                     tooltips: {
-                        // mode: mode,
-                        // intersect: intersect
+                         mode: mode,
+                         intersect: intersect
                     },
+                    onClick: handleClick
                 }
             })
 
+            function handleClick(evt) {
+                var activeElement = chart.getElementAtEvent(evt);
+                PersonPositionFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+
+                console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+            }
             var sumColumns = [];
             var sumRows = [];
             var sumValue = 0;
@@ -1830,7 +1865,7 @@ async function PersonPositionLevelDrillDown(personnelType, posotionLevel) {
 }
 
 async function RenderPersonPositionLevelDrillDownGraphDS(data) {
-
+       console.log(data)
     $('#personPositionLevelDrillDownGraphDataSourceModal-card-body').empty();
     $('#personPositionLevelDrillDownGraphDataSourceLabel').empty();
     $('#personPositionLevelDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
@@ -1855,7 +1890,7 @@ async function RenderPersonPositionLevelDrillDownGraphDS(data) {
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-personPositionLevelGraphDataSource-tbody">';
-        $.each(result.personGroupAdminPosition, function (key, item) {
+        $.each(result.personGroupPosition, function (key, item) {
             $.each(item.person, function (index, sItem) {
                 startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
@@ -1982,7 +2017,7 @@ async function PersonPositionFacultyDrillDown(faculty, personnelType) {
 }
 
 async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
-
+    console.log(data)
     $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').empty();
     $('#personPositionFacultyDrillDownGraphDataSourceLabel').empty()
     $('#personPositionFacultyDrillDownGraphDataSourceLabel').append("หน่วยงาน/สังกัด")
