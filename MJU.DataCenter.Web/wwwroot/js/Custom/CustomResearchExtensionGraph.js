@@ -738,6 +738,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 }
 
 async function ResearchDepartmentTableDrillDown(type) {
+
     var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource?Type=' + type
         + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource?api-version=1.0';
     fetch(url)

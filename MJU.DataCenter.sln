@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Web", "MJU.DataCenter.Web\MJU.DataCenter.Web.csproj", "{985FF500-3EE1-423F-A074-4B9871DF9595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.Web", "MJU.DataCenter.Web\MJU.DataCenter.Web.csproj", "{985FF500-3EE1-423F-A074-4B9871DF9595}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.ResearchExtension", "MJU.DataCenter.ResearchExtension\MJU.DataCenter.ResearchExtension.csproj", "{F825BF82-57A4-4448-809D-D291D434A786}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.WebUI", "MJU.DataCenter.WebUI\MJU.DataCenter.WebUI.csproj", "{4D76047A-EE31-4131-894F-1983EED44B20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.WebForm", "MJU.DataCenter.WebForm\MJU.DataCenter.WebForm.csproj", "{02068374-DD52-467E-AB47-76A64C89C518}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.Datacenter.Core", "MJU.Datacenter.Core\MJU.Datacenter.Core.csproj", "{5FCDD067-3253-4F7D-B672-7AF69C048F92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{02068374-DD52-467E-AB47-76A64C89C518}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02068374-DD52-467E-AB47-76A64C89C518}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02068374-DD52-467E-AB47-76A64C89C518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
