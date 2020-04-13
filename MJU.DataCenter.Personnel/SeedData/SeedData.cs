@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MJU.DataCenter.Core.Enum;
+using MJU.DataCenter.Core.HelperEnum;
 
 namespace MJU.DataCenter.Personnel.SeedData
 {
@@ -477,19 +479,29 @@ namespace MJU.DataCenter.Personnel.SeedData
             Random random = new Random();
             var randomType = random.Next(1, 4);
             var result = new Fact();
+            var test = EnumHelper.GetDescriptionFromEnumValue((int)Faculty.Office.Office);
             switch (randomType)
             {
                 case 1:
-                    result.FactId = 20001;
-                    result.FactName = "สำนักงานมหาวิทยาลัย";
+                    
+                    result.FactId = (int)Faculty.Office.Office;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue((int)Faculty.Office.Office);
                     break;
                 case 2:
-                    result.FactId = 20002;
+                    result.FactId = (int)Faculty.FacultyScience.Science;
                     result.FactName = "คณะวิทยาศาสตร์";
                     break;
                 case 3:
-                    result.FactId = 20003;
+                    result.FactId = (int)Faculty.FacultyEngineer.Engineer;
                     result.FactName = "คณะวิศวกรรมศาสตร์";
+                    break;
+                case 4:
+                    result.FactId = (int)Faculty.FacultyBusinessAdministration.BusinessAdministration;
+                    result.FactName = "คณะบริหารธุรกิจ";
+                    break;
+                case 5:
+                    result.FactId = (int)Faculty.FacultyAgriculture.Agriculture;
+                    result.FactName = Faculty.FacultyAgriculture.Agriculture.ToString();
                     break;
             }
             return result;

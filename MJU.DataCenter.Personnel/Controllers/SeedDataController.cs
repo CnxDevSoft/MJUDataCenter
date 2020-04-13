@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Core.Enum;
+using MJU.DataCenter.Core.HelperEnum;
 using MJU.DataCenter.Personnel.Service.Interface;
 
 namespace MJU.DataCenter.Personnel.Controllers
@@ -22,7 +24,8 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            _seedDataPersonService.AddPerson();
+            var test = EnumHelper.GetDescriptionFromEnumValue((int)Faculty.Office.Office);
+            //_seedDataPersonService.AddPerson();
             return new string[] { "value1", "value2" };
         }
 

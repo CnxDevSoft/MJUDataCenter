@@ -5,9 +5,15 @@ using System.Text;
 
 namespace MJU.DataCenter.Core.Enum
 {
-    public class Personnel
+    public class Faculty
     {
 
+            public enum Office
+        {
+                [Description("Office")]
+                Office = 20001
+
+            }
             public enum FacultyScience
             {
                 [Description("คณะวิทยาศาสตร์")]
