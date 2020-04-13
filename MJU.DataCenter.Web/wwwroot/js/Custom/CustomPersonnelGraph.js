@@ -1086,7 +1086,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?api-version=1.0&firstName=' + firstNameVal + '&lastName=' + lastNameVal + '?api-version=1.0';
+    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?firstName=' + firstNameVal + '&lastName=' + lastNameVal + '&api-version=1.0';
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
@@ -1097,7 +1097,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
         })
         .then((data) => {
             $.each(data, function (key, value) {
-                $(section).append('<tr><td><a href="#" class="text-green">' + value.researcherName + '</a></td><td>' +
+                $(section).append('<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId +')" class="text-green">' + value.researcherName + '</a></td><td>' +
                     value.departmentNameTh + '</td></tr > ')
             });
 

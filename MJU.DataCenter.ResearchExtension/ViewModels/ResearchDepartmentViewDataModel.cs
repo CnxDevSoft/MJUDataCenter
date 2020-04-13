@@ -16,6 +16,7 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
         public int? ResearchCode { get; set; }
         public DateTime? ResearchStartDate { get; set; }
         public DateTime? ResearchEndDate { get; set; }
+        public string CitizenId { get; set; }
 
         public List<ResearcherViewModel> Researcher { get; set; }
     }

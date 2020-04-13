@@ -12,5 +12,6 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
         public int? DepartmentId { get; set; }
         public int? DepartmentCode { get; set; }
         public string DepartmentNameTh { get; set; }
+        public string CitizenId { get; set; }
     }
 }
