@@ -9,7 +9,7 @@ namespace MJU.DataCenter.Core.HelperEnum
 {
     public static class EnumHelper
     {
-        public static string GetDescriptionFromEnumValue(int value)
+        public static string GetDescriptionFromEnumValue(Enum value)
         {
             DescriptionAttribute attribute = value.GetType()
                 .GetField(value.ToString())

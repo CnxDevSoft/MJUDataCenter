@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace MJU.DataCenter.Core.Enum
+namespace MJU.DataCenter.Core.Enums
 {
     public class Faculty
     {

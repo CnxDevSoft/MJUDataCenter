@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MJU.DataCenter.Core.Enum;
+using MJU.DataCenter.Core.Enums;
 using MJU.DataCenter.Core.HelperEnum;
 
 namespace MJU.DataCenter.Personnel.SeedData
@@ -479,13 +479,12 @@ namespace MJU.DataCenter.Personnel.SeedData
             Random random = new Random();
             var randomType = random.Next(1, 4);
             var result = new Fact();
-            var test = EnumHelper.GetDescriptionFromEnumValue((int)Faculty.Office.Office);
             switch (randomType)
             {
                 case 1:
                     
                     result.FactId = (int)Faculty.Office.Office;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue((int)Faculty.Office.Office);
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.Office.Office);
                     break;
                 case 2:
                     result.FactId = (int)Faculty.FacultyScience.Science;
