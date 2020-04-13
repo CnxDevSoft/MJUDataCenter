@@ -134,11 +134,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         }
 
-        public object GetAllPersonnelPosition(int type)
+        public object GetAllPersonnelPosition(int type, List<int> filter)
         {
-            var personnel = _dcPersonRepository.GetAll().OrderBy(o => o.PositionTypeId);
+            var personnel = _dcPersonRepository.GetAll();
+            if (filter.Any())
+            {
+                personnel = personnel.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault())).ToList();
+            }
 
-            var distinctPosition = personnel.Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
+            var distinctPosition = personnel.OrderBy(o => o.PositionTypeId).Select(s => new { s.PositionType, s.PositionTypeId }).Distinct();
 
             if (type == 1)
             {

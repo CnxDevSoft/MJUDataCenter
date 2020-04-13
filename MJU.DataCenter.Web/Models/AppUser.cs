@@ -10,7 +10,6 @@ namespace MJU.DataCenter.Web.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-
+        public Guid AccessToken { get; set; }
     }
 }
