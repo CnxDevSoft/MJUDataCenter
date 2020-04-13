@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MJU.DataCenter.WebUI", "MJU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.WebForm", "MJU.DataCenter.WebForm\MJU.DataCenter.WebForm.csproj", "{02068374-DD52-467E-AB47-76A64C89C518}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.Datacenter.Core", "MJU.Datacenter.Core\MJU.Datacenter.Core.csproj", "{5FCDD067-3253-4F7D-B672-7AF69C048F92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MJU.DataCenter.Core", "MJU.DataCenter.Core\MJU.DataCenter.Core.csproj", "{E64FF0EA-9C3E-4987-855A-EC4FEB9E1849}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{02068374-DD52-467E-AB47-76A64C89C518}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02068374-DD52-467E-AB47-76A64C89C518}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02068374-DD52-467E-AB47-76A64C89C518}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FCDD067-3253-4F7D-B672-7AF69C048F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E64FF0EA-9C3E-4987-855A-EC4FEB9E1849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E64FF0EA-9C3E-4987-855A-EC4FEB9E1849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E64FF0EA-9C3E-4987-855A-EC4FEB9E1849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E64FF0EA-9C3E-4987-855A-EC4FEB9E1849}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

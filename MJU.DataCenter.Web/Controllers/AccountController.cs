@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MJU.DataCenter.Web.Models;
+using MJU.DataCenter.Web.Services;
+using MJU.DataCenter.Web.Services.Interface;
 using MJU.DataCenter.Web.ViewModels;
 
 namespace MJU.DataCenter.Web.Controllers
@@ -19,19 +22,25 @@ namespace MJU.DataCenter.Web.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-      //  private readonly IEmailSender _emailSender;
+        //  private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+
+        private readonly IUserDepartmentRoleService _userDepartmentService;
 
         public AccountController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-          //  IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            //  IEmailSender emailSender,
+            // 
+            ILogger<AccountController> logger,
+            IUserDepartmentRoleService userDepartmentService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-          //  _emailSender = emailSender;
+            //  _emailSender = emailSender;
             _logger = logger;
+            _userDepartmentService = userDepartmentService;
+
         }
 
         [HttpGet]
@@ -59,16 +68,20 @@ namespace MJU.DataCenter.Web.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var user = await _userManager.FindByNameAsync(model.Email);
+
+                    _userManager.AddClaimAsync(user, new Claim("AccessToken", user.AccessToken.ToString())).Wait();
+                    
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
-                  //  return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    //  return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
-                  //  _logger.LogWarning("User account locked out.");
-                   // return RedirectToAction(nameof(Lockout));
+                    //  _logger.LogWarning("User account locked out.");
+                    // return RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
@@ -80,6 +93,96 @@ namespace MJU.DataCenter.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Authenticated(string userName, string password, string token)
+        {
+            var model = new LoginApiModel
+            {
+                IsSuccess = false
+            };
+
+            if (token == null) return BadRequest(new LoginApiModel
+            {
+                IsSuccess = false,
+                Description = "Token is not valid"
+            });
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result = await _signInManager.PasswordSignInAsync(userName, password, false, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User logged in.");
+                var user = await _userManager.FindByNameAsync(userName);
+                if (user != null)
+                {
+                    if (Guid.Parse(token) == user.AccessToken)
+                    {
+                        var data = _userDepartmentService.GetById(user.Id);
+                        //find user role with token
+                        model = new LoginApiModel
+                        {
+                            IsSuccess = true,
+                            AccessToken = token,
+                            DepartmentRoleList = data.Select(x => x.DepartmentRole).ToList()
+                        };
+                        return Ok(model);
+                    }
+                }
+            }
+            return BadRequest(model);
+        }
+        
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AuthenticatedToken(string token, string userName)
+        {
+            var model = new LoginApiModel
+            {
+                IsSuccess = false
+            };
+
+            if (token == null) return BadRequest(new LoginApiModel
+            {
+                IsSuccess = false,
+                Description = "Token is not valid"
+            });
+
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user != null)
+            {
+                if (Guid.Parse(token) == user.AccessToken)
+                {
+                    var data = _userDepartmentService.GetById(user.Id);
+                    //find user role with token
+                    model = new LoginApiModel
+                    {
+                        IsSuccess = true,
+                        AccessToken = token,
+                        DepartmentRoleList = data.Select(x => x.DepartmentRole).ToList()
+                    };
+                    return Ok(model);
+                }
+            }
+
+            return BadRequest(model);
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Test()
+        {
+            var user = await _userManager.FindByNameAsync("general@general.com");
+
+            return Ok("test");
+        }
+
+
+
 
         //[HttpGet]
         //[AllowAnonymous]
@@ -154,14 +257,14 @@ namespace MJU.DataCenter.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.Email, Email = model.Email };
+                var user = new AppUser { UserName = model.Email, Email = model.Email, AccessToken = Guid.NewGuid() };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                   // var callbackUrl = Url.EmailConfirmationLink(user.Id.ToString(), code, Request.Scheme);
+                    // var callbackUrl = Url.EmailConfirmationLink(user.Id.ToString(), code, Request.Scheme);
                     //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

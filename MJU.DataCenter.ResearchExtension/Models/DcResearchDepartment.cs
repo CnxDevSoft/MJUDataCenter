@@ -16,5 +16,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public int? ResearchCode { get; set; }
         public DateTime? ResearchStartDate { get; set; }
         public DateTime? ResearchEndDate { get; set; }
+        public string CitizenId { get; set; }
     }
 }

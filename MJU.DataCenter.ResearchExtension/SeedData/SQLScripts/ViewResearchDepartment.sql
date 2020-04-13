@@ -1,3 +1,9 @@
+USE [ResearchExtension]
+GO
+Drop View [dbo].[DC_ResearchDepartment] 
+
+USE [ResearchExtension]
+GO
 CREATE View [dbo].[DC_ResearchDepartment] as
 select r.ResearcherId 
 ,CONCAT(r.TitleTH , ' ', r.FirstNameTH , ' ', r.LastNameTH ) as ResearcherName,
@@ -10,6 +16,7 @@ r.DepartmentId
 ,rd.ResearchCode
 ,rd.StartDateResearch as ResearchStartDate
 ,rd.EndDateResearch as ResearchEndDate
+,r.CitizenId as CitizenId
 from Researcher r 
 inner join ResearchPersonnel rp on r.ResearcherId  = rp.ResearcherId 
 inner join ResearchData  rd on rp.ResearchId  = rd.ResearchId 

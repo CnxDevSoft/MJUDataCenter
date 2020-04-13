@@ -14,10 +14,10 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class ResecherResearchDataController : Controller
+    public class ResearcherResearchDataController : Controller
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
-        public ResecherResearchDataController(IResearchAndExtensionService researchAndExtensionService)
+        public ResearcherResearchDataController(IResearchAndExtensionService researchAndExtensionService)
         {
             _researchAndExtensionService = researchAndExtensionService;
         }
