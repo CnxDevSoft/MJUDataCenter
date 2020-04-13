@@ -477,7 +477,7 @@ namespace MJU.DataCenter.Personnel.SeedData
         public static Fact Fact()
         {
             Random random = new Random();
-            var randomType = random.Next(1, 4);
+            var randomType = random.Next(1, 12);
             var result = new Fact();
             switch (randomType)
             {
@@ -488,19 +488,43 @@ namespace MJU.DataCenter.Personnel.SeedData
                     break;
                 case 2:
                     result.FactId = (int)Faculty.FacultyScience.Science;
-                    result.FactName = "คณะวิทยาศาสตร์";
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyScience.Science);
                     break;
                 case 3:
                     result.FactId = (int)Faculty.FacultyEngineer.Engineer;
-                    result.FactName = "คณะวิศวกรรมศาสตร์";
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEngineer.Engineer);
                     break;
                 case 4:
                     result.FactId = (int)Faculty.FacultyBusinessAdministration.BusinessAdministration;
-                    result.FactName = "คณะบริหารธุรกิจ";
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyBusinessAdministration.BusinessAdministration);
                     break;
                 case 5:
                     result.FactId = (int)Faculty.FacultyAgriculture.Agriculture;
-                    result.FactName = Faculty.FacultyAgriculture.Agriculture.ToString();
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyAgriculture.Agriculture);
+                    break;
+                case 6:
+                    result.FactId = (int)Faculty.FacultyFisheriesTechnologyAndWaterResources.FisheriesTechnologyAndWaterResources;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyFisheriesTechnologyAndWaterResources.FisheriesTechnologyAndWaterResources);
+                    break;
+                case 7:
+                    result.FactId = (int)Faculty.FacultyTourismDevelopment.TourismDevelopment;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyTourismDevelopment.TourismDevelopment);
+                    break;
+                case 8:
+                    result.FactId = (int)Faculty.FacultyLiberalArts.LiberalArts;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyLiberalArts.LiberalArts);
+                    break;
+                case 9:
+                    result.FactId = (int)Faculty.FacultyEconomics.Economics;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEconomics.Economics);
+                    break;
+                case 10:
+                    result.FactId = (int)Faculty.FacultyAnimalScienceAndTechnology.AnimalScienceAndTechnology;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyAnimalScienceAndTechnology.AnimalScienceAndTechnology);
+                    break;
+                case 11:
+                    result.FactId = (int)Faculty.FacultyInformationAndCommunication.InformationAndCommunication;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyInformationAndCommunication.InformationAndCommunication);
                     break;
             }
             return result;

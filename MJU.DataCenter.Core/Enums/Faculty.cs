@@ -9,8 +9,8 @@ namespace MJU.DataCenter.Core.Enums
     {
 
             public enum Office
-        {
-                [Description("Office")]
+            {
+                [Description("สำนักงานมหาวิทยาลัย")]
                 Office = 20001
 
             }
