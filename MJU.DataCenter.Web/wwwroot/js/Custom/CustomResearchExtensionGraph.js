@@ -1,4 +1,7 @@
-﻿async function ResearchDepartmentGraph(startDate, endDate) {
+﻿const obackgroudColor = ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)"];
+const oborderColor = ["rgba(165,96,229,1)", "rgba(127,157,240, 1)", "rgba(118,119,232, 1)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,1)", "rgba(214,237,154,1)", "rgba(114, 249, 156,1)"]
+
+async function ResearchDepartmentGraph(startDate, endDate) {
     var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment?Type=1&api-version=1.0'
 
     fetch(url)
@@ -35,7 +38,7 @@ async function ResearchDepartmentRender(data) {
             //  datasLabels: [1001,1002,1003,1004,1005,1006,1007],
             datasets: [
                 {
-                    backgroundColor: '#007bff',
+                    backgroundColor: "rgba(114, 249, 156,0.5)",
                     borderColor: '#007bff',
                     data: data.graphDataSet[0].data,//[50, 25, 1300, 10, 30, 40, 200],
                     //label: [1101,1102,1103,1104,1105]
@@ -105,16 +108,10 @@ async function ResearchDepartmentRender(data) {
 
                 })
                 $('#researchDepartmentTable').DataTable({
-                    language: {
-                        sLengthMenu: "แสดง _MENU_",
-                        sSearch: "ค้นหา",
-                    }
+                    language: oLanguageOptions
                 });
             }
         }
-
-
-
     });
 
     var tempData = [];
@@ -211,7 +208,7 @@ async function ResearchPersonGroupRender(data) {
             labels: data.label,
             datasets: [
                 {
-                    backgroundColor: '#007bff',
+                    backgroundColor: ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)" ],
                     borderColor: '#007bff',
                     data: data.graphDataSet[0].data,
                     //label: [1101,1102,1103,1104,1105]
@@ -265,10 +262,7 @@ async function ResearchPersonGroupRender(data) {
                 $('#researchPersonGroupModal').on('shown.bs.modal', function () {
                 })
                 $('#researchPersonGroupTable').DataTable({
-                    language: {
-                        sLengthMenu: "แสดง _MENU_",
-                        sSearch: "ค้นหา",
-                    }
+                    language: oLanguageOptions
                 });
             }
         }
@@ -364,7 +358,7 @@ async function ResearchMoneyRangeRender(data) {
             //  datasLabels: [1001,1002,1003,1004,1005,1006,1007],
             datasets: [
                 {
-                    backgroundColor: '#007bff',
+                    backgroundColor: ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)"],
                     borderColor: '#007bff',
                     data: data.graphDataSet[0].data
                     //[50, 25, 130, 10, 30, 40, 20],
@@ -430,10 +424,7 @@ async function ResearchMoneyRangeRender(data) {
                 $('#' + chartName +'Modal').on('shown.bs.modal', function () {
                 })
                 $('#' + chartName +'Table').DataTable({
-                    language: {
-                        sLengthMenu: "แสดง _MENU_",
-                        sSearch: "ค้นหา",
-                    }
+                    language: oLanguageOptions
                 });
             }
         }
@@ -533,8 +524,8 @@ async function ResearchMoneyTypeRender(data) {
             labels: data.label,
             datasets: [
                 {
-                    backgroundColor: '#007bff',
-                    borderColor: '#007bff',
+                    backgroundColor: obackgroudColor,
+                    borderColor: ["rgba(165,96,229,1)", "rgba(127,157,240, 1)", "rgba(118,119,232, 1)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,1)", "rgba(214,237,154,1)", "rgba(114, 249, 156,1)"],
                     data: data.graphDataSet[0].data,
                     //label: [1101,1102,1103,1104,1105]
                 }
@@ -591,10 +582,7 @@ async function ResearchMoneyTypeRender(data) {
                 $('#' + chartName +'Modal').on('shown.bs.modal', function () {
                 })
                 $('#' + chartName +'Table').DataTable({
-                    language: {
-                        sLengthMenu: "แสดง _MENU_",
-                        sSearch: "ค้นหา",
-                    }
+                    language: oLanguageOptions
                 });
             }
         }
@@ -672,9 +660,7 @@ function RenderReseacherName(researcherList) {
 }
 async function Load() {
     $('.dataTable-sub').DataTable({
-        language: {
-            sLengthMenu: ""
-        },
+        language: oLanguageOptions,
         searching: false,
         pageLength: 5
     });
@@ -733,9 +719,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
         })
 
         $('#dataTableResearchDepartmentDrillDown' + key).DataTable({
-            language: {
-                sLengthMenu: "Show _MENU_"
-            }
+            language: oLanguageOptions
         });
 
     });
@@ -819,9 +803,7 @@ async function RenderResearchGroupTableDrillDown(data)
         })
 
         $('#dataTableResearchGroupDrillDown' + key).DataTable({
-            language: {
-                sLengthMenu: "Show _MENU_"
-            }
+            language: oLanguageOptions
         });
 
     });
@@ -881,9 +863,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
         })
 
         $('#dataTableResearchMoneyRangeDrillDown' + key).DataTable({
-            language: {
-                sLengthMenu: "Show _MENU_"
-            }
+            language: oLanguageOptions
         });
 
     });
@@ -954,9 +934,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
         })
 
         $('#dataTableResearchMoneyTypeNameDrillDown' + key).DataTable({
-            language: {
-                sLengthMenu: "Show _MENU_"
-            }
+            language: oLanguageOptions
         });
 
     });

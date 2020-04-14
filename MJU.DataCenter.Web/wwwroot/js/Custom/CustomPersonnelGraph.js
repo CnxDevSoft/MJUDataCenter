@@ -297,14 +297,9 @@ function genderClick(genderId, genderName, generationType) {
                 })
 
                 $('#dataTableResearcherGenderDrillDown' + key).DataTable({
-                    language: {
-                        sLengthMenu: "Show _MENU_"
-                    }
+                    language: oLanguageOptions
                 });
-
             });
-
-
         });
 }
 async function PersonEducationGraph() {
@@ -1250,9 +1245,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
             $(modal).on('shown.bs.modal', function () {
             })
             $(table).DataTable({
-                language: {
-                    sLengthMenu: "Show _MENU_"
-                }
+                language: oLanguageOptions
             });
         });
 }
@@ -1281,10 +1274,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
             $(modal).on('shown.bs.modal', function () {
             })
             $(table).DataTable({
-                language: {
-                    sLengthMenu: "แสดง _MENU_",
-                    sSearch: "ค้นหา",
-                }
+                language: oLanguageOptions
             });
         });
 }
@@ -1681,10 +1671,7 @@ async function LoadDataTable(name, key) {
 
     var dataTableName = '#sub-' + name + '-' + key + '-table';
     $(dataTableName).DataTable({
-        language: {
-            sLengthMenu: "แสดง _MENU_",
-            sSearch: "ค้นหา",
-        },
+        language: oLanguageOptions,
         searching: false,
         pageLength: 5
     });
@@ -1692,10 +1679,7 @@ async function LoadDataTable(name, key) {
 async function Load() {
 
     $('.dataTable-sub-allpersonal').DataTable({
-        language: {
-            sLengthMenu: "แสดง _MENU_",
-            sSearch: "ค้นหา",
-        },
+        language: oLanguageOptions,
         searching: false,
         pageLength: 5
     });
@@ -1771,10 +1755,7 @@ async function RenderAllPersonDrillDownGraphDS(data) {
         })
 
         $('#dataPersonnelDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
 
     });
@@ -1842,10 +1823,7 @@ async function RenderPersonEducationDrillDownGraphDS(data) {
         })
 
         $('#dataPersonEducationDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
 
     });
@@ -1913,10 +1891,7 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
     });
 }
@@ -1987,10 +1962,7 @@ async function RenderPersonPositionAdminDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionAdminDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
     });
 }
@@ -2061,10 +2033,7 @@ async function RenderPersonPositionLevelDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionLevelDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
     });
 }
@@ -2135,10 +2104,7 @@ async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
         })
 
         $('#dataPersonGroupFacultyDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
     });
 }
@@ -2207,10 +2173,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
     });
 }
@@ -2284,10 +2247,7 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
         })
 
         $('#dataPersonRetiredDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
     });
 }
@@ -2361,10 +2321,7 @@ async function RenderPersonWorkDurationDrillDownGraphDS(data) {
         })
 
         $('#dataPersonWorkDurationDrillDownTable' + key).DataTable({
-            language: {
-                sLengthMenu: "แสดง _MENU_",
-                sSearch: "ค้นหา",
-            }
+            language: oLanguageOptions
         });
     });
 }

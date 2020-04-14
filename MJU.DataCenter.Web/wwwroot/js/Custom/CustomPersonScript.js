@@ -20,9 +20,7 @@ async function ToggleChart(chartName) {
         var checkDatableLoaded = $('.dataTable-sub-' + chartName).hasClass("datableLoaded");
         if (checkDatableLoaded == false) {
             $('.dataTable-sub-' + chartName).DataTable({
-                language: {
-                    sLengthMenu: ""
-                },
+                language: oLanguageOptions,
                 searching: false,
                 pageLength: 5
             });
