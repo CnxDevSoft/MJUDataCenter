@@ -1282,7 +1282,8 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
             })
             $(table).DataTable({
                 language: {
-                    sLengthMenu: "Show _MENU_"
+                    sLengthMenu: "แสดง _MENU_",
+                    sSearch: "ค้นหา",
                 }
             });
         });
@@ -1681,7 +1682,8 @@ async function LoadDataTable(name, key) {
     var dataTableName = '#sub-' + name + '-' + key + '-table';
     $(dataTableName).DataTable({
         language: {
-            sLengthMenu: ""
+            sLengthMenu: "แสดง _MENU_",
+            sSearch: "ค้นหา",
         },
         searching: false,
         pageLength: 5
@@ -1691,7 +1693,8 @@ async function Load() {
 
     $('.dataTable-sub-allpersonal').DataTable({
         language: {
-            sLengthMenu: ""
+            sLengthMenu: "แสดง _MENU_",
+            sSearch: "ค้นหา",
         },
         searching: false,
         pageLength: 5
@@ -1769,7 +1772,8 @@ async function RenderAllPersonDrillDownGraphDS(data) {
 
         $('#dataPersonnelDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
 
@@ -1839,7 +1843,8 @@ async function RenderPersonEducationDrillDownGraphDS(data) {
 
         $('#dataPersonEducationDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
 
@@ -1909,10 +1914,10 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
 
         $('#dataPersonPositionDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
-
     });
 }
 
@@ -1983,12 +1988,10 @@ async function RenderPersonPositionAdminDrillDownGraphDS(data) {
 
         $('#dataPersonPositionAdminDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
-
-
-
     });
 }
 
@@ -2059,12 +2062,10 @@ async function RenderPersonPositionLevelDrillDownGraphDS(data) {
 
         $('#dataPersonPositionLevelDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
-
-
-
     });
 }
 
@@ -2135,12 +2136,10 @@ async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
 
         $('#dataPersonGroupFacultyDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
-
-
-
     });
 }
 
@@ -2153,8 +2152,6 @@ async function PersonPositionFacultyDrillDown(faculty, personnelType) {
         .then((data) => {
             RenderPersonPositionFacultyDrillDownGraphDS(data).then();
         });
-
-
 }
 
 async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
@@ -2211,12 +2208,10 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
 
         $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
-
-
-
     });
 }
 
@@ -2290,12 +2285,10 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
 
         $('#dataPersonRetiredDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
-
-
-
     });
 }
 
@@ -2311,7 +2304,6 @@ async function PersonWorkDurationDrillDown(personnelType, index) {
 
     console.log(personnelType)
     console.log(index)
-
 }
 
 async function RenderPersonWorkDurationDrillDownGraphDS(data) {
@@ -2370,11 +2362,9 @@ async function RenderPersonWorkDurationDrillDownGraphDS(data) {
 
         $('#dataPersonWorkDurationDrillDownTable' + key).DataTable({
             language: {
-                sLengthMenu: "Show _MENU_"
+                sLengthMenu: "แสดง _MENU_",
+                sSearch: "ค้นหา",
             }
         });
-
-
-
     });
 }

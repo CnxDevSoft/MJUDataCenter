@@ -106,7 +106,8 @@ async function ResearchDepartmentRender(data) {
                 })
                 $('#researchDepartmentTable').DataTable({
                     language: {
-                        sLengthMenu: "Show _MENU_"
+                        sLengthMenu: "แสดง _MENU_",
+                        sSearch: "ค้นหา",
                     }
                 });
             }
@@ -265,7 +266,8 @@ async function ResearchPersonGroupRender(data) {
                 })
                 $('#researchPersonGroupTable').DataTable({
                     language: {
-                        sLengthMenu: "Show _MENU_"
+                        sLengthMenu: "แสดง _MENU_",
+                        sSearch: "ค้นหา",
                     }
                 });
             }
@@ -429,7 +431,8 @@ async function ResearchMoneyRangeRender(data) {
                 })
                 $('#' + chartName +'Table').DataTable({
                     language: {
-                        sLengthMenu: "Show _MENU_"
+                        sLengthMenu: "แสดง _MENU_",
+                        sSearch: "ค้นหา",
                     }
                 });
             }
@@ -589,7 +592,8 @@ async function ResearchMoneyTypeRender(data) {
                 })
                 $('#' + chartName +'Table').DataTable({
                     language: {
-                        sLengthMenu: "Show _MENU_"
+                        sLengthMenu: "แสดง _MENU_",
+                        sSearch: "ค้นหา",
                     }
                 });
             }
