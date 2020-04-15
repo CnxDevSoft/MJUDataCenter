@@ -1,4 +1,7 @@
-﻿<div class="col-lg-6">
+﻿@{
+    var userAccesToken = User.FindFirst("AccessToken").Value;
+}
+<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
             <div class="d-flex justify-content-between">
@@ -36,7 +39,7 @@
 
 <script>
     $(function () {
-        PersonPositionLevelGraph();
+        PersonPositionLevelGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personPositionLevel");
     })
 </script>

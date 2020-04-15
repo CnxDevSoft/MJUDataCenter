@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
+using MJU.DataCenter.Personnel.ViewModels.dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,15 +23,37 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
 
         [HttpGet("{type}")]
-        public object Get(int type)
+        public object Get(int type, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelPositionFaculty(type);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelPositionFaculty(type, filter);
+            }
+            return null;
         }
 
         [HttpGet("DataSource")]
-        public object Get(string faculty, string position)
+        public object Get(string faculty, string position, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelPositionFacultyDataSource(faculty,position);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelPositionFacultyDataSource(faculty,position, filter);
+            }
+            return null;
         }
 
 

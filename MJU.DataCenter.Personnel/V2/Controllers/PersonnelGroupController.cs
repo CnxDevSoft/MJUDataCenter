@@ -30,7 +30,8 @@ namespace MJU.DataCenter.Personnel.V2.Controllers
         [HttpGet("{type}")]
         public object Get(int type)
         {
-            return _personnelService.GetAllPersonnelGroup(type);
+            //return _personnelService.GetAllPersonnelGroup(type);
+            return null;
         }
 
         // POST api/values

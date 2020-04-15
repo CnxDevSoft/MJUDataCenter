@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
 using MJU.DataCenter.Personnel.ViewModels.dtos;
 
@@ -22,15 +23,37 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
 
         [HttpGet("")]
-        public object Get([FromQuery]RetiredGraphInputDto input)
+        public object Get([FromQuery]RetiredGraphInputDto input, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelGroupRetiredYear(input);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelGroupRetiredYear(input, filter);
+            }
+            return null;
         }
 
         [HttpGet("DataSource")]
-        public object Get([FromQuery]RetiredInputDto input)
+        public object Get([FromQuery]RetiredInputDto input, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelGroupRetiredYearDataSource(input);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelGroupRetiredYearDataSource(input, filter);
+            }
+            return null;
         }
 
 

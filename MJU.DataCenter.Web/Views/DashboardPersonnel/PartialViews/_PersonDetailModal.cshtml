@@ -1,9 +1,9 @@
 ﻿<div id="personDetailModal" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xxl">
         <div class="modal-content">
             <div class="card card-info">
                 <div class="card-header border-0">
-                    <h3 class="card-title">ประวัติบุคลากร<span id="researchInfoLabel"></span></h3>
+                    <h3 class="card-title">ข้อมูลบุคลากร<span id="researchInfoLabel"></span></h3>
                     <div class="card-tools">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
@@ -14,100 +14,188 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="card card-primary card-outline">
+                                    <div class="card card-green card-outline">
                                         <div class="card-body box-profile">
                                             <div class="text-center">
-                                                @*<img class="profile-user-img img-fluid img-circle"
-                                                     src="../../dist/img/user4-128x128.jpg"
-                                                     alt="User profile picture">*@
                                             </div>
-                                            <h3 class="profile-username text-center">Nina Mcintire</h3>
-                                            <p class="text-muted text-center">นักวิชาการ</p>
+                                            <h3 class="text-left nameThText">นาง นิน่า แมคาทรี</h3>
+                                            <h5 class="text-left nameEnText">Ms. Nina Mcintire</h5>
+                                            <p class="text-muted text-left positionText">นักวิชาการศึกษา (ชำนาญการ)</p>
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>รหัสบัตรประชาชน</b> <a class="float-right">1234567890</a>
+                                                    <strong>ประเภทบุคลากร</strong> <a class="float-right">ช้าราชการ</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>สังกัด/คณะ</b> <a class="float-right">วิทยาศาสตร์</a>
+                                                    <strong>สังกัด/แผนก</strong> <a class="float-right">งานบริหารและธุรการ</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>วันเกิด</b> <a class="float-right">01/01/2019</a>
+                                                    <strong>สังกัด/กอง</strong> <a class="float-right">กองกลาง</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>เงินเดือน</b> <a class="float-right">13,287</a>
+                                                    <strong>หน่วยงาน/คณะ</strong> <a class="float-right facultyText">คณะวิทยาศาสตร์</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>วันที่บรรจุ</strong> <a class="float-right">01/01/2020</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>ปีที่เกษียณ</strong> <a class="float-right">2029</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>เงินเดือน</strong> <a class="float-right salaryText">13,287</a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="card card-primary">
+
+                                    <div class="card card-green">
                                         <div class="card-header">
-                                            <h3 class="card-title">ประวัติส่วนตัว</h3>
+                                            <h3 class="card-title">ข้อมูลส่วนตัว</h3>
                                         </div>
                                         <div class="card-body">
-                                            <strong><i class="fas fa-book mr-1"></i>จบการศึกษา</strong>
-                                            <p class="text-muted">
-                                                B.S. in Computer Science from the University of Tennessee at Knoxville
-                                            </p>
                                             <hr>
-                                            <strong><i class="fas fa-map-marker-alt mr-1"></i>ภูมิลำเนา</strong>
+                                            <strong><i class="fas fa-map-marker-alt mr-1"></i>ที่อยู่ปัจจุบัน</strong>
+                                            <p class="text-muted addressText">113/71 หมู่ 2 ต.หนองหาร อ.สันทราย จ.เชียงใหม่ 50920</p>
+                                            <hr> 
+                                        </div>
+                                    </div>
 
-                                            <p class="text-muted">Malibu, California</p>
-
-                                            <hr>
-
-                                            @*<strong><i class="fas fa-pencil-alt mr-1"></i> ทักษะ</strong>
-                                            <p class="text-muted">
-                                                <span class="tag tag-danger">UI Design</span>
-                                                <span class="tag tag-success">Coding</span>
-                                                <span class="tag tag-info">Javascript</span>
-                                                <span class="tag tag-warning">PHP</span>
-                                                <span class="tag tag-primary">Node.js</span>
-                                            </p>*@
-                                            <hr>
-                                            @*<strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>*@
+                                    <div class="card card-green">
+                                        <div class="card-header">
+                                            <h3 class="card-title">ข้อมูลการศึกษา</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <strong><i class="fas fa-book mr-1"></i>ปริญญาตรี</strong>
+                                            <p class="text-muted educationText">วทบ.เคมี มหาวิทยาลัยแม่โจ้</p>
+                                            <p class="text-muted educationCountryText">ประเทศไทย</p>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.col -->
                                 <div class="col-md-9">
                                     <div class="card">
                                         <div class="card-header p-2">
                                             <ul class="nav nav-pills">
-                                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">ผลงานวิจัย</a></li>
+                                                <li class="nav-item"><a class="nav-link active" href="#research" data-toggle="tab">ผลงานวิจัย</a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">บทความวิชาการ</a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">อื่นๆ</a></li>
                                             </ul>
-                                        </div><!-- /.card-header -->
+                                        </div>
                                         <div class="card-body">
                                             <div class="tab-content">
-                                                <div class="active tab-pane" id="activity">
-                                                    <!-- Post -->
+                                                <div class="active tab-pane" id="research">
+
                                                     <div class="post">
-                                                        <div class="user-block">
-                                                            <span class="username">
-                                                                <a href="#">ชื่องานวิจัย</a>
-                                                                <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                                                            </span>
-                                                            <span class="description">ระยะเวลาวิจัย 01/01/2014 - 31/12/2016</span>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <div class="">
+                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
+                                                                    <h5>ชื่องานวิจัย TH</h5>
+                                                                </div>
+                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
+                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
+                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
+                                                                <br>
+                                                                <div class="">
+                                                                    <b>ผู้ร่วมวิจัย</b>
+                                                                    <ol>
+                                                                        <li>
+                                                                            นาย 11111 11111
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 22222 22222
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 333333 333333
+                                                                        </li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="">
+                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
+                                                                    <h5>ชื่องานวิจัย TH</h5>
+                                                                </div>
+                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
+                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
+                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
+                                                                <br>
+                                                                <div class="">
+                                                                    <b>ผู้ร่วมวิจัย</b>
+                                                                    <ol>
+                                                                        <li>
+                                                                            นาย 11111 11111
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 22222 22222
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 333333 333333
+                                                                        </li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <!-- /.user-block -->
-                                                        <p>
-                                                            Lorem ipsum represents a long-held tradition for designers,
-                                                            typographers and the like. Some people hate it and argue for
-                                                            its demise, but others ignore the hate as they create awesome
-                                                            tools to help create filler text for everyone from bacon lovers
-                                                            to Charlie Sheen fans.
-                                                        </p>
                                                     </div>
+
+                                                    <div class="post">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <div class="">
+                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
+                                                                    <h5>ชื่องานวิจัย TH</h5>
+                                                                </div>
+                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
+                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
+                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
+                                                                <br>
+                                                                <div class="">
+                                                                    <b>ผู้ร่วมวิจัย</b>
+                                                                    <ol>
+                                                                        <li>
+                                                                            นาย 11111 11111
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 22222 22222
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 333333 333333
+                                                                        </li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="">
+                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
+                                                                    <h5>ชื่องานวิจัย TH</h5>
+                                                                </div>
+                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
+                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
+                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
+                                                                <br>
+                                                                <div class="">
+                                                                    <b>ผู้ร่วมวิจัย</b>
+                                                                    <ol>
+                                                                        <li>
+                                                                            นาย 11111 11111
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 22222 22222
+                                                                        </li>
+                                                                        <li>
+                                                                            นาง 333333 333333
+                                                                        </li>
+                                                                    </ol>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="tab-pane" id="timeline">
-                                                   -
+                                                   ไม่มีข้อมูล
                                                 </div>
 
                                                 <div class="tab-pane" id="settings">
-                                                   -
+                                                    ไม่มีข้อมูล
                                                 </div>
                                             </div>
                                         </div>

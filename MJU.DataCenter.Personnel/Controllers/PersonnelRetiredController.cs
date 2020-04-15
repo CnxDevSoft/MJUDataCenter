@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
+using MJU.DataCenter.Personnel.ViewModels.dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,15 +23,37 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
       
         [HttpGet("{type}/{total}")]
-        public object Get(int type,int total)
+        public object Get(int type,int total, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelRetired(total,type);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelRetired(total,type, filter);
+            }
+            return null;
         }
 
         [HttpGet("GetDataTablePersonRetired/{type}/{year}")]
-        public object GetDataTablePersonRetired(int type, string year)
+        public object GetDataTablePersonRetired(int type, string year, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetDataTablePersonRetired(year,type);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetDataTablePersonRetired(year,type, filter);
+            }
+            return null;
         }
 
     }
