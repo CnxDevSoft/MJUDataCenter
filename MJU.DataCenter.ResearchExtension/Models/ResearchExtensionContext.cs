@@ -16,7 +16,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
         }
 
         public virtual DbSet<DcResearchData> DcResearchData { get; set; }
-        public virtual DbSet<DcResearchDepartment> DcResearchDepartment { get; set; }
+        public virtual DbSet<DcResearchFaculty> DcResearchFaculty { get; set; }
         public virtual DbSet<DcResearchGroup> DcResearchGroup { get; set; }
         public virtual DbSet<DcResearchMoney> DcResearchMoney { get; set; }
         public virtual DbSet<MoneyType> MoneyType { get; set; }
@@ -34,7 +34,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-LFUK1A8\\SQLEXPRESS;User Id=admin;Database=ResearchExtension;Password=abc123");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-OAG5O3P;Database=ResearchExtension;User Id=admin;Password=abc123;");
             }
         }
 
@@ -57,13 +57,11 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.Property(e => e.ResearcherName).IsRequired();
             });
 
-            modelBuilder.Entity<DcResearchDepartment>(entity =>
+            modelBuilder.Entity<DcResearchFaculty>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("DC_ResearchDepartment");
-
-                entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
+                entity.ToView("DC_ResearchFaculty");
 
                 entity.Property(e => e.ResearchEndDate).HasColumnType("datetime");
 
@@ -113,13 +111,13 @@ namespace MJU.DataCenter.ResearchExtension.Models
             modelBuilder.Entity<PersonnelGroup>(entity =>
             {
                 entity.HasKey(e => e.PersonGroupId)
-                    .HasName("PK__Personne__89466BB732A98791");
+                    .HasName("PK__Personne__89466BB7A73BD218");
             });
 
             modelBuilder.Entity<ResearchData>(entity =>
             {
                 entity.HasKey(e => e.ResearchId)
-                    .HasName("PK__Research__617A954ED9414303");
+                    .HasName("PK__Research__617A954EA8360BEE");
 
                 entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
@@ -148,8 +146,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
             modelBuilder.Entity<Researcher>(entity =>
             {
-                entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
-
                 entity.Property(e => e.FirstNameTh).HasColumnName("FirstNameTH");
 
                 entity.Property(e => e.LastNameTh).HasColumnName("LastNameTH");

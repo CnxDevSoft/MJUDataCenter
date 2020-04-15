@@ -45,8 +45,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     aStringBuilder.Insert(13 - i.ToString().Length, i.ToString());
                 var result = new Person
                     {
-                        //PersonnelId = 3,
-                        IdCard = aStringBuilder.ToString(),
+                    //PersonnelId = 3,
+                        CitizenId = aStringBuilder.ToString(),
                         TitleName = TitleName.TitleName,
                         FirstName = string.Format("Firstname{0}",i),
                         LastName = string.Format("LastName{0}", i),
