@@ -30,32 +30,17 @@ namespace MJU.DataCenter.Personnel.V2.Controllers
         [HttpGet("{type}/{total}")]
         public object Get(int type,int total)
         {
-            return _personnelService.GetAllPersonnelRetired(total,type);
+            //return _personnelService.GetAllPersonnelRetired(total,type, filter);
+            return null;
         }
 
         [HttpGet("GetDataTablePersonRetired/{type}/{year}")]
         public object GetDataTablePersonRetired(int type, string year)
         {
-            return _personnelService.GetDataTablePersonRetired(year,type);
-        }
+            //return _personnelService.GetDataTablePersonRetired(year,type, filter);
 
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
+            return null;
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    
     }
 }

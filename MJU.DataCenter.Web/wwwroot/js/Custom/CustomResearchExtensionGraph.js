@@ -87,7 +87,7 @@ async function ResearchDepartmentRender(data) {
                     ticks: ticksStyle
                 }]
             },
-            onClick: function (evt, item) {
+            onClick: function (evt, item)                                {
 
                 // $("#researchDepartmentTable").empty();
                 $("#researchDepartmentSection").empty();

@@ -36,7 +36,10 @@ namespace MJU.DataCenter.Personnel
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true; // false by default
+            });
             services.AddMvc();
 
             services.AddDbContext<PersonnelContext>(option =>

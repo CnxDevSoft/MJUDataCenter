@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
+using MJU.DataCenter.Personnel.ViewModels.dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,17 +23,17 @@ namespace MJU.DataCenter.Personnel.Controllers
             _personnelService = personnelService;
         }
        
-        [HttpGet("{type}/{token}/{userName}")]
-        public object Get(int type, string token, string userName)
+        [HttpGet("{type}")]
+        public object Get(int type,[FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(token, userName);
+            var result = AuthenticationApi.Authenticated(auth);
             if (result.Result.IsSuccess)
             {
                 List<int> filter = new List<int>();
                 if (result.Result.DepartmentRoleList.Any(x=>x.DepartmentKey != null))
                 {
                     filter = result.Result.
-                        DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
                 } 
                 return _personnelService.GetAllPersonnelPosition(type, filter);
             }
@@ -40,9 +41,20 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
 
         [HttpGet("DataSource")]
-        public object Get(string type)
+        public object Get(string type, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelPositionDataSource(type);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelPositionDataSource(type,filter);
+            }
+            return null;
         }
 
 

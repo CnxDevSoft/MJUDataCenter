@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    var userAccesToken = User.FindFirst("AccessToken").Value;
+}
 <div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
@@ -34,7 +36,7 @@
 </div>
 <script>
     $(function () {
-        PersonEducationGraph();
+        PersonEducationGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personEducation");
     })
 </script>

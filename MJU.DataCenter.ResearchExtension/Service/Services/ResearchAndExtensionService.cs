@@ -35,7 +35,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
             var researchDepartment = _dcResearchDepartmentRepository.GetAll().ToList();
-            var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh, m.CitizenId }).Distinct().OrderBy(o => o.DepartmentId);
+            var distinctResearchDepartment = researchDepartment.Select(m => new { m.DepartmentId, m.DepartmentNameTh}).Distinct().OrderBy(o => o.DepartmentId);
             if (input.Type == 1)
             {
                 var label = new List<string>();

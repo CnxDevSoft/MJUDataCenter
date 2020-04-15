@@ -1,4 +1,7 @@
-﻿<div class="col-lg-6">
+﻿@{
+    var userAccesToken = User.FindFirst("AccessToken").Value;
+}
+<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
             <div class="d-flex justify-content-between">
@@ -26,19 +29,18 @@
             <br />
             <div class="position-relative mb-4" id="personWorkAge-chart-canvas">
                 <canvas id="personWorkAge-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
-                <button onclick="clickHandler()">test</button>
             </div>
             <div class="position-relative mb-4" id="personWorkAge-chart-table" style="display:none;">
                 <partial name="PartialViews/PersonWorkAgeGraph/_personWorkAgeGraphDataTable" />
             </div>
-            
+
         </div>
     </div>
 </div>
 
 <script>
     $(function () {
-        PersonWorkAgeGraph();
+        PersonWorkAgeGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personWorkAge");
 
     })

@@ -1,4 +1,5 @@
 ﻿@{
+    var userAccesToken = User.FindFirst("AccessToken").Value;
 }
 
 <div class="col-lg-6">
@@ -13,11 +14,11 @@
                 <div class="btn-group btn-group-toggle btn-toggle-green" data-toggle="buttons">
                     <label class="btn btn-success label-default-bg active" id="switch-allpersonal-label-canvas">
                         <input type="radio" name="options" id="switch-allpersonal-chart-1" autocomplete="off" checked="">
-                        <i class="fa fa-chart-bar" aria-hidden="true"></i><br/> มุมมองกราฟ
+                        <i class="fa fa-chart-bar" aria-hidden="true"></i><br /> มุมมองกราฟ
                     </label>
                     <label class="btn btn-success label-default-bg btn-toggle-green" id="switch-allpersonal-label-table">
                         <input type="radio" name="options" id="switch-allpersonal-chart-2" autocomplete="off">
-                        <i class="fa fa-table" aria-hidden="true"></i><br/> มุมมองตาราง
+                        <i class="fa fa-table" aria-hidden="true"></i><br /> มุมมองตาราง
                     </label>
                 </div>
                 <a class="btn btn-app" style="position: absolute;right: 0;" id="allpersonal-datasource">
@@ -45,7 +46,7 @@
 
 <script>
     $(function () {
-        AllPersonGraph();
+        AllPersonGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("allpersonal");
     })
 </script>

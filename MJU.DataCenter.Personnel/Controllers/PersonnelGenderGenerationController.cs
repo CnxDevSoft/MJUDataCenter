@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
+using MJU.DataCenter.Personnel.ViewModels.dtos;
 
 namespace MJU.DataCenter.Personnel.Controllers
 {
@@ -20,21 +22,55 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
 
         [HttpGet("{type}")]
-        public object Get(int type)
+        public object Get(int type, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelGender(type);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelGender(type, filter);
+            }
+            return null;
         }
 
         [HttpGet("DataSource")]
-        public object Get()
+        public object Get([FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelGenderDataSource();
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelGenderDataSource(filter);
+            }
+            return null;
         }
 
         [HttpGet("DataSourceByType/{type}/{gender}/{genderName}")]
-        public object Get(int type,int gender, string genderName)
+        public object Get(int type, int gender, string genderName, [FromQuery] AuthenticateModel auth)
         {
-            return _personnelService.GetAllPersonnelGenderDataSourceByType(type, gender, genderName);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _personnelService.GetAllPersonnelGenderDataSourceByType(type, gender, genderName, filter);
+            }
+            return null;
+
         }
 
     }
