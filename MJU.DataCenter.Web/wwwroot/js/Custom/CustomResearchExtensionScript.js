@@ -1,4 +1,4 @@
-﻿const oLanguageOptions = {
+﻿const oLanguageResearchScriptOptions = {
     sLengthMenu: "แสดง _MENU_",
     sSearch: "ค้นหา",
     sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ ข้อมูล",
@@ -30,9 +30,8 @@ async function ToggleResearchChart(chartName) {
         var checkDatableLoaded = $('.dataTable-sub-' + chartName).hasClass("datableLoaded");
         if (checkDatableLoaded == false) {
             $('.dataTable-sub-' + chartName).DataTable({
-                language: oLanguageOptions,
-                searching: false,
-                pageLength: 5
+                language: oLanguageResearchScriptOptions,
+             //   pageLength: 5
             });
             $('.dataTable-sub-' + chartName).addClass('datableLoaded');
         }

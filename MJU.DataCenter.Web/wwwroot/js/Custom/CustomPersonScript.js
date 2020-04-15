@@ -31,8 +31,8 @@ async function ToggleChart(chartName) {
         if (checkDatableLoaded == false) {
             $('.dataTable-sub-' + chartName).DataTable({
                 language: oLanguagePersonScriptOptions,
-                searching: false,
-                pageLength: 5
+               // searching: false,
+               // pageLength: 5
             });
             $('.dataTable-sub-' + chartName).addClass('datableLoaded');
         }
