@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MJU.DataCenter.Personnel.Models
 {
-    public partial class Person
+    public partial class DcPerson
     {
         public int PersonnelId { get; set; }
         public string CitizenId { get; set; }

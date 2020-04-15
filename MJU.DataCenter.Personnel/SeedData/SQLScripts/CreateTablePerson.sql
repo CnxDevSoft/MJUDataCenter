@@ -1,6 +1,6 @@
 CREATE TABLE [dbo].[Person](
 	[PersonnelId] [int] IDENTITY(1,1) NOT NULL,
-	[IdCard] [nvarchar](max) NULL,
+	[CitizenId] [nvarchar](max) NULL,
 	[TitleName] [nvarchar](max) NULL,
 	[TitlePosition] [nvarchar](max) NULL,
 	[FirstName] [nvarchar](max) NULL,

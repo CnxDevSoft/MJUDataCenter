@@ -73,8 +73,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateReacher()
         {
             var list = new List<Researcher>();
-            for (var i = 1; i <= 300; i++)
+            for (var i = 0; i <= 300; i++)
             {
+               
                 var idcrd = "1234567890000";
                 var aStringBuilder = new StringBuilder(idcrd);
                 aStringBuilder.Remove(13 - i.ToString().Length, i.ToString().Length);
@@ -86,9 +87,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     TitleTh = SeedData.NewSeedData.RandomTitleName(),
                     FirstNameTh = string.Format("Firstname{0}", i),
                     LastNameTh = string.Format("Lastname{0}", i),
-                    DepartmentCode = depart.DepartmentCode,
-                    DepartmentId = depart.DepartId,
-                    DepartmentNameTh = depart.DepartmentName
+                    FacultyCode = depart.DepartmentCode,
+                    FacultyId = depart.DepartId,
+                    FacultyName = depart.DepartmentName
                 };
                 list.Add(model);
             }
@@ -136,13 +137,13 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 Random random = new Random();
                 var moneyType = random.Next(1, 11);
-
+                var c = i % 10;
                 var rd = random.Next(1, 101);
 
                 var model = new ResearchMoney
                 {
                     ResearchId = i,
-                    ResearchMoneyTypeId = moneyType
+                    ResearchMoneyTypeId = c
                 };
                 list.Add(model);
             }
@@ -152,7 +153,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearchGroup()
         {
             var list = new List<ResearcherGroup>();
-            for (var i = 1; i <= 300; i++)
+            for (var i = 0; i <= 300; i++)
             {
                 var g = i % 11;
                 Random random = new Random();
@@ -171,7 +172,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearchPaper()
         {
             var list = new List<ResearchPaper>();
-            for (var i = 1; i <= 300; i++)
+            for (var i = 0; i <= 300; i++)
             {
                 var x = i % 100;
                 Random random = new Random();
@@ -203,7 +204,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearcherPaper()
         {
             var list = new List<ResearcherPaper>();
-            for (var i = 1; i <= 300; i++)
+            for (var i = 0; i <= 300; i++)
             {
                 var x = i % 100;
                 Random random = new Random();
@@ -228,7 +229,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearchPersonnel()
         {
             var list = new List<ResearchPersonnel>();
-            for (var i = 1; i <= 300; i++)
+            for (var i = 0; i <= 300; i++)
             {
                 var x = i % 100;
                 Random random = new Random();
