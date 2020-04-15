@@ -4,6 +4,7 @@ using MJU.DataCenter.Personnel.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MJU.DataCenter.Personnel.Service.Services
@@ -24,30 +25,35 @@ namespace MJU.DataCenter.Personnel.Service.Services
      
                 var list = new List<Person>();
 
-                for (var i = 0; i < 100; i++)
+                for (var i = 0; i < 300; i++)
                 {
                     var TitleName = SeedData.SeedData.RandomTitleName();
                     var Nationality = SeedData.SeedData.RandomNationality();
                     var Address = SeedData.SeedData.RandomAddress();
                     var Section = SeedData.SeedData.Section();
                     var Division = SeedData.SeedData.Division();
-                    var Fact = SeedData.SeedData.Fact();
+                    var Fact = SeedData.SeedData.Fact(i);
                     var AdminPosition = SeedData.SeedData.AdminPosition();
                     var Education = SeedData.SeedData.Education();
                     var PersonnelType = SeedData.SeedData.TypePersonCode();
                     var PositionType = SeedData.SeedData.PositionType();
                     var PositionLevel = SeedData.SeedData.PositionLevel();
-                    var result = new Person
+                    var retired = SeedData.SeedData.RandomDateTimeRetired();
+                    var idcrd = "1234567890000";
+                    var aStringBuilder = new StringBuilder(idcrd);
+                    aStringBuilder.Remove(13 - i.ToString().Length, i.ToString().Length);
+                    aStringBuilder.Insert(13 - i.ToString().Length, i.ToString());
+                var result = new Person
                     {
                         //PersonnelId = 3,
-                        IdCard = SeedData.SeedData.RandomIdCard(),
+                        IdCard = aStringBuilder.ToString(),
                         TitleName = TitleName.TitleName,
-                        FirstName = SeedData.SeedData.RandomFirstName(),
-                        LastName = SeedData.SeedData.RandomLastName(),
+                        FirstName = string.Format("Firstname{0}",i),
+                        LastName = string.Format("LastName{0}", i),
                         TitleNameEn = TitleName.TitleNameEn,
-                        FirstNameEn = SeedData.SeedData.RandomFirstNameEn(),
-                        LastNameEn = SeedData.SeedData.RandomLastNameEn(),
-                        DateOfBirth = SeedData.SeedData.RandomDateTime(),
+                        FirstNameEn = string.Format("Firstname{0}", i),
+                        LastNameEn = string.Format("LastName{0}", i),
+                        DateOfBirth = SeedData.SeedData.RandomDateTimeDoB(),
                         BloodType = SeedData.SeedData.BloodType(),
                         GenderId = TitleName.GenderType,
                         Gender = TitleName.Gender.ToString(),
@@ -69,9 +75,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         Position = SeedData.SeedData.Position(),
                         PositionLevelId = PositionLevel.PositionLevelId,
                         PositionLevel = PositionLevel.PositionLevelName,
-                        StartDate = SeedData.SeedData.RandomDateTime(),
-                        RetiredDate = SeedData.SeedData.RandomDateTime() < DateTime.UtcNow ? SeedData.SeedData.RandomDateTime() : null,
-                        RetiredYear = SeedData.SeedData.RandomDateTime().GetValueOrDefault().Year,
+                        StartDate = SeedData.SeedData.RandomDateTimeDoB(),
+                        RetiredDate = retired,
+                        RetiredYear = retired.GetValueOrDefault().Year,
                         SectionId = Section.SectionId,
                         Section = Section.SectionName,
                         DivisionId = Division.DivisionId,
@@ -91,8 +97,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         TitlePosition = Education.TitleEducation,
                         CountryId = Education.CountryId,
                         Country = Education.Country,
-                        StartEducationDate = SeedData.SeedData.RandomDateTime(),
-                        GraduateDate = SeedData.SeedData.RandomDateTime()
+                        StartEducationDate = SeedData.SeedData.RandomDateTimeDoB(),
+                        GraduateDate = SeedData.SeedData.RandomDateTimeDoB()
                     };
 
                     list.Add(result);
@@ -100,6 +106,10 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 }
                 _personnelRepository.AddRange(list);
            
+        }
+        public void NewAddPersonSeedData()
+        {
+
         }
 
     }

@@ -1,6 +1,10 @@
 CREATE view [dbo].[DC_ResearchMoney] as
 select rd.ResearchId
-,CONCAT(rc.TitleTH , ' ', rc.FirstNameTH , ' ', rc.LastNameTH ) as ResearcherName
+,CONCAT(rc.TitleTH , ' ', rc.FirstNameTH , ' ', rc.LastNameTH ) as ResearcherName,
+rc.FacultyId 
+,rc.FacultyCode
+,rc.FacultyName 
+,rc.CitizenId
 ,rd.ResearchNameTH 
 ,rd.ResearchNameEN
 ,rd.ResearchCode
