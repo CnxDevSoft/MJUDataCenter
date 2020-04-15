@@ -78,9 +78,9 @@ CREATE TABLE [dbo].[Researcher](
 	[TitleTH] [nvarchar](max) NULL,
 	[FirstNameTH] [nvarchar](max) NULL,
 	[LastNameTH] [nvarchar](max) NULL,
-	[DepartmentId] [int] NULL,
-	[DepartmentCode] [int] NULL,
-	[DepartmentNameTH] [nvarchar](max) NULL,
+	[FacultyId] [int] NULL,
+	[FacultyCode] [int] NULL,
+	[FacultyName] [nvarchar](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ResearcherId] ASC

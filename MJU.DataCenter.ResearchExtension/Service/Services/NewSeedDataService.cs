@@ -4,6 +4,7 @@ using MJU.DataCenter.ResearchExtension.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.Service.Services
@@ -63,7 +64,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 var model = new MoneyType
                 {
-                    MoneyTypeName = string.Format("MoneyType {0}", i)
+                    MoneyTypeName = string.Format("แหล่งเงิน {0}", i)
                 };
                 list.Add(model);
             }
@@ -72,12 +73,16 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateReacher()
         {
             var list = new List<Researcher>();
-            for (var i = 1; i <= 20; i++)
+            for (var i = 1; i <= 300; i++)
             {
-                var depart = SeedData.HelperSeedData.RandomDepart();
+                var idcrd = "1234567890000";
+                var aStringBuilder = new StringBuilder(idcrd);
+                aStringBuilder.Remove(13 - i.ToString().Length, i.ToString().Length);
+                aStringBuilder.Insert(13 - i.ToString().Length, i.ToString());
+                var depart = SeedData.HelperSeedData.RandomDepart(i);
                 var model = new Researcher
                 {
-                    CitizenId = SeedData.HelperSeedData.RandomCitizenId(),
+                    CitizenId = aStringBuilder.ToString(),
                     TitleTh = SeedData.NewSeedData.RandomTitleName(),
                     FirstNameTh = string.Format("Firstname{0}", i),
                     LastNameTh = string.Format("Lastname{0}", i),
@@ -127,7 +132,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearchMoneyType()
         {
             var list = new List<ResearchMoney>();
-            for (var i = 1; i <= 200; i++)
+            for (var i = 1; i <= 100; i++)
             {
                 Random random = new Random();
                 var moneyType = random.Next(1, 11);
@@ -136,7 +141,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
                 var model = new ResearchMoney
                 {
-                    ResearchId = rd,
+                    ResearchId = i,
                     ResearchMoneyTypeId = moneyType
                 };
                 list.Add(model);
@@ -147,16 +152,17 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearchGroup()
         {
             var list = new List<ResearcherGroup>();
-            for (var i = 1; i <= 50; i++)
+            for (var i = 1; i <= 300; i++)
             {
+                var g = i % 11;
                 Random random = new Random();
                 var group = random.Next(1, 21);
                 var researcher = random.Next(1, 21);
 
                 var model = new ResearcherGroup
                 {
-                    PersonGroupId = group,
-                    ResearcherId = researcher
+                    PersonGroupId = g,
+                    ResearcherId = i
                 };
                 list.Add(model);
             }
@@ -165,8 +171,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearchPaper()
         {
             var list = new List<ResearchPaper>();
-            for (var i = 1; i <= 80; i++)
+            for (var i = 1; i <= 300; i++)
             {
+                var x = i % 100;
                 Random random = new Random();
                 var research = random.Next(1, 101);
                 var researcher = random.Next(1, 101);
@@ -174,15 +181,15 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
                 var model = new ResearchPaper
                 {
-                    ResearcherId = researcher,
-                    PaperNameTh = string.Format("บทวิจัย{0}",i),
-                    PaperNameEn = string.Format("Paper{0}", i),
+                    ResearcherId = i,
+                    PaperNameTh = string.Format("บทวิจัย{0}", x),
+                    PaperNameEn = string.Format("Paper{0}", x),
                     Weigth = SeedData.HelperSeedData.RandomWeigthPaper(),
                     PaperCreateDate = SeedData.HelperSeedData.RandomDateTimeResearch(),
-                    MagazineId = magazine,
-                    MagazineName = string.Format("MagazineName{0}", magazine),
+                    MagazineId = x,
+                    MagazineName = string.Format("MagazineName{0}", x),
                     MagzineVolum = SeedData.HelperSeedData.RandomResearchId(),
-                    ResearchId  = research
+                    ResearchId  = x
                 };
                 if (!list.Where(m=>m.ResearchId==model.ResearchId&&m.ResearcherId==model.ResearcherId).Any())
                 {
@@ -196,16 +203,17 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearcherPaper()
         {
             var list = new List<ResearcherPaper>();
-            for (var i = 1; i <= 80; i++)
+            for (var i = 1; i <= 300; i++)
             {
+                var x = i % 100;
                 Random random = new Random();
                 var researcher = random.Next(1, 21);
                 var paper = random.Next(1, 51);
 
                 var model = new ResearcherPaper
                 {
-                    ResearcherId = researcher,
-                    PaperId = paper,
+                    ResearcherId = i,
+                    PaperId = x,
                     PaperPercent = SeedData.HelperSeedData.RandomPercent()
                 };
                 if (!list.Where(m => m.PaperId == model.PaperId && m.ResearcherId == model.ResearcherId).Any())
@@ -220,16 +228,17 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private void GenerateResearchPersonnel()
         {
             var list = new List<ResearchPersonnel>();
-            for (var i = 1; i <= 50; i++)
+            for (var i = 1; i <= 300; i++)
             {
+                var x = i % 100;
                 Random random = new Random();
                 var researcher = random.Next(1, 21);
                 var Research = random.Next(1, 101);
 
                 var model = new ResearchPersonnel
                 {
-                    ResearcherId = researcher,
-                    ResearchId = Research,
+                    ResearcherId = i,
+                    ResearchId = x,
                     ResearchWorkPercent = SeedData.HelperSeedData.RandomPercent(),
                     ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
                 };

@@ -129,37 +129,68 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
             return result;
 
         }
-        public static Depart RandomDepart()
+        public static Depart RandomDepart(int c)
         {
+            var x = c % 11;
             Random random = new Random();
             var randomTypeA = random.Next(1, 6);
             var result = new Depart();
-            switch (randomTypeA)
+            switch (x)
             {
                 case 1:
-                    result.DepartId = 1;
+                    result.DepartId = 20001;
                     result.DepartmentCode = 10;
-                    result.DepartmentName = "A";
+                    result.DepartmentName = "สำนักงานมหาวิทยาลัย";
                     break;
                 case 2:
-                    result.DepartId = 2;
+                    result.DepartId = 20002;
                     result.DepartmentCode = 20;
-                    result.DepartmentName = "B";
+                    result.DepartmentName = "คณะวิทยาศาสตร์";
                     break;
                 case 3:
-                    result.DepartId = 3;
+                    result.DepartId = 20003;
                     result.DepartmentCode = 30;
-                    result.DepartmentName = "C";
+                    result.DepartmentName = "คณะวิศวกรรมและอุตสาหกรรมเกษตร";
                     break;
                 case 4:
-                    result.DepartId = 4;
+                    result.DepartId = 20004;
                     result.DepartmentCode = 40;
-                    result.DepartmentName = "D";
+                    result.DepartmentName = "คณะบริหารธุรกิจ";
                     break;
                 case 5:
-                    result.DepartId = 5;
+                    result.DepartId = 20005;
                     result.DepartmentCode = 50;
-                    result.DepartmentName = "E";
+                    result.DepartmentName = "คณะผลิตกรรมการเกษตร";
+                    break;
+                case 6:
+                    result.DepartId = 20006;
+                    result.DepartmentCode = 60;
+                    result.DepartmentName = "คณะเทคโนโลยีการประมงและทรัพยากรทางน้ำ";
+                    break;
+                case 7:
+                    result.DepartId = 20007;
+                    result.DepartmentCode = 70;
+                    result.DepartmentName = "คณะพัฒนาการท่องเที่ยว";
+                    break;
+                case 8:
+                    result.DepartId = 20008;
+                    result.DepartmentCode = 80;
+                    result.DepartmentName = "คณะศิลปศาสตร์";
+                    break;
+                case 9:
+                    result.DepartId = 20009;
+                    result.DepartmentCode = 90;
+                    result.DepartmentName = "คณะเศรษฐศาสตร์";
+                    break;
+                case 10:
+                    result.DepartId = 20010;
+                    result.DepartmentCode = 100;
+                    result.DepartmentName = "คณะสัตวศาสตร์และเทคโนโลยี";
+                    break;
+                case 0:
+                    result.DepartId = 20011;
+                    result.DepartmentCode = 110;
+                    result.DepartmentName = "คณะสารสนเทศและการสื่อสาร";
                     break;
             }
             return result;
