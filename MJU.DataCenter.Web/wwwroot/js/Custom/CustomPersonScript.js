@@ -1,4 +1,14 @@
-﻿
+﻿const oLanguagePersonScriptOptions = {
+    sLengthMenu: "แสดง _MENU_",
+    sSearch: "ค้นหา",
+    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ ข้อมูล",
+    paginate: {
+        "first": "เริ่มต้น",
+        "last": "สุดท้าย",
+        "next": "ถัดไป",
+        "previous": "ย้อนกลับ"
+    }
+}
 async function ToggleChart(chartName) {
     
     var canvasTab = '#' + chartName + '-chart-canvas';
@@ -20,7 +30,7 @@ async function ToggleChart(chartName) {
         var checkDatableLoaded = $('.dataTable-sub-' + chartName).hasClass("datableLoaded");
         if (checkDatableLoaded == false) {
             $('.dataTable-sub-' + chartName).DataTable({
-                language: oLanguageOptions,
+                language: oLanguagePersonScriptOptions,
                 searching: false,
                 pageLength: 5
             });

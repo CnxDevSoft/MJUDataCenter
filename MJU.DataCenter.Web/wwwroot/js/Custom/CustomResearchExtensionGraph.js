@@ -1,5 +1,5 @@
 ﻿const obackgroudColor = ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)"];
-const oborderColor = ["rgba(165,96,229,1)", "rgba(127,157,240, 1)", "rgba(118,119,232, 1)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,1)", "rgba(214,237,154,1)", "rgba(114, 249, 156,1)"]
+const oborderColor = ["rgba(165,96,229,1)", "rgba(127,157,240, 1)", "rgba(118,119,232, 1)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,1)", "rgba(214,237,154,1)", "rgba(114, 249, 156,1)"];
 
 async function ResearchDepartmentGraph(startDate, endDate) {
     var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment?Type=1&api-version=1.0'
