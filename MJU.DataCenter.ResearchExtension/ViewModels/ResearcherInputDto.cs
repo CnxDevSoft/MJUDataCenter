@@ -9,6 +9,6 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string DepartmentName { get; set; }
+        public string FacultyName { get; set; }
     }
 }

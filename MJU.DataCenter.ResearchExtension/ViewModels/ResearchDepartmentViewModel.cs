@@ -4,17 +4,17 @@ using MJU.DataCenter.ResearchExtension.Models;
 
 namespace MJU.DataCenter.ResearchExtension.ViewModels
 {
-    public class ResearchDepartmentDataSourceModel
+    public class ResearchFacultyDataSourceModel
     {
-       public int? DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+       public int? FacultyId { get; set; }
+        public string FacultyName { get; set; }
         public List<DcResearchDepartment> ResearchData { get; set; }
     }
 
-    public class ResearchDepartmentDataTableModel
+    public class ResearchFacultyDataTableModel
     {
-        public int? DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        public int? FacultyId { get; set; }
+        public string FacultyName { get; set; }
         public int ResearchData { get; set; }
     }
 

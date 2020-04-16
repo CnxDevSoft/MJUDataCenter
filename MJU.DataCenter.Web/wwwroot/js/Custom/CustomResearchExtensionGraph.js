@@ -1,4 +1,12 @@
-﻿const obackgroudColor = ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)"];
+﻿var tokenTemp;
+var userNameTemp;
+
+async function SetTempAuthorization(token, userName) {
+    tokenTemp = token;
+    userNameTemp = userName
+}
+
+const obackgroudColor = ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)"];
 const oborderColor = ["rgba(165,96,229,1)", "rgba(127,157,240, 1)", "rgba(118,119,232, 1)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,1)", "rgba(214,237,154,1)", "rgba(114, 249, 156,1)"];
 const oLanguageOptions = {
     sLengthMenu: "แสดง _MENU_",
@@ -12,8 +20,9 @@ const oLanguageOptions = {
     }
 }
 
-async function ResearchDepartmentGraph(startDate, endDate) {
-    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment?Type=1&api-version=1.0'
+async function ResearchDepartmentGraph(startDate, endDate,token,userName) {
+    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment?Type=1&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -184,8 +193,9 @@ async function RenderResearchDepartmentGraphDS(data) {
     });
 }
 
-async function ResearchPersonGroupGraph(startDate, endDate) {
-    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup?Type=1&api-version=1.0'
+async function ResearchPersonGroupGraph(startDate, endDate, token, userName) {
+    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -295,7 +305,7 @@ async function ResearchPersonGroupRender(data) {
 }
 async function ReseachPersonGroupGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource' + '?UserName=' + userName + ' &Token=' + token + ' &api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderReseachPersonGroupGraphDS(data);
@@ -330,8 +340,9 @@ async function RenderReseachPersonGroupGraphDS(data) {
     });
 }
 
-async function ResearchMoneyRangeGraph(startDate, endDate) {
-    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney?Type=1&api-version=1.0'
+async function ResearchMoneyRangeGraph(startDate, endDate, token, userName) {
+    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -461,7 +472,7 @@ async function ResearchMoneyRangeRender(data) {
 }
 async function ResearchMoneyRangeGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource' + '?UserName=' + userName + ' &Token=' + token + ' &api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderResearchMoneyRangeGraphDS(data);
@@ -498,8 +509,9 @@ async function RenderResearchMoneyRangeGraphDS(data) {
     });
 }
 
-async function ResearchMoneyTypeGraph(startDate, endDate) {
-    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1&api-version=1.0';
+async function ResearchMoneyTypeGraph(startDate, endDate, token, userName) {
+    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -619,7 +631,7 @@ async function ResearchMoneyTypeRender(data) {
 }
 async function ResearchMoneyTypeGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderResearchMoneyTypeGraphDS(data);
@@ -739,7 +751,8 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 async function ResearchDepartmentTableDrillDown(type) {
 
     var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource?Type=' + type
-        + '&api-version=1.0' : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource?api-version=1.0';
+        + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -752,8 +765,8 @@ async function ResearchDepartmentTableDrillDown(type) {
 
 async function ResearchGroupTableDrillDown(type)
 {
-    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource?Type=' + type + '&api-version=1.0'
-        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource?api-version=1.0';
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -882,8 +895,8 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 }
 
 async function ResearchMoneyRangeDrillDown(type) {
-    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable?Type=' + type + '&api-version=1.0'
-        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable?api-version=1.0';
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
 
     console.log(type);
     fetch(url)
@@ -952,8 +965,8 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 }
 
 async function ResearchMoneyTypeDrillDown(type) {
-    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource?Type=' + type + '&api-version=1.0'
-        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource?api-version=1.0';
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
     console.log("test");
     console.log(type);
     fetch(url)

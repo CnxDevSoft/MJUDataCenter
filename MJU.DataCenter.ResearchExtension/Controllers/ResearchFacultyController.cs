@@ -4,44 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MJU.DataCenter.Core.Models;
-using MJU.DataCenter.Personnel.Helper;
-using MJU.DataCenter.Personnel.Service.Interface;
-using MJU.DataCenter.Personnel.ViewModels.dtos;
+using MJU.DataCenter.ResearchExtension.Helper;
+using MJU.DataCenter.ResearchExtension.Service.Interface;
+using MJU.DataCenter.ResearchExtension.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace MJU.DataCenter.Personnel.Controllers
+namespace MJU.DataCenter.ResearchExtension.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonnelGroupWorkDurationController : Controller
+    public class ResearchFacultyController : ControllerBase
     {
-        private readonly IPersonnelService _personnelService;
-        public PersonnelGroupWorkDurationController(IPersonnelService personnelService)
+        private readonly IResearchAndExtensionService _researchAndExtensionService;
+        public ResearchFacultyController(IResearchAndExtensionService researchAndExtensionService)
         {
-            _personnelService = personnelService;
+            _researchAndExtensionService = researchAndExtensionService;
         }
 
-        [HttpGet("{type}")]
-        public object Get(int type, [FromQuery] AuthenticateModel auth)
-        {
-            var result = AuthenticationApi.Authenticated(auth);
-            if (result.Result.IsSuccess)
-            {
-                List<int> filter = new List<int>();
-                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
-                {
-                    filter = result.Result.
-                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
-                }
-                return _personnelService.GetAllPersonnelGroupWorkDuration(type, filter);
-            }
-            return null;
-        }
-
-        [HttpGet("DataSource")]
-        public object Get(string personType, int? index, [FromQuery] AuthenticateModel auth)
+        [HttpGet("")]
+        public object Get([FromQuery]InputFilterGraphViewModel input, [FromQuery] AuthenticateModel auth)
         {
             var result = AuthenticationApi.Authenticated(auth);
             if (result.Result.IsSuccess)
@@ -52,11 +35,27 @@ namespace MJU.DataCenter.Personnel.Controllers
                     filter = result.Result.
                     DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
                 }
-                return _personnelService.GetAllPersonnelGroupWorkDurationDataSource(personType,index, filter);
+                return _researchAndExtensionService.GetResearchDepartment(input,filter);
             }
             return null;
         }
 
+        [HttpGet("GetDataSource")]
+        public List<ResearchFacultyDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input, [FromQuery] AuthenticateModel auth)
+        {
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _researchAndExtensionService.GetResearchFacultyDataSource(input,filter);
+            }
+            return null;
+        }
 
     }
 }

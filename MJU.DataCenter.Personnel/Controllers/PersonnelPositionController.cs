@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Core.Models;
 using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
 using MJU.DataCenter.Personnel.ViewModels.dtos;

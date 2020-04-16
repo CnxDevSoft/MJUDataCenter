@@ -10,9 +10,9 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public string NameTh { get; set; }
         public string SirNameTh { get; set; }
         public int? PersonGroupId { get; set; }
-        public int? DepartmentId { get; set; }
-        public int? DepartmentCode { get; set; }
-        public string DepartmentNameTh { get; set; }
+        public int? FacultyId { get; set; }
+        public int? FacultyCode { get; set; }
+        public string FacultyName { get; set; }
         public decimal? ResearchWorkPercent { get; set; }
         public decimal? PersonMoney { get; set; }
     }

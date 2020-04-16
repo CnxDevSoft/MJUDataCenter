@@ -7,9 +7,9 @@ namespace MJU.DataCenter.ResearchExtension.Models
     {
         public int ResearcherId { get; set; }
         public string ResearcherName { get; set; }
-        public int? DepartmentId { get; set; }
-        public int? DepartmentCode { get; set; }
-        public string DepartmentNameTh { get; set; }
+        public int? FacultyId { get; set; }
+        public int? FacultyCode { get; set; }
+        public string FacultyName { get; set; }
         public int ResearchId { get; set; }
         public string ResearchNameEn { get; set; }
         public string ResearchNameTh { get; set; }

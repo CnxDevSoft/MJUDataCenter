@@ -27,16 +27,16 @@ namespace MJU.DataCenter.ResearchExtension.V2.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
-        [HttpGet("{type}")]
-        public object Get(int type, string filter)
-        {
-            var input = new InputFilterGraphViewModel
-            {
-                Type = type,
-            };
-            return _researchAndExtensionService.GetResearchDepartment(input);
-        }
+        //// GET api/values/5
+        //[HttpGet("{type}")]
+        //public object Get(int type, string filter)
+        //{
+        //    var input = new InputFilterGraphViewModel
+        //    {
+        //        Type = type,
+        //    };
+        //    return _researchAndExtensionService.GetResearchDepartment(input);
+        //}
 
         // POST api/values
         [HttpPost]

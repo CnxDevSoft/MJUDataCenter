@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Core.Models;
+using MJU.DataCenter.ResearchExtension.Helper;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
 using MJU.DataCenter.ResearchExtension.ViewModels;
 
@@ -20,42 +22,40 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         {
             _researchAndExtensionService = researchAndExtensionService;
         }
-        // GET: api/values
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
 
-        // GET api/values/5
         [HttpGet("")]
-        public object Get([FromQuery]InputFilterGraphViewModel input)
+        public object Get([FromQuery]InputFilterGraphViewModel input, [FromQuery] AuthenticateModel auth)
         {
-            return _researchAndExtensionService.GetResearchData(input);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _researchAndExtensionService.GetResearchData(input,filter);
+            }
+            return null;
         }
 
         [HttpGet("GetDataSource")]
-        public List<ResearchDataDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input)
+        public List<ResearchDataDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input, [FromQuery] AuthenticateModel auth)
         {
-            return _researchAndExtensionService.GetResearchDataDataSource(input);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _researchAndExtensionService.GetResearchDataDataSource(input,filter);
+            }
+            return null;
         }
 
-        // POST api/values
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

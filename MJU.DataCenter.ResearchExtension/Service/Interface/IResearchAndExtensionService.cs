@@ -8,24 +8,16 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
 {
     public interface IResearchAndExtensionService
     {
-        object GetResearchDepartment(InputFilterGraphViewModel input);
-        public List<ResearchDepartmentDataSourceModel> GetResearchDepartmentDataSource(InputFilterDataSourceViewModel input);
-        object GetResearchGroup(InputFilterGraphViewModel input);
-        List<ResearchGroupDataSourceModel> GetResearchGroupDataSource(InputFilterDataSourceViewModel input);
-        object GetResearchData(InputFilterGraphViewModel input);
-        List<ResearchDataDataSourceModel> GetResearchDataDataSource(InputFilterDataSourceViewModel input);
-        object GetAllResearchMoney(InputFilterGraphViewModel input);
-        List<RankResearchRageMoneyDataSourceModel> GetAllResearchMoneyDataSource(InputFilterDataSourceViewModel input);
-        List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input);
+        object GetResearchDepartment(InputFilterGraphViewModel input, List<int> filter);
+        public List<ResearchFacultyDataSourceModel> GetResearchFacultyDataSource(InputFilterDataSourceViewModel input, List<int> filter);
+        object GetResearchGroup(InputFilterGraphViewModel input, List<int> filter);
+        List<ResearchGroupDataSourceModel> GetResearchGroupDataSource(InputFilterDataSourceViewModel input, List<int> filter);
+        object GetResearchData(InputFilterGraphViewModel input, List<int> filter);
+        List<ResearchDataDataSourceModel> GetResearchDataDataSource(InputFilterDataSourceViewModel input, List<int> filter);
+        object GetAllResearchMoney(InputFilterGraphViewModel input, List<int> filter);
+        List<RankResearchRageMoneyDataSourceModel> GetAllResearchMoneyDataSource(InputFilterDataSourceViewModel input, List<int> filter);
+        List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input, List<int> filter);
         ResearcherDetailModel GetResearcherDetail(int researcherId);
-
-        List<ResearchDepartmentDataSourceModel> GetAllResearchDepartmentDataSourceTable(InputFilterDataSourceViewModel input, int type);
-
-        List<ResearchGroupDataSourceModel> GetResearchGroupDataSourceTable(InputFilterDataSourceViewModel input, int? personGroupId, string personGroupName);
-
-        List<RankResearchRageMoneyDataSourceModel> GetResearchMoneyDataSourceTable(InputFilterDataSourceViewModel input, string type);
-
-        List<ResearchDataDataSourceModel> GetResearchMoneyTypeDataSourceTable(InputFilterDataSourceViewModel input, int? researchMoneyTypeId, string moneyTypeName);
 
     }
 }

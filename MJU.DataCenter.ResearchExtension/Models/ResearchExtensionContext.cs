@@ -33,7 +33,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=DESKTOP-LFUK1A8\\SQLEXPRESS;User Id=admin;Database=ResearchExtension;Password=abc123");
             }
         }
@@ -63,7 +62,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_ResearchDepartment");
 
-                entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
+                entity.Property(e => e.FacultyName).HasColumnName("DepartmentNameTH");
 
                 entity.Property(e => e.ResearchEndDate).HasColumnType("datetime");
 

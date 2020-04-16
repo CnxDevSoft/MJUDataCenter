@@ -25,15 +25,15 @@ namespace MJU.DataCenter.ResearchExtension.V2.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        [HttpGet("{type}")]
-        public object Get(int type, string filter)
-        {
-            var input = new InputFilterGraphViewModel
-            {
-                Type = type,
-            };
-            return _researchAndExtensionService.GetAllResearchMoney(input);
-        }
+        //[HttpGet("{type}")]
+        //public object Get(int type, string filter)
+        //{
+        //    var input = new InputFilterGraphViewModel
+        //    {
+        //        Type = type,
+        //    };
+        //    return _researchAndExtensionService.GetAllResearchMoney(input);
+        //}
 
         // POST: api/DcResearchMoney
 

@@ -32,5 +32,8 @@
     <Compile Remove="ViewModels\GraphMountYear.cs" />
     <Compile Remove="Service\Interface\IDcResearchDepartmentRepository.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MJU.DataCenter.Core\MJU.DataCenter.Core.csproj" />
+  </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

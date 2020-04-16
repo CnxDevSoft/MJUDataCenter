@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MJU.DataCenter.Core.Models;
+using MJU.DataCenter.ResearchExtension.Helper;
 using MJU.DataCenter.ResearchExtension.Models;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
 using MJU.DataCenter.ResearchExtension.ViewModels;
@@ -23,14 +25,31 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         }
 
         [HttpGet("")]
-        public List<ResearcherResearchDataModel> Get([FromQuery]ResearcherInputDto input)
+        public List<ResearcherResearchDataModel> Get([FromQuery]ResearcherInputDto input, [FromQuery] AuthenticateModel auth)
         {
-            return _researchAndExtensionService.GetDcResearcherByName(input);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                List<int> filter = new List<int>();
+                if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+                {
+                    filter = result.Result.
+                    DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+                }
+                return _researchAndExtensionService.GetDcResearcherByName(input,filter);
+            }
+            return null;
         }
         [HttpGet("/Detail/{researcherId}")]
-        public ResearcherDetailModel Get(int researcherId)
+        public ResearcherDetailModel Get(int researcherId, [FromQuery] AuthenticateModel auth)
         {
-            return _researchAndExtensionService.GetResearcherDetail(researcherId);
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+               
+                return _researchAndExtensionService.GetResearcherDetail(researcherId);
+            }
+            return null;
         }
     }
 }

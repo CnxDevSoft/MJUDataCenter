@@ -1,9 +1,13 @@
 ﻿var tokenTemp;
 var userNameTemp;
 
-async function AllPersonGraph(token, userName) {
+async function SetTempAuthorization(token,userName) {
     tokenTemp = token;
     userNameTemp = userName
+}
+
+async function AllPersonGraph(token, userName) {
+
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',

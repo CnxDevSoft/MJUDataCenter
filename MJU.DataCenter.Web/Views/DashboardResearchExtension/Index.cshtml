@@ -1,6 +1,7 @@
 ﻿@page
 @{
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    var userAccesToken = User.FindFirst("AccessToken").Value;
 }
 
 <div class="col-md-12">
@@ -113,6 +114,7 @@
 
 <script type="text/javascript">
     $(function () {
+        SetTempAuthorization('@userAccesToken', '@User.Identity.Name');
 
         $('#dateRangeTxt').datepicker({
             format: "dd/mm/yyyy",
