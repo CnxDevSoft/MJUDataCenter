@@ -16,7 +16,7 @@ namespace MJU.DataCenter.ResearchExtension.Models
         }
 
         public virtual DbSet<DcResearchData> DcResearchData { get; set; }
-        public virtual DbSet<DcResearchDepartment> DcResearchDepartment { get; set; }
+        public virtual DbSet<DcResearchFaculty> DcResearchFaculty { get; set; }
         public virtual DbSet<DcResearchGroup> DcResearchGroup { get; set; }
         public virtual DbSet<DcResearchMoney> DcResearchMoney { get; set; }
         public virtual DbSet<MoneyType> MoneyType { get; set; }
@@ -56,13 +56,11 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.Property(e => e.ResearcherName).IsRequired();
             });
 
-            modelBuilder.Entity<DcResearchDepartment>(entity =>
+            modelBuilder.Entity<DcResearchFaculty>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("DC_ResearchDepartment");
-
-                entity.Property(e => e.FacultyName).HasColumnName("DepartmentNameTH");
+                entity.ToView("DC_ResearchFaculty");
 
                 entity.Property(e => e.ResearchEndDate).HasColumnType("datetime");
 
@@ -112,13 +110,13 @@ namespace MJU.DataCenter.ResearchExtension.Models
             modelBuilder.Entity<PersonnelGroup>(entity =>
             {
                 entity.HasKey(e => e.PersonGroupId)
-                    .HasName("PK__Personne__89466BB732A98791");
+                    .HasName("PK__Personne__89466BB7A73BD218");
             });
 
             modelBuilder.Entity<ResearchData>(entity =>
             {
                 entity.HasKey(e => e.ResearchId)
-                    .HasName("PK__Research__617A954ED9414303");
+                    .HasName("PK__Research__617A954EA8360BEE");
 
                 entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
@@ -147,8 +145,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
             modelBuilder.Entity<Researcher>(entity =>
             {
-                entity.Property(e => e.DepartmentNameTh).HasColumnName("DepartmentNameTH");
-
                 entity.Property(e => e.FirstNameTh).HasColumnName("FirstNameTH");
 
                 entity.Property(e => e.LastNameTh).HasColumnName("LastNameTH");

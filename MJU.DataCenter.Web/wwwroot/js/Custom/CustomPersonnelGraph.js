@@ -1,7 +1,20 @@
 ﻿var tokenTemp;
 var userNameTemp;
 
-async function SetTempAuthorization(token,userName) {
+const oLanguagePersonGraphOptions = {
+    sLengthMenu: "แสดง _MENU_",
+    sSearch: "ค้นหา",
+    sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ ข้อมูล",
+    paginate: {
+        "first": "เริ่มต้น",
+        "last": "สุดท้าย",
+        "next": "ถัดไป",
+        "previous": "ย้อนกลับ"
+    }
+}
+
+
+async function AllPersonGraph(token, userName) {
     tokenTemp = token;
     userNameTemp = userName
 }
@@ -25,7 +38,7 @@ async function AllPersonGraph(token, userName) {
                     labels: data.label,
                     datasets: [
                         {
-                            backgroundColor: '#007bff',
+                            backgroundColor: ['#9475E5', '#4BCADB', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                             borderColor: '#007bff',
                             data: data.graphDataSet[0].data
                         }
@@ -284,7 +297,7 @@ function genderClick(genderId, genderName, generationType) {
                 })
 
                 $('#dataTableResearcherGenderDrillDown' + key).DataTable({
-                    language: oLanguageOptions
+                    language: oLanguagePersonGraphOptions
                 });
             });
         });
@@ -299,7 +312,7 @@ async function PersonEducationGraph(token, userName) {
                 datasets: [
                     {
                         data: data.graphDataSet[0].data,
-                        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                        backgroundColor: ['#9475E5', '#4BCADB', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
                     }
                 ]
             }
@@ -339,7 +352,7 @@ async function PersonEducationGraph(token, userName) {
         });
 }
 async function PersonTypeGraph(token, userName) {
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionEducation/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personType-chart').get(0).getContext('2d')
@@ -356,8 +369,9 @@ async function PersonTypeGraph(token, userName) {
                 maintainAspectRatio: false,
                 responsive: true,
                 onClick: function (evt, item) {
-
-                    PersonPositionDrillDown(data.label[item[0]._index]);
+                    if (item.length > 0) {
+                        PersonPositionDrillDown(data.label[item[0]._index]);
+                    }
                 }
             }
             //Create pie or douhnut chart
@@ -387,6 +401,18 @@ async function PersonTypeGraph(token, userName) {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
+
+async function EducationInPersonTypeGraph(){
+
+}
+
+
+
+
+
+
+
+
 async function PersonWorkAgeGraph(token, userName) {
     var ticksStyle = {
         fontColor: '#495057',
@@ -1232,7 +1258,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
             $(modal).on('shown.bs.modal', function () {
             })
             $(table).DataTable({
-                language: oLanguageOptions
+                language: oLanguagePersonGraphOptions
             });
         });
 }
@@ -1261,7 +1287,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
             $(modal).on('shown.bs.modal', function () {
             })
             $(table).DataTable({
-                language: oLanguageOptions
+                language: oLanguagePersonGraphOptions
             });
         });
 }
@@ -1658,7 +1684,7 @@ async function LoadDataTable(name, key) {
 
     var dataTableName = '#sub-' + name + '-' + key + '-table';
     $(dataTableName).DataTable({
-        language: oLanguageOptions,
+        language: oLanguagePersonGraphOptions,
         searching: false,
         pageLength: 5
     });
@@ -1666,7 +1692,7 @@ async function LoadDataTable(name, key) {
 async function Load() {
 
     $('.dataTable-sub-allpersonal').DataTable({
-        language: oLanguageOptions,
+        language: oLanguagePersonGraphOptions,
         searching: false,
         pageLength: 5
     });
@@ -1742,7 +1768,7 @@ async function RenderAllPersonDrillDownGraphDS(data) {
         })
 
         $('#dataPersonnelDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
 
     });
@@ -1810,7 +1836,7 @@ async function RenderPersonEducationDrillDownGraphDS(data) {
         })
 
         $('#dataPersonEducationDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
 
     });
@@ -1879,7 +1905,7 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
     });
 }
@@ -1950,7 +1976,7 @@ async function RenderPersonPositionAdminDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionAdminDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
     });
 }
@@ -2020,7 +2046,7 @@ async function RenderPersonPositionLevelDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionLevelDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
     });
 }
@@ -2091,7 +2117,7 @@ async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
         })
 
         $('#dataPersonGroupFacultyDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
     });
 }
@@ -2160,7 +2186,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
         })
 
         $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
     });
 }
@@ -2234,7 +2260,7 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
         })
 
         $('#dataPersonRetiredDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
     });
 }
@@ -2308,7 +2334,7 @@ async function RenderPersonWorkDurationDrillDownGraphDS(data) {
         })
 
         $('#dataPersonWorkDurationDrillDownTable' + key).DataTable({
-            language: oLanguageOptions
+            language: oLanguagePersonGraphOptions
         });
     });
 }

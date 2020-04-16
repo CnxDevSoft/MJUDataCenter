@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            var test = EnumHelper.GetDescriptionFromEnumValue(Faculty.Office.Office);
+            _seedDataPersonService.AddPerson();
             //_seedDataPersonService.AddPerson();
             return new string[] { "value1", "value2" };
         }

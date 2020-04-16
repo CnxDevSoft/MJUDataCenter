@@ -141,10 +141,17 @@ namespace MJU.DataCenter.Personnel.SeedData
             var resualt = Enumerable.Range(0, size).Select(x => alphabet[random.Next(0, alphabet.Length)]);
             return new string(resualt.ToArray());
         }
-        public static DateTime? RandomDateTime()
+        public static DateTime? RandomDateTimeDoB()
         {
             Random random = new Random();
-            DateTime start = new DateTime(1995, 1, 1);
+            DateTime start = new DateTime(1970, 1, 1);
+            int range = (DateTime.UtcNow.AddYears(-23) - start).Days;
+            return start.AddDays(random.Next(range));
+        }
+        public static DateTime? RandomDateTimeRetired()
+        {
+            Random random = new Random();
+            DateTime start = new DateTime(2008, 1, 1);
             int range = (DateTime.UtcNow.AddYears(5) - start).Days;
             return start.AddDays(random.Next(range));
         }
@@ -443,11 +450,11 @@ namespace MJU.DataCenter.Personnel.SeedData
                     break;
                 case 2:
                     result.SectionId = 20412;
-                    result.SectionName = "";
+                    result.SectionName = "งานคลังและพัสดุ";
                     break;
                 case 3:
                     result.SectionId = 20413;
-                    result.SectionName = "";
+                    result.SectionName = "งานบริการการศึกษาและกิจการนักศึกษา";
                     break;
             }
             return result;
@@ -474,57 +481,58 @@ namespace MJU.DataCenter.Personnel.SeedData
             }
             return result;
         }
-        public static Fact Fact()
+        public static Fact Fact(int c)
         {
+            var m = c % 11;
             Random random = new Random();
             var randomType = random.Next(1, 12);
             var result = new Fact();
-            switch (randomType)
+
+            switch (m)
             {
                 case 1:
-                    
-                    result.FactId = (int)Faculty.Office.Office;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.Office.Office);
+                    result.FactId = (int)Faculty.FacultyEnum.Office;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Office);
                     break;
                 case 2:
-                    result.FactId = (int)Faculty.FacultyScience.Science;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyScience.Science);
+                    result.FactId = (int)Faculty.FacultyEnum.Science;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Science);
                     break;
                 case 3:
-                    result.FactId = (int)Faculty.FacultyEngineer.Engineer;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEngineer.Engineer);
+                    result.FactId = (int)Faculty.FacultyEnum.Engineer;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Engineer);
                     break;
                 case 4:
-                    result.FactId = (int)Faculty.FacultyBusinessAdministration.BusinessAdministration;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyBusinessAdministration.BusinessAdministration);
+                    result.FactId = (int)Faculty.FacultyEnum.BusinessAdministration;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.BusinessAdministration);
                     break;
                 case 5:
-                    result.FactId = (int)Faculty.FacultyAgriculture.Agriculture;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyAgriculture.Agriculture);
+                    result.FactId = (int)Faculty.FacultyEnum.Agriculture;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Agriculture);
                     break;
                 case 6:
-                    result.FactId = (int)Faculty.FacultyFisheriesTechnologyAndWaterResources.FisheriesTechnologyAndWaterResources;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyFisheriesTechnologyAndWaterResources.FisheriesTechnologyAndWaterResources);
+                    result.FactId = (int)Faculty.FacultyEnum.FisheriesTechnologyAndWaterResources;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.FisheriesTechnologyAndWaterResources);
                     break;
                 case 7:
-                    result.FactId = (int)Faculty.FacultyTourismDevelopment.TourismDevelopment;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyTourismDevelopment.TourismDevelopment);
+                    result.FactId = (int)Faculty.FacultyEnum.TourismDevelopment;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.TourismDevelopment);
                     break;
                 case 8:
-                    result.FactId = (int)Faculty.FacultyLiberalArts.LiberalArts;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyLiberalArts.LiberalArts);
+                    result.FactId = (int)Faculty.FacultyEnum.LiberalArts;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.LiberalArts);
                     break;
                 case 9:
-                    result.FactId = (int)Faculty.FacultyEconomics.Economics;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEconomics.Economics);
+                    result.FactId = (int)Faculty.FacultyEnum.Economics;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Economics);
                     break;
                 case 10:
-                    result.FactId = (int)Faculty.FacultyAnimalScienceAndTechnology.AnimalScienceAndTechnology;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyAnimalScienceAndTechnology.AnimalScienceAndTechnology);
+                    result.FactId = (int)Faculty.FacultyEnum.AnimalScienceAndTechnology;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.AnimalScienceAndTechnology);
                     break;
-                case 11:
-                    result.FactId = (int)Faculty.FacultyInformationAndCommunication.InformationAndCommunication;
-                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyInformationAndCommunication.InformationAndCommunication);
+                case 0:
+                    result.FactId = (int)Faculty.FacultyEnum.InformationAndCommunication;
+                    result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.InformationAndCommunication);
                     break;
             }
             return result;

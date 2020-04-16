@@ -3,7 +3,11 @@ select pg.PersonGroupId
 ,pg.PersonGroupName
 ,r.ResearcherId,
 CONCAT(r.TitleTH , ' ', r.FirstNameTH , ' ', r.LastNameTH ) as ResearcherName,
-rd.ResearchId 
+r.FacultyId 
+,r.FacultyCode
+,r.FacultyName
+,r.CitizenId
+,rd.ResearchId 
 ,rd.ResearchCode
 ,rd.ResearchNameTH 
 ,rd.ResearchNameEN 
