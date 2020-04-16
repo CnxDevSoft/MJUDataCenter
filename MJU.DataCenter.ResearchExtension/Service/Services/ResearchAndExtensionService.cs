@@ -13,16 +13,16 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 {
     public class ResearchAndExtensionService : IResearchAndExtensionService
     {
-        private readonly IDcResearchDepartmentRepository _dcResearchDepartmentRepository;
+        private readonly IDcResearchFacultyRepository _dcResearchFacultyRepository;
         private readonly IDcResearchGroupRepository _dcResearchGroupRepository;
         private readonly IDcResearchDataRepository _dcResearchDataRepository;
         private readonly IDcResearchMoneyRepository _dcResearchMoneyReoisitory;
         public ResearchAndExtensionService(IDcResearchGroupRepository dcResearchGroupRepository
             , IDcResearchDataRepository dcResearchDataRepository
             , IDcResearchMoneyRepository dcResearchMoneyRepository
-            , IDcResearchDepartmentRepository dcResearchDepartmentRepository)
+            , IDcResearchFacultyRepository dcResearchFacultyRepository)
         {
-            _dcResearchDepartmentRepository = dcResearchDepartmentRepository;
+            _dcResearchFacultyRepository = dcResearchFacultyRepository;
             _dcResearchGroupRepository = dcResearchGroupRepository;
             _dcResearchDataRepository = dcResearchDataRepository;
             _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
@@ -35,7 +35,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
 
-            var researchDepartment = _dcResearchDepartmentRepository.GetAll();
+            var researchDepartment = _dcResearchFacultyRepository.GetAll();
 
             if (filter.Any())
             {
@@ -137,7 +137,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchDepartment = _dcResearchDepartmentRepository.GetAll().Where(m=> !string.IsNullOrEmpty(input.Type) ? m.FacultyName == input.Type : true);
+            var researchDepartment = _dcResearchFacultyRepository.GetAll().Where(m=> !string.IsNullOrEmpty(input.Type) ? m.FacultyName == input.Type : true);
             if (filter.Any())
             {
                 researchDepartment = researchDepartment.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
@@ -715,7 +715,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input, List<int> filter)
         {
-            var researcher = _dcResearchDepartmentRepository.GetAll();
+            var researcher = _dcResearchFacultyRepository.GetAll();
             if (filter.Any())
             {
                 researcher = researcher.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
@@ -740,7 +740,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         public ResearcherDetailModel GetResearcherDetail(int researcherId)
         {
             var researchDistinct = _dcResearchDataRepository.GetAll().Where(m => m.ResearcherId == researcherId).Select(s => s.ResearchId).Distinct();
-            var researchDepartment = _dcResearchDepartmentRepository.GetAll().FirstOrDefault(m => m.ResearcherId == researcherId);
+            var researchDepartment = _dcResearchFacultyRepository.GetAll().FirstOrDefault(m => m.ResearcherId == researcherId);
             var researchDataModels = new List<ResearchDataModel>();
             foreach (var researchId in researchDistinct)
             {

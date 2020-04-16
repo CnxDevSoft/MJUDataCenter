@@ -9,9 +9,9 @@ namespace MJU.DataCenter.Personnel.ViewModels
     public class RetiredPersonViewModel
     {
         public string Year { get; set; }
-        public List<DC_Person> Person {get;set;}
-        public List<DC_Person> RetiredPerson { get; set; }
-        public List<DC_Person> PredecitionRetiredPerson { get; set; }
+        public List<DcPerson> Person {get;set;}
+        public List<DcPerson> RetiredPerson { get; set; }
+        public List<DcPerson> PredecitionRetiredPerson { get; set; }
     }
 
 

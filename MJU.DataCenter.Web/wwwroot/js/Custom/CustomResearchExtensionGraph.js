@@ -20,9 +20,9 @@ const oLanguageOptions = {
     }
 }
 
-async function ResearchDepartmentGraph(startDate, endDate,token,userName) {
-    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0'
-        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment?Type=1&api-version=1.0'
+async function ResearchFacultyGraph(startDate, endDate,token,userName) {
+    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchFaculty/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate +'&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchFaculty?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -158,7 +158,7 @@ async function ResearchDepartmentRender(data) {
 }
 async function ResearchDepartmentGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.researchextension/api/ResearchDepartment/GetDataSource?api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.researchextension/api/ResearchFaculty/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0')
         .then(res => res.json())
         .then((data) => {
 
@@ -194,7 +194,7 @@ async function RenderResearchDepartmentGraphDS(data) {
 }
 
 async function ResearchPersonGroupGraph(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&api-version=1.0'
+    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
         : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
 
     fetch(url)
@@ -305,7 +305,7 @@ async function ResearchPersonGroupRender(data) {
 }
 async function ReseachPersonGroupGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource' + '?UserName=' + userName + ' &Token=' + token + ' &api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderReseachPersonGroupGraphDS(data);
@@ -472,7 +472,7 @@ async function ResearchMoneyRangeRender(data) {
 }
 async function ResearchMoneyRangeGraphDS() {
 
-    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource' + '?UserName=' + userName + ' &Token=' + token + ' &api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderResearchMoneyRangeGraphDS(data);
@@ -510,7 +510,7 @@ async function RenderResearchMoneyRangeGraphDS(data) {
 }
 
 async function ResearchMoneyTypeGraph(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
+    var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
         : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchData?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
 
     fetch(url)

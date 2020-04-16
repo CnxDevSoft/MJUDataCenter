@@ -14,7 +14,7 @@ const oLanguagePersonGraphOptions = {
 }
 
 
-async function AllPersonGraph(token, userName) {
+async function SetTempAuthorization(token, userName) {
     tokenTemp = token;
     userNameTemp = userName
 }

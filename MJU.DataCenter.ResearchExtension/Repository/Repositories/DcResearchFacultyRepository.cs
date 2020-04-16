@@ -6,9 +6,9 @@ using MJU.DataCenter.ResearchExtension.Repository.Interface;
 namespace MJU.DataCenter.ResearchExtension.Repository.Repositories
 {
 
-    public class DcResearchDepartmentRepository : Repository<DcResearchDepartment>, IDcResearchDepartmentRepository
+    public class DcResearchFacultyRepository : Repository<DcResearchFaculty>, IDcResearchFacultyRepository
     {
-        public DcResearchDepartmentRepository(ResearchExtensionContext context)
+        public DcResearchFacultyRepository(ResearchExtensionContext context)
             : base(context)
         {
         }

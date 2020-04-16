@@ -4,7 +4,7 @@ using MJU.DataCenter.Personnel.Models;
 
 namespace MJU.DataCenter.Personnel.Repository.Interface
 {
-    public interface IDcPersonRepository : IRepository<DC_Person>
+    public interface IDcPersonRepository : IRepository<DcPerson>
     {
     }
 }

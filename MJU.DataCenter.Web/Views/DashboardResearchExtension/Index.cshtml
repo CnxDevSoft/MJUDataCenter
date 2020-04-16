@@ -131,10 +131,10 @@
             console.log(startDate)
             console.log(endDate)
 
-            ResearchDepartmentGraph(startDate, endDate);
-            ResearchPersonGroupGraph(startDate, endDate);
-            ResearchMoneyRangeGraph(startDate, endDate);
-            ResearchMoneyTypeGraph(startDate, endDate);
+            ResearchDepartmentGraph(startDate, endDate,'@userAccesToken', '@User.Identity.Name');
+            ResearchPersonGroupGraph(startDate, endDate,'@userAccesToken', '@User.Identity.Name');
+            ResearchMoneyRangeGraph(startDate, endDate,'@userAccesToken', '@User.Identity.Name');
+            ResearchMoneyTypeGraph(startDate, endDate,'@userAccesToken', '@User.Identity.Name');
 
         });
 
@@ -171,6 +171,9 @@
 <script type="text/javascript">
 
     $(function () {
+
+         SetTempAuthorization('@userAccesToken', '@User.Identity.Name');
+
         $('pre[data-source]').each(function () {
             var $this = $(this),
                 $source = $($this.data('source'));

@@ -8,7 +8,7 @@ namespace MJU.DataCenter.Personnel.ViewModels
     public class PersonnelDataSourceViewModel
     {
         public int PersonnelId { get; set; }
-        public string IdCard { get; set; }
+        public string CitizenId { get; set; }
         public string PersonName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string BloodType { get; set; }

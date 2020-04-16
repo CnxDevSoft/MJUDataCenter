@@ -6,7 +6,7 @@ using MJU.DataCenter.Personnel.Repository.Interface;
 
 namespace MJU.DataCenter.Personnel.Repository.Repositories
 {
-    public class DcPersonRepository : Repository<DC_Person>, IDcPersonRepository
+    public class DcPersonRepository : Repository<DcPerson>, IDcPersonRepository
     {
         public DcPersonRepository(PersonnelContext context)
             : base(context)

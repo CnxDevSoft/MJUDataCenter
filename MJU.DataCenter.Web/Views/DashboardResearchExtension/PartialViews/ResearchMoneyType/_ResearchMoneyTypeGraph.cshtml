@@ -1,3 +1,6 @@
+@{
+    var userAccesToken = User.FindFirst("AccessToken").Value;
+}
 <div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
@@ -52,7 +55,7 @@
                                 <!-- <th>More</th> -->
                             </tr>
                         </thead>
-                        <tbody id="researchMoneyTypeSection">                
+                        <tbody id="researchMoneyTypeSection">
                         </tbody>
                     </table>
                 </div>
@@ -69,7 +72,7 @@
 
 <script>
     $(function () {
-        ResearchMoneyTypeGraph(null);
+        ResearchMoneyTypeGraph(null,null,'@userAccesToken', '@User.Identity.Name');
         ToggleResearchChart("researchMoneyType");
     })
 </script>

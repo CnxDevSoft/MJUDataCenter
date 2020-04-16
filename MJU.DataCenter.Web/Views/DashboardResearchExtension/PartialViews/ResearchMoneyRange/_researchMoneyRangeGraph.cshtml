@@ -1,9 +1,12 @@
-﻿<div class="col-lg-6">
+﻿@{
+    var userAccesToken = User.FindFirst("AccessToken").Value;
+}
+<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
             <div class="d-flex justify-content-between">
                 <h3 class="card-title">กราฟแสดงงบประมาณสำหรับงานวิจัย</h3>
-               
+
             </div>
         </div>
         <div class="card-body bg-light-sea-green">
@@ -54,7 +57,6 @@
                             </tr>
                         </thead>
                         <tbody id="researchMoneyRangeSection">
-                           
                         </tbody>
                     </table>
                 </div>
@@ -65,7 +67,7 @@
 
 <script>
     $(function () {
-        ResearchMoneyRangeGraph(null);
+        ResearchMoneyRangeGraph(null, null,'@userAccesToken', '@User.Identity.Name');
         ToggleResearchChart("researchMoneyRange");
     })
 </script>

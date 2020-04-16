@@ -4,7 +4,7 @@ using MJU.DataCenter.ResearchExtension.Repository.Common;
 
 namespace MJU.DataCenter.ResearchExtension.Repository.Interface
 {
-        public interface IDcResearchDepartmentRepository : IRepository<DcResearchDepartment>
+        public interface IDcResearchFacultyRepository : IRepository<DcResearchFaculty>
         {
         }
 }
