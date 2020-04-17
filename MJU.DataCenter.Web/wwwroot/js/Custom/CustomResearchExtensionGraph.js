@@ -538,27 +538,8 @@ async function ResearchMoneyTypeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-
-                if (item.length == 0) return;
-
-                $('#' + chartName + 'Section').empty();
-                $('#' + chartName + 'Label').empty();
-                $('#' + chartName + 'Label').text(item[0]._model.label);
-
-                var table = $('#' + chartName + 'Table').DataTable();
-                table.clear().destroy();
-
-                $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    $('#' + chartName + 'Section').append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
-                        RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
-                });
-
-                $('#' + chartName + 'Modal').modal('show');
-                $('#' + chartName + 'Modal').on('shown.bs.modal', function () {
-                })
-                $('#' + chartName + 'Table').DataTable({
-                    language: oLanguageOptions
-                });
+                ResearchMoneyTypeDrillDown(item[0]._model.label);
+               
             }
         }
     })
