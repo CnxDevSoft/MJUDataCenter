@@ -107,29 +107,10 @@ async function ResearchDepartmentRender(data) {
                     ticks: ticksStyle
                 }]
             },
-            onClick: function (evt, item)                                {
-
-                // $("#researchDepartmentTable").empty();
-                $("#researchDepartmentSection").empty();
-                $("#researchDepartmentLabel").empty();
-                // $("#researchDepartmentLabel").append(new Number(data.value[item[0]._index]).toLocaleString("th-TH") );
-                $("#researchDepartmentLabel").text(item[0]._model.label);
-
-                var table = $('#researchDepartmentTable').DataTable();
-                table.clear().destroy();
-
-                $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    $("#researchDepartmentSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
-                        RenderReseacherName(value.researcher) + '</td><td>' + moment(value.researchEndDate).format("DD/MM/YYYY") + '</td></tr > ')
-                });
-
-                $('#researchDepartmentModal').modal('show');
-                $('#researchDepartmentModal').on('shown.bs.modal', function () {
-
-                })
-                $('#researchDepartmentTable').DataTable({
-                    language: oLanguageOptions
-                });
+            onClick: function (evt, item) {
+                console.log("testclick", item[0]._model.label);
+                ResearchDepartmentTableDrillDown(item[0]._model.label)
+               
             }
         }
     });
@@ -192,6 +173,7 @@ async function RenderResearchDepartmentGraphDS(data) {
         $('#researchDepartmentGraphDataSourceModal-card-body').append(html);
     });
 }
+
 
 async function ResearchPersonGroupGraph(startDate, endDate, token, userName) {
     var url = startDate != null && endDate != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
@@ -699,12 +681,12 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
     $.each(data, function (key, result) {
 
         if (data.length>1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.departmentName + '</b></a>'
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
             $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').append(link)
         } else
         {
             $('#researchDepartmentDrillDownGraphDataSourceLabel').empty()
-            $('#researchDepartmentDrillDownGraphDataSourceLabel').append(result.departmentName)
+            $('#researchDepartmentDrillDownGraphDataSourceLabel').append(result.facultyName)
         }
         var startRow = '<div class="collapse multi-collapse" id="researchDepartmentDrillDownGraphDSCollapse' + key + '">';
         var table = $('#dataTable').DataTable();
@@ -750,9 +732,9 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 
 async function ResearchDepartmentTableDrillDown(type) {
 
-    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource?Type=' + type
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchFaculty/GetDataSource?Type=' + type
         + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchDepartment/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchFaculty/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {

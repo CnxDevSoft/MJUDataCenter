@@ -100,7 +100,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         StartEducationDate = SeedData.SeedData.RandomDateTimeDoB(),
                         GraduateDate = SeedData.SeedData.RandomDateTimeDoB()
                     };
-
+              
                     list.Add(result);
 
                 }
@@ -109,7 +109,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
         }
         public void NewAddPersonSeedData()
         {
-
         }
 
     }

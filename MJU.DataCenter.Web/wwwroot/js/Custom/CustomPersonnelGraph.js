@@ -1714,7 +1714,7 @@ async function PersonGroupDrillDown(type) {
 }
 
 async function RenderAllPersonDrillDownGraphDS(data) {
-
+  
     $('#allpersonnelDrillDownGraphDataSourceModal-card-body').empty();
     $('#allPersoneDrillDownGraphDataSourceLabel').empty()
     $('#allPersoneDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
