@@ -1345,15 +1345,14 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             html += ' <div class="post"> <div class="row">';
 
             $.each(data.personResearchDetail, function (key, item) {
-                console.log(item)
                 var startHtml = '<div class="col-6 style="padding-bottom:20px">' +
                     '<div class="">' +
                     '<h3 class="text-green">' + item.researchNameEn + '</h3>' +
                     ' <h5>' + item.researchNameTh + '</h5> ' +
                     '</div>' +
-                    '<div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">' + moment(item.researchStartDate).format('MM/DD/YYYY') + '-' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</span></div> ' +
-                    '<div class=""><b>แหล่งทุน</b><span class="researchFundText">' + item.moneyTypeName + '</span></div>' +
-                    '<div class=""><b>งบประมาณ</b><span class="moneyText">' + data.researchMoney + '</span></div>' +
+                    '<div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText"> ' + moment(item.researchStartDate).format('MM/DD/YYYY') + '-' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</span></div> ' +
+                    '<div class=""><b>แหล่งทุน</b><span class="researchFundText"> ' + item.moneyTypeName + '</span></div>' +
+                    '<div class=""><b>งบประมาณ</b><span class="moneyText"> ' + item.researchMoney + '</span></div>' +
                     '<br>';
                 var subhtml;
                 if (item.personResearcher.length > 0) {
