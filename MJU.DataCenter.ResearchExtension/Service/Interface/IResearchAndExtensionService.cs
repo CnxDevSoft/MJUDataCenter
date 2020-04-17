@@ -19,5 +19,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input, List<int> filter);
         ResearcherDetailModel GetResearcherDetail(int researcherId);
 
+        PersonResearchDetailModel GetPersonResearchDetail(string citizenId);
+
     }
 }

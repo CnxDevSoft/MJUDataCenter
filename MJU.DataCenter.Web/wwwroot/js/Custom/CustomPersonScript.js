@@ -40,29 +40,3 @@ async function ToggleChart(chartName) {
     });
 }
 
-
-async function DisplayPersonInfoDetailModal(citizenId) {
-
-    var modal = '#personDetailModal';
-    alert(citizenId);
-
-
-
-
-
-
-    $(modal).modal('show');
-    $(modal).on('shown.bs.modal', function () {
-    })
-
-
-    //fetch(url)
-    //    .then((response) => {
-    //        return response.json();
-    //    })
-    //    .then((data) => {
-
-         
-   
-    //    });
-}

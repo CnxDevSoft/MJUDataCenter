@@ -41,7 +41,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 researchDepartment = researchDepartment.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
             }
-            var distinctResearchDepartment = researchDepartment.Select(m => new { m.FacultyId, m.FacultyName}).Distinct().OrderBy(o => o.FacultyId);
+            var distinctResearchDepartment = researchDepartment.Select(m => new { m.FacultyId, m.FacultyName }).Distinct().OrderBy(o => o.FacultyId);
             if (input.Type == 1)
             {
                 var label = new List<string>();
@@ -137,7 +137,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchDepartment = _dcResearchFacultyRepository.GetAll().Where(m=> !string.IsNullOrEmpty(input.Type) ? m.FacultyName == input.Type : true);
+            var researchDepartment = _dcResearchFacultyRepository.GetAll().Where(m => !string.IsNullOrEmpty(input.Type) ? m.FacultyName == input.Type : true);
             if (filter.Any())
             {
                 researchDepartment = researchDepartment.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
@@ -264,7 +264,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchGroup = _dcResearchGroupRepository.GetAll().Where(s=> !string.IsNullOrEmpty(input.Type) ? s.PersonGroupName ==input.Type : true);
+            var researchGroup = _dcResearchGroupRepository.GetAll().Where(s => !string.IsNullOrEmpty(input.Type) ? s.PersonGroupName == input.Type : true);
             if (filter.Any())
             {
                 researchGroup = researchGroup.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
@@ -676,7 +676,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
 
             return result;
- 
+
 
         }
 
@@ -733,7 +733,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 DepartmentId = s.FacultyId,
                 DepartmentNameTh = s.FacultyName,
                 CitizenId = s.CitizenId
-                
+
             }).ToList();
         }
 
@@ -793,7 +793,42 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             return researcherDetail;
         }
 
-       
+
+        public PersonResearchDetailModel GetPersonResearchDetail(string citizenId)
+        {
+            var research = _dcResearchDataRepository.GetAll().Where(m => m.CitizenId == citizenId);
+            var firstPerson = research.Select(s => new { s.ResearcherId, s.ResearcherName }).FirstOrDefault();
+            var list = new List<PersonResearchDetail>();
+            foreach (var re in research)
+            {
+                var personResearch = _dcResearchDataRepository.GetAll().Where(m => m.ResearchId == re.ResearchId && m.CitizenId == citizenId)
+                    .Select(s => new PersonResearch
+                    {
+                        ResearcherName = s.ResearcherName
+                    });
+                var personResearchDetail = new PersonResearchDetail
+                {
+                    PersonResearcher = personResearch.ToList(),
+                    ResearchId = re.ResearchId,
+                    ResearchNameTh = re.ResearchNameTh,
+                    ResearchNameEn = re.ResearchNameEn,
+                    ResearchMoney = re.ResearchMoney,
+                    MoneyTypeName = re.MoneyTypeName,
+                    ResearchStartDate = re.ResearchStartDate,
+                    ResearchEndDate = re.ResearchEndDate
+                };
+                list.Add(personResearchDetail);
+            }
+            var result = new PersonResearchDetailModel
+            {
+                ResearcherId = firstPerson.ResearcherId,
+                ResearcherName = firstPerson.ResearcherName,
+                PersonResearchDetail = list
+            };
+            return result;
+        }
+
+
 
     }
 }

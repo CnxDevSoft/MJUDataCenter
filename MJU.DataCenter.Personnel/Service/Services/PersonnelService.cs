@@ -2457,5 +2457,47 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
             return result;
         }
+
+        public PersonnelDataSourceViewModel GetPersonDetailByCitizenId(string citizenId)
+        {
+            var personDetail = _dcPersonRepository.GetAll().Where(m=>m.CitizenId == citizenId)
+                .Select(s => new PersonnelDataSourceViewModel
+                {
+                    AdminPosition = s.AdminPosition,
+                    AdminPositionType = s.AdminPositionType,
+                    BloodType = s.BloodType,
+                    Country = s.Country,
+                    DateOfBirth = s.DateOfBirth,
+                    Division = s.Division,
+                    Education = s.Education,
+                    EducationLevel = s.EducationLevel,
+                    Faculty = s.Faculty,
+                    Gender = s.Gender,
+                    GraduateDate = s.GraduateDate,
+                    CitizenId = s.CitizenId,
+                    Major = s.Major,
+                    Nation = s.Nation,
+                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                    PersonnelId = s.PersonnelId,
+                    PersonnelType = s.PersonnelType,
+                    Position = s.Position,
+                    PositionLevel = s.PositionLevel,
+                    PositionType = s.PositionType,
+                    Province = s.Province,
+                    RetiredDate = s.RetiredDate,
+                    RetiredYear = s.RetiredYear,
+                    Salary = s.Salary,
+                    Section = s.Section,
+                    StartDate = s.StartDate,
+                    StartEducationDate = s.StartEducationDate,
+                    TitleEducation = s.TitleEducation,
+                    University = s.University,
+                    ZipCode = s.ZipCode ,
+                    Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}",s.HomeNumber,s.Soi,s.Moo,s.SubDistrict,s.District,s.Province)
+                }).FirstOrDefault();
+
+            return personDetail;
+
+        }
     }
 }

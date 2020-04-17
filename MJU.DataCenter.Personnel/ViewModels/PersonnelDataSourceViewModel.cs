@@ -37,5 +37,6 @@ namespace MJU.DataCenter.Personnel.ViewModels
         public string Country { get; set; }
         public DateTime? StartEducationDate { get; set; }
         public DateTime? GraduateDate { get; set; }
+        public string Address { get; set; }
     }
 }

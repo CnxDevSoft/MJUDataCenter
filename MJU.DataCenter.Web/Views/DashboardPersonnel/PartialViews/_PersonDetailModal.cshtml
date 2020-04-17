@@ -18,30 +18,30 @@
                                         <div class="card-body box-profile">
                                             <div class="text-center">
                                             </div>
-                                            <h3 class="text-left nameThText">นาง นิน่า แมคาทรี</h3>
-                                            <h5 class="text-left nameEnText">Ms. Nina Mcintire</h5>
-                                            <p class="text-muted text-left positionText">นักวิชาการศึกษา (ชำนาญการ)</p>
+                                            <h5 class="text-left nameThText" id="personNameTh"></h5>
+                                            <p class="text-left nameEnText"  id="personNameEn"></p>
+                                            <p class="text-muted text-left positionText" id="personPosition"></p>
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <strong>ประเภทบุคลากร</strong> <a class="float-right">ช้าราชการ</a>
+                                                    <strong>ประเภทบุคลากร</strong> <a class="float-right" id="personType"></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <strong>สังกัด/แผนก</strong> <a class="float-right">งานบริหารและธุรการ</a>
+                                                    <strong>สังกัด/แผนก</strong> <a class="float-right" id="personSection"></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <strong>สังกัด/กอง</strong> <a class="float-right">กองกลาง</a>
+                                                    <strong>สังกัด/กอง</strong> <a class="float-right" id="personDivision"></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <strong>หน่วยงาน/คณะ</strong> <a class="float-right facultyText">คณะวิทยาศาสตร์</a>
+                                                    <strong>หน่วยงาน/คณะ</strong> <a class="float-right facultyText" id="personFaculty"></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <strong>วันที่บรรจุ</strong> <a class="float-right">01/01/2020</a>
+                                                    <strong>วันที่บรรจุ</strong> <a class="float-right" id="personStartDate"></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <strong>ปีที่เกษียณ</strong> <a class="float-right">2029</a>
+                                                    <strong>ปีที่เกษียณ</strong> <a class="float-right" id="personRetiredYear"></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <strong>เงินเดือน</strong> <a class="float-right salaryText">13,287</a>
+                                                    <strong>เงินเดือน</strong> <a class="float-right salaryText" id="personSalary"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -54,7 +54,7 @@
                                         <div class="card-body">
                                             <hr>
                                             <strong><i class="fas fa-map-marker-alt mr-1"></i>ที่อยู่ปัจจุบัน</strong>
-                                            <p class="text-muted addressText">113/71 หมู่ 2 ต.หนองหาร อ.สันทราย จ.เชียงใหม่ 50920</p>
+                                            <p class="text-muted addressText" id="personAddress"></p>
                                             <hr> 
                                         </div>
                                     </div>
@@ -64,9 +64,9 @@
                                             <h3 class="card-title">ข้อมูลการศึกษา</h3>
                                         </div>
                                         <div class="card-body">
-                                            <strong><i class="fas fa-book mr-1"></i>ปริญญาตรี</strong>
-                                            <p class="text-muted educationText">วทบ.เคมี มหาวิทยาลัยแม่โจ้</p>
-                                            <p class="text-muted educationCountryText">ประเทศไทย</p>
+                                            <strong><i class="fas fa-book mr-1" id="personEducationLevel"></i></strong>
+                                            <p class="text-muted educationText" id="personEducationMajor"></p>
+                                            <p class="text-muted educationCountryText" id="personEducationCountry"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -83,111 +83,8 @@
                                             <div class="tab-content">
                                                 <div class="active tab-pane" id="research">
 
-                                                    <div class="post">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="">
-                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
-                                                                    <h5>ชื่องานวิจัย TH</h5>
-                                                                </div>
-                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
-                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
-                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
-                                                                <br>
-                                                                <div class="">
-                                                                    <b>ผู้ร่วมวิจัย</b>
-                                                                    <ol>
-                                                                        <li>
-                                                                            นาย 11111 11111
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 22222 22222
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 333333 333333
-                                                                        </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="">
-                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
-                                                                    <h5>ชื่องานวิจัย TH</h5>
-                                                                </div>
-                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
-                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
-                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
-                                                                <br>
-                                                                <div class="">
-                                                                    <b>ผู้ร่วมวิจัย</b>
-                                                                    <ol>
-                                                                        <li>
-                                                                            นาย 11111 11111
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 22222 22222
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 333333 333333
-                                                                        </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                   
 
-                                                    <div class="post">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <div class="">
-                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
-                                                                    <h5>ชื่องานวิจัย TH</h5>
-                                                                </div>
-                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
-                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
-                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
-                                                                <br>
-                                                                <div class="">
-                                                                    <b>ผู้ร่วมวิจัย</b>
-                                                                    <ol>
-                                                                        <li>
-                                                                            นาย 11111 11111
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 22222 22222
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 333333 333333
-                                                                        </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="">
-                                                                    <h3 class="text-green">ชื่องานวิจัย EN</h3>
-                                                                    <h5>ชื่องานวิจัย TH</h5>
-                                                                </div>
-                                                                <div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText">  01/01/2014 - 31/12/2016</span></div>
-                                                                <div class=""><b>แหล่งทุน</b><span class="researchFundText">ธนาคารไทยพานิชย์ </span></div>
-                                                                <div class=""><b>งบประมาณ</b><span class="moneyText">  500,000 บาท</span></div>
-                                                                <br>
-                                                                <div class="">
-                                                                    <b>ผู้ร่วมวิจัย</b>
-                                                                    <ol>
-                                                                        <li>
-                                                                            นาย 11111 11111
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 22222 22222
-                                                                        </li>
-                                                                        <li>
-                                                                            นาง 333333 333333
-                                                                        </li>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
                                                 </div>
                                                 <div class="tab-pane" id="timeline">
