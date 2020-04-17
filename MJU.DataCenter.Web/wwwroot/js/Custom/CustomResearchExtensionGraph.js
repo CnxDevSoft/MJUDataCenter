@@ -411,7 +411,7 @@ async function ResearchMoneyRangeRender(data) {
     });
     var sumValue = 0;
     $.each(tempData, function (key, item) {
-        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a onClick="ResearchMoneyRangeDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a onClick="ResearchMoneyRangeDrillDown(' + "'"+ key + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
         sumValue += item.val;
     });
@@ -651,7 +651,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-researchDepartmentDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
+            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
                 '<td>' + item.researchEndDate + '</td>' +
 
                 '</tr >';
@@ -825,8 +825,10 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 }
 
 async function ResearchMoneyRangeDrillDown(type) {
-    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoneyRangeDataSourceTable/GetDataSourceTable' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+
+    console.log(type)
+    var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+        : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
 
     console.log(type);
     fetch(url)
