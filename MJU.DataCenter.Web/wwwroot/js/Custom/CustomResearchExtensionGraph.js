@@ -150,7 +150,7 @@ async function ResearchDepartmentGraphDS() {
 async function RenderResearchDepartmentGraphDS(data) {
 
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.departmentName + '</b></a>'
+        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
 
         $('#researchDepartmentGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="researchDepartmentGraphDSCollapse' + key + '">';
@@ -250,23 +250,8 @@ async function ResearchPersonGroupRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                $("#researchPersonGroupSection").empty();
-                $("#researchPersonGroupLabel").empty();
-                $("#researchPersonGroupLabel").text(item[0]._model.label);
-
-                var table = $('#researchPersonGroupTable').DataTable();
-                table.clear().destroy();
-
-                $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    $("#researchPersonGroupSection").append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
-                        RenderReseacherName(value.researcher) + '</td><td>' + moment(value.researchEndDate).format("DD/MM/YYYY") + '</td></tr > ')
-                });
-                $('#researchPersonGroupModal').modal('show');
-                $('#researchPersonGroupModal').on('shown.bs.modal', function () {
-                })
-                $('#researchPersonGroupTable').DataTable({
-                    language: oLanguageOptions
-                });
+                ResearchGroupTableDrillDown(item[0]._model.label);
+               
             }
         }
     })
@@ -413,23 +398,8 @@ async function ResearchMoneyRangeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                $('#' + chartName + 'Section').empty();
-                $('#' + chartName + 'Label').empty();
-
-                $('#' + chartName + 'Label').text(item[0]._model.label);
-                var table = $('#' + chartName + 'Table').DataTable();
-                table.clear().destroy();
-
-                $.each(data.viewData[item[0]._index].lisViewData, function (key, value) {
-                    $('#' + chartName + 'Section').append('<tr><td>TH: ' + value.researchNameTh + '<br/>EN: ' + value.researchNameEn + ' </td><td>' +
-                        RenderReseacherName(value.researcher) + '</td> <td>' + new Number(value.researchMoney).toLocaleString("th-TH") + '</td></tr > ')
-                });
-                $('#' + chartName + 'Modal').modal('show');
-                $('#' + chartName + 'Modal').on('shown.bs.modal', function () {
-                })
-                $('#' + chartName + 'Table').DataTable({
-                    language: oLanguageOptions
-                });
+                ResearchMoneyRangeDrillDown(item[0]._model.label);
+               
             }
         }
     })
@@ -759,8 +729,8 @@ async function ResearchGroupTableDrillDown(type) {
 async function RenderResearchGroupTableDrillDown(data) {
 
     $('#researchGroupDrillDownGraphDataSourceModal-card-body').empty();
-    $('#researchGroupDrillDownGraphDataSourceLabel').empty()
-    $('#researchGroupDrillDownGraphDataSourceLabel').append("รายชื่อกลุ่มบุคลากร")
+    $('#researchGroupDrillDownGraphDataSourceLabel').empty();
+    $('#researchGroupDrillDownGraphDataSourceLabel').append("ประเภทหน่วยงาน");
     $.each(data, function (key, result) {
 
         if (data.length > 1) {
@@ -768,8 +738,8 @@ async function RenderResearchGroupTableDrillDown(data) {
             $('#researchGroupDrillDownGraphDataSourceModal-card-body').append(link)
 
         } else {
-            $('#researchGroupmentDrillDownGraphDataSourceLabel').empty()
-            $('#researchGroupmentDrillDownGraphDataSourceLabel').append(result.personGroupName)
+            $('#researchGroupDrillDownGraphDataSourceLabel').empty()
+            $('#researchGroupDrillDownGraphDataSourceLabel').append(result.personGroupName)
         }
         var startRow = '<div class="collapse multi-collapse" id="researchGroupDrillDownGraphDSCollapse' + key + '">';
         var table = $('#dataTable').DataTable();

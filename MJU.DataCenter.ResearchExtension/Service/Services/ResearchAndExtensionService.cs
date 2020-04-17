@@ -56,45 +56,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                    input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
                     (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true
                     )).ToList();
-
-                    var distinctResearcherDepartmentWithResearchId = researchDepartmentWithCondition.Select(s => new { s.ResearchId, s.ResearchNameEn, s.ResearchNameTh }).Distinct();
-                    var researchDepartmentViewDataModelList = new List<ResearchDepartmentViewDataModel>();
-                    foreach (var researchData in distinctResearcherDepartmentWithResearchId)
-                    {
-                        var firstResearchDepartments = researchDepartmentWithCondition.FirstOrDefault(m => m.ResearchId == researchData.ResearchId);
-                        var researchDepartments = researchDepartmentWithCondition.Where(m => m.ResearchId == researchData.ResearchId)
-                           .Select(s => new ResearcherViewModel
-                           {
-                               ResearcherId = s.ResearcherId,
-                               ResearcherName = s.ResearcherName
-                           }).ToList();
-                        var researchDepartmentView = new ResearchDepartmentViewDataModel
-                        {
-                            ResearchId = firstResearchDepartments.ResearchId,
-                            ResearchCode = firstResearchDepartments.ResearchCode,
-                            ResearchNameEn = firstResearchDepartments.ResearchNameEn,
-                            ResearchNameTh = firstResearchDepartments.ResearchNameTh,
-                            ResearchStartDate = firstResearchDepartments.ResearchStartDate,
-                            ResearchEndDate = firstResearchDepartments.ResearchEndDate,
-                            DepartmentCode = firstResearchDepartments.FacultyCode,
-                            DepartmentId = firstResearchDepartments.FacultyId,
-                            DepartmentNameTh = firstResearchDepartments.FacultyName,
-                            Researcher = researchDepartments,
-                            CitizenId = firstResearchDepartments.CitizenId
-                        };
-                        researchDepartmentViewDataModelList.Add(researchDepartmentView);
-                    }
-                    viewData.Add(
-                    new ViewData
-                    {
-                        index = i,
-                        LisViewData = researchDepartmentViewDataModelList.OrderByDescending(o => o.ResearchId).ToList()
-                    }
-
-                );
-
+         
                     label.Add(rd.FacultyName);
-                    data.Add(researchDepartmentViewDataModelList.Count());
+                    data.Add(researchDepartmentWithCondition.Count());
                     i++;
                 }
                 var graphDataSet = new GraphDataSet
