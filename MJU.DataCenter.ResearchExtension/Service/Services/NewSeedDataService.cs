@@ -143,7 +143,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchMoney
                 {
                     ResearchId = i,
-                    ResearchMoneyTypeId = c
+                    ResearchMoneyTypeId = c+1
                 };
                 list.Add(model);
             }
@@ -155,14 +155,14 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var list = new List<ResearcherGroup>();
             for (var i = 0; i <= 300; i++)
             {
-                var g = i % 11;
+                var g = i % 10;
                 Random random = new Random();
                 var group = random.Next(1, 21);
                 var researcher = random.Next(1, 21);
 
                 var model = new ResearcherGroup
                 {
-                    PersonGroupId = g,
+                    PersonGroupId = g+1,
                     ResearcherId = i
                 };
                 list.Add(model);
@@ -183,14 +183,14 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchPaper
                 {
                     ResearcherId = i,
-                    PaperNameTh = string.Format("บทวิจัย{0}", x),
-                    PaperNameEn = string.Format("Paper{0}", x),
+                    PaperNameTh = string.Format("บทวิจัย{0}", x+1),
+                    PaperNameEn = string.Format("Paper{0}", x+1),
                     Weigth = SeedData.HelperSeedData.RandomWeigthPaper(),
                     PaperCreateDate = SeedData.HelperSeedData.RandomDateTimeResearch(),
-                    MagazineId = x,
-                    MagazineName = string.Format("MagazineName{0}", x),
+                    MagazineId = x+1,
+                    MagazineName = string.Format("MagazineName{0}", x+1),
                     MagzineVolum = SeedData.HelperSeedData.RandomResearchId(),
-                    ResearchId  = x
+                    ResearchId  = x+1
                 };
                 if (!list.Where(m=>m.ResearchId==model.ResearchId&&m.ResearcherId==model.ResearcherId).Any())
                 {
@@ -214,7 +214,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearcherPaper
                 {
                     ResearcherId = i,
-                    PaperId = x,
+                    PaperId = x+1,
                     PaperPercent = SeedData.HelperSeedData.RandomPercent()
                 };
                 if (!list.Where(m => m.PaperId == model.PaperId && m.ResearcherId == model.ResearcherId).Any())
@@ -239,7 +239,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchPersonnel
                 {
                     ResearcherId = i,
-                    ResearchId = x,
+                    ResearchId = x+1,
                     ResearchWorkPercent = SeedData.HelperSeedData.RandomPercent(),
                     ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
                 };
