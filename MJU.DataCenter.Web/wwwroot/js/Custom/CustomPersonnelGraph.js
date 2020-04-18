@@ -1,4 +1,5 @@
-﻿var tokenTemp;
+﻿
+var tokenTemp;
 var userNameTemp;
 
 const oLanguagePersonGraphOptions = {
@@ -1296,43 +1297,9 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 async function DisplayPersonInfoDetailModal(citizenId) {
 
     var modal = '#personDetailModal';
-    var urlPerson = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelDetail/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-    fetch(urlPerson)
-        .then(res => res.json())
-        .then((data) => {
-            $('#personNameTh').empty();
-            $('#personNameEn').empty();
-            $('#personPosition').empty();
-            $('#personType').empty();
-            $('#personSection').empty();
-            $('#personDivision').empty();
-            $('#personFaculty').empty();
-            $('#personStartDate').empty();
-            $('#personRetiredYear').empty();
-            $('#personSalary').empty();
-            $('#personAddress').empty();
-            $('#personEducationLevel').empty();
-            $('#personEducation').empty();
-            $('#personEducationCountry').empty();
-
-            $('#personNameTh').append(data.personName);
-            $('#personNameEn').append(data.personName);
-            $('#personPosition').append(data.position + '(' + data.positionLevel + ')');
-            $('#personType').append(data.personnelType);
-            $('#personSection').append(data.section);
-            $('#personDivision').append(data.division);
-            $('#personFaculty').append(data.faculty);
-            $('#personStartDate').append(moment(data.startDate).format('MM/DD/YYYY'));
-            $('#personRetiredYear').append(data.retiredYear);
-            $('#personSalary').append(data.salary);
-            $('#personAddress').append(data.address + ' ' + data.zipCode);
-            $('#personEducationLevel').append(data.educationLevel);
-            $('#personEducation').append(data.education);
-            $('#personEducationCountry').append('ประเทศ' + data.country);
-        });
-
+   
     var urlResearch = 'https://localhost/MJU.DataCenter.ResearchExtension/api/PersonnelResearchData/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-    console.log(urlResearch)
+
     fetch(urlResearch)
         .then(res => res.json())
         .then((data) => {
@@ -1352,7 +1319,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                     '</div>' +
                     '<div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText"> ' + moment(item.researchStartDate).format('MM/DD/YYYY') + ' - ' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</span></div> ' +
                     '<div class=""><b>แหล่งทุน</b><span class="researchFundText"> ' + item.moneyTypeName + '</span></div>' +
-                    '<div class=""><b>งบประมาณ</b><span class="moneyText"> ' + item.researchMoney + '</span></div>' +
+                    '<div class=""><b>งบประมาณ</b><span class="moneyText"> ' + new Number(item.researchMoney).toLocaleString("th-TH") + '</span></div>' +
                     '<br>';
                 var subhtml;
                 if (item.personResearcher.length > 0) {
@@ -1379,12 +1346,50 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             $('#research').append(html);
 
 
+        });
+
+    var urlPerson = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelDetail/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+    fetch(urlPerson)
+        .then(res => res.json())
+        .then((data) => {
+            if (data != null) {
+                $('#personNameTh').empty();
+                $('#personNameEn').empty();
+                $('#personPosition').empty();
+                $('#personType').empty();
+                $('#personSection').empty();
+                $('#personDivision').empty();
+                $('#personFaculty').empty();
+                $('#personStartDate').empty();
+                $('#personRetiredYear').empty();
+                $('#personSalary').empty();
+                $('#personAddress').empty();
+                $('#personEducationLevel').empty();
+                $('#personEducation').empty();
+                $('#personEducationCountry').empty();
+
+                $('#personNameTh').append(data.personName);
+                $('#personNameEn').append(data.personName);
+                $('#personPosition').append(data.position + '(' + data.positionLevel + ')');
+                $('#personType').append(data.personnelType);
+                $('#personSection').append(data.section);
+                $('#personDivision').append(data.division);
+                $('#personFaculty').append(data.faculty);
+                $('#personStartDate').append(moment(data.startDate).format('MM/DD/YYYY'));
+                $('#personRetiredYear').append(data.retiredYear);
+                $('#personSalary').append(new Number(data.salary).toLocaleString("th-TH"));
+                $('#personAddress').append(data.address + ' ' + data.zipCode);
+                $('#personEducationLevel').append(data.educationLevel);
+                $('#personEducation').append(data.education);
+                $('#personEducationCountry').append('ประเทศ' + data.country);
+            }
+           
         }).then(function () {
+
             $(modal).modal('show');
             $(modal).on('shown.bs.modal', function () {
             })
         });
-
 
 
 
@@ -1416,7 +1421,7 @@ async function RenderAllPersonGraphDS(data) {
 
         var startBody = '<tbody id="sub-allpersonalGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -1460,7 +1465,7 @@ async function RenderPersonWorkAgeGraphDS(data) {
 
         $.each(result.personGroupWorkDuration, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -1504,7 +1509,7 @@ async function RenderPersonPositionGraphDS(data) {
 
         $.each(result.personGroupAdminPosition, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -1547,7 +1552,7 @@ async function RenderPersonPositionLevelGraphDS(data) {
 
         $.each(result.personGroupPosition, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -1593,7 +1598,7 @@ async function RenderPersonFacultyGraphDS(data) {
         var startBody = '<tbody id="sub-personFacultyGraphDataSource-tbody">';
         $.each(result.personGroupFaculty, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -1638,7 +1643,7 @@ async function RenderPersonPositionFacultyGraphDS(data) {
         var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
         $.each(result.personPositionFaculty, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -1681,7 +1686,7 @@ async function RenderRetiredGraphDS(data) {
         var startBody = '<tbody id="sub-personRetiredGraphDataSource-tbody">';
         $.each(result.personGroupRetiredYear, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -1719,7 +1724,7 @@ async function RenderPersonEducationGraphDS(data) {
 
         var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -1761,7 +1766,7 @@ async function RenderPersonTypeGraphDS(data) {
 
         var startBody = '<tbody id="sub-personTypeGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -1843,7 +1848,7 @@ async function RenderAllPersonDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-allpersonalDrillDownGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -1912,7 +1917,7 @@ async function RenderPersonEducationDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -1981,7 +1986,7 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -2051,7 +2056,7 @@ async function RenderPersonPositionAdminDrillDownGraphDS(data) {
         var startBody = '<tbody id="sub-personPositionAdminGraphDataSource-tbody">';
         $.each(result.personGroupAdminPosition, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -2121,7 +2126,7 @@ async function RenderPersonPositionLevelDrillDownGraphDS(data) {
         var startBody = '<tbody id="sub-personPositionLevelGraphDataSource-tbody">';
         $.each(result.personGroupPosition, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -2192,7 +2197,7 @@ async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
         var startBody = '<tbody id="sub-personGroupFacultyGraphDataSource-tbody">';
         $.each(result.personGroupFaculty, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -2261,7 +2266,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
         var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
         $.each(result.personPositionFaculty, function (key, item) {
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
@@ -2334,7 +2339,7 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
         $.each(result.personGroupRetiredYear, function (key, item) {
 
             $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +
                     '<td>' + sItem.position + '</td >' +
                     '<td>' + sItem.positionType + '</td >' +
