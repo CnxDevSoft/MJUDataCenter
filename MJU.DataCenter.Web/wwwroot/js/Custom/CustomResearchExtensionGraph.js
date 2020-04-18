@@ -401,7 +401,7 @@ async function ResearchMoneyRangeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                ResearchMoneyRangeDrillDown(item[0]._model.label);
+                ResearchMoneyRangeDrillDown(item[0]._index);
                
             }
         }
@@ -436,7 +436,7 @@ async function ResearchMoneyRangeGraphDS() {
 async function RenderResearchMoneyRangeGraphDS(data) {
 
     var chartName = 'researchMoneyRange';
-    console.log(data.dataResearchMoney);
+    console.log(data);
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
@@ -831,14 +831,14 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 
 async function ResearchMoneyRangeDrillDown(type) {
 
-    console.log(type)
     var url = type != null ? 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
         : 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearchMoney/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
 
-    console.log(type);
+
     fetch(url)
         .then(res => res.json())
         .then((data) => {
+            console.log(data)
             RenderResearchMoneyRangeDrillDown(data).then();
         });
 }
