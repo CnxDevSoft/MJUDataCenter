@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
     var userAccesToken = User.FindFirst("AccessToken").Value;
- 
+
 }
 
 <div class="container-fluid">
@@ -23,6 +23,7 @@
 
     </div>
 </div><!-- /.container-fluid -->
+<partial name="~/Views/DashboardPersonnel/PartialViews/_PersonDetailModal.cshtml" />
 
 <script src="~/js/Custom/CustomPersonnelGraph.js"></script>
 <script src="~/js/Custom/CustomPersonScript.js"></script>

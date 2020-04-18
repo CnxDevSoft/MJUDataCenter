@@ -873,7 +873,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
-                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
 
                 '</tr >';
 
