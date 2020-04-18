@@ -754,7 +754,7 @@ async function RenderResearchGroupTableDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchGroupDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
+            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
                 '<td>' + item.researchEndDate + '</td>' +
                 '</tr >';
 
@@ -813,7 +813,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
         $.each(result.dataResearchMoney, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
+            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
                 '<td>' + item.researchMoney + '</td>' +
 
                 '</tr >';
@@ -886,7 +886,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh + '</a></td><td>' + item.researcherName + '</td>' +
+            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
                 '<td>' + item.researchMoney + '</td >' +
 
                 '</tr >';
