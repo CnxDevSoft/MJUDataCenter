@@ -43,7 +43,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         }
 
         [HttpGet("GetDataSource")]
-        public List<RankResearchRageMoneyDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input, [FromQuery] AuthenticateModel auth)
+        public List<ResearchMoneyRangeViewDataModel> Get([FromQuery]InputFilterDataSourceViewModel input, [FromQuery] AuthenticateModel auth)
         {
             var result = AuthenticationApi.Authenticated(auth);
             if (result.Result.IsSuccess)
