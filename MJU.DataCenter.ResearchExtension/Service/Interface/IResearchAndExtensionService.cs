@@ -8,7 +8,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
 {
     public interface IResearchAndExtensionService
     {
-        object GetResearchDepartment(InputFilterGraphViewModel input, List<int> filter);
+        object GetResearchFaculty(InputFilterGraphViewModel input, List<int> filter);
         public List<ResearchFacultyDataSourceModel> GetResearchFacultyDataSource(InputFilterDataSourceViewModel input, List<int> filter);
         object GetResearchGroup(InputFilterGraphViewModel input, List<int> filter);
         List<ResearchGroupDataSourceModel> GetResearchGroupDataSource(InputFilterDataSourceViewModel input, List<int> filter);

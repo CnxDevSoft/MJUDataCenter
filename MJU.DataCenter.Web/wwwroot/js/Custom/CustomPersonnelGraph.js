@@ -1322,7 +1322,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             $('#personSection').append(data.section);
             $('#personDivision').append(data.division);
             $('#personFaculty').append(data.faculty);
-            $('#personStartDate').append(data.startDate);
+            $('#personStartDate').append(moment(data.startDate).format('MM/DD/YYYY'));
             $('#personRetiredYear').append(data.retiredYear);
             $('#personSalary').append(data.salary);
             $('#personAddress').append(data.address + ' ' + data.zipCode);
@@ -1336,10 +1336,10 @@ async function DisplayPersonInfoDetailModal(citizenId) {
     fetch(urlResearch)
         .then(res => res.json())
         .then((data) => {
-            //$('#personNameTh').empty();
-            //$('#personNameTh').append(data.researcherName);
-            //$('#personNameEn').empty();
-            //$('#personNameEn').append(data.researcherName);
+            $('#personNameTh').empty();
+            $('#personNameTh').append(data.researcherName);
+            $('#personNameEn').empty();
+            $('#personNameEn').append(data.researcherName);
             console.log(data)
             var html = '';
             html += ' <div class="post"> <div class="row">';
@@ -1350,7 +1350,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                     '<h3 class="text-green">' + item.researchNameEn + '</h3>' +
                     ' <h5>' + item.researchNameTh + '</h5> ' +
                     '</div>' +
-                    '<div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText"> ' + moment(item.researchStartDate).format('MM/DD/YYYY') + '-' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</span></div> ' +
+                    '<div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText"> ' + moment(item.researchStartDate).format('MM/DD/YYYY') + ' - ' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</span></div> ' +
                     '<div class=""><b>แหล่งทุน</b><span class="researchFundText"> ' + item.moneyTypeName + '</span></div>' +
                     '<div class=""><b>งบประมาณ</b><span class="moneyText"> ' + item.researchMoney + '</span></div>' +
                     '<br>';
@@ -1362,7 +1362,6 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                     console.log(item.personResearcher)
                     $.each(item.personResearcher, function (key, result) {
                         lastHtml += '<li>' + result.researcherName + '</li>';
-                        console.log(lastHtml)
                     });
                     lastHtml += '</ol></div></div>';
                     subhtml = startHtml + lastHtml;

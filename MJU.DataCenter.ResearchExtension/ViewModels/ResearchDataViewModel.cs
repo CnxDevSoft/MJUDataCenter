@@ -8,7 +8,7 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
     {
         public int? MoneyTypeId { get; set; }
         public string MoneyTypeName { get; set; }
-        public List<DcResearchData> ResearchData { get; set; }
+        public List<ResearchDataListViewModel> ResearchData { get; set; }
     }
 
     public class ResearchDataDataTableModel

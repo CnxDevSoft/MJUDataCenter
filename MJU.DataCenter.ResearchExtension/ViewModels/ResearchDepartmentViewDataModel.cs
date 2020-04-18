@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace MJU.DataCenter.ResearchExtension.ViewModels
 {
-    public class ResearchDepartmentViewDataModel
+    public class ResearchFacultyViewDataModel
     {
-        public int? DepartmentId { get; set; }
-        public int? DepartmentCode { get; set; }
-        public string DepartmentNameTh { get; set; }
+        public int? FacultyId { get; set; }
+        public int? FacultyCode { get; set; }
+        public string FacultyName { get; set; }
         public int ResearchId { get; set; }
         public string ResearchNameEn { get; set; }
         public string ResearchNameTh { get; set; }

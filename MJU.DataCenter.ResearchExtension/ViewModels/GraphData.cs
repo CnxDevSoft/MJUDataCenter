@@ -7,7 +7,6 @@ namespace MJU.DataCenter.Personnel.ViewModels
     {
         public List<string> Label { get; set; }
         public List<GraphDataSet> GraphDataSet { get; set; }
-        public List<ViewData> ViewData { get; set; }
         public List<int?>  Value { get; set; }
 
     }
@@ -17,9 +16,4 @@ namespace MJU.DataCenter.Personnel.ViewModels
         public List<int> Data { get; set; }
     }
 
-    public class ViewData
-    {
-        public int index { get; set; }
-        public object LisViewData {get;set;}
-    }
 }
