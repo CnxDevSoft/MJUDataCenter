@@ -8,7 +8,7 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
     {
        public int? FacultyId { get; set; }
         public string FacultyName { get; set; }
-        public List<DcResearchFaculty> ResearchData { get; set; }
+        public List<ResearchFacultyViewDataModel> ResearchData { get; set; }
     }
 
     public class ResearchFacultyDataTableModel

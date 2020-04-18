@@ -35,7 +35,7 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
                     filter = result.Result.
                     DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
                 }
-                return _researchAndExtensionService.GetResearchDepartment(input,filter);
+                return _researchAndExtensionService.GetResearchFaculty(input,filter);
             }
             return null;
         }

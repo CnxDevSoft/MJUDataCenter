@@ -8,7 +8,7 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
     {
         public int? PersonGroupId { get; set; }
         public string PersonGroupName { get; set; }
-        public List<DcResearchGroup> ResearchData { get; set; }
+        public List<ResearchGroupViewDataModel> ResearchData { get; set; }
     }
     public class ResearchGroupDataTableModel
     {

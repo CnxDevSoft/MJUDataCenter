@@ -161,11 +161,13 @@ async function RenderResearchDepartmentGraphDS(data) {
 
         var startBody = '<tbody id="sub-researchDepartmentGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
-                '</a></td><td>' + item.researcherName + '</td>' +
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+
                 '</tr >';
+
         });
+
         var endbody = '</tbody>';
         var endTable = '</table>';
         var endRow = '</div>';
@@ -291,10 +293,11 @@ async function RenderReseachPersonGroupGraphDS(data) {
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-researchPersonGroupGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
-                '</a></td><td>' + item.researcherName + '</td>' +
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+
                 '</tr >';
+
         });
         var endbody = '</tbody>';
 
@@ -444,11 +447,12 @@ async function RenderResearchMoneyRangeGraphDS(data) {
         var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>จำนวนเงิน</th></tr>';
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
-        $.each(result.dataResearchMoney, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
-                '</a></td><td>' + item.researcherName + '</td>' +
-                '<td>' + item.researchMoney + '</td >' +
+        $.each(result.researchData, function (key, item) {
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+
                 '</tr >';
+
         });
         var endbody = '</tbody>';
 
@@ -585,11 +589,11 @@ async function RenderResearchMoneyTypeGraphDS(data) {
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green">' + item.researchNameTh +
-                '</a></td><td>' + item.researcherName + '</td>' +
-                '<td>' + item.researchMoney + '</td >' +
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
+
         });
         var endbody = '</tbody>';
 
@@ -609,7 +613,7 @@ function RenderReseacherName(researcherList) {
         if (key > 0) {
             listName += '<br/>';
         }
-        listName += '' + value.researcherName;
+        listName += '<a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId + ')" class="text-green">' + value.researcherName + '</a>';
     });
 
     return listName;
@@ -630,7 +634,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
     $('#researchDepartmentDrillDownGraphDataSourceLabel').append("ประเภทหน่วยงาน")
 
     $.each(data, function (key, result) {
-
+        console.log(result)
         if (data.length>1) {
             var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
             $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').append(link)
@@ -651,8 +655,8 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-researchDepartmentDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
-                '<td>' + item.researchEndDate + '</td>' +
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
 
@@ -735,8 +739,9 @@ async function RenderResearchGroupTableDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchGroupDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
-                '<td>' + item.researchEndDate + '</td>' +
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+
                 '</tr >';
 
         });
@@ -793,9 +798,9 @@ async function RenderResearchMoneyRangeDrillDown(data) {
         var endThead = '</thead>';
 
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
-        $.each(result.dataResearchMoney, function (key, item) {
-            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
-                '<td>' + item.researchMoney + '</td>' +
+        $.each(result.researchData, function (key, item) {
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
 
@@ -867,8 +872,8 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>' + item.researchNameTh + '</td><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.researcherName + '</a></td>' +
-                '<td>' + item.researchMoney + '</td >' +
+            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
 
