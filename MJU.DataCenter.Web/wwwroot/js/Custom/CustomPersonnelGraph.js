@@ -160,16 +160,18 @@ async function PersonAgeGraph(token, userName) {
                     }]
                 },
                 onClick: handleClick
+               
             }
             var stackedBarChart = new Chart(stackedBarChartCanvas, {
                 type: 'bar',
                 data: stackedBarChartData,
                 options: stackedBarChartOptions
+                
             })
 
             function handleClick(evt) {
                 var activeElement = stackedBarChart.getElementAtEvent(evt);
-                PersonGenerationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
+                PersonGenerationDrillDown(data.label[0]._index, activeElement[0]._datasetIndex)
   
             }
         })
@@ -1819,7 +1821,9 @@ async function Load() {
 
 //DrillDown
 async function PersonGenerationDrillDown(generaTion, type) {
-    console.log("555", generaTion, type);
+    console.log("gen", generaTion);
+    console.log("type", type);
+
     var url = '';
 
 
