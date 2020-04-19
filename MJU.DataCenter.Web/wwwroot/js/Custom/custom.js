@@ -1,4 +1,7 @@
-﻿function RenderReseacherName(researcherList) {
+﻿var personnelRootPath = 'https://localhost/MJU.DataCenter.Personnel/api';
+var researchEextensionRootPath = '';
+
+function RenderReseacherName(researcherList) {
     //var listName = '';
     //$.each(researcherList, function (key, value) {
     //    if (key > 0) {
@@ -10,3 +13,12 @@
     //return listName;
     return '<a href="#" onclick="DisplayPersonInfoDetailModal(' + researcherList[0].citizenId + ')" class="text-green">' + researcherList[0].researcherName + '</a>'
 }
+
+function GetPersonnelRootPath() {
+    return personnelRootPath;
+}
+
+function GetResearchEextensionRootPath() {
+    return researchEextensionRootPath;
+}
+
