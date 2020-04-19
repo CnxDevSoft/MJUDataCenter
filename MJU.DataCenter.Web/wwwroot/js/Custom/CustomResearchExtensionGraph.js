@@ -110,9 +110,9 @@ async function ResearchDepartmentRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                console.log("testclick", item[0]._model.label);
-                ResearchDepartmentTableDrillDown(item[0]._model.label)
-               
+                if (item.length > 0) {
+                    ResearchDepartmentTableDrillDown(item[0]._model.label)
+                }              
             }
         }
     });
