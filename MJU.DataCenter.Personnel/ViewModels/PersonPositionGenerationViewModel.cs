@@ -22,6 +22,7 @@ namespace MJU.DataCenter.Personnel.ViewModels
     }
     public class PersonPostionGenertionDataSourceViewModel
     {
+        public string PersonPositionTypeId { get; set; }
         public string PersionPostionName { get; set; }
         public List<PersonPostionGenertionDataSourceModel> PersonPostionGeneration { get; set; }
     }

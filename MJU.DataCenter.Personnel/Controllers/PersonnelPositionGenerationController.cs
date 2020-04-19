@@ -41,7 +41,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         }
 
         [HttpGet("DataSource")]
-        public object Get([FromQuery] AuthenticateModel auth)
+        public object Get(string positionType,int? index,[FromQuery] AuthenticateModel auth)
         {
             var result = AuthenticationApi.Authenticated(auth);
             if (result.Result.IsSuccess)
@@ -52,7 +52,7 @@ namespace MJU.DataCenter.Personnel.Controllers
                     filter = result.Result.
                     DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
                 }
-                return _personnelService.GetAllPersonnelPositionGenerationDataSource(filter);
+                return _personnelService.GetAllPersonnelPositionGenerationDataSource(positionType,index,filter);
             }
             return null;
         }
