@@ -864,7 +864,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '<</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
 
                 '</tr >';
