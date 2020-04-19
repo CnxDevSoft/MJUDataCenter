@@ -171,7 +171,7 @@ async function PersonAgeGraph(token, userName) {
 
             function handleClick(evt) {
                 var activeElement = stackedBarChart.getElementAtEvent(evt);
-                PersonGenerationDrillDown(data.label[0]._index, activeElement[0]._datasetIndex)
+                PersonGenerationDrillDown(activeElement[0]._index,data.graphDataSet[activeElement[0]._datasetIndex].label)
   
             }
         })
@@ -1821,11 +1821,74 @@ async function Load() {
 
 //DrillDown
 async function PersonGenerationDrillDown(generaTion, type) {
-    console.log("gen", generaTion);
-    console.log("type", type);
 
-    var url = '';
+    var url = personnelRootPath + 'PersonnelPositionGeneration/DataSource?positionType=' + type + '&index=' + generaTion + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0';
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonGenerationDrillDown(data).then();
+        });
+}
 
+async function RenderPersonGenerationDrillDown(data) {
+    $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').empty()
+    $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personnelPositionGenerationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personnelPositionGenerationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.persionPostionName + '</b></a>'
+            $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').append(link)
+
+        } else {
+            $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').empty()
+            $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').append(result.persionPostionName)
+        }
+
+
+
+        var startRow = '<div class="collapse multi-collapse" id="personnelPositionGenerationDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonnelPositionGenerationDrillDown' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personnelPositionGeneration" id="dataPersonnelPositionGenerationDrillDown' + key + '">';
+        var startThead = '<thead id="sub-personnelPositionGenerationDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personnelPositionGenerationDrillDownGraphDataSource-tbody">';
+
+        $.each(result.personPostionGeneration[0].person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personnelPositionGenerationDrillDownGraphDataSourceModal').modal('show');
+        $('#personnelPositionGenerationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonnelPositionGenerationDrillDown' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+
+    });
 
 }
 
