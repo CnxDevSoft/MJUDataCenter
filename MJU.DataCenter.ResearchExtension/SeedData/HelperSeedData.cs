@@ -233,6 +233,50 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
 
         }
 
+        public static MoneyTypeModel RandomMoneyTypeSeed(int i)
+        {
+           
+            var result = new MoneyTypeModel();
+            switch (i)
+            {
+                case 1:
+                    result.MoneyTypeName = "สถาบันส่งเสริมการสอนวิทยาศาสตร์และเทคโนโลยี (สสวท.)";
+                    break;
+                case 2:
+                    result.MoneyTypeName = "สำนักวิจัยและส่งเสริมวิชาการการเกษตร มหาวิทยาลัยแม่โจ้";
+                    break;
+                case 3:
+                    result.MoneyTypeName = "สำนักงานคณะกรรมการการอุดมศึกษา (สกอ.)";
+                    break;
+                case 4:
+                    result.MoneyTypeName = "สำนักงานกองทุนสนับสนุนการวิจัย (สกว.)";
+                    break;
+                case 5:
+                    result.MoneyTypeName = "กระทรวงศึกษาธิการ";
+                    break;
+                case 6:
+                    result.MoneyTypeName = "การท่องเที่ยวแห่งประเทศไทย";
+                    break;
+                case 7:
+                    result.MoneyTypeName = "งบประมาณเงินรายได้คณะศิลปศาสตร์";
+                    break;
+                case 8:
+                    result.MoneyTypeName = "สำนักงานคณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ";
+                    break;
+                case 9:
+                    result.MoneyTypeName = "สถาบันสร้างสรรค์สื่อเพื่อการเรียนรู้ (สสร.)";
+                    break;
+                case 10:
+                    result.MoneyTypeName = "UNESCO ร่วมกับ Third World Academy";
+                    break;
+
+
+
+            }
+
+            return result;
+        }
+
 
     }
 }

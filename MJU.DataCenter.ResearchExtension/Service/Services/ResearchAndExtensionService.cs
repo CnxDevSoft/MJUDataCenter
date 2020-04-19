@@ -471,6 +471,7 @@ m.PersonGroupId == rg.PersonGroupId && m.PersonGroupName == rg.PersonGroupName).
             }
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
             var list = new List<ResearchMoneyRangeViewDataModel>();
+            var result = new List<RankResearchRageMoneyDataSourceModel>();
             if (input.Type == null || input.Type == "0")
             {
                 var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0);

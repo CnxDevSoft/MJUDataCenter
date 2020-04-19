@@ -62,9 +62,10 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var list = new List<MoneyType>();
             for (var i = 1; i <= 10; i++)
             {
+                var m = SeedData.HelperSeedData.RandomMoneyTypeSeed(i);
                 var model = new MoneyType
                 {
-                    MoneyTypeName = string.Format("แหล่งเงิน {0}", i)
+                    MoneyTypeName = m.ToString()
                 };
                 list.Add(model);
             }
