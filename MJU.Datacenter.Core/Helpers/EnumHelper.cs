@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace MJU.DataCenter.Core.HelperEnum
+namespace MJU.DataCenter.Core.Helpers
 {
     public static class EnumHelper
     {

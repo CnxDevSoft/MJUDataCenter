@@ -26,6 +26,8 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
 
     public class PersonResearch
     {
+        public int ResearchId { get; set; }
         public string ResearcherName { get; set; }
+        public string CitizenId { get; set; }
     }
 }
