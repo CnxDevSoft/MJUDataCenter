@@ -161,7 +161,7 @@ async function RenderResearchDepartmentGraphDS(data) {
 
         var startBody = '<tbody id="sub-researchDepartmentGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -293,7 +293,7 @@ async function RenderReseachPersonGroupGraphDS(data) {
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-researchPersonGroupGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a  href="#" class="text-green" onclick="DisplayResearhDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -448,7 +448,7 @@ async function RenderResearchMoneyRangeGraphDS(data) {
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a  href="#" class="text-green" onclick="DisplayResearhDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -589,7 +589,7 @@ async function RenderResearchMoneyTypeGraphDS(data) {
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -655,7 +655,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-researchDepartmentDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -739,7 +739,7 @@ async function RenderResearchGroupTableDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchGroupDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -799,7 +799,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -872,7 +872,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '<</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
 
                 '</tr >';
@@ -911,7 +911,20 @@ async function ResearchMoneyTypeDrillDown(type) {
         });
 }
 
+async function DisplayResearchDetailModal(citizenId) {
 
+    var modal = '#researchDetailModal';
+
+    $(modal).modal('show');
+
+    $(modal).on('shown.bs.modal', function () {
+    })
+
+    $("#researchDetailTable").DataTable({
+        language: oLanguageOptions
+    });
+
+}
 
 
 
