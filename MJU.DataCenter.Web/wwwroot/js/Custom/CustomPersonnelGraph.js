@@ -115,10 +115,6 @@ async function AllPersonGraph(token, userName) {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-function genderClick(type, gender, genderName) {
-
-
-}
 async function PersonAgeGraph(token, userName) {
     fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
@@ -162,13 +158,20 @@ async function PersonAgeGraph(token, userName) {
                     yAxes: [{
                         stacked: true
                     }]
-                }
+                },
+                onClick: handleClick
             }
             var stackedBarChart = new Chart(stackedBarChartCanvas, {
                 type: 'bar',
                 data: stackedBarChartData,
                 options: stackedBarChartOptions
             })
+
+            function handleClick(evt) {
+                var activeElement = stackedBarChart.getElementAtEvent(evt);
+                PersonGenerationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
+  
+            }
         })
 
 
@@ -462,7 +465,7 @@ async function PersonWorkAgeGraph(token, userName) {
 
             function handleClick(evt) {
                 var activeElement = chart.getElementAtEvent(evt);
-                PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
+                PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._index)
             }
 
             var sumColumns = [];
@@ -1805,6 +1808,12 @@ async function Load() {
 
 
 //DrillDown
+async function PersonGenerationDrillDown(generaTion, type) {
+    console.log("555", generaTion, type);
+    var url = '';
+
+
+}
 
 async function PersonGroupDrillDown(type) {
     var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
