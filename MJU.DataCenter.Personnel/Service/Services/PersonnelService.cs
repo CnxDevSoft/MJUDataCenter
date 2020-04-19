@@ -536,7 +536,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var personPostionGenertion = new List<PersonPostionGenertionDataSourceModel>();
                 if (index == null || index == 0)
                 {
-                    var generationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231))
+                    var generationBabyBoomber = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1946/01/01") && s.DateOfBirth <= DateTime.Parse("1964/12/31"))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
                         AdminPosition = s.AdminPosition,
@@ -582,7 +582,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
                 if (index == null || index == 1)
                 {
-                    var generationGenX = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231))
+                    var generationGenX = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= DateTime.Parse("1967/01/01") && s.DateOfBirth <= DateTime.Parse("1979/12/31"))
                 .Select(s => new PersonnelDataSourceViewModel
                 {
                     AdminPosition = s.AdminPosition,
@@ -626,7 +626,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 }
                 if (index == null || index == 2)
                 {
-                    var generationGenY = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231))
+                    var generationGenY = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= DateTime.Parse("1980/01/01") && s.DateOfBirth <= DateTime.Parse("1997/12/31"))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
                         AdminPosition = s.AdminPosition,
@@ -670,7 +670,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 }
                 if (index == null || index == 3)
                 {
-                    var generationGenZ = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= new DateTime(19980101))
+                    var generationGenZ = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= DateTime.Parse("1998/01/01"))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
                         AdminPosition = s.AdminPosition,
