@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MJU.DataCenter.Core.Enums;
-using MJU.DataCenter.Core.HelperEnum;
+using MJU.DataCenter.Core.Helpers;
 using MJU.DataCenter.Personnel.Service.Interface;
 
 namespace MJU.DataCenter.Personnel.Controllers

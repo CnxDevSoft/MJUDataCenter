@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MJU.DataCenter.Core.Enums;
-using MJU.DataCenter.Core.HelperEnum;
+using MJU.DataCenter.Core.Helpers;
 
 namespace MJU.DataCenter.Personnel.SeedData
 {

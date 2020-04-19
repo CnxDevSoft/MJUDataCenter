@@ -607,17 +607,7 @@ async function RenderResearchMoneyTypeGraphDS(data) {
 }
 
 
-function RenderReseacherName(researcherList) {
-    var listName = '';
-    $.each(researcherList, function (key, value) {
-        if (key > 0) {
-            listName += '<br/>';
-        }
-        listName += '<a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId + ')" class="text-green">' + value.researcherName + '</a>';
-    });
 
-    return listName;
-}
 async function Load() {
     $('.dataTable-sub').DataTable({
         language: oLanguageOptions,
@@ -800,7 +790,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
-                '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
+                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
 
                 '</tr >';
 

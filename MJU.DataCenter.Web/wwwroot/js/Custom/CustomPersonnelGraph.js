@@ -410,10 +410,6 @@ async function EducationInPersonTypeGraph() {
 
 
 
-
-
-
-
 async function PersonWorkAgeGraph(token, userName) {
     var ticksStyle = {
         fontColor: '#495057',
@@ -465,6 +461,7 @@ async function PersonWorkAgeGraph(token, userName) {
                 PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
             }
 
+            console.log(data)
             var sumColumns = [];
             var sumValue = 0;
             $.each(data.label, function (key, item) {
@@ -481,16 +478,20 @@ async function PersonWorkAgeGraph(token, userName) {
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',5)">' + data.graphDataSet[5].data[key] + '</td>' +
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',' + "''" + ')">' + sumRow + '</td></tr>'
                 );
-                var sumColumn = 0;
-                $.each(data.graphDataSet, function (keys, items) {
-                    sumColumn += data.graphDataSet[keys].data[key];
-                });
+            });
 
+
+            $.each(data.graphDataSet, function (keys, items) {
+                var sumColumn = 0;
+                $.each(data.label, function (key, item) {
+                    console.log(key, keys)
+                    console.log(data.graphDataSet[keys].data[key])
+                    sumColumn += data.graphDataSet[keys].data[key];
+
+                })
                 sumValue += sumColumn;
                 sumColumns.push(sumColumn);
-
-
-
+                
             });
 
             $("#personWorkAgeGraphDataTable-tbody").append(
@@ -1201,7 +1202,7 @@ function chartClicked(chart, chartName) {
             var modelLabel = chart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
 
-            var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?api-version=1.0';
+            var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
 
             fetch(url)
                 .then((response) => {
@@ -1239,7 +1240,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?api-version=1.0';
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -1297,7 +1298,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 async function DisplayPersonInfoDetailModal(citizenId) {
 
     var modal = '#personDetailModal';
-   
+
     var urlResearch = 'https://localhost/MJU.DataCenter.ResearchExtension/api/PersonnelResearchData/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(urlResearch)
@@ -1307,43 +1308,42 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             $('#personNameTh').append(data.researcherName);
             $('#personNameEn').empty();
             $('#personNameEn').append(data.researcherName);
-            console.log(data)
+
+            var table = $('#userDetailTable').DataTable();
+            table.clear().destroy();
             var html = '';
-            html += ' <div class="post"> <div class="row">';
+            
+            var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyRangeDrillDown" id="userDetailTable">';
 
+            var startThead = '<thead id="sub-researchMoneyRangeDrillDownDrillDownGraphDataSource-thead">';
+            var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ร่วมทำวิจัย</th><th>แหล่งทุน</th><th>งบประมาณ</th><th>วันที่เริ่มทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
+
+            var endThead = '</thead>';
+
+            var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
             $.each(data.personResearchDetail, function (key, item) {
-                var startHtml = '<div class="col-6 style="padding-bottom:20px">' +
-                    '<div class="">' +
-                    '<h3 class="text-green">' + item.researchNameEn + '</h3>' +
-                    ' <h5>' + item.researchNameTh + '</h5> ' +
-                    '</div>' +
-                    '<div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText"> ' + moment(item.researchStartDate).format('MM/DD/YYYY') + ' - ' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</span></div> ' +
-                    '<div class=""><b>แหล่งทุน</b><span class="researchFundText"> ' + item.moneyTypeName + '</span></div>' +
-                    '<div class=""><b>งบประมาณ</b><span class="moneyText"> ' + new Number(item.researchMoney).toLocaleString("th-TH") + '</span></div>' +
-                    '<br>';
-                var subhtml;
-                if (item.personResearcher.length > 0) {
-                    var lastHtml ='';
-                    startHtml += '<div class="">' +
-                        '<b>ผู้ร่วมวิจัย</b><ol>';
-                    console.log(item.personResearcher)
-                    $.each(item.personResearcher, function (key, result) {
-                        lastHtml += '<li>' + result.researcherName + '</li>';
-                    });
-                    lastHtml += '</ol></div></div>';
-                    subhtml = startHtml + lastHtml;
-                   
-                } else {
-                    subhtml = startHtml;
-                }
-
-                html += subhtml;
+                console.log(item)
+                startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td>' +
+                    '<td>' + RenderReseacherName(item.personResearcher) + '</td>' +
+                    '<td>' + item.moneyTypeName +'</td>'+
+                    '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
+                    '<td>' + moment(item.researchStartDate).format('MM/DD/YYYY') + '</td>' +
+                    '<td>' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</td>' +
+                    '</tr >';
 
             });
-            html += ' </div> </div>'
+            var endbody = '</tbody>';
+
+            var endTable = '</table>';
+
+            html = startTable + startThead + thead + endThead + startBody + endbody + endTable;
 
             $('#research').empty();
             $('#research').append(html);
+
+            $('#userDetailTable').DataTable({
+                language: oLanguagePersonGraphOptions
+            });
 
 
         });
@@ -1383,7 +1383,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personEducation').append(data.education);
                 $('#personEducationCountry').append('ประเทศ' + data.country);
             }
-           
+
         }).then(function () {
 
             $(modal).modal('show');
@@ -1438,6 +1438,19 @@ async function RenderAllPersonGraphDS(data) {
         $('#allpersonalGraphDataSourceModal-card-body').append(html);
 
     });
+}
+
+function RenderReseacherName(researcherList) {
+    //var listName = '';
+    //$.each(researcherList, function (key, value) {
+    //    if (key > 0) {
+    //        listName += '<br/>';
+    //    }
+    //    listName += '<a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId + ')" class="text-green">' + value.researcherName + '</a>';
+    //});
+
+    //return listName;
+    return '<a href="#" onclick="DisplayPersonInfoDetailModal(' + researcherList[0].citizenId + ')" class="text-green">' + researcherList[0].researcherName + '</a>'
 }
 
 async function PersonWorkAgeGraphDS(token, userName) {
@@ -1819,7 +1832,7 @@ async function PersonGroupDrillDown(type) {
 }
 
 async function RenderAllPersonDrillDownGraphDS(data) {
-  
+
     $('#allpersonnelDrillDownGraphDataSourceModal-card-body').empty();
     $('#allPersoneDrillDownGraphDataSourceLabel').empty()
     $('#allPersoneDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
@@ -1986,7 +1999,7 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -2381,4 +2394,63 @@ async function PersonWorkDurationDrillDown(personnelType, index) {
         });
 
 
+}
+async function RenderPersonWorkDurationDrillDownGraphDS(data) {
+
+    $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
+    $('#personWorkDurationDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+        if (data.length > 1 && result.personGroupWorkDuration.length > 0) {
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personWorkDurationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkDurationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+
+            $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
+            $('#personWorkDurationDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personWorkDurationDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonWorkDurationDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="dataPersonWorkDurationDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personWorkDurationDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personWorkDurationGraphDataSource-tbody">';
+        $.each(result.personGroupWorkDuration, function (key, item) {
+
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personWorkDurationDrillDownGraphDataSourceModal').modal('show');
+        $('#personWorkDurationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonWorkDurationDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
 }

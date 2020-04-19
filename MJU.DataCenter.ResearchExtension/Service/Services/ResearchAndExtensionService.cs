@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MJU.DataCenter.Core.Helpers;
 using MJU.DataCenter.Personnel.ViewModels;
-using MJU.DataCenter.ResearchExtension.Helper;
 using MJU.DataCenter.ResearchExtension.Models;
 using MJU.DataCenter.ResearchExtension.Repository.Interface;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
@@ -130,8 +130,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstResearchDepartments.ResearchCode,
                         ResearchNameEn = firstResearchDepartments.ResearchNameEn,
                         ResearchNameTh = firstResearchDepartments.ResearchNameTh,
-                        ResearchStartDate = firstResearchDepartments.ResearchStartDate,
-                        ResearchEndDate = firstResearchDepartments.ResearchEndDate,
+                        ResearchStartDate = firstResearchDepartments.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstResearchDepartments.ResearchEndDate.ToLocalDateTime(),
                         FacultyCode = firstResearchDepartments.FacultyCode,
                         FacultyId = firstResearchDepartments.FacultyId,
                         FacultyName = firstResearchDepartments.FacultyName,
@@ -247,8 +247,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstResearchGroups.ResearchCode,
                         ResearchNameEn = firstResearchGroups.ResearchNameEn,
                         ResearchNameTh = firstResearchGroups.ResearchNameTh,
-                        ResearchStartDate = firstResearchGroups.ResearchStartDate,
-                        ResearchEndDate = firstResearchGroups.ResearchEndDate,
+                        ResearchStartDate = firstResearchGroups.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstResearchGroups.ResearchEndDate.ToLocalDateTime(),
                         PersonGroupId = firstResearchGroups.PersonGroupId,
                         PersonGroupName = firstResearchGroups.PersonGroupName,
                         Researcher = researchGroups
@@ -368,8 +368,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchMoneyTypeId = firstResearchData.ResearchMoneyTypeId,
                         MoneyTypeName = firstResearchData.MoneyTypeName,
                         ResearchMoney = firstResearchData.ResearchMoney,
-                        ResearchStartDate = firstResearchData.ResearchStartDate,
-                        ResearchEndDate = firstResearchData.ResearchEndDate,
+                        ResearchStartDate = firstResearchData.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstResearchData.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -472,7 +472,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             if (input.Type == null || input.Type == "0")
             {
                 var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0);
-                var lower100kDistinct = lower100k.Select(s =>new { s.ResearchId,s.ResearchNameTh}).Distinct();
+                var lower100kDistinct = lower100k.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
                 var researchDataList100k = new List<DataModelReserachMoney>();
                 foreach (var ld in lower100kDistinct)
                 {
@@ -492,8 +492,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstLower100k.ResearchCode,
                         MoneyTypeName = firstLower100k.MoneyTypeName,
                         ResearchMoney = firstLower100k.ResearchMoney,
-                        ResearchStartDate = firstLower100k.ResearchStartDate,
-                        ResearchEndDate = firstLower100k.ResearchEndDate,
+                        ResearchStartDate = firstLower100k.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstLower100k.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -529,8 +529,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstBetween100kTo500k.ResearchCode,
                         MoneyTypeName = firstBetween100kTo500k.MoneyTypeName,
                         ResearchMoney = firstBetween100kTo500k.ResearchMoney,
-                        ResearchStartDate = firstBetween100kTo500k.ResearchStartDate,
-                        ResearchEndDate = firstBetween100kTo500k.ResearchEndDate,
+                        ResearchStartDate = firstBetween100kTo500k.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstBetween100kTo500k.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -566,8 +566,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstBetween500kTo1m.ResearchCode,
                         MoneyTypeName = firstBetween500kTo1m.MoneyTypeName,
                         ResearchMoney = firstBetween500kTo1m.ResearchMoney,
-                        ResearchStartDate = firstBetween500kTo1m.ResearchStartDate,
-                        ResearchEndDate = firstBetween500kTo1m.ResearchEndDate,
+                        ResearchStartDate = firstBetween500kTo1m.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstBetween500kTo1m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -604,8 +604,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstBetween1mTo5m.ResearchCode,
                         MoneyTypeName = firstBetween1mTo5m.MoneyTypeName,
                         ResearchMoney = firstBetween1mTo5m.ResearchMoney,
-                        ResearchStartDate = firstBetween1mTo5m.ResearchStartDate,
-                        ResearchEndDate = firstBetween1mTo5m.ResearchEndDate,
+                        ResearchStartDate = firstBetween1mTo5m.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstBetween1mTo5m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -641,8 +641,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstBetween5mTo10m.ResearchCode,
                         MoneyTypeName = firstBetween5mTo10m.MoneyTypeName,
                         ResearchMoney = firstBetween5mTo10m.ResearchMoney,
-                        ResearchStartDate = firstBetween5mTo10m.ResearchStartDate,
-                        ResearchEndDate = firstBetween5mTo10m.ResearchEndDate,
+                        ResearchStartDate = firstBetween5mTo10m.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstBetween5mTo10m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -678,8 +678,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstBetween10mTo20m.ResearchCode,
                         MoneyTypeName = firstBetween10mTo20m.MoneyTypeName,
                         ResearchMoney = firstBetween10mTo20m.ResearchMoney,
-                        ResearchStartDate = firstBetween10mTo20m.ResearchStartDate,
-                        ResearchEndDate = firstBetween10mTo20m.ResearchEndDate,
+                        ResearchStartDate = firstBetween10mTo20m.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstBetween10mTo20m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -716,8 +716,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchCode = firstOver20m.ResearchCode,
                         MoneyTypeName = firstOver20m.MoneyTypeName,
                         ResearchMoney = firstOver20m.ResearchMoney,
-                        ResearchStartDate = firstOver20m.ResearchStartDate,
-                        ResearchEndDate = firstOver20m.ResearchEndDate,
+                        ResearchStartDate = firstOver20m.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = firstOver20m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -759,8 +759,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearchCode = firstResearchMoney.ResearchCode,
                     ResearchNameEn = firstResearchMoney.ResearchNameEn,
                     ResearchNameTh = firstResearchMoney.ResearchNameTh,
-                    ResearchStartDate = firstResearchMoney.ResearchStartDate,
-                    ResearchEndDate = firstResearchMoney.ResearchEndDate,
+                    ResearchStartDate = firstResearchMoney.ResearchStartDate.ToLocalDateTime(),
+                    ResearchEndDate = firstResearchMoney.ResearchEndDate.ToLocalDateTime(),
                     ResearchMoney = firstResearchMoney.ResearchMoney,
                     MoneyTypeName = firstResearchMoney.MoneyTypeName,
                     Researcher = researchMoney
@@ -833,8 +833,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearchNameEn = researchData.ResearchNameEn,
                     ResearchMoney = research,
                     ResearchGroup = researchGroup,
-                    ResearchStartDate = researchData.ResearchStartDate,
-                    ResearchEndDate = researchData.ResearchEndDate
+                    ResearchStartDate = researchData.ResearchStartDate.ToLocalDateTime(),
+                    ResearchEndDate = researchData.ResearchEndDate.ToLocalDateTime()
                 };
                 researchDataModels.Add(researchDataModel);
             }
@@ -864,7 +864,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var personResearch = _dcResearchDataRepository.GetAll().Where(m => m.ResearchId == re.ResearchId && m.CitizenId != citizenId)
                     .Select(s => new PersonResearch
                     {
-                        ResearcherName = s.ResearcherName
+                        ResearchId = s.ResearchId,
+                        ResearcherName = s.ResearcherName,
+                        CitizenId = s.CitizenId
                     });
                 var personResearchDetail = new PersonResearchDetail
                 {
@@ -874,8 +876,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearchNameEn = re.ResearchNameEn,
                     ResearchMoney = re.ResearchMoney,
                     MoneyTypeName = re.MoneyTypeName,
-                    ResearchStartDate = re.ResearchStartDate,
-                    ResearchEndDate = re.ResearchEndDate
+                    ResearchStartDate = re.ResearchStartDate.ToLocalDateTime(),
+                    ResearchEndDate = re.ResearchEndDate.ToLocalDateTime()
                 };
                 list.Add(personResearchDetail);
             }
