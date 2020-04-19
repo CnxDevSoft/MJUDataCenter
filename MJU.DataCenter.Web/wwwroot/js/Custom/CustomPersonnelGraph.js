@@ -1,6 +1,7 @@
-﻿
-var tokenTemp;
+﻿var tokenTemp;
 var userNameTemp;
+var personnelRootPath = 'https://localhost/MJU.DataCenter.Personnel/api/';
+var researchExtensionRootPath = 'https://localhost/MJU.DataCenter.ResearchExtension/api/';
 
 const oLanguagePersonGraphOptions = {
     sLengthMenu: "แสดง _MENU_",
@@ -21,7 +22,6 @@ async function SetTempAuthorization(token, userName) {
 }
 
 async function AllPersonGraph(token, userName) {
-
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -29,7 +29,7 @@ async function AllPersonGraph(token, userName) {
     }
     var mode = 'index'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroup/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $allPersonalChart = $('#allpersonal-chart')
@@ -116,7 +116,7 @@ async function AllPersonGraph(token, userName) {
         });
 }
 async function PersonAgeGraph(token, userName) {
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPositionGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var barChartData = {
@@ -175,7 +175,7 @@ async function PersonAgeGraph(token, userName) {
         })
 
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGenderGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGenderGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
 
@@ -307,7 +307,7 @@ function genderClick(genderId, genderName, generationType) {
         });
 }
 async function PersonEducationGraph(token, userName) {
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelEducation/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personEducation-Chart').get(0).getContext('2d')
@@ -356,7 +356,7 @@ async function PersonEducationGraph(token, userName) {
         });
 }
 async function PersonTypeGraph(token, userName) {
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionEducation/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPositionEducation/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personType-chart').get(0).getContext('2d')
@@ -413,10 +413,6 @@ async function EducationInPersonTypeGraph() {
 
 
 
-
-
-
-
 async function PersonWorkAgeGraph(token, userName) {
     var ticksStyle = {
         fontColor: '#495057',
@@ -426,7 +422,7 @@ async function PersonWorkAgeGraph(token, userName) {
     }
     var mode = 'point'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personWorkAge-chart')
@@ -484,15 +480,17 @@ async function PersonWorkAgeGraph(token, userName) {
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',5)">' + data.graphDataSet[5].data[key] + '</td>' +
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',' + "''" + ')">' + sumRow + '</td></tr>'
                 );
-                var sumColumn = 0;
-                $.each(data.graphDataSet, function (keys, items) {
-                    sumColumn += data.graphDataSet[keys].data[key];
-                });
+            });
 
+
+            $.each(data.graphDataSet, function (keys, items) {
+                var sumColumn = 0;
+                $.each(data.label, function (key, item) {
+                    sumColumn += data.graphDataSet[keys].data[key];
+
+                })
                 sumValue += sumColumn;
                 sumColumns.push(sumColumn);
-
-
 
             });
 
@@ -520,7 +518,7 @@ async function PersonPositionGraph(token, userName) {
     }
     var mode = 'point'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupAdminPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personPosition-chart')
@@ -623,7 +621,7 @@ async function PersonPositionLevelGraph(token, userName) {
     }
     var mode = 'point'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personPositionLevel-chart')
@@ -727,7 +725,7 @@ async function PersonFacultyGraph(token, userName) {
     }
     var mode = 'nearest'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personFaculty-chart')
@@ -843,7 +841,7 @@ async function PersonPositionFacultyGraph(token, userName) {
     }
     var mode = 'nearest'
     var intersect = true
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPositionFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personPositionFaculty-chart')
@@ -956,7 +954,7 @@ async function PersonRetiredGraph(token, userName) {
     var intersect = true
     var date = new Date();
     var lastDate = date.setDate(date.getFullYear() - 10).toLocaleString();
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupRetiredYear?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupRetiredYear?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personRetired-chart')
@@ -1074,7 +1072,7 @@ function RenderDataSet(data, gradientStroke) {
 
 
 async function PersonForcastGenerationGraph(token, userName) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/1/10?UserName=' + userName + ' &Token=' + token + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelRetired/1/10?UserName=' + userName + ' &Token=' + token + '&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -1204,7 +1202,7 @@ function chartClicked(chart, chartName) {
             var modelLabel = chart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
 
-            var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?api-version=1.0';
+            var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
 
             fetch(url)
                 .then((response) => {
@@ -1242,7 +1240,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?api-version=1.0';
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -1300,8 +1298,8 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
 async function DisplayPersonInfoDetailModal(citizenId) {
 
     var modal = '#personDetailModal';
-   
-    var urlResearch = 'https://localhost/MJU.DataCenter.ResearchExtension/api/PersonnelResearchData/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+
+    var urlResearch = researchExtensionRootPath + 'PersonnelResearchData/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(urlResearch)
         .then(res => res.json())
@@ -1310,48 +1308,47 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             $('#personNameTh').append(data.researcherName);
             $('#personNameEn').empty();
             $('#personNameEn').append(data.researcherName);
-            console.log(data)
+
+            var table = $('#userDetailTable').DataTable();
+            table.clear().destroy();
             var html = '';
-            html += ' <div class="post"> <div class="row">';
 
+            var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyRangeDrillDown" id="userDetailTable">';
+
+            var startThead = '<thead id="sub-researchMoneyRangeDrillDownDrillDownGraphDataSource-thead">';
+            var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ร่วมทำวิจัย</th><th>แหล่งทุน</th><th>งบประมาณ</th><th>วันที่เริ่มทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
+
+            var endThead = '</thead>';
+
+            var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
             $.each(data.personResearchDetail, function (key, item) {
-                var startHtml = '<div class="col-6 style="padding-bottom:20px">' +
-                    '<div class="">' +
-                    '<h3 class="text-green">' + item.researchNameEn + '</h3>' +
-                    ' <h5>' + item.researchNameTh + '</h5> ' +
-                    '</div>' +
-                    '<div class=""><b>ระยะเวลาวิจัย</b><span class="researchDateText"> ' + moment(item.researchStartDate).format('MM/DD/YYYY') + ' - ' + moment(item.researchEndDate).format('MM/DD/YYYY') + '</span></div> ' +
-                    '<div class=""><b>แหล่งทุน</b><span class="researchFundText"> ' + item.moneyTypeName + '</span></div>' +
-                    '<div class=""><b>งบประมาณ</b><span class="moneyText"> ' + new Number(item.researchMoney).toLocaleString("th-TH") + '</span></div>' +
-                    '<br>';
-                var subhtml;
-                if (item.personResearcher.length > 0) {
-                    var lastHtml ='';
-                    startHtml += '<div class="">' +
-                        '<b>ผู้ร่วมวิจัย</b><ol>';
-                    console.log(item.personResearcher)
-                    $.each(item.personResearcher, function (key, result) {
-                        lastHtml += '<li>' + result.researcherName + '</li>';
-                    });
-                    lastHtml += '</ol></div></div>';
-                    subhtml = startHtml + lastHtml;
-                   
-                } else {
-                    subhtml = startHtml;
-                }
-
-                html += subhtml;
+                console.log(item)
+                startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td>' +
+                    '<td>' + RenderReseacherName(item.personResearcher) + '</td>' +
+                    '<td>' + item.moneyTypeName + '</td>' +
+                    '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
+                    '<td>' + moment(item.researchStartDate).format('DD/MM/YYYY') + '</td>' +
+                    '<td>' + moment(item.researchEndDate).format('DD/MM/YYYY') + '</td>' +
+                    '</tr >';
 
             });
-            html += ' </div> </div>'
+            var endbody = '</tbody>';
+
+            var endTable = '</table>';
+
+            html = startTable + startThead + thead + endThead + startBody + endbody + endTable;
 
             $('#research').empty();
             $('#research').append(html);
 
+            $('#userDetailTable').DataTable({
+                language: oLanguagePersonGraphOptions
+            });
+
 
         });
 
-    var urlPerson = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelDetail/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+    var urlPerson = personnelRootPath + 'PersonnelDetail/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
     fetch(urlPerson)
         .then(res => res.json())
         .then((data) => {
@@ -1378,7 +1375,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personSection').append(data.section);
                 $('#personDivision').append(data.division);
                 $('#personFaculty').append(data.faculty);
-                $('#personStartDate').append(moment(data.startDate).format('MM/DD/YYYY'));
+                $('#personStartDate').append(moment(data.startDate).format('DD/MM/YYYY'));
                 $('#personRetiredYear').append(data.retiredYear);
                 $('#personSalary').append(new Number(data.salary).toLocaleString("th-TH"));
                 $('#personAddress').append(data.address + ' ' + data.zipCode);
@@ -1386,7 +1383,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personEducation').append(data.education);
                 $('#personEducationCountry').append('ประเทศ' + data.country);
             }
-           
+
         }).then(function () {
 
             $(modal).modal('show');
@@ -1443,9 +1440,22 @@ async function RenderAllPersonGraphDS(data) {
     });
 }
 
+function RenderReseacherName(researcherList) {
+    //var listName = '';
+    //$.each(researcherList, function (key, value) {
+    //    if (key > 0) {
+    //        listName += '<br/>';
+    //    }
+    //    listName += '<a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId + ')" class="text-green">' + value.researcherName + '</a>';
+    //});
+
+    //return listName;
+    return '<a href="#" onclick="DisplayPersonInfoDetailModal(' + researcherList[0].citizenId + ')" class="text-green">' + researcherList[0].researcherName + '</a>'
+}
+
 async function PersonWorkAgeGraphDS(token, userName) {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonWorkAgeGraphDS(data);
@@ -1490,7 +1500,7 @@ async function RenderPersonWorkAgeGraphDS(data) {
 
 async function PersonPositionGraphDS(token, userName) {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonPositionGraphDS(data);
@@ -1533,7 +1543,7 @@ async function RenderPersonPositionGraphDS(data) {
 
 async function PersonPositionLevelGraphDS(token, userName) {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonPositionLevelGraphDS(data);
@@ -1577,7 +1587,7 @@ async function RenderPersonPositionLevelGraphDS(data) {
 
 async function PersonFacultyGraphDS(token, userName) {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonFacultyGraphDS(data);
@@ -1622,7 +1632,7 @@ async function RenderPersonFacultyGraphDS(data) {
 
 async function PersonPositionFacultyGraphDS(token, userName) {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPositionFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonPositionFacultyGraphDS(data);
@@ -1667,7 +1677,7 @@ async function RenderPersonPositionFacultyGraphDS(data) {
 
 async function PersonRetiredGraphDS(token, userName) {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupRetiredYear/DataSource?StartDate=2553-01-01&EndDate=2563-01-01&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=2553-01-01&EndDate=2563-01-01&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderRetiredGraphDS(data);
@@ -1706,7 +1716,7 @@ async function RenderRetiredGraphDS(data) {
 }
 
 async function PersonEducationGraphDS(token, userName) {
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelEducation/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonEducationGraphDS(data);
@@ -1748,7 +1758,7 @@ async function RenderPersonEducationGraphDS(data) {
 
 
 async function PersonTypeGraphDS(token, userName) {
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonTypeGraphDS(data);
@@ -1816,7 +1826,7 @@ async function PersonGenerationDrillDown(generaTion, type) {
 }
 
 async function PersonGroupDrillDown(type) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroup/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -1828,7 +1838,7 @@ async function PersonGroupDrillDown(type) {
 }
 
 async function RenderAllPersonDrillDownGraphDS(data) {
-  
+
     $('#allpersonnelDrillDownGraphDataSourceModal-card-body').empty();
     $('#allPersoneDrillDownGraphDataSourceLabel').empty()
     $('#allPersoneDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
@@ -1889,7 +1899,7 @@ async function RenderAllPersonDrillDownGraphDS(data) {
 }
 
 async function PersonEducationDrillDown(type) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelEducation/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelEducation/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -1957,7 +1967,7 @@ async function RenderPersonEducationDrillDownGraphDS(data) {
 }
 
 async function PersonPositionDrillDown(type) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelPosition/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelPosition/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
     console.log(url)
     fetch(url)
         .then(res => res.json())
@@ -1995,7 +2005,7 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
         $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
                 '<td>' + item.position + '</td >' +
                 '<td>' + item.positionType + '</td >' +
                 '<td>' + item.faculty + '</td>' +
@@ -2025,7 +2035,7 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
 }
 
 async function PersonPositionAdminDrillDown(adminPositionType, personnelType) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupAdminPosition/DataSource?adminPositionType=' + adminPositionType + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?adminPositionType=' + adminPositionType + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     console.log(url)
     fetch(url)
@@ -2097,7 +2107,7 @@ async function RenderPersonPositionAdminDrillDownGraphDS(data) {
 
 async function PersonPositionLevelDrillDown(personnelType, posotionLevel) {
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupPositionLevel/DataSource?personnelType=' + personnelType + '&positionLevel=' + posotionLevel + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?personnelType=' + personnelType + '&positionLevel=' + posotionLevel + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(url)
         .then(res => res.json())
@@ -2167,7 +2177,7 @@ async function RenderPersonPositionLevelDrillDownGraphDS(data) {
 
 async function PersonGroupFacultyDrillDown(faculty, personnelType) {
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupFaculty/DataSource?faculty=' + faculty + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupFaculty/DataSource?faculty=' + faculty + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(url)
         .then(res => res.json())
@@ -2238,7 +2248,7 @@ async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
 
 async function PersonPositionFacultyDrillDown(faculty, personnelType) {
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelPositionFaculty/DataSource?faculty=' + faculty + '&position=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelPositionFaculty/DataSource?faculty=' + faculty + '&position=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(url)
         .then(res => res.json())
@@ -2307,7 +2317,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
 
 
 async function PersonRetiredDrillDown(retiredYear, personnelType, startDate, endDate) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupRetiredYear/DataSource?StartDate=' + startDate + '&EndDate=' + endDate
+    var url = personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=' + startDate + '&EndDate=' + endDate
         + '&RetiredYear=' + retiredYear + '&PersonnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(url)
@@ -2381,7 +2391,7 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
 
 async function PersonWorkDurationDrillDown(personnelType, index) {
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
 
     fetch(url)
         .then(res => res.json())
@@ -2390,4 +2400,63 @@ async function PersonWorkDurationDrillDown(personnelType, index) {
         });
 
 
+}
+async function RenderPersonWorkDurationDrillDownGraphDS(data) {
+
+    $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
+    $('#personWorkDurationDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+        if (data.length > 1 && result.personGroupWorkDuration.length > 0) {
+            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personWorkDurationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkDurationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+
+            $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
+            $('#personWorkDurationDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personWorkDurationDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonWorkDurationDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="dataPersonWorkDurationDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personWorkDurationDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personWorkDurationGraphDataSource-tbody">';
+        $.each(result.personGroupWorkDuration, function (key, item) {
+
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personWorkDurationDrillDownGraphDataSourceModal').modal('show');
+        $('#personWorkDurationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonWorkDurationDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
 }

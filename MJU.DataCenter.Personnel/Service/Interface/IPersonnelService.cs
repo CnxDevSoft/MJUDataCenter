@@ -25,7 +25,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         object GetAllPersonnelPositionGeneration(int type, List<int> filter);
 
-        List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource(List<int> filter);
+        List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource(string positionType, int? index, List<int> filter);
 
         object GetAllPersonnelRetired(int total,int type, List<int> filter);
 

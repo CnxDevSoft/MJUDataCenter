@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MJU.DataCenter.Personnel.Helper;
+using MJU.DataCenter.Core.Helpers;
 using MJU.DataCenter.Personnel.Models;
 using MJU.DataCenter.Personnel.Repository.Interface;
 using MJU.DataCenter.Personnel.Service.Interface;
@@ -104,13 +104,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
                         Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Division = s.Division,
                         Education = s.Education,
                         EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
                         CitizenId = s.CitizenId,
                         Major = s.Major,
                         Nation = s.Nation,
@@ -121,15 +121,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         PositionLevel = s.PositionLevel,
                         PositionType = s.PositionType,
                         Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Salary = s.Salary,
                         Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                         TitleEducation = s.TitleEducation,
                         University = s.University,
-                        ZipCode = s.ZipCode
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                     }).ToList()
                 };
@@ -216,13 +217,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
                         Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Division = s.Division,
                         Education = s.Education,
                         EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
                         CitizenId = s.CitizenId,
                         Major = s.Major,
                         Nation = s.Nation,
@@ -233,15 +234,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         PositionLevel = s.PositionLevel,
                         PositionType = s.PositionType,
                         Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Salary = s.Salary,
                         Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                         TitleEducation = s.TitleEducation,
                         University = s.University,
-                        ZipCode = s.ZipCode
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
                     }).ToList()
                 };
                 list.Add(personPosition);
@@ -339,13 +341,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             AdminPositionType = s.AdminPositionType,
                             BloodType = s.BloodType,
                             Country = s.Country,
-                            DateOfBirth = s.DateOfBirth,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                             Division = s.Division,
                             Education = s.Education,
                             EducationLevel = s.EducationLevel,
                             Faculty = s.Faculty,
                             Gender = s.Gender,
-                            GraduateDate = s.GraduateDate,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
                             CitizenId = s.CitizenId,
                             Major = s.Major,
                             Nation = s.Nation,
@@ -356,15 +358,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             PositionLevel = s.PositionLevel,
                             PositionType = s.PositionType,
                             Province = s.Province,
-                            RetiredDate = s.RetiredDate,
-                            RetiredYear = s.RetiredYear,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                             Salary = s.Salary,
                             Section = s.Section,
-                            StartDate = s.StartDate,
-                            StartEducationDate = s.StartEducationDate,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                             TitleEducation = s.TitleEducation,
                             University = s.University,
-                            ZipCode = s.ZipCode
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                         }).ToList()
                     };
@@ -384,13 +387,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                  AdminPositionType = s.AdminPositionType,
                  BloodType = s.BloodType,
                  Country = s.Country,
-                 DateOfBirth = s.DateOfBirth,
+                 DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                  Division = s.Division,
                  Education = s.Education,
                  EducationLevel = s.EducationLevel,
                  Faculty = s.Faculty,
                  Gender = s.Gender,
-                 GraduateDate = s.GraduateDate,
+                 GraduateDate = s.GraduateDate.ToLocalDateTime(),
                  CitizenId = s.CitizenId,
                  Major = s.Major,
                  Nation = s.Nation,
@@ -401,15 +404,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                  PositionLevel = s.PositionLevel,
                  PositionType = s.PositionType,
                  Province = s.Province,
-                 RetiredDate = s.RetiredDate,
-                 RetiredYear = s.RetiredYear,
+                 RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                 RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                  Salary = s.Salary,
                  Section = s.Section,
-                 StartDate = s.StartDate,
-                 StartEducationDate = s.StartEducationDate,
+                 StartDate = s.StartDate.ToLocalDateTime(),
+                 StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                  TitleEducation = s.TitleEducation,
                  University = s.University,
-                 ZipCode = s.ZipCode
+                 ZipCode = s.ZipCode,
+                 Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
              }).ToList()
 
@@ -515,9 +519,9 @@ namespace MJU.DataCenter.Personnel.Service.Services
             }
         }
 
-        public List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource(List<int> filter)
+        public List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource(string positionType, int? index, List<int> filter)
         {
-            var personnel = _dcPersonRepository.GetAll();
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(positionType) ? m.PositionType == positionType: true);
             if (filter.Any())
             {
                 personnel = personnel.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
@@ -527,91 +531,25 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
 
             var result = new List<PersonPostionGenertionDataSourceViewModel>();
-            foreach (var positionType in distinctPosition)
+            foreach (var positionTypeData in distinctPosition)
             {
-                var generationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231))
-                .Select(s => new PersonnelDataSourceViewModel
+                var personPostionGenertion = new List<PersonPostionGenertionDataSourceModel>();
+                if (index == null || index == 0)
                 {
-                    AdminPosition = s.AdminPosition,
-                    AdminPositionType = s.AdminPositionType,
-                    BloodType = s.BloodType,
-                    Country = s.Country,
-                    DateOfBirth = s.DateOfBirth,
-                    Division = s.Division,
-                    Education = s.Education,
-                    EducationLevel = s.EducationLevel,
-                    Faculty = s.Faculty,
-                    Gender = s.Gender,
-                    GraduateDate = s.GraduateDate,
-                    CitizenId = s.CitizenId,
-                    Major = s.Major,
-                    Nation = s.Nation,
-                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                    PersonnelId = s.PersonnelId,
-                    PersonnelType = s.PersonnelType,
-                    Position = s.Position,
-                    PositionLevel = s.PositionLevel,
-                    PositionType = s.PositionType,
-                    Province = s.Province,
-                    RetiredDate = s.RetiredDate,
-                    RetiredYear = s.RetiredYear,
-                    Salary = s.Salary,
-                    Section = s.Section,
-                    StartDate = s.StartDate,
-                    StartEducationDate = s.StartEducationDate,
-                    TitleEducation = s.TitleEducation,
-                    University = s.University,
-                    ZipCode = s.ZipCode
-
-                }).ToList();
-                var generationGenX = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231))
-                .Select(s => new PersonnelDataSourceViewModel
-                {
-                    AdminPosition = s.AdminPosition,
-                    AdminPositionType = s.AdminPositionType,
-                    BloodType = s.BloodType,
-                    Country = s.Country,
-                    DateOfBirth = s.DateOfBirth,
-                    Division = s.Division,
-                    Education = s.Education,
-                    EducationLevel = s.EducationLevel,
-                    Faculty = s.Faculty,
-                    Gender = s.Gender,
-                    GraduateDate = s.GraduateDate,
-                    CitizenId = s.CitizenId,
-                    Major = s.Major,
-                    Nation = s.Nation,
-                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                    PersonnelId = s.PersonnelId,
-                    PersonnelType = s.PersonnelType,
-                    Position = s.Position,
-                    PositionLevel = s.PositionLevel,
-                    PositionType = s.PositionType,
-                    Province = s.Province,
-                    RetiredDate = s.RetiredDate,
-                    RetiredYear = s.RetiredYear,
-                    Salary = s.Salary,
-                    Section = s.Section,
-                    StartDate = s.StartDate,
-                    StartEducationDate = s.StartEducationDate,
-                    TitleEducation = s.TitleEducation,
-                    University = s.University,
-                    ZipCode = s.ZipCode
-                }).ToList();
-                var generationGenY = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231))
+                    var generationBabyBoomber = personnel.Where(s => s.DateOfBirth >= new DateTime(19460101) && s.DateOfBirth <= new DateTime(19641231))
                     .Select(s => new PersonnelDataSourceViewModel
                     {
                         AdminPosition = s.AdminPosition,
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
                         Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Division = s.Division,
                         Education = s.Education,
                         EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
                         CitizenId = s.CitizenId,
                         Major = s.Major,
                         Nation = s.Nation,
@@ -622,77 +560,163 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         PositionLevel = s.PositionLevel,
                         PositionType = s.PositionType,
                         Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Salary = s.Salary,
                         Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                         TitleEducation = s.TitleEducation,
                         University = s.University,
-                        ZipCode = s.ZipCode
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
                     }).ToList();
-                var generationGenZ = personnel.Where(s => s.PositionType == positionType.PositionType && s.PositionTypeId == positionType.PositionTypeId && s.DateOfBirth >= new DateTime(19980101))
-                    .Select(s => new PersonnelDataSourceViewModel
+                    var model = new PersonPostionGenertionDataSourceModel
                     {
-                        AdminPosition = s.AdminPosition,
-                        AdminPositionType = s.AdminPositionType,
-                        BloodType = s.BloodType,
-                        Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
-                        Division = s.Division,
-                        Education = s.Education,
-                        EducationLevel = s.EducationLevel,
-                        Faculty = s.Faculty,
-                        Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
-                        CitizenId = s.CitizenId,
-                        Major = s.Major,
-                        Nation = s.Nation,
-                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        PersonnelId = s.PersonnelId,
-                        PersonnelType = s.PersonnelType,
-                        Position = s.Position,
-                        PositionLevel = s.PositionLevel,
-                        PositionType = s.PositionType,
-                        Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
-                        Salary = s.Salary,
-                        Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
-                        TitleEducation = s.TitleEducation,
-                        University = s.University,
-                        ZipCode = s.ZipCode
-                    }).ToList();
-
-
-                var personPostionGenertion = new List<PersonPostionGenertionDataSourceModel> {
-                        new PersonPostionGenertionDataSourceModel
-                        {
-                            PersonGenertionName = "Baby Boomer (เกิดปี 2489 - 2507)",
-                            Person = generationBabyBoomber
-                        },
-                        new PersonPostionGenertionDataSourceModel
-                        {
-                            PersonGenertionName = "Gen X (เกิดปี 2508 - 2522)",
-                            Person = generationGenX
-                        },
-                        new PersonPostionGenertionDataSourceModel
-                        {
-                            PersonGenertionName = "Gen Y (เกิดปี 2523 - 2540)",
-                            Person = generationGenY
-                        },
-                        new PersonPostionGenertionDataSourceModel
-                        {
-                            PersonGenertionName = "Gen Z (เกิดปี 2541 ขึ้นไป)" ,
-                            Person = generationGenZ
-                        }
+                        PersonGenertionName = "Baby Boomer (เกิดปี 2489 - 2507)",
+                        Person = generationBabyBoomber
                     };
+                    personPostionGenertion.Add(model);
+                }
+
+                if (index == null || index == 1)
+                {
+                    var generationGenX = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= new DateTime(19670101) && s.DateOfBirth <= new DateTime(19791231))
+                .Select(s => new PersonnelDataSourceViewModel
+                {
+                    AdminPosition = s.AdminPosition,
+                    AdminPositionType = s.AdminPositionType,
+                    BloodType = s.BloodType,
+                    Country = s.Country,
+                    DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                    Division = s.Division,
+                    Education = s.Education,
+                    EducationLevel = s.EducationLevel,
+                    Faculty = s.Faculty,
+                    Gender = s.Gender,
+                    GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                    CitizenId = s.CitizenId,
+                    Major = s.Major,
+                    Nation = s.Nation,
+                    PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                    PersonnelId = s.PersonnelId,
+                    PersonnelType = s.PersonnelType,
+                    Position = s.Position,
+                    PositionLevel = s.PositionLevel,
+                    PositionType = s.PositionType,
+                    Province = s.Province,
+                    RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                    RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                    Salary = s.Salary,
+                    Section = s.Section,
+                    StartDate = s.StartDate.ToLocalDateTime(),
+                    StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                    TitleEducation = s.TitleEducation,
+                    University = s.University,
+                    ZipCode = s.ZipCode,
+                    Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+                }).ToList();
+                    var model = new PersonPostionGenertionDataSourceModel
+                    {
+                        PersonGenertionName = "Gen X (เกิดปี 2508 - 2522)",
+                        Person = generationGenX
+                    };
+                    personPostionGenertion.Add(model);
+                }
+                if (index == null || index == 2)
+                {
+                    var generationGenY = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= new DateTime(19800101) && s.DateOfBirth <= new DateTime(19971231))
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                        CitizenId = s.CitizenId,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+                    }).ToList();
+                    var model = new PersonPostionGenertionDataSourceModel
+                    {
+                        PersonGenertionName = "Gen Y (เกิดปี 2523 - 2540)",
+                        Person = generationGenY
+                    };
+                    personPostionGenertion.Add(model);
+                }
+                if (index == null || index == 3)
+                {
+                    var generationGenZ = personnel.Where(s => s.PositionType == positionTypeData.PositionType && s.PositionTypeId == positionTypeData.PositionTypeId && s.DateOfBirth >= new DateTime(19980101))
+                    .Select(s => new PersonnelDataSourceViewModel
+                    {
+                        AdminPosition = s.AdminPosition,
+                        AdminPositionType = s.AdminPositionType,
+                        BloodType = s.BloodType,
+                        Country = s.Country,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                        Division = s.Division,
+                        Education = s.Education,
+                        EducationLevel = s.EducationLevel,
+                        Faculty = s.Faculty,
+                        Gender = s.Gender,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                        CitizenId = s.CitizenId,
+                        Major = s.Major,
+                        Nation = s.Nation,
+                        PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                        PersonnelId = s.PersonnelId,
+                        PersonnelType = s.PersonnelType,
+                        Position = s.Position,
+                        PositionLevel = s.PositionLevel,
+                        PositionType = s.PositionType,
+                        Province = s.Province,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                        Salary = s.Salary,
+                        Section = s.Section,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                        TitleEducation = s.TitleEducation,
+                        University = s.University,
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+                    }).ToList();
+                    var model = new PersonPostionGenertionDataSourceModel
+                    {
+                        PersonGenertionName = "Gen Z (เกิดปี 2541 ขึ้นไป)",
+                        Person = generationGenZ
+                    };
+                    personPostionGenertion.Add(model);
+                }
+
                 var personPostionGenertionViewModel = new PersonPostionGenertionDataSourceViewModel()
                 {
-                    PersionPostionName = positionType.PositionType,
+                    PersonPositionTypeId = positionTypeData.PositionTypeId,
+                    PersionPostionName = positionTypeData.PositionType,
                     PersonPostionGeneration = personPostionGenertion
 
                 };
@@ -728,15 +752,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     {
                         PersonnelId = s.PersonnelId,
                         PersonnelName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
                         PersonnelType = s.PersonnelType,
                         Position = s.Position,
                         PositionType = s.Position,
                         PositionLevel = s.PositionLevel,
                         StartDate = s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Section = s.Section,
                         Division = s.Division,
                         Faculty = s.Faculty
@@ -751,15 +775,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     {
                         PersonnelId = s.PersonnelId,
                         PersonnelName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
                         PersonnelType = s.PersonnelType,
                         Position = s.Position,
                         PositionType = s.Position,
                         PositionLevel = s.PositionLevel,
                         StartDate = s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Section = s.Section,
                         Division = s.Division,
                         Faculty = s.Faculty
@@ -776,15 +800,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     {
                         PersonnelId = s.PersonnelId,
                         PersonnelName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Age = DateTime.UtcNow.Year - s.DateOfBirth.GetValueOrDefault().Year,
                         PersonnelType = s.PersonnelType,
                         Position = s.Position,
                         PositionType = s.Position,
                         PositionLevel = s.PositionLevel,
                         StartDate = s.StartDate,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Section = s.Section,
                         Division = s.Division,
                         Faculty = s.Faculty
@@ -1060,7 +1084,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
         public List<PersonGroupWorkDurationDataSourceModel> GetAllPersonnelGroupWorkDurationDataSource(string personType, int? index, List<int> filter)
         {
 
-            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(personType) ? m.PersonnelType == personType:true);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(personType) ? m.PersonnelType == personType : true);
             if (filter.Any())
             {
                 personnel = personnel.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
@@ -1078,13 +1102,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                        AdminPositionType = s.AdminPositionType,
                        BloodType = s.BloodType,
                        Country = s.Country,
-                       DateOfBirth = s.DateOfBirth,
+                       DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                        Division = s.Division,
                        Education = s.Education,
                        EducationLevel = s.EducationLevel,
                        Faculty = s.Faculty,
                        Gender = s.Gender,
-                       GraduateDate = s.GraduateDate,
+                       GraduateDate = s.GraduateDate.ToLocalDateTime(),
                        CitizenId = s.CitizenId,
                        Major = s.Major,
                        Nation = s.Nation,
@@ -1095,15 +1119,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                        PositionLevel = s.PositionLevel,
                        PositionType = s.PositionType,
                        Province = s.Province,
-                       RetiredDate = s.RetiredDate,
-                       RetiredYear = s.RetiredYear,
+                       RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                       RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                        Salary = s.Salary,
                        Section = s.Section,
-                       StartDate = s.StartDate,
-                       StartEducationDate = s.StartEducationDate,
+                       StartDate = s.StartDate.ToLocalDateTime(),
+                       StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                        TitleEducation = s.TitleEducation,
                        University = s.University,
-                       ZipCode = s.ZipCode
+                       ZipCode = s.ZipCode,
+                       Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                    });
                 var personGroup = new PersonGroupWorkDurationDataSourceModel
@@ -1145,11 +1170,12 @@ namespace MJU.DataCenter.Personnel.Service.Services
                            }
                     }
                 };
-                if (index != null) { 
-                    personGroup.PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataSource> 
+                if (index != null)
+                {
+                    personGroup.PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataSource>
                     {
                         personGroup.PersonGroupWorkDuration[index.Value]
-                    }; 
+                    };
                 }
                 list.Add(personGroup);
             }
@@ -1270,13 +1296,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                              AdminPositionType = s.AdminPositionType,
                              BloodType = s.BloodType,
                              Country = s.Country,
-                             DateOfBirth = s.DateOfBirth,
+                             DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                              Division = s.Division,
                              Education = s.Education,
                              EducationLevel = s.EducationLevel,
                              Faculty = s.Faculty,
                              Gender = s.Gender,
-                             GraduateDate = s.GraduateDate,
+                             GraduateDate = s.GraduateDate.ToLocalDateTime(),
                              CitizenId = s.CitizenId,
                              Major = s.Major,
                              Nation = s.Nation,
@@ -1287,15 +1313,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                              PositionLevel = s.PositionLevel,
                              PositionType = s.PositionType,
                              Province = s.Province,
-                             RetiredDate = s.RetiredDate,
-                             RetiredYear = s.RetiredYear,
+                             RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                             RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                              Salary = s.Salary,
                              Section = s.Section,
-                             StartDate = s.StartDate,
-                             StartEducationDate = s.StartEducationDate,
+                             StartDate = s.StartDate.ToLocalDateTime(),
+                             StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                              TitleEducation = s.TitleEducation,
                              University = s.University,
-                             ZipCode = s.ZipCode
+                             ZipCode = s.ZipCode,
+                             Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                          }).ToList()
                     };
@@ -1424,13 +1451,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             AdminPositionType = s.AdminPositionType,
                             BloodType = s.BloodType,
                             Country = s.Country,
-                            DateOfBirth = s.DateOfBirth,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                             Division = s.Division,
                             Education = s.Education,
                             EducationLevel = s.EducationLevel,
                             Faculty = s.Faculty,
                             Gender = s.Gender,
-                            GraduateDate = s.GraduateDate,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
                             CitizenId = s.CitizenId,
                             Major = s.Major,
                             Nation = s.Nation,
@@ -1441,15 +1468,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             PositionLevel = s.PositionLevel,
                             PositionType = s.PositionType,
                             Province = s.Province,
-                            RetiredDate = s.RetiredDate,
-                            RetiredYear = s.RetiredYear,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                             Salary = s.Salary,
                             Section = s.Section,
-                            StartDate = s.StartDate,
-                            StartEducationDate = s.StartEducationDate,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                             TitleEducation = s.TitleEducation,
                             University = s.University,
-                            ZipCode = s.ZipCode
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                         }).ToList()
                     };
@@ -1577,13 +1605,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             AdminPositionType = s.AdminPositionType,
                             BloodType = s.BloodType,
                             Country = s.Country,
-                            DateOfBirth = s.DateOfBirth,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                             Division = s.Division,
                             Education = s.Education,
                             EducationLevel = s.EducationLevel,
                             Faculty = s.Faculty,
                             Gender = s.Gender,
-                            GraduateDate = s.GraduateDate,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
                             CitizenId = s.CitizenId,
                             Major = s.Major,
                             Nation = s.Nation,
@@ -1594,15 +1622,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                             PositionLevel = s.PositionLevel,
                             PositionType = s.PositionType,
                             Province = s.Province,
-                            RetiredDate = s.RetiredDate,
-                            RetiredYear = s.RetiredYear,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                             Salary = s.Salary,
                             Section = s.Section,
-                            StartDate = s.StartDate,
-                            StartEducationDate = s.StartEducationDate,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                             TitleEducation = s.TitleEducation,
                             University = s.University,
-                            ZipCode = s.ZipCode
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                         }).ToList()
                     };
@@ -1738,13 +1767,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                              AdminPositionType = s.AdminPositionType,
                              BloodType = s.BloodType,
                              Country = s.Country,
-                             DateOfBirth = s.DateOfBirth,
+                             DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                              Division = s.Division,
                              Education = s.Education,
                              EducationLevel = s.EducationLevel,
                              Faculty = s.Faculty,
                              Gender = s.Gender,
-                             GraduateDate = s.GraduateDate,
+                             GraduateDate = s.GraduateDate.ToLocalDateTime(),
                              CitizenId = s.CitizenId,
                              Major = s.Major,
                              Nation = s.Nation,
@@ -1755,15 +1784,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                              PositionLevel = s.PositionLevel,
                              PositionType = s.PositionType,
                              Province = s.Province,
-                             RetiredDate = s.RetiredDate,
-                             RetiredYear = s.RetiredYear,
+                             RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                             RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                              Salary = s.Salary,
                              Section = s.Section,
-                             StartDate = s.StartDate,
-                             StartEducationDate = s.StartEducationDate,
+                             StartDate = s.StartDate.ToLocalDateTime(),
+                             StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                              TitleEducation = s.TitleEducation,
                              University = s.University,
-                             ZipCode = s.ZipCode
+                             ZipCode = s.ZipCode,
+                             Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                          }).ToList()
                     };
@@ -1894,13 +1924,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                              AdminPositionType = s.AdminPositionType,
                              BloodType = s.BloodType,
                              Country = s.Country,
-                             DateOfBirth = s.DateOfBirth,
+                             DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                              Division = s.Division,
                              Education = s.Education,
                              EducationLevel = s.EducationLevel,
                              Faculty = s.Faculty,
                              Gender = s.Gender,
-                             GraduateDate = s.GraduateDate,
+                             GraduateDate = s.GraduateDate.ToLocalDateTime(),
                              CitizenId = s.CitizenId,
                              Major = s.Major,
                              Nation = s.Nation,
@@ -1911,15 +1941,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                              PositionLevel = s.PositionLevel,
                              PositionType = s.PositionType,
                              Province = s.Province,
-                             RetiredDate = s.RetiredDate,
-                             RetiredYear = s.RetiredYear,
+                             RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                             RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                              Salary = s.Salary,
                              Section = s.Section,
-                             StartDate = s.StartDate,
-                             StartEducationDate = s.StartEducationDate,
+                             StartDate = s.StartDate.ToLocalDateTime(),
+                             StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                              TitleEducation = s.TitleEducation,
                              University = s.University,
-                             ZipCode = s.ZipCode
+                             ZipCode = s.ZipCode,
+                             Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                          }).ToList()
                     };
@@ -2080,13 +2111,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                               AdminPositionType = s.AdminPositionType,
                               BloodType = s.BloodType,
                               Country = s.Country,
-                              DateOfBirth = s.DateOfBirth,
+                              DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                               Division = s.Division,
                               Education = s.Education,
                               EducationLevel = s.EducationLevel,
                               Faculty = s.Faculty,
                               Gender = s.Gender,
-                              GraduateDate = s.GraduateDate,
+                              GraduateDate = s.GraduateDate.ToLocalDateTime(),
                               CitizenId = s.CitizenId,
                               Major = s.Major,
                               Nation = s.Nation,
@@ -2097,15 +2128,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                               PositionLevel = s.PositionLevel,
                               PositionType = s.PositionType,
                               Province = s.Province,
-                              RetiredDate = s.RetiredDate,
-                              RetiredYear = s.RetiredYear,
+                              RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                              RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                               Salary = s.Salary,
                               Section = s.Section,
-                              StartDate = s.StartDate,
-                              StartEducationDate = s.StartEducationDate,
+                              StartDate = s.StartDate.ToLocalDateTime(),
+                              StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                               TitleEducation = s.TitleEducation,
                               University = s.University,
-                              ZipCode = s.ZipCode
+                              ZipCode = s.ZipCode,
+                              Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
 
                           }).ToList()
                     };
@@ -2202,13 +2234,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
                         Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Division = s.Division,
                         Education = s.Education,
                         EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
                         CitizenId = s.CitizenId,
                         Major = s.Major,
                         Nation = s.Nation,
@@ -2219,15 +2251,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         PositionLevel = s.PositionLevel,
                         PositionType = s.PositionType,
                         Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Salary = s.Salary,
                         Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                         TitleEducation = s.TitleEducation,
                         University = s.University,
-                        ZipCode = s.ZipCode
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
                     }).ToList();
                 var genderGenerationGenX = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1967/01/01")
                     && s.DateOfBirth <= DateTime.Parse("1979/12/31") && s.GenderId == personGender.GenderId && s.Gender == personGender.Gender)
@@ -2237,13 +2270,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
                         Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Division = s.Division,
                         Education = s.Education,
                         EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
                         CitizenId = s.CitizenId,
                         Major = s.Major,
                         Nation = s.Nation,
@@ -2254,15 +2287,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         PositionLevel = s.PositionLevel,
                         PositionType = s.PositionType,
                         Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Salary = s.Salary,
                         Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                         TitleEducation = s.TitleEducation,
                         University = s.University,
-                        ZipCode = s.ZipCode
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
                     }).ToList();
                 var genderGenerationGenY = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01")
                    && s.DateOfBirth <= DateTime.Parse("1997/12/31") && s.GenderId == personGender.GenderId && s.Gender == personGender.Gender)
@@ -2272,13 +2306,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
                         Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Division = s.Division,
                         Education = s.Education,
                         EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
                         CitizenId = s.CitizenId,
                         Major = s.Major,
                         Nation = s.Nation,
@@ -2289,15 +2323,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         PositionLevel = s.PositionLevel,
                         PositionType = s.PositionType,
                         Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Salary = s.Salary,
                         Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                         TitleEducation = s.TitleEducation,
                         University = s.University,
-                        ZipCode = s.ZipCode
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
                     }).ToList();
                 var genderGenerationGenZ = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1998/01/01") && s.GenderId == personGender.GenderId
                     && s.Gender == personGender.Gender)
@@ -2307,13 +2342,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         AdminPositionType = s.AdminPositionType,
                         BloodType = s.BloodType,
                         Country = s.Country,
-                        DateOfBirth = s.DateOfBirth,
+                        DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                         Division = s.Division,
                         Education = s.Education,
                         EducationLevel = s.EducationLevel,
                         Faculty = s.Faculty,
                         Gender = s.Gender,
-                        GraduateDate = s.GraduateDate,
+                        GraduateDate = s.GraduateDate.ToLocalDateTime(),
                         CitizenId = s.CitizenId,
                         Major = s.Major,
                         Nation = s.Nation,
@@ -2324,15 +2359,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         PositionLevel = s.PositionLevel,
                         PositionType = s.PositionType,
                         Province = s.Province,
-                        RetiredDate = s.RetiredDate,
-                        RetiredYear = s.RetiredYear,
+                        RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                        RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                         Salary = s.Salary,
                         Section = s.Section,
-                        StartDate = s.StartDate,
-                        StartEducationDate = s.StartEducationDate,
+                        StartDate = s.StartDate.ToLocalDateTime(),
+                        StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                         TitleEducation = s.TitleEducation,
                         University = s.University,
-                        ZipCode = s.ZipCode
+                        ZipCode = s.ZipCode,
+                        Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
                     }).ToList();
 
                 var model = new List<PersonnelDataGenderDataSource>
@@ -2391,7 +2427,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     generation = "Gen X (เกิดปี 2508 - 2522)";
                     break;
                 case 2:
-                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01") 
+                    personnel = personnel.Where(s => s.DateOfBirth >= DateTime.Parse("1980/01/01")
                     && s.DateOfBirth <= DateTime.Parse("1997/12/31"));
                     generation = "Gen Y (เกิดปี 2523 - 2540)";
                     break;
@@ -2409,13 +2445,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     AdminPositionType = s.AdminPositionType,
                     BloodType = s.BloodType,
                     Country = s.Country,
-                    DateOfBirth = s.DateOfBirth,
+                    DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                     Division = s.Division,
                     Education = s.Education,
                     EducationLevel = s.EducationLevel,
                     Faculty = s.Faculty,
                     Gender = s.Gender,
-                    GraduateDate = s.GraduateDate,
+                    GraduateDate = s.GraduateDate.ToLocalDateTime(),
                     CitizenId = s.CitizenId,
                     Major = s.Major,
                     Nation = s.Nation,
@@ -2426,15 +2462,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     PositionLevel = s.PositionLevel,
                     PositionType = s.PositionType,
                     Province = s.Province,
-                    RetiredDate = s.RetiredDate,
-                    RetiredYear = s.RetiredYear,
+                    RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                    RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                     Salary = s.Salary,
                     Section = s.Section,
-                    StartDate = s.StartDate,
-                    StartEducationDate = s.StartEducationDate,
+                    StartDate = s.StartDate.ToLocalDateTime(),
+                    StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                     TitleEducation = s.TitleEducation,
                     University = s.University,
-                    ZipCode = s.ZipCode
+                    ZipCode = s.ZipCode,
+                    Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
                 }).ToList();
 
 
@@ -2460,20 +2497,20 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public PersonnelDataSourceViewModel GetPersonDetailByCitizenId(string citizenId)
         {
-            var personDetail = _dcPersonRepository.GetAll().Where(m=>m.CitizenId == citizenId)
+            var personDetail = _dcPersonRepository.GetAll().Where(m => m.CitizenId == citizenId)
                 .Select(s => new PersonnelDataSourceViewModel
                 {
                     AdminPosition = s.AdminPosition,
                     AdminPositionType = s.AdminPositionType,
                     BloodType = s.BloodType,
                     Country = s.Country,
-                    DateOfBirth = s.DateOfBirth,
+                    DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
                     Division = s.Division,
                     Education = s.Education,
                     EducationLevel = s.EducationLevel,
                     Faculty = s.Faculty,
                     Gender = s.Gender,
-                    GraduateDate = s.GraduateDate,
+                    GraduateDate = s.GraduateDate.ToLocalDateTime(),
                     CitizenId = s.CitizenId,
                     Major = s.Major,
                     Nation = s.Nation,
@@ -2484,16 +2521,16 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     PositionLevel = s.PositionLevel,
                     PositionType = s.PositionType,
                     Province = s.Province,
-                    RetiredDate = s.RetiredDate,
-                    RetiredYear = s.RetiredYear,
+                    RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                    RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
                     Salary = s.Salary,
                     Section = s.Section,
-                    StartDate = s.StartDate,
-                    StartEducationDate = s.StartEducationDate,
+                    StartDate = s.StartDate.ToLocalDateTime(),
+                    StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
                     TitleEducation = s.TitleEducation,
                     University = s.University,
-                    ZipCode = s.ZipCode ,
-                    Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}",s.HomeNumber,s.Soi,s.Moo,s.SubDistrict,s.District,s.Province)
+                    ZipCode = s.ZipCode,
+                    Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
                 }).FirstOrDefault();
 
             return personDetail;
