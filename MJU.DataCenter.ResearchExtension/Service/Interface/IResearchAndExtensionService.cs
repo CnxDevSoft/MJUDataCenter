@@ -15,7 +15,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         object GetResearchData(InputFilterGraphViewModel input, List<int> filter);
         List<ResearchDataDataSourceModel> GetResearchDataDataSource(InputFilterDataSourceViewModel input, List<int> filter);
         object GetAllResearchMoney(InputFilterGraphViewModel input, List<int> filter);
-        List<ResearchMoneyRangeViewDataModel> GetAllResearchMoneyDataSource(InputFilterDataSourceViewModel input, List<int> filter);
+        List<RankResearchRageMoneyDataSourceModel> GetAllResearchMoneyDataSource(InputFilterDataSourceViewModel input, List<int> filter);
         List<ResearcherResearchDataModel> GetDcResearcherByName(ResearcherInputDto input, List<int> filter);
         ResearcherDetailModel GetResearcherDetail(int researcherId);
 
