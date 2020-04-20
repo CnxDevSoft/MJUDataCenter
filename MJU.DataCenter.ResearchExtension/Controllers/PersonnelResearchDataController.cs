@@ -34,6 +34,19 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
             }
             return null;
         }
-     
+
+        [HttpGet("ResearchDetail/{researchId}")]
+        public ResearchDetailViewModel Get(int researchId, [FromQuery] AuthenticateModel auth)
+        {
+            var result = AuthenticationApi.Authenticated(auth);
+            if (result.Result.IsSuccess)
+            {
+                return _researchAndExtensionService.GetResearchDetail(researchId);
+            }
+            return null;
+        }
+
+
+
     }
 }

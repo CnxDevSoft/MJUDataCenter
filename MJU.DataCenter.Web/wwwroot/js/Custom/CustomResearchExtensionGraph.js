@@ -163,7 +163,7 @@ async function RenderResearchDepartmentGraphDS(data) {
 
         var startBody = '<tbody id="sub-researchDepartmentGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -592,7 +592,7 @@ async function RenderResearchMoneyTypeGraphDS(data) {
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + new Number(item.researchMoney).toLocaleString("th-TH")+ ' บาท</td>' +
                 '</tr >';
         });
@@ -646,7 +646,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-researchDepartmentDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.researchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -730,7 +730,7 @@ async function RenderResearchGroupTableDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchGroupDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -790,7 +790,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</td>' +
 
                 '</tr >';
@@ -863,7 +863,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</td>' +
 
                 '</tr >';
@@ -902,18 +902,62 @@ async function ResearchMoneyTypeDrillDown(type) {
         });
 }
 
-async function DisplayResearchDetailModal(citizenId) {
+async function DisplayResearchDetailModal(researchId) {
+
+    console.log(researchId)
 
     var modal = '#researchDetailModal';
+    $('#researchDetailSection').empty();
+    $('#researchNameEn').empty();
+    $('#researchNameTh').empty();
+    $('#researcherCount').empty();
+    $('#researchdateTimeRange').empty();
+    $('#researchMoneyType').empty();
+
+    var url = researchExtensionRootPath + 'PersonnelResearchData/ResearchDetail/' + researchId + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+
+            $('#researchNameEn').append(data.researchNameEn)
+            $('#researchNameTh').append(data.researchNameTh)
+            $('#researcherCount').append(data.researcherCount+' คน')
+            $('#researchdateTimeRange').append(moment(data.researchStartDate).format('DD/MM/YYYY') + ' - ' + moment(data.researchEndDate).format('DD/MM/YYYY'))
+            var moneyType = '';
+
+            var table = $('#researchDetailTable').DataTable();
+            table.clear().destroy();
+
+            $.each(data.researchMoney, function (key, item) {
+                moneyType += '<strong><i class="fa fa-university mr-1"></i>' + item.researchMoneyTypeName + '</strong><p>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</p>'
+                    '<br/>';
+
+            });
+
+            $('#researchMoneyType').append(moneyType);
+
+
+            var tableBody='';
+            $.each(data.researcher, function (key, item) {
+                tableBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researcherName + '</td><td>' + item.facultyName + '</td>' +
+                    '<td>' + item.researchGroupName + '</td>' +
+                    '</tr >';
+
+            });
+            $('#researchDetailSection').append(tableBody);
+            $("#researchDetailTable").DataTable({
+                language: oLanguageOptions
+            });
+        });
 
     $(modal).modal('show');
 
     $(modal).on('shown.bs.modal', function () {
     })
 
-    $("#researchDetailTable").DataTable({
-        language: oLanguageOptions
-    });
+  
+
+    
 
 }
 
