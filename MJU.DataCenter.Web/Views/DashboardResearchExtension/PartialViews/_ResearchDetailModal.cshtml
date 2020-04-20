@@ -18,8 +18,8 @@
                                     <div class="info-box bg-light-sea-green">
                                         <span class="info-box-icon bg-success"><i class="ion ion-stats-bars"></i></span>
                                         <div class="info-box-content">
-                                            <span class="info-box-number">ชื่องานวิจัย ENG</span>
-                                            <span class="info-box-text">ชื่องานวิจัย TH</span>
+                                            <span class="info-box-number" id="researchNameEn"></span>
+                                            <span class="info-box-text" id="researchNameTh"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -28,21 +28,12 @@
 
                             <div class="row">
                                 <div class="col-md-4">
-
-                                    @*<div class="info-box">
-                                        <span class="info-box-icon bg-warning"><i class="far fa-flag"></i></span>
-
-                                        <div class="info-box-content">
-                                            <span class="info-box-number">งบประมาณ</span>
-                                            <span class="info-box-text">10,000,000 บาท</span>
-                                        </div>
-                                    </div>*@
                                     <div class="info-box">
                                         <span class="info-box-icon bg-info"><i class="far fa-user"></i></span>
 
                                         <div class="info-box-content">
                                             <span class="info-box-number">ผู้ร่วมทำงานวิจัย</span>
-                                            <span class="info-box-text">10 คน</span>
+                                            <span class="info-box-text" id="researcherCount"></span>
                                         </div>
                                     </div>
                                     <div class="info-box">
@@ -50,7 +41,7 @@
 
                                         <div class="info-box-content">
                                             <span class="info-box-number">ระยะเวลาในการทำวิจัย</span>
-                                            <span class="info-box-text">01/01/2010 - 31/12/2015</span>
+                                            <span class="info-box-text" id="researchdateTimeRange"></span>
                                         </div>
                                     </div>
 
@@ -58,10 +49,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">แหล่งทุน</h3>
                                         </div>
-                                        <div class="card-body">
-                                            <strong><i class="fa fa-university mr-1"></i> ธนาคารไทยพาณิชย์ </strong><p>10,000,000 บาท</p>
-                                            <br />
-                                            <strong><i class="fa fa-university mr-1"></i> ธนาคารกรุงไทย </strong><p>1,000,000 บาท</p>
+                                        <div class="card-body" id="researchMoneyType">
                                         </div>
                                     </div>
                                 </div>
@@ -76,17 +64,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="researchDetailSection">
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
-                                                <tr><td>นาย ก ข</td><td>คณะวิทยาศาสตร์</td><td>กลุ่มงานวิจัย 1</td></tr>
                                             </tbody>
                                         </table>
                                     </div>
