@@ -8,5 +8,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public int ResearchMoneyId { get; set; }
         public int? ResearchId { get; set; }
         public int? ResearchMoneyTypeId { get; set; }
+        public int? ResearchMoney1 { get; set; }
     }
 }

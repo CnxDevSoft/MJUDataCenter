@@ -127,7 +127,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearchNameTh = string.Format("งานวิจัย {0}", i),
                     StartDateResearch = rd1 > rd2 ? rd2 : rd1,
                     EndDateResearch = rd1 < rd2 ? rd2 : rd1,
-                    ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
+                    
                 };
                 list.Add(model);
             }
@@ -147,7 +147,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchMoney
                 {
                     ResearchId = i,
-                    ResearchMoneyTypeId = c ==0?10:c
+                    ResearchMoneyTypeId = c ==0?10:c,
+                    ResearchMoney1 = SeedData.HelperSeedData.RandomResearchMoney()
+
                 };
                 list.Add(model);
             }
@@ -168,7 +170,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchMoney
                 {
                     ResearchId = i,
-                    ResearchMoneyTypeId = c+1
+                    ResearchMoneyTypeId = c+1,
+                    ResearchMoney1 = SeedData.HelperSeedData.RandomResearchMoney()
+
                 };
                 list.Add(model);
             }
@@ -188,7 +192,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchMoney
                 {
                     ResearchId = i,
-                    ResearchMoneyTypeId = c = c + 2 == 11 ? 1 : c+2
+                    ResearchMoneyTypeId = c = c + 2 == 11 ? 1 : c+2,
+                    ResearchMoney1 = SeedData.HelperSeedData.RandomResearchMoney()
                 };
                 list.Add(model);
             }
@@ -286,7 +291,6 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearcherId = i,
                     ResearchId = x = x==0?100:x,
                     ResearchWorkPercent = SeedData.HelperSeedData.RandomPercent(),
-                    ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
                 };
                 if (!list.Where(m => m.ResearchId == model.ResearchId && m.ResearcherId == model.ResearcherId).Any())
                 {
@@ -311,7 +315,6 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearcherId = i,
                     ResearchId = x +1,
                     ResearchWorkPercent = SeedData.HelperSeedData.RandomPercent(),
-                    ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
                 };
                 if (!list.Where(m => m.ResearchId == model.ResearchId && m.ResearcherId == model.ResearcherId).Any())
                 {

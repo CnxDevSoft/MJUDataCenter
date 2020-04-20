@@ -11,6 +11,5 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public string ResearchNameEn { get; set; }
         public DateTime? StartDateResearch { get; set; }
         public DateTime? EndDateResearch { get; set; }
-        public int? ResearchMoney { get; set; }
     }
 }

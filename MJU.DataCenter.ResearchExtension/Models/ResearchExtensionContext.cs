@@ -33,7 +33,8 @@ namespace MJU.DataCenter.ResearchExtension.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-LFUK1A8\\SQLEXPRESS;User Id=admin;Database=ResearchExtension;Password=abc123");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-OAG5O3P;Database=ResearchExtension;User Id=admin;Password=abc123;");
             }
         }
 
@@ -110,13 +111,13 @@ namespace MJU.DataCenter.ResearchExtension.Models
             modelBuilder.Entity<PersonnelGroup>(entity =>
             {
                 entity.HasKey(e => e.PersonGroupId)
-                    .HasName("PK__Personne__89466BB7A73BD218");
+                    .HasName("PK__Personne__89466BB783313CB5");
             });
 
             modelBuilder.Entity<ResearchData>(entity =>
             {
                 entity.HasKey(e => e.ResearchId)
-                    .HasName("PK__Research__617A954EA8360BEE");
+                    .HasName("PK__Research__617A954ECFA5E328");
 
                 entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
@@ -125,6 +126,11 @@ namespace MJU.DataCenter.ResearchExtension.Models
                 entity.Property(e => e.ResearchNameTh).HasColumnName("ResearchNameTH");
 
                 entity.Property(e => e.StartDateResearch).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<ResearchMoney>(entity =>
+            {
+                entity.Property(e => e.ResearchMoney1).HasColumnName("ResearchMoney");
             });
 
             modelBuilder.Entity<ResearchPaper>(entity =>
@@ -138,8 +144,6 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
             modelBuilder.Entity<ResearchPersonnel>(entity =>
             {
-                entity.Property(e => e.ResearchMoney).HasColumnType("decimal(22, 2)");
-
                 entity.Property(e => e.ResearchWorkPercent).HasColumnType("decimal(5, 2)");
             });
 

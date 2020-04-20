@@ -9,6 +9,5 @@ namespace MJU.DataCenter.ResearchExtension.Models
         public int? ResearcherId { get; set; }
         public int? ResearchId { get; set; }
         public decimal? ResearchWorkPercent { get; set; }
-        public decimal? ResearchMoney { get; set; }
     }
 }
