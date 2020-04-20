@@ -110,9 +110,9 @@ async function ResearchDepartmentRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                console.log("testclick", item[0]._model.label);
-                ResearchDepartmentTableDrillDown(item[0]._model.label)
-               
+                if (item.length > 0) {
+                    ResearchDepartmentTableDrillDown(item[0]._model.label)
+                }              
             }
         }
     });
@@ -450,8 +450,8 @@ async function RenderResearchMoneyRangeGraphDS(data) {
         var endThead = '</thead>';
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a  href="#" class="text-green" onclick="DisplayResearhDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
-                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearhDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</td>' +
 
                 '</tr >';
 
@@ -544,8 +544,9 @@ async function ResearchMoneyTypeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                ResearchMoneyTypeDrillDown(item[0]._model.label);
-               
+                if (item.length > 0) {
+                    ResearchMoneyTypeDrillDown(item[0]._model.label);
+                }
             }
         }
     })
@@ -592,10 +593,8 @@ async function RenderResearchMoneyTypeGraphDS(data) {
         var startBody = '<tbody id="sub-' + chartName + 'GraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
-                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH")+ '</td>' +
-
+                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH")+ ' บาท</td>' +
                 '</tr >';
-
         });
         var endbody = '</tbody>';
 
@@ -792,7 +791,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
-                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
+                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</td>' +
 
                 '</tr >';
 
@@ -865,7 +864,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
             startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.citizenId + ')">' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
-                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
+                '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</td>' +
 
                 '</tr >';
 

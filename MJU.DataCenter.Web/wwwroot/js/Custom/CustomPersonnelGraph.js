@@ -721,9 +721,9 @@ async function PersonPositionLevelGraph(token, userName) {
 async function PersonFacultyGraph(token, userName) {
     var ticksStyle = {
         fontColor: '#495057',
-        fontStyle: 'bold',
+       // fontStyle: 'bold',
         // fontSize: 16,
-        stepSize: 1
+        stepSize: 10
     }
     var mode = 'nearest'
     var intersect = true
@@ -740,13 +740,13 @@ async function PersonFacultyGraph(token, userName) {
             gradientStroke.addColorStop(0.5, "#fad874");
             gradientStroke.addColorStop(1, "#f49080");
 
+            $chart.height = 500;
 
             var chart = new Chart($chart, {
-                type: 'line',
+                type: 'horizontalBar',
                 data: {
                     labels: data.label,
                     datasets: data.graphDataSet,
-
                 },
                 options: {
                     responsive: true,
@@ -759,10 +759,10 @@ async function PersonFacultyGraph(token, userName) {
                         yAxes: [{
                             stacked: true,
                             gridLines: {
-                                ////  display: true,
-                                //lineWidth: '4px',
-                                //color: 'rgba(0, 0, 0, .2)',
-                                //zeroLineColor: 'transparent'
+                               // display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
                             },
                             ticks: ticksStyle
                         }]
