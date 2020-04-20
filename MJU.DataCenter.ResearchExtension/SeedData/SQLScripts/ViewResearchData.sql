@@ -10,7 +10,7 @@ select r.ResearcherId ,CONCAT(r.TitleTH , ' ', r.FirstNameTH , ' ', r.LastNameTH
 ,rd.ResearchNameEN
 ,rd.StartDateResearch as ResearchStartDate
 ,rd.EndDateResearch as ResearchEndDate
-,rd.ResearchMoney
+,rm.ResearchMoney
 ,rm.ResearchMoneyTypeId
 ,mt.MoneyTypeName
 from ResearchData rd 

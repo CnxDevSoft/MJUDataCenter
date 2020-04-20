@@ -40,6 +40,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var PositionLevel = SeedData.SeedData.PositionLevel();
                     var retired = SeedData.SeedData.RandomDateTimeRetired();
                     var idcrd = "1234567890000";
+                    var randomAddress = SeedData.SeedData.RandomProvices();
                     var aStringBuilder = new StringBuilder(idcrd);
                     aStringBuilder.Remove(13 - i.ToString().Length, i.ToString().Length);
                     aStringBuilder.Insert(13 - i.ToString().Length, i.ToString());
@@ -62,11 +63,11 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         HomeNumber = Address.HomeNumber,
                         Moo = Address.Moo,
                         Soi = Address.Soi,
-                        Street = Address.Street,
-                        SubDistrict = Address.SubDistrict,
-                        District = Address.District,
-                        Province = Address.Province,
-                        ZipCode = Address.ZipCode,
+                        Street = randomAddress.Street,
+                        SubDistrict = randomAddress.SubDistrict,
+                        District = randomAddress.District,
+                        Province = randomAddress.Province,
+                        ZipCode = 50200,
                         PositionCode = SeedData.SeedData.PositionCOde(),
                         PersonnelTypeId = PersonnelType.PersonTypeId,
                         PersonnelType = PersonnelType.PersonType,

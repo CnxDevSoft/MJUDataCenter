@@ -16,7 +16,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         private readonly IDcResearchFacultyRepository _dcResearchFacultyRepository;
         private readonly IDcResearchGroupRepository _dcResearchGroupRepository;
         private readonly IDcResearchDataRepository _dcResearchDataRepository;
-        private readonly IDcResearchMoneyRepository _dcResearchMoneyReoisitory;
+        private readonly IDcResearchMoneyRepository _dcResearchMoneyRepoisitory;
         public ResearchAndExtensionService(IDcResearchGroupRepository dcResearchGroupRepository
             , IDcResearchDataRepository dcResearchDataRepository
             , IDcResearchMoneyRepository dcResearchMoneyRepository
@@ -25,8 +25,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             _dcResearchFacultyRepository = dcResearchFacultyRepository;
             _dcResearchGroupRepository = dcResearchGroupRepository;
             _dcResearchDataRepository = dcResearchDataRepository;
-            _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
-            _dcResearchMoneyReoisitory = dcResearchMoneyRepository;
+            _dcResearchMoneyRepoisitory = dcResearchMoneyRepository;
 
         }
 
@@ -422,7 +421,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+            var researchMoney = _dcResearchMoneyRepoisitory.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
                 (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true);
             if (filter.Any())
             {
@@ -493,7 +492,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         {
             var startDate = input.StartDate.ToUtcDateTime();
             var endDate = input.EndDate.ToUtcDateTime();
-            var researchMoney = _dcResearchMoneyReoisitory.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+            var researchMoney = _dcResearchMoneyRepoisitory.GetAll().Where(m => input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
                 (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true);
             if (filter.Any())
             {
@@ -852,7 +851,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearcherGroup = researchGroupList
                 };
 
-                var research = _dcResearchMoneyReoisitory.GetAll().Where(m => m.ResearchId == researchId).Select(s => new ResearchMoneyModel
+                var research = _dcResearchMoneyRepoisitory.GetAll().Where(m => m.ResearchId == researchId).Select(s => new ResearchMoneyModel
                 {
                     ResearchMoney = s.ResearchMoney,
                     MoneyTypeName = s.MoneyTypeName
@@ -883,6 +882,52 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
 
             return researcherDetail;
+        }
+
+        public ResearchDetailViewModel GetResearchDetail(int researchId)
+        {
+            var research = _dcResearchDataRepository.GetAll().Where(m => m.ResearcherId == researchId).FirstOrDefault();
+            var researchFaculty = _dcResearchFacultyRepository.GetAll().Where(m=>m.ResearchId == researchId);
+            var researcherGroup = _dcResearchGroupRepository.GetAll().Where(m => m.ResearchId == researchId);
+
+            var researcher = from o in researchFaculty
+                             join s in researcherGroup on o.ResearcherId equals s.ResearcherId
+                             select new ResearchResearcherDetail()
+                             {
+                                 ResearcherId = s.ResearcherId,
+                                 ResearcherName = s.ResearcherName,
+                                 ResearchGroupId = s.PersonGroupId,
+                                 ResearchGroupName = s.PersonGroupName,
+                                 FacultyId = o.FacultyId,
+                                 FacultyCode = o.FacultyCode,
+                                 FacultyName = o.FacultyName,
+                                 CitizenId = o.CitizenId
+                             };
+
+            var researchMoney = _dcResearchMoneyRepoisitory.GetAll().Where(m => m.ResearchId == researchId).Select(s => new
+            {
+                s.ResearchMoney,
+                s.MoneyTypeName
+            }).Distinct();
+                
+            var result = new ResearchDetailViewModel
+            {
+                  ResearchId = research.ResearchId,
+                  ResearchNameTh = research.ResearchNameTh,
+                  ResearchNameEn = research.ResearchNameEn,
+                  ResearchStartDate = research.ResearchStartDate.ToLocalDateTime(),
+                  ResearchEndDate = research.ResearchEndDate.ToLocalDateTime(),
+                  ResearcherCount = researcher.Count(),
+                  Researcher = researcher.ToList(),
+                  ResearchMoney = researchMoney.Select(s => new ResearchMoneyResearchDetail
+                  {
+                      ResearchMoney = s.ResearchMoney,
+                      ResearchMoneyTypeName = s.MoneyTypeName
+                  }).ToList()
+
+            };
+
+            return result;
         }
 
 

@@ -93,4 +93,9 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public string PersonGroupName { get; set; }
 
     }
+    public class MoneyTypeModel
+    {
+        public string MoneyTypeName { get; set; }
+
+    }
 }

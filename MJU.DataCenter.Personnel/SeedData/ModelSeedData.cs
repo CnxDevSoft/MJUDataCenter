@@ -93,4 +93,14 @@ namespace MJU.DataCenter.Personnel.SeedData
         public string PositionLevelName { get; set; }
 
     }
+
+    public class ProvinceModel
+    {
+        public string Province { get; set; }
+        public string District { get; set; }
+        public string SubDistrict { get; set; }
+        public string Street { get; set; }
+
+    }
+
 }

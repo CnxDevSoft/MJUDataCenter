@@ -727,7 +727,114 @@ namespace MJU.DataCenter.Personnel.SeedData
             }
             return result;
         }
+        public static ProvinceModel RandomProvices()
+        {
+            var model = new ProvinceModel();
+            Random random = new Random();
+            int TitleType = random.Next(1, 17);
 
+            switch (TitleType)
+            {
+                case 1:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ศรีภูมิ";
+                    model.Street = "ถนน";
+                    break;
+                case 2:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "พระสิงห์";
+                    model.Street = "ถนน";             
+                    break;
+                case 3:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "หายยา";
+                    model.Street = "ถนน";
+                    break;
+                case 4:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ช้างม่อย";
+                    model.Street = "ถนน";
+                    break;
+                case 5:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ช้างคลาน";
+                    model.Street = "ถนน";
+                    break;
+                case 6:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "วัดเกต";
+                    model.Street = "ถนน";
+                    break;
+                case 7:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ช้างเผือก";
+                    model.Street = "ถนน";
+                    break;
+                case 8:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "สุเทพ";
+                    model.Street = "ถนน";
+                    break;
+                case 9:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "แม่เหียะ";
+                    model.Street = "ถนน";
+                    break;
+                case 10:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ป่าแดด";
+                    model.Street = "ถนน";
+                    break;
+                case 11:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "หนองหอย";
+                    model.Street = "ถนน";
+                    break;
+                case 12:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ท่าศาลา";
+                    model.Street = "ถนน";
+                    break;
+                case 13:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "หนองป่าครั่ง";
+                    model.Street = "ถนน";
+                    break;
+                case 14:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ฟ้าฮ่าม";
+                    model.Street = "ถนน";
+                    break;
+                case 15:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "ป่าตัน";
+                    model.Street = "ถนน";
+                    break;
+                case 16:
+                    model.Province = "เชียงใหม่";
+                    model.District = "เมือง";
+                    model.SubDistrict = "สันผีเสื้อ";
+                    model.Street = "ถนน";
+                    break;
+            }
+            return model;
+
+        }
 
     }
 }
