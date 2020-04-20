@@ -727,7 +727,6 @@ async function PersonFacultyGraph(token, userName) {
         .then((data) => {
             var $chart = $('#personFaculty-chart')
 
-
             var ctx = $($chart).get(0).getContext('2d')
             var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
             gradientStroke.addColorStop(0, "#80b6f4");
@@ -842,101 +841,109 @@ async function PersonPositionFacultyGraph(token, userName) {
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personPositionFaculty-chart')
-
-            var chart = new Chart($chart, {
-                type: 'horizontalBar',
-                data: {
-                    labels: data.label,
-                    datasets: data.graphDataSet,
-
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        xAxes: [{
-                            stacked: true,
-                            //  ticks: ticksStyle
-                        }],
-                        yAxes: [{
-                            stacked: true,
-                            gridLines: {
-                                //  display: true,
-                                lineWidth: '4px',
-                                color: 'rgba(0, 0, 0, .2)',
-                                zeroLineColor: 'transparent'
-                            },
-                            //  ticks: ticksStyle
-                        }]
-                    },
-                    tooltips: {
-                        mode: mode,
-                        intersect: intersect
-                    },
-                    onClick: handleClick
-                }
-            })
-
-            function handleClick(evt) {
-                var activeElement = chart.getElementAtEvent(evt);
-                PersonPositionFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
-
-                console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+            if (data.isSubGraphDataSet) {
+                
+                PersonPositionFacultySubGraph($chart, data, token, userName);
             }
-            var sumColumns = [];
-            var sumRows = [];
-            var sumValue = 0;
-            var labelColumns = [];
+            else
+            {
+                var chart = new Chart($chart, {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: data.label,
+                        datasets: data.graphDataSet,
 
-            $("#personPositionFacultyGraphDataTable-thead").append('<th>หน่วยงาน</th>');
-            $.each(data.graphDataSet, function (key, item) {
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{
+                                stacked: true,
+                                //  ticks: ticksStyle
+                            }],
+                            yAxes: [{
+                                stacked: true,
+                                gridLines: {
+                                    //  display: true,
+                                    lineWidth: '4px',
+                                    color: 'rgba(0, 0, 0, .2)',
+                                    zeroLineColor: 'transparent'
+                                },
+                                //  ticks: ticksStyle
+                            }]
+                        },
+                        tooltips: {
+                            mode: mode,
+                            intersect: intersect
+                        },
+                        onClick: handleClick
+                    }
+                })
+
+                function handleClick(evt) {
+                    var activeElement = chart.getElementAtEvent(evt);
+                    PersonPositionFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+
+                    console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                }
+                var sumColumns = [];
+                var sumRows = [];
+                var sumValue = 0;
+                var labelColumns = [];
+
+                $("#personPositionFacultyGraphDataTable-thead").append('<th>หน่วยงาน</th>');
+                $.each(data.graphDataSet, function (key, item) {
+                    $("#personPositionFacultyGraphDataTable-thead").append(
+                        '<th>' + item.label + '</th>'
+                    );
+
+                    var sumColumn = 0;
+
+                    $.each(data.label, function (keys, item) {
+                        sumColumn += data.graphDataSet[key].data[keys];
+                    });
+                    sumColumns.push(sumColumn);
+                    labelColumns.push(item.label);
+                });
+
                 $("#personPositionFacultyGraphDataTable-thead").append(
-                    '<th>' + item.label + '</th>'
+                    '<th>รวม</th>'
                 );
 
-                var sumColumn = 0;
+                $.each(data.label, function (key, item) {
+                    var html = '';
 
-                $.each(data.label, function (keys, item) {
-                    sumColumn += data.graphDataSet[key].data[keys];
-                });
-                sumColumns.push(sumColumn);
-                labelColumns.push(item.label);
-            });
+                    var sumRow = 0;
+                    $.each(data.graphDataSet, function (keys, sItem) {
+                        html += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</td>';
+                        sumRow += data.graphDataSet[keys].data[key];
+                    });
 
-            $("#personPositionFacultyGraphDataTable-thead").append(
-                '<th>รวม</th>'
-            );
+                    sumValue += sumRow;
+                    sumRows.push(sumRow);
 
-            $.each(data.label, function (key, item) {
-                var html = '';
 
-                var sumRow = 0;
-                $.each(data.graphDataSet, function (keys, sItem) {
-                    html += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</td>';
-                    sumRow += data.graphDataSet[keys].data[key];
+                    $("#personPositionFacultyGraphDataTable-tbody").append(
+                        '<tr><td>' + item + '</td>' + html + '<td onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</td></tr>');
+
                 });
 
-                sumValue += sumRow;
-                sumRows.push(sumRow);
+                var lastHtml;
+                $.each(sumColumns, function (key, item) {
+                    lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</td>';
 
-
+                });
+                lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
                 $("#personPositionFacultyGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '<td onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</td></tr>');
+                    '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
-            });
+                PersonPositionFacultyGraphDS(token, userName);
+                $('[data-toggle="tooltip"]').tooltip();
+           
+            }
 
-            var lastHtml;
-            $.each(sumColumns, function (key, item) {
-                lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</td>';
-
-            });
-            lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
-            $("#personPositionFacultyGraphDataTable-tbody").append(
-                '<tr><td>รวม</td>' + lastHtml + '</tr>');
-
-            PersonPositionFacultyGraphDS(token, userName);
-            $('[data-toggle="tooltip"]').tooltip();
-        });
+        });  
 }
 async function PersonRetiredGraph(token, userName) {
     var startDate = '2553-01-01'
@@ -1935,13 +1942,11 @@ async function RenderPersonEducationDrillDownGraphDS(data) {
                 '</tr >';
         });
         var endbody = '</tbody>';
-
         var endTable = '</table>';
         var endRow = '</div>';
 
         var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
             : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
 
         $('#personEducationDrillDownGraphDataSourceModal-card-body').append(html);
 
@@ -1965,9 +1970,6 @@ async function PersonPositionDrillDown(type) {
         .then((data) => {
             RenderPersonPositionDrillDownGraphDS(data).then();
         });
-
-
-
 }
 
 async function RenderPersonPositionDrillDownGraphDS(data) {
@@ -2237,23 +2239,22 @@ async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
     });
 }
 
-async function PersonPositionFacultyDrillDown(faculty, personnelType) {
-
+async function PersonPositionFacultyDrillDown(faculty, personnelType, indexTable) {
     var url = personnelRootPath + 'PersonnelPositionFaculty/DataSource?faculty=' + faculty + '&position=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-
     fetch(url)
         .then(res => res.json())
         .then((data) => {
-            RenderPersonPositionFacultyDrillDownGraphDS(data).then();
+            RenderPersonPositionFacultyDrillDownGraphDS(data);
         });
 }
 
 async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
-    console.log(data)
+
     $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').empty();
     $('#personPositionFacultyDrillDownGraphDataSourceLabel').empty()
     $('#personPositionFacultyDrillDownGraphDataSourceLabel').append("หน่วยงาน/สังกัด")
     $.each(data, function (key, result) {
+
         if (data.length > 1) {
             var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionFacultyDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="persoPositionFacultyDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.faculty + '</b></a>'
 
@@ -2264,6 +2265,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
         }
 
         var startRow = '<div class="collapse multi-collapse" id="personPositionFacultyDrillDownGraphDSCollapse' + key + '">';
+
         var table = $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable();
         table.clear().destroy();
 
@@ -2300,7 +2302,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
 
         })
 
-        $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable({
+        $('#dataPersonPositionFacultyDrillDownTable' + key ).DataTable({
             language: oLanguagePersonGraphOptions
         });
     });

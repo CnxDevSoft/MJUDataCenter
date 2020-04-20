@@ -16,9 +16,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
         List<PersonGroupDataSourceModel> GetAllPersonnelGroupDataSource(string type, List<int> filter);
 
         object GetAllPersonnelPosition(int type, List<int> filter);
-
         List<PersonPostionDataSourceModel> GetAllPersonnelPositionDataSource(string type, List<int> filter);
-
         object GetAllPersonnelEducation(int type, List<int> filter);
 
         List<PersonEducationDataSourceModel> GetAllPersonnelEducationDataSource(string type, List<int> filter);

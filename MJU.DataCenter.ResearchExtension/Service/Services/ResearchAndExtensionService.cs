@@ -48,6 +48,37 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var data = new List<int>();
                 var value = new List<int?>();
                 var i = 0;
+
+                //if (filter.Any())
+                //{
+                //    var rd = distinctResearchDepartment;
+                //    var rawData = researchDepartment.Where(m =>
+                //       (input.StartDate != null && input.EndDate != null ? (m.ResearchStartDate >= startDate && m.ResearchEndDate <= endDate) ||
+                //        (m.ResearchStartDate >= startDate && m.ResearchStartDate <= endDate) : true
+                //        )).ToList();
+
+                //    var list = rawData.GroupBy(x => x.ResearchId).Select(x => x.FirstOrDefault()).ToList();
+
+                //    var groupByYearList = list.GroupBy(x => x.ResearchEndDate.GetValueOrDefault().Year).Select(
+                //        x => new
+                //            {
+                //                year = x.Key,
+                //                researchList = x.ToList()
+                //            }
+                //        ).ToList();
+                //    foreach (var item in groupByYearList.OrderBy(x=>x.year))
+                //    {
+                //        label.Add(item.year.ToString());
+                //        data.Add(item.researchList.Count());
+                //        i++;
+                //    }
+
+                //}
+                //else
+                //{
+                   
+                //}
+
                 foreach (var rd in distinctResearchDepartment)
                 {
                     var researchDepartmentWithCondition = researchDepartment.Where(m => m.FacultyId == rd.FacultyId && m.FacultyName == rd.FacultyName
@@ -60,6 +91,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     data.Add(researchDepartmentWithCondition.Select(s => s.ResearchId).Distinct().Count());
                     i++;
                 }
+
                 var graphDataSet = new GraphDataSet
                 {
                     Data = data
