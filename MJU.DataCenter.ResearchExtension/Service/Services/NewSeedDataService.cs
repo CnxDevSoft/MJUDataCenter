@@ -55,6 +55,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             GenerateResearchPaper();
             GenerateResearcherPaper();
             GenerateResearchPersonnel();
+            Help50GenerateResearchMoneyType();
+            Help20GenerateResearchMoneyType();
+            HelpGenerateResearchPersonnel();
         }
 
         private void GenerateMoneyType()
@@ -144,7 +147,48 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchMoney
                 {
                     ResearchId = i,
+                    ResearchMoneyTypeId = c ==0?10:c
+                };
+                list.Add(model);
+            }
+            _researchMoneyRepository.AddRange(list);
+        }
+
+        private void Help50GenerateResearchMoneyType()
+        {
+            var list = new List<ResearchMoney>();
+            for (var i = 1; i <= 50; i++)
+            {
+                Random random = new Random();
+                var moneyType = random.Next(1, 11);
+                var c = i % 10;
+                var x = i % 50;
+                var rd = random.Next(1, 101);
+                
+                var model = new ResearchMoney
+                {
+                    ResearchId = i,
                     ResearchMoneyTypeId = c+1
+                };
+                list.Add(model);
+            }
+            _researchMoneyRepository.AddRange(list);
+        }
+
+        private void Help20GenerateResearchMoneyType()
+        {
+            var list = new List<ResearchMoney>();
+            for (var i = 1; i <= 20; i++)
+            {
+                Random random = new Random();
+                var moneyType = random.Next(1, 11);
+                var c = i % 10;
+                var rd = random.Next(1, 4);
+
+                var model = new ResearchMoney
+                {
+                    ResearchId = i,
+                    ResearchMoneyTypeId = c = c + 2 == 11 ? 1 : c+2
                 };
                 list.Add(model);
             }
@@ -240,7 +284,32 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var model = new ResearchPersonnel
                 {
                     ResearcherId = i,
-                    ResearchId = x+1,
+                    ResearchId = x = x==0?100:x,
+                    ResearchWorkPercent = SeedData.HelperSeedData.RandomPercent(),
+                    ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
+                };
+                if (!list.Where(m => m.ResearchId == model.ResearchId && m.ResearcherId == model.ResearcherId).Any())
+                {
+                    list.Add(model);
+                }
+
+            }
+            _researchPersonnelRepository.AddRange(list);
+        }
+        private void HelpGenerateResearchPersonnel()
+        {
+            var list = new List<ResearchPersonnel>();
+            for (var i = 0; i <= 100; i++)
+            {
+                var x = i % 100;
+                Random random = new Random();
+                var researcher = random.Next(1, 21);
+                var Research = random.Next(1, 101);
+
+                var model = new ResearchPersonnel
+                {
+                    ResearcherId = i,
+                    ResearchId = x +1,
                     ResearchWorkPercent = SeedData.HelperSeedData.RandomPercent(),
                     ResearchMoney = SeedData.HelperSeedData.RandomResearchMoney()
                 };
