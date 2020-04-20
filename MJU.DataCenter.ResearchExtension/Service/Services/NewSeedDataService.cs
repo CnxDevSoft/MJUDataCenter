@@ -68,7 +68,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 var m = SeedData.HelperSeedData.RandomMoneyTypeSeed(i);
                 var model = new MoneyType
                 {
-                    MoneyTypeName = m.ToString()
+                    MoneyTypeName = m.MoneyTypeName
                 };
                 list.Add(model);
             }
