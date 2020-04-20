@@ -8,7 +8,7 @@ rc.FacultyId
 ,rd.ResearchNameTH 
 ,rd.ResearchNameEN
 ,rd.ResearchCode
-,rd.ResearchMoney
+,rm.ResearchMoney
 ,rd.StartDateResearch as ResearchStartDate
 ,rd.EndDateResearch as ResearchEndDate
 ,mt.MoneyTypeName

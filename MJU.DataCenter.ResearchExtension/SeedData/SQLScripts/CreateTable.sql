@@ -5,7 +5,6 @@ CREATE TABLE [dbo].[ResearchData](
 	[ResearchNameEN] [nvarchar](max) NULL,
 	[StartDateResearch] [datetime] NULL,
 	[EndDateResearch] [datetime] NULL,
-	[ResearchMoney] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ResearchId] ASC
@@ -18,6 +17,7 @@ CREATE TABLE [dbo].[ResearchMoney](
 	[ResearchMoneyId] [int] IDENTITY(1,1) NOT NULL,
 	[ResearchId] [int] NULL,
 	[ResearchMoneyTypeId] [int] NULL,
+	[ResearchMoney] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ResearchMoneyId] ASC
@@ -111,7 +111,6 @@ CREATE TABLE [dbo].[ResearchPersonnel](
 	[ResearcherId] [int] NULL,
 	[ResearchId] [int] NULL,
 	[ResearchWorkPercent] [decimal](5, 2) NULL,
-	[ResearchMoney] [decimal](22, 2) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ResearchPersonnelId] ASC
