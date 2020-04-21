@@ -933,12 +933,15 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
 
         public PersonResearchDetailModel GetPersonResearchDetail(string citizenId)
         {
-            var research = _dcResearchDataRepository.GetAll().Where(m => m.CitizenId == citizenId);
+            var research = _dcResearchDataRepository.GetAll().Where(m => m.CitizenId == citizenId).ToList();
+            var researchDistinect = research.Select(s => new { s.ResearchId, s.ResearchNameEn }).Distinct();
             var firstPerson = research.Select(s => new { s.ResearcherId, s.ResearcherName }).FirstOrDefault();
             var list = new List<PersonResearchDetail>();
-            foreach (var re in research)
+            foreach (var re in researchDistinect)
             {
-                var personResearch = _dcResearchDataRepository.GetAll().Where(m => m.ResearchId == re.ResearchId && m.CitizenId != citizenId)
+                var researchData = research.Where(m => m.ResearchId == re.ResearchId && m.ResearchNameEn == re.ResearchNameEn);
+                var firstResearchData = researchData.FirstOrDefault();
+                var personResearch = _dcResearchDataRepository.GetAll().Where(m => m.ResearchId == re.ResearchId)
                     .Select(s => new PersonResearch
                     {
                         ResearchId = s.ResearchId,
@@ -949,12 +952,15 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 {
                     PersonResearcher = personResearch.ToList(),
                     ResearchId = re.ResearchId,
-                    ResearchNameTh = re.ResearchNameTh,
-                    ResearchNameEn = re.ResearchNameEn,
-                    ResearchMoney = re.ResearchMoney,
-                    MoneyTypeName = re.MoneyTypeName,
-                    ResearchStartDate = re.ResearchStartDate.ToLocalDateTime(),
-                    ResearchEndDate = re.ResearchEndDate.ToLocalDateTime()
+                    ResearchNameTh = firstResearchData.ResearchNameTh,
+                    ResearchNameEn = firstResearchData.ResearchNameEn,
+                    ResearchMoney = researchData.Sum(s=>s.ResearchMoney),
+                    ResearchMoneyData = researchData.Select(s=> new PersonResearchMoneyDetail {
+                        MoneyTypeName = s.MoneyTypeName,
+                        ResearchMoney = s.ResearchMoney
+                    }).ToList(),
+                    ResearchStartDate = firstResearchData.ResearchStartDate.ToLocalDateTime(),
+                    ResearchEndDate = firstResearchData.ResearchEndDate.ToLocalDateTime()
                 };
                 list.Add(personResearchDetail);
             }

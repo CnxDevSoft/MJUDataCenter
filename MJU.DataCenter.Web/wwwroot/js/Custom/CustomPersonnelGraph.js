@@ -160,19 +160,19 @@ async function PersonAgeGraph(token, userName) {
                     }]
                 },
                 onClick: handleClick
-               
+
             }
             var stackedBarChart = new Chart(stackedBarChartCanvas, {
                 type: 'bar',
                 data: stackedBarChartData,
                 options: stackedBarChartOptions
-                
+
             })
 
             function handleClick(evt) {
                 var activeElement = stackedBarChart.getElementAtEvent(evt);
-                PersonGenerationDrillDown(activeElement[0]._index,data.graphDataSet[activeElement[0]._datasetIndex].label)
-  
+                PersonGenerationDrillDown(activeElement[0]._index, data.graphDataSet[activeElement[0]._datasetIndex].label)
+
             }
         })
 
@@ -721,7 +721,7 @@ async function PersonPositionLevelGraph(token, userName) {
 async function PersonFacultyGraph(token, userName) {
     var ticksStyle = {
         fontColor: '#495057',
-       // fontStyle: 'bold',
+        // fontStyle: 'bold',
         // fontSize: 16,
         stepSize: 10
     }
@@ -758,7 +758,7 @@ async function PersonFacultyGraph(token, userName) {
                         yAxes: [{
                             stacked: true,
                             gridLines: {
-                               // display: true,
+                                // display: true,
                                 lineWidth: '4px',
                                 color: 'rgba(0, 0, 0, .2)',
                                 zeroLineColor: 'transparent'
@@ -847,11 +847,10 @@ async function PersonPositionFacultyGraph(token, userName) {
         .then((data) => {
             var $chart = $('#personPositionFaculty-chart')
             if (data.isSubGraphDataSet) {
-                
+
                 PersonPositionFacultySubGraph($chart, data, token, userName);
             }
-            else
-            {
+            else {
                 var chart = new Chart($chart, {
                     type: 'horizontalBar',
                     data: {
@@ -945,14 +944,16 @@ async function PersonPositionFacultyGraph(token, userName) {
 
                 PersonPositionFacultyGraphDS(token, userName);
                 $('[data-toggle="tooltip"]').tooltip();
-           
+
             }
 
-        });  
+        });
 }
 async function PersonRetiredGraph(token, userName) {
-    var startDate = '2553-01-01'
-    var endDate = '2563-01-01'
+    var endDate = moment(moment().add(543, 'Y')).format('YYYY-MM-DD');
+    var startDate = moment(moment(endDate).add(-10, 'Y')).endOf('year').format('YYYY-MM-DD');
+
+
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -960,10 +961,11 @@ async function PersonRetiredGraph(token, userName) {
         stepSize: 1
     }
     var mode = 'nearest'
-    var intersect = true
-    var date = new Date();
-    var lastDate = date.setDate(date.getFullYear() - 10).toLocaleString();
-    fetch(personnelRootPath + 'PersonnelGroupRetiredYear?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+
+    var url = personnelRootPath + 'PersonnelGroupRetiredYear?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + '&Token=' + token + '&api-version=1.0';
+
+    console.log(url)
+    fetch(url)
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personRetired-chart')
@@ -1006,9 +1008,16 @@ async function PersonRetiredGraph(token, userName) {
                         // mode: mode,
                         // intersect: intersect
                     },
+                    onClick: handleClick
                 }
             })
 
+
+
+            function handleClick(evt) {
+                var activeElement = chart.getElementAtEvent(evt);
+                PersonRetiredDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label, startDate, endDate)
+            }
             var sumColumns = [];
             var sumRows = [];
             var sumValue = 0;
@@ -1334,7 +1343,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 console.log(item)
                 startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td>' +
                     '<td>' + RenderReseacherName(item.personResearcher) + '</td>' +
-                    '<td>' + item.moneyTypeName + '</td>' +
+                    '<td>' + RenderReseachMoney(item.researchMoneyData) + '</td>' +
                     '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
                     '<td>' + moment(item.researchStartDate).format('DD/MM/YYYY') + '</td>' +
                     '<td>' + moment(item.researchEndDate).format('DD/MM/YYYY') + '</td>' +
@@ -1447,6 +1456,19 @@ async function RenderAllPersonGraphDS(data) {
         $('#allpersonalGraphDataSourceModal-card-body').append(html);
 
     });
+}
+function RenderReseachMoney(researcheMoneyist) {
+    var listName = '';
+    console.log(researcheMoneyist)
+    $.each(researcheMoneyist, function (key, value) {
+        if (key > 0) {
+            listName += '<br/>';
+        }
+        listName += (key + 1) + '.' + value.moneyTypeName;
+    });
+
+    //return listName;
+    return listName
 }
 
 function RenderReseacherName(researcherList) {
@@ -2378,7 +2400,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
 
         })
 
-        $('#dataPersonPositionFacultyDrillDownTable' + key ).DataTable({
+        $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable({
             language: oLanguagePersonGraphOptions
         });
     });
