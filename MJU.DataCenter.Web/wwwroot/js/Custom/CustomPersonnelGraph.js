@@ -358,7 +358,7 @@ async function PersonEducationGraph(token, userName) {
         });
 }
 async function PersonTypeGraph(token, userName) {
-    fetch(personnelRootPath + 'PersonnelPositionEducation/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             var $chart = $('#personType-chart').get(0).getContext('2d')

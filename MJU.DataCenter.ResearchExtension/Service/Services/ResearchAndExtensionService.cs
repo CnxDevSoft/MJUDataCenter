@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using MJU.DataCenter.Core.Helpers;
 using MJU.DataCenter.Personnel.ViewModels;
 using MJU.DataCenter.ResearchExtension.Models;
@@ -427,6 +428,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 researchMoney = researchMoney.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
             }
+            var sumData = researchMoney.GroupBy(o => new { o.ResearchId, o.ResearchNameTh }).Select(m => new { ResearchId = m.Key.ResearchId, ResearchNameTh = m.Key.ResearchNameTh, ResearchMoney = m.Sum(p => p.ResearchMoney) });
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
             if (input.Type == 1)
             {
@@ -437,26 +439,33 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                      ,"1,000,001 - 5,000,000","5,000,001 - 10,000,000","10,000,001 - 20,000,000","20,000,000 ขึ้นไป"
                 };
 
-                var lower100k = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).ToList());
-                var between100kTo500k = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).ToList()).Select(s => s.ResearchId).Distinct();
-                var between500kTo1m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).ToList()).Select(s => s.ResearchId).Distinct();
-                var between1mTo5m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).ToList()).Select(s => s.ResearchId).Distinct();
-                var between5mTo10m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).ToList()).Select(s => s.ResearchId).Distinct();
-                var between10mTo20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).ToList()).Select(s => s.ResearchId).Distinct();
-                var over20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 20000000).ToList());
+                //var lower100k = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).ToList());
+                //var between100kTo500k = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).ToList()).Select(s => s.ResearchId).Distinct();
+                //var between500kTo1m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).ToList()).Select(s => s.ResearchId).Distinct();
+                //var between1mTo5m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).ToList()).Select(s => s.ResearchId).Distinct();
+                //var between5mTo10m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).ToList()).Select(s => s.ResearchId).Distinct();
+                //var between10mTo20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).ToList()).Select(s => s.ResearchId).Distinct();
+                //var over20m = GetResearchMoneyViewDataModel(researchMoney.Where(m => m.ResearchMoney > 20000000).ToList());
 
+                var datalower100k = sumData.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0).ToList();
+                var databetween100kTo500k = sumData.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000).ToList();
+                var databetween500kTo1m = sumData.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000).ToList();
+                var databetween1mTo5m = sumData.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000).ToList();
+                var databetween5mTo10m = sumData.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000).ToList();
+                var databetween10mTo20m = sumData.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000).ToList();
+                var dataover20m = sumData.Where(m => m.ResearchMoney > 20000000).ToList();
                 var graphDataSet = new GraphDataSet
                 {
 
                     Data =
                      new List<int> {
-                         lower100k.Count,
-                         between100kTo500k.Count(),
-                         between500kTo1m.Count(),
-                         between1mTo5m.Count(),
-                         between5mTo10m.Count(),
-                         between10mTo20m.Count(),
-                         over20m.Count }
+                         datalower100k.Count,
+                         databetween100kTo500k.Count(),
+                         databetween500kTo1m.Count(),
+                         databetween1mTo5m.Count(),
+                         databetween5mTo10m.Count(),
+                         databetween10mTo20m.Count(),
+                         dataover20m.Count() }
                 };
 
                 var result = new GraphData
@@ -499,22 +508,25 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 researchMoney = researchMoney.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
             }
             var distinctResearchMoney = researchMoney.Select(m => new { m.ResearchId, m.ResearchNameTh }).Distinct().OrderBy(o => o.ResearchId);
+            var dataSumMoney = researchMoney.GroupBy(o=>new { o.ResearchId ,o.ResearchNameTh}).Select(m => new { ResearchId = m.Key.ResearchId, ResearchNameTh=m.Key.ResearchNameTh,ResearchMoney = m.Sum(p=>p.ResearchMoney)});
             var result = new List<RankResearchRageMoneyDataSourceModel>();
             if (input.Type == null || input.Type == "0")
             {
-                var lower100k = researchMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0);
-                var lower100kDistinct = lower100k.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
+                var lower100k = dataSumMoney.Where(m => m.ResearchMoney < 100000 && m.ResearchMoney > 0);
+                var lower100kDistinct = lower100k.Select(s => new { s.ResearchId,s.ResearchNameTh}).Distinct();
                 var researchDataList100k = new List<DataModelReserachMoney>();
                 foreach (var ld in lower100kDistinct)
                 {
-                    var firstLower100k = lower100k.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
-                    var researcherDataSub = lower100k.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh)
+                    var sumMoney = lower100k.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh).Select(g => new { g.ResearchMoney }).Sum(s => s.ResearchMoney);
+                    var firstLower100k = researchMoney.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
+                    
+                    var researcherDataSub = researchMoney.Where(c => c.ResearchId == ld.ResearchId &&c.ResearchNameTh == ld.ResearchNameTh).GroupBy(o => new { o.ResearcherId, o.ResearcherName, o.CitizenId })
                         .Select(g => new ResearcherData
                         {
-                            ResearcherId = g.ResearcherId,
-                            ResearcherName = g.ResearcherName,
-                            CitizenId = g.CitizenId
-                        }).ToList();
+                            ResearcherId = g.Key.ResearcherId,
+                            ResearcherName = g.Key.ResearcherName,
+                            CitizenId = g.Key.CitizenId
+                        }).OrderBy(a => a.ResearcherId).ToList();
                     var researchDataViewModel = new DataModelReserachMoney
                     {
                         ResearchId = firstLower100k.ResearchId,
@@ -522,7 +534,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchNameEn = firstLower100k.ResearchNameEn,
                         ResearchCode = firstLower100k.ResearchCode,
                         MoneyTypeName = firstLower100k.MoneyTypeName,
-                        ResearchMoney = firstLower100k.ResearchMoney,
+                        ResearchMoney = sumMoney,
                         ResearchStartDate = firstLower100k.ResearchStartDate.ToLocalDateTime(),
                         ResearchEndDate = firstLower100k.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
@@ -539,19 +551,20 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             if (input.Type == null || input.Type == "1")
             {
-                var between100kTo500k = researchMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000);
-                var between100kTo500kDistinct = between100kTo500k.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
+                var between100kTo500k = dataSumMoney.Where(m => m.ResearchMoney >= 100000 && m.ResearchMoney <= 500000);
+                var between100kTo500kDistinct = between100kTo500k.Select(s => new { s.ResearchId,s.ResearchNameTh}).Distinct();
                 var researchDataListBetween100kTo500k = new List<DataModelReserachMoney>();
                 foreach (var ld in between100kTo500kDistinct)
                 {
-                    var firstBetween100kTo500k = between100kTo500k.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
-                    var researcherDataSub = between100kTo500k.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh)
+                    var sumMoney = between100kTo500k.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh).Select(g => new { g.ResearchMoney }).Sum(s => s.ResearchMoney);
+                    var firstBetween100kTo500k = researchMoney.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
+                    var researcherDataSub = researchMoney.Where(c => c.ResearchId == ld.ResearchId&& c.ResearchNameTh == ld.ResearchNameTh).GroupBy(o => new { o.ResearcherId, o.ResearcherName, o.CitizenId })
                         .Select(g => new ResearcherData
                         {
-                            ResearcherId = g.ResearcherId,
-                            ResearcherName = g.ResearcherName,
-                            CitizenId = g.CitizenId
-                        }).ToList();
+                            ResearcherId = g.Key.ResearcherId,
+                            ResearcherName = g.Key.ResearcherName,
+                            CitizenId = g.Key.CitizenId
+                        }).OrderBy(a => a.ResearcherId).ToList();
                     var researchDataViewModel = new DataModelReserachMoney
                     {
                         ResearchId = firstBetween100kTo500k.ResearchId,
@@ -559,7 +572,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchNameEn = firstBetween100kTo500k.ResearchNameEn,
                         ResearchCode = firstBetween100kTo500k.ResearchCode,
                         MoneyTypeName = firstBetween100kTo500k.MoneyTypeName,
-                        ResearchMoney = firstBetween100kTo500k.ResearchMoney,
+                        ResearchMoney = sumMoney,
                         ResearchStartDate = firstBetween100kTo500k.ResearchStartDate.ToLocalDateTime(),
                         ResearchEndDate = firstBetween100kTo500k.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
@@ -576,29 +589,32 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             if (input.Type == null || input.Type == "2")
             {
-                var between500kTo1m = researchMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000);
+
+                var between500kTo1m = dataSumMoney.Where(m => m.ResearchMoney >= 500000 && m.ResearchMoney <= 1000000);
                 var between500kTo1mDistinct = between500kTo1m.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
                 var researchDataListBetween500kTo1m = new List<DataModelReserachMoney>();
                 foreach (var ld in between500kTo1mDistinct)
                 {
-                    var firstBetween500kTo1m = between500kTo1m.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
-                    var researcherDataSub = between500kTo1m.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh)
+                    //var sumMoney = new List<int>();
+                    var sumMoney = between500kTo1m.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh).Select(g => new { g.ResearchMoney }).Sum(s=>s.ResearchMoney);
+                    var dataBetween500kTo1m = researchMoney.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
+                    var researcherDataSub = researchMoney.Where(c => c.ResearchId == ld.ResearchId &&c.ResearchNameTh == ld.ResearchNameTh).GroupBy(o => new { o.ResearcherId, o.ResearcherName, o.CitizenId })
                         .Select(g => new ResearcherData
                         {
-                            ResearcherId = g.ResearcherId,
-                            ResearcherName = g.ResearcherName,
-                            CitizenId = g.CitizenId
-                        }).ToList();
+                            ResearcherId = g.Key.ResearcherId,
+                            ResearcherName = g.Key.ResearcherName,
+                            CitizenId = g.Key.CitizenId
+                        }).OrderBy(a => a.ResearcherId).ToList();
                     var researchDataViewModel = new DataModelReserachMoney
                     {
-                        ResearchId = firstBetween500kTo1m.ResearchId,
-                        ResearchNameTh = firstBetween500kTo1m.ResearchNameTh,
-                        ResearchNameEn = firstBetween500kTo1m.ResearchNameEn,
-                        ResearchCode = firstBetween500kTo1m.ResearchCode,
-                        MoneyTypeName = firstBetween500kTo1m.MoneyTypeName,
-                        ResearchMoney = firstBetween500kTo1m.ResearchMoney,
-                        ResearchStartDate = firstBetween500kTo1m.ResearchStartDate.ToLocalDateTime(),
-                        ResearchEndDate = firstBetween500kTo1m.ResearchEndDate.ToLocalDateTime(),
+                        ResearchId = dataBetween500kTo1m.ResearchId,
+                        ResearchNameTh = dataBetween500kTo1m.ResearchNameTh,
+                        ResearchNameEn = dataBetween500kTo1m.ResearchNameEn,
+                        ResearchCode = dataBetween500kTo1m.ResearchCode,
+                        MoneyTypeName = dataBetween500kTo1m.MoneyTypeName,
+                        ResearchMoney = sumMoney,
+                        ResearchStartDate = dataBetween500kTo1m.ResearchStartDate.ToLocalDateTime(),
+                        ResearchEndDate = dataBetween500kTo1m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
 
                     };
@@ -614,19 +630,20 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             if (input.Type == null || input.Type == "3")
             {
 
-                var between1mTo5m = researchMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000);
-                var between1mTo5mDistinct = between1mTo5m.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
+                var between1mTo5m = dataSumMoney.Where(m => m.ResearchMoney >= 1000000 && m.ResearchMoney <= 5000000);
+                var between1mTo5mDistinct = between1mTo5m.Select(s => new { s.ResearchId,s.ResearchNameTh}).Distinct();
                 var researchDataListBetween1mTo5m = new List<DataModelReserachMoney>();
                 foreach (var ld in between1mTo5mDistinct)
                 {
-                    var firstBetween1mTo5m = between1mTo5m.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
-                    var researcherDataSub = between1mTo5m.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh)
+                    var sumMoney = between1mTo5m.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh==ld.ResearchNameTh).Select(g => new { g.ResearchMoney }).Sum(s => s.ResearchMoney);
+                    var firstBetween1mTo5m = researchMoney.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
+                    var researcherDataSub = researchMoney.Where(c => c.ResearchId == ld.ResearchId &&c.ResearchNameTh == ld.ResearchNameTh).GroupBy(o => new { o.ResearcherId, o.ResearcherName, o.CitizenId })
                         .Select(g => new ResearcherData
                         {
-                            ResearcherId = g.ResearcherId,
-                            ResearcherName = g.ResearcherName,
-                            CitizenId = g.CitizenId
-                        }).ToList();
+                            ResearcherId = g.Key.ResearcherId,
+                            ResearcherName = g.Key.ResearcherName,
+                            CitizenId = g.Key.CitizenId
+                        }).OrderBy(a => a.ResearcherId).ToList();
                     var researchDataViewModel = new DataModelReserachMoney
                     {
                         ResearchId = firstBetween1mTo5m.ResearchId,
@@ -634,7 +651,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchNameEn = firstBetween1mTo5m.ResearchNameEn,
                         ResearchCode = firstBetween1mTo5m.ResearchCode,
                         MoneyTypeName = firstBetween1mTo5m.MoneyTypeName,
-                        ResearchMoney = firstBetween1mTo5m.ResearchMoney,
+                        ResearchMoney = sumMoney,
                         ResearchStartDate = firstBetween1mTo5m.ResearchStartDate.ToLocalDateTime(),
                         ResearchEndDate = firstBetween1mTo5m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
@@ -651,19 +668,20 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             if (input.Type == null || input.Type == "4")
             {
-                var between5mTo10m = researchMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000);
-                var between5mTo10mDistinct = between5mTo10m.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
+                var between5mTo10m = dataSumMoney.Where(m => m.ResearchMoney >= 5000000 && m.ResearchMoney <= 10000000);
+                var between5mTo10mDistinct = between5mTo10m.Select(s => new { s.ResearchId,s.ResearchNameTh}).Distinct();
                 var researchDataListBetween5mTo10m = new List<DataModelReserachMoney>();
                 foreach (var ld in between5mTo10mDistinct)
                 {
-                    var firstBetween5mTo10m = between5mTo10m.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
-                    var researcherDataSub = between5mTo10m.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh)
+                    var sumMoney = between5mTo10m.Where(c => c.ResearchId == ld.ResearchId&&c.ResearchNameTh == ld.ResearchNameTh).Select(g => new { g.ResearchMoney }).Sum(s => s.ResearchMoney);
+                    var firstBetween5mTo10m = researchMoney.FirstOrDefault(m => m.ResearchId == ld.ResearchId&&m.ResearchNameTh == ld.ResearchNameTh);
+                    var researcherDataSub = researchMoney.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh).GroupBy(o => new { o.ResearcherId, o.ResearcherName, o.CitizenId })
                         .Select(g => new ResearcherData
                         {
-                            ResearcherId = g.ResearcherId,
-                            ResearcherName = g.ResearcherName,
-                            CitizenId = g.CitizenId
-                        }).ToList();
+                            ResearcherId = g.Key.ResearcherId,
+                            ResearcherName = g.Key.ResearcherName,
+                            CitizenId = g.Key.CitizenId
+                        }).OrderBy(a => a.ResearcherId).ToList();
                     var researchDataViewModel = new DataModelReserachMoney
                     {
                         ResearchId = firstBetween5mTo10m.ResearchId,
@@ -671,7 +689,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchNameEn = firstBetween5mTo10m.ResearchNameEn,
                         ResearchCode = firstBetween5mTo10m.ResearchCode,
                         MoneyTypeName = firstBetween5mTo10m.MoneyTypeName,
-                        ResearchMoney = firstBetween5mTo10m.ResearchMoney,
+                        ResearchMoney = sumMoney,
                         ResearchStartDate = firstBetween5mTo10m.ResearchStartDate.ToLocalDateTime(),
                         ResearchEndDate = firstBetween5mTo10m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
@@ -688,19 +706,20 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             }
             if (input.Type == null || input.Type == "5")
             {
-                var between10mTo20m = researchMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000);
-                var between10mTo20mDistinct = between10mTo20m.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
+                var between10mTo20m = dataSumMoney.Where(m => m.ResearchMoney > 100000000 && m.ResearchMoney < 20000000);
+                var between10mTo20mDistinct = between10mTo20m.Select(s => new { s.ResearchId,s.ResearchNameTh}).Distinct();
                 var researchDataListBetween10mTo20m = new List<DataModelReserachMoney>();
                 foreach (var ld in between10mTo20mDistinct)
                 {
-                    var firstBetween10mTo20m = between10mTo20m.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
-                    var researcherDataSub = between10mTo20m.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh)
+                    var sumMoney = between10mTo20m.Where(c => c.ResearchId == ld.ResearchId &&c.ResearchNameTh == ld.ResearchNameTh).Select(g => new { g.ResearchMoney }).Sum(s => s.ResearchMoney);
+                    var firstBetween10mTo20m = researchMoney.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
+                    var researcherDataSub = researchMoney.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh).GroupBy(o => new { o.ResearcherId, o.ResearcherName, o.CitizenId })
                         .Select(g => new ResearcherData
                         {
-                            ResearcherId = g.ResearcherId,
-                            ResearcherName = g.ResearcherName,
-                            CitizenId = g.CitizenId
-                        }).ToList();
+                            ResearcherId = g.Key.ResearcherId,
+                            ResearcherName = g.Key.ResearcherName,
+                            CitizenId = g.Key.CitizenId
+                        }).OrderBy(a => a.ResearcherId).ToList();
                     var researchDataViewModel = new DataModelReserachMoney
                     {
                         ResearchId = firstBetween10mTo20m.ResearchId,
@@ -708,7 +727,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchNameEn = firstBetween10mTo20m.ResearchNameEn,
                         ResearchCode = firstBetween10mTo20m.ResearchCode,
                         MoneyTypeName = firstBetween10mTo20m.MoneyTypeName,
-                        ResearchMoney = firstBetween10mTo20m.ResearchMoney,
+                        ResearchMoney = sumMoney,
                         ResearchStartDate = firstBetween10mTo20m.ResearchStartDate.ToLocalDateTime(),
                         ResearchEndDate = firstBetween10mTo20m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
@@ -723,22 +742,22 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 };
                 result.Add(modelbetween10mTo20m);
             }
-
             if (input.Type == null || input.Type == "6")
             {
-                var over20m = researchMoney.Where(m => m.ResearchMoney > 20000000);
-                var over20mDistinct = over20m.Select(s => new { s.ResearchId, s.ResearchNameTh }).Distinct();
+                var over20m = dataSumMoney.Where(m => m.ResearchMoney > 20000000);
+                var over20mDistinct = over20m.Select(s => new { s.ResearchId,s.ResearchNameTh}).Distinct();
                 var researchDataListOver20m = new List<DataModelReserachMoney>();
                 foreach (var ld in over20mDistinct)
                 {
-                    var firstOver20m = over20m.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
-                    var researcherDataSub = over20m.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh)
+                    var sumMoney = over20m.Where(c => c.ResearchId == ld.ResearchId&&c.ResearchNameTh == ld.ResearchNameTh).Select(g => new { g.ResearchMoney }).Sum(s => s.ResearchMoney);
+                    var firstOver20m = researchMoney.FirstOrDefault(m => m.ResearchId == ld.ResearchId && m.ResearchNameTh == ld.ResearchNameTh);
+                    var researcherDataSub = researchMoney.Where(c => c.ResearchId == ld.ResearchId && c.ResearchNameTh == ld.ResearchNameTh).GroupBy(o => new { o.ResearcherId, o.ResearcherName, o.CitizenId })
                         .Select(g => new ResearcherData
                         {
-                            ResearcherId = g.ResearcherId,
-                            ResearcherName = g.ResearcherName,
-                            CitizenId = g.CitizenId
-                        }).ToList();
+                            ResearcherId = g.Key.ResearcherId,
+                            ResearcherName = g.Key.ResearcherName,
+                            CitizenId = g.Key.CitizenId
+                        }).OrderBy(a=>a.ResearcherId).ToList();
                     var researchDataViewModel = new DataModelReserachMoney
                     {
                         ResearchId = firstOver20m.ResearchId,
@@ -746,7 +765,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                         ResearchNameEn = firstOver20m.ResearchNameEn,
                         ResearchCode = firstOver20m.ResearchCode,
                         MoneyTypeName = firstOver20m.MoneyTypeName,
-                        ResearchMoney = firstOver20m.ResearchMoney,
+                        ResearchMoney = sumMoney,
                         ResearchStartDate = firstOver20m.ResearchStartDate.ToLocalDateTime(),
                         ResearchEndDate = firstOver20m.ResearchEndDate.ToLocalDateTime(),
                         Researcher = researcherDataSub
@@ -762,13 +781,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 result.Add(modelover20m);
 
             }
-
-
-
-
             return result;
-
-
         }
 
         private List<ResearchMoneyViewDataModel> GetResearchMoneyViewDataModel(List<DcResearchMoney> researchMoneyData)
