@@ -730,7 +730,7 @@ async function RenderResearchGroupTableDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchGroupDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.researchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -790,7 +790,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.researchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</td>' +
 
                 '</tr >';
@@ -863,7 +863,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 
         var startBody = '<tbody id="sub-researchMoneyTypeDrillDownGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.researchId + ')">' + item.researchNameEn + '</td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + ' บาท</td>' +
 
                 '</tr >';
@@ -939,7 +939,7 @@ async function DisplayResearchDetailModal(researchId) {
 
             var tableBody='';
             $.each(data.researcher, function (key, item) {
-                tableBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researcherName + '</td><td>' + item.facultyName + '</td>' +
+                tableBody += '<tr><td>' + item.researcherName + '</td><td>' + item.facultyName + '</td>' +
                     '<td>' + item.researchGroupName + '</td>' +
                     '</tr >';
 

@@ -16,12 +16,18 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
         public int ResearchId { get; set; }
         public string ResearchNameTh { get; set; }
         public string ResearchNameEn { get; set; }
+        public List<PersonResearchMoneyDetail> ResearchMoneyData { get; set; }
         public int? ResearchMoney { get; set; }
-        public string MoneyTypeName { get; set; }
         public DateTime? ResearchStartDate { get; set; }
         public DateTime? ResearchEndDate { get; set; }
 
         public List<PersonResearch> PersonResearcher { get; set; }
+    }
+
+    public class PersonResearchMoneyDetail
+    {
+        public int? ResearchMoney { get; set; }
+        public string MoneyTypeName { get; set; }
     }
 
     public class PersonResearch
