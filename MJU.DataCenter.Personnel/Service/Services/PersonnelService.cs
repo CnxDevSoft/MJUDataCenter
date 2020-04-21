@@ -251,7 +251,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return list;
 
         }
-
+     
         public object GetAllPersonnelEducation(int type, List<int> filter)
         {
             var educate = new List<string>() { "ปริญญาเอก", "ปริญญาตรี", "ปริญญาโท" };
@@ -1499,48 +1499,111 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonnelPositionFaculty(int type, List<int> filter)
         {
+            var isSubGraphDataSet = false;
             var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ก" && m.PositionType == "ประเภทวิชาการ");
             if (filter.Any())
             {
                 personnel = personnel.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
+                isSubGraphDataSet = true;
             }
             personnel = personnel.OrderBy(o => o.FacultyId);
             if (type == 1)
             {
-
-                var label = new List<string>();
-                var distinctPersonPosition = personnel.Select(s => s.Position).Distinct();
-                var graphDatasetList = new List<GraphDataSet>();
                 var index = 0;
-                foreach (var position in distinctPersonPosition)
+                if (isSubGraphDataSet)
                 {
+                    var label = new List<string>();
                     var data = new List<int>();
-                    var facultyByPosition = personnel.Where(m => m.Position == position);
-                    var distinctFacultyByPosition = facultyByPosition.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
-
-                    foreach (var fp in distinctFacultyByPosition)
+                    var groupByPosition = personnel.GroupBy(x => x.Position)
+                        .ToList();
+                    var graphDatasetList = new List<GraphDataSet>();
+                    var listViewData = new List<ViewData>();
+                    foreach (var item in groupByPosition)
                     {
-                        data.Add(facultyByPosition.Where(m => m.Faculty == fp.Faculty && m.FacultyId == fp.FacultyId).Count());
-                        label.Add(fp.Faculty);
+                        data.Add(item.Count());
+                        label.Add(item.Key);
+                        index++;
                     }
-                    var graphDataset = new GraphDataSet
+
+                    //var subGraphData = new GraphData
+                    //{
+                    //    Label = graphDatasetList.GroupBy(x => x.Label).Select(x => x.Key).ToList(),
+                    //    GraphDataSet = graphDatasetList,
+                    //    IsSubGraphDataSet = isSubGraphDataSet
+                    //};
+
+         
+
+                    var graphDataSet = new GraphDataSet
                     {
-                        Label = position,
                         Data = data,
-                        BackgroundColor = index.BackgroundColor(),
-                        BorderColor = index.BorderColor()
-
+                        Label = personnel.LastOrDefault().Faculty
                     };
-                    graphDatasetList.Add(graphDataset);
-                    index++;
-                }
-                var graphData = new GraphData
-                {
-                    Label = label.Distinct().ToList(),
-                    GraphDataSet = graphDatasetList
-                };
 
-                return graphData;
+                    listViewData.Add(new ViewData
+                    {
+                        index = 0,
+                        ListViewData = graphDataSet
+
+                    });
+
+                    var subGraphData = new GraphData
+                    {
+                        GraphDataSet = new List<GraphDataSet> { graphDataSet },
+                        Label = label,
+                        ViewData = listViewData,
+                        IsSubGraphDataSet = isSubGraphDataSet
+                    };
+
+                    return subGraphData;
+                }
+                else
+                {
+                    var label = new List<string>();
+                    var distinctPersonPosition = personnel.Select(s => s.Position).Distinct();
+                    var graphDatasetList = new List<GraphDataSet>();
+  
+                    foreach (var position in distinctPersonPosition)
+                    {
+                        var data = new List<int>();
+                        var facultyByPosition = personnel.Where(m => m.Position == position);
+                        var distinctFacultyByPosition = facultyByPosition.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
+
+                        foreach (var fp in distinctFacultyByPosition)
+                        {
+                            data.Add(facultyByPosition.Where(m => m.Faculty == fp.Faculty && m.FacultyId == fp.FacultyId).Count());
+                            label.Add(fp.Faculty);
+                        }
+                        var graphDataset = new GraphDataSet
+                        {
+                            Label = position,
+                            Data = data,
+                            BackgroundColor = index.BackgroundColor(),
+                            BorderColor = index.BorderColor()
+
+                        };
+                        graphDatasetList.Add(graphDataset);
+                        index++;
+                    }
+                    var graphData = new GraphData
+                    {
+                        Label = label.Distinct().ToList(),
+                        GraphDataSet = graphDatasetList
+                    };
+
+                    return graphData;
+
+                }
+
+
+
+
+
+
+
+
+
+               
 
             }
             else
@@ -1814,19 +1877,59 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public object GetAllPersonnelGroupPositionLevel(int type, List<int> filter)
         {
+            var isSubGraphDataSet = false;
             var personnel = _dcPersonRepository.GetAll().Where(m => m.PositionTypeId == "ค" && m.PositionType == "ประเภทสนับสนุน");
             if (filter.Any())
             {
                 personnel = personnel.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
+                isSubGraphDataSet = true;
             }
             personnel = personnel.OrderBy(o => o.PersonnelTypeId);
             if (type == 1)
             {
+                var index = 0;
+                //if (isSubGraphDataSet)
+                //{
+                //    var label = new List<string>();
+                //    var data = new List<int>();
+                //    var groupByPosition = personnel.GroupBy(x => x.Position)
+                //        .ToList();
+                //    var graphDatasetList = new List<GraphDataSet>();
+                //    foreach (var item in groupByPosition)
+                //    {
+                //        data.Add(item.Count());
+
+                //        var graphDataset = new GraphDataSet
+                //        {
+                //            Label = item.Key,
+                //            Data = data,
+                //            BackgroundColor = index.BackgroundColor(),
+                //            BorderColor = index.BorderColor()
+                //        };
+                //        graphDatasetList.Add(graphDataset);
+                //        index++;
+                //    }
+
+                //    var subGraphData = new GraphData
+                //    {
+                //       Label = graphDatasetList.GroupBy(x => x.Label).Select(x => x.Key).ToList(),
+                //       GraphDataSet = graphDatasetList,
+                //       IsSubGraphDataSet = isSubGraphDataSet
+                //    };
+
+                //    return subGraphData;
+                //}
+                //else
+                //{
+
+                  
+                //}
+
 
                 var label = new List<string>();
                 var distinctPositionLevel = personnel.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
-                var index = 0;
+
                 foreach (var pl in distinctPositionLevel)
                 {
                     var data = new List<int>();
@@ -1845,11 +1948,13 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         Data = data,
                         BackgroundColor = index.BackgroundColor(),
                         BorderColor = index.BorderColor()
-
                     };
                     graphDatasetList.Add(graphDataset);
                     index++;
                 }
+
+
+
                 var graphData = new GraphData
                 {
                     Label = label.Distinct().ToList(),
@@ -1857,7 +1962,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 };
 
                 return graphData;
-
             }
             else
             {

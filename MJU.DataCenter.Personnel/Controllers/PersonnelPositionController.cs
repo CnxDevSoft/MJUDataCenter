@@ -57,7 +57,5 @@ namespace MJU.DataCenter.Personnel.Controllers
             }
             return null;
         }
-
-
     }
 }

@@ -9,6 +9,7 @@ namespace MJU.DataCenter.Personnel.ViewModels
         public List<ViewData> ViewData { get; set; }
         public List<string> Label { get; set; }
         public List<GraphDataSet> GraphDataSet { get; set; }
+        public bool IsSubGraphDataSet { get; set; }
     }
     public class GraphDataSet
     {
