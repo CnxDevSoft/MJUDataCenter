@@ -1334,14 +1334,14 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyRangeDrillDown" id="userDetailTable">';
 
             var startThead = '<thead id="sub-researchMoneyRangeDrillDownDrillDownGraphDataSource-thead">';
-            var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ร่วมทำวิจัย</th><th>แหล่งทุน</th><th>งบประมาณ</th><th>วันที่เริ่มทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
+            var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>แหล่งทุน</th><th>งบประมาณ</th><th>วันที่เริ่มทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
 
             var endThead = '</thead>';
 
             var startBody = '<tbody id="sub-researchMoneyRangeDrillDownGraphDataSource-tbody">';
             $.each(data.personResearchDetail, function (key, item) {
                 console.log(item)
-                startBody += '<tr><td>TH: ' + item.researchNameTh + '<br/>EN: ' + item.researchNameEn + '</td>' +
+                startBody += '<tr><td>' + item.researchNameEn + '</td>' +
                     '<td>' + RenderReseacherName(item.personResearcher) + '</td>' +
                     '<td>' + RenderReseachMoney(item.researchMoneyData) + '</td>' +
                     '<td>' + new Number(item.researchMoney).toLocaleString("th-TH") + '</td>' +
