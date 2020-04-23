@@ -1010,7 +1010,18 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             return result;
         }
 
+        public ResearchExtensionDashboard GetResearchDashboard()
+        {
 
+           var researchData = _dcResearchDataRepository.GetAll();
+            var distinctResearchData = researchData.Select(s => new { s.ResearchId }).Distinct();
+            var model = new ResearchExtensionDashboard
+            {
+                ResearchCount = distinctResearchData.Count(),
+                Research = "ข้อมูลงานวิจัย"
+            };
+            return model;
+        }
 
     }
 }

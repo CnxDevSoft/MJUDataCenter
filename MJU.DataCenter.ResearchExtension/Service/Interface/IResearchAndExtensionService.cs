@@ -22,5 +22,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         PersonResearchDetailModel GetPersonResearchDetail(string citizenId);
         ResearchDetailViewModel GetResearchDetail(int researchId);
 
+        ResearchExtensionDashboard GetResearchDashboard();
+
     }
 }

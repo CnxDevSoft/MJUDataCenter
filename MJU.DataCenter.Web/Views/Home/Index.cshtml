@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @*<div class="content-wrapper">
         <img src="~/img/datacenter3.jpg" style="width:100%;">
     </div>*@
@@ -12,17 +13,17 @@
         <div class="row">
             <div class="col-12">
                 @*<div class="callout callout-success">
-                <h5><i class="fas fa-info"></i> Info:</h5>
-                ยินดีต้อนรับเข้าสู่ MJU Data Center
-            </div>*@
+                        <h5><i class="fas fa-info"></i> Info:</h5>
+                        ยินดีต้อนรับเข้าสู่ MJU Data Center
+                    </div>*@
                 <h3 class="text-green"><strong>MJU DataCenter - ฐานข้อมูลส่วนกลางมหาวิทยาลัยแม่โจ้</strong></h3>
-                <br/>
+                <br />
                 <div class="row">
                     <div class="col-lg-3 col-6">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>3,500</h3>
-                                <p>ข้อมูลบุคลากร</p>
+                                <h3><span id="PersonCount">0</span></h3>
+                                <p><span id="Person">0</span></p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-user"></i>
@@ -37,8 +38,8 @@
                         <!-- small card -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>500</h3>
-                                <p>ข้อมูลงานวิจัย</p>
+                                <h3><span id="ResearchCount">0</span></h3>
+                                <p><span id="Research">0</span></p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
@@ -161,4 +162,10 @@
         </div>
         <br>
     </div>
+    <script>
+    $(function () {
+        GetPersonCount();
+        GetResearchCount();
+    })
+    </script>
 </section>
