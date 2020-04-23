@@ -62,6 +62,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
         List<PersonnelGenderDataSourceViewModel> GetAllPersonnelGenderDataSource(List<int> filter);
 
         PersonnelDataSourceViewModel GetPersonDetailByCitizenId(string citizenId);
+        PersonnelDashboard GetPersonnelDashboard();
 
     }
 }

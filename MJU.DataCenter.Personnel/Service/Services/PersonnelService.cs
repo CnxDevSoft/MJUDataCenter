@@ -2640,5 +2640,18 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return personDetail;
 
         }
+
+        public PersonnelDashboard GetPersonnelDashboard()
+        {
+            var personnel = _dcPersonRepository.GetAll();
+
+            var model = new PersonnelDashboard
+            {
+                PersonnelCount = personnel.Count(),
+                Personnel = "ข้อมูลบุคลากร"
+            };
+
+            return model;
+        }
     }
 }
