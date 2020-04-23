@@ -16,6 +16,7 @@ async function GetPersonCount(/*token, userName*/) {
         });
 
 }
+
 async function GetResearchCount(/*token, userName*/) {
     fetch(researchExtensionRootPath + 'ResearchExtensionDashboard/ResearchExtensionCount?api-version=1.0')
         .then(res => res.json())
@@ -24,5 +25,17 @@ async function GetResearchCount(/*token, userName*/) {
             $("#ResearchCount").text(data.researchCount);
             $("#Research").text(data.research);
         });
+}
+async function GetResearchFaculty(/*token, userName*/) {
+    fetch(researchExtensionRootPath + 'ResearchExtensionFacultyDashboard/Faculty?api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            console.log("testdata", data.facultyData, data.faculty);
+            $('#FacultyHead').text(data.facultyData);
+            $.each(data.faculty, function (key, item) {
+                $('#Faculty').append('<p>'+item.faculty+'</p>');
+            });
+        });
+
 
 }

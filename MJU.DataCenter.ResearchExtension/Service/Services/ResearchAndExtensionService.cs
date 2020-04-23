@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using MJU.DataCenter.Core.Enums;
 using MJU.DataCenter.Core.Helpers;
 using MJU.DataCenter.Personnel.ViewModels;
 using MJU.DataCenter.ResearchExtension.Models;
@@ -1023,5 +1024,21 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             return model;
         }
 
+        public FacultyDashboard GetFacultyDashboard()
+        {
+            var list = new List<FacultyData>();
+            var faculty =_dcResearchFacultyRepository.GetAll()
+                .GroupBy(g=>new{g.FacultyId,g.FacultyName })   
+                .Select(s=>new FacultyData{ 
+                    FacultyId = s.Key.FacultyId,
+                    Faculty = s.Key.FacultyName}).OrderBy(o=>o.FacultyId).ToList();
+            var model = new FacultyDashboard
+            {
+                FacultyData = "หน่วยงานภายใน",
+                Faculty = faculty
+
+            };
+            return model;
+        }
     }
 }
