@@ -23,6 +23,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Interface
         ResearchDetailViewModel GetResearchDetail(int researchId);
 
         ResearchExtensionDashboard GetResearchDashboard();
+        FacultyDashboard GetFacultyDashboard();
 
     }
 }
