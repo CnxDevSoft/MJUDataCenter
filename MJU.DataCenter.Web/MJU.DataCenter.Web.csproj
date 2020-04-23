@@ -24,6 +24,5 @@
 
   <ItemGroup>
     <Folder Include="Repository\Common\" />
-    <Folder Include="Views\DashboardPersonnel\PartialViews\PersonTypeGraph\" />
   </ItemGroup>
 </Project>

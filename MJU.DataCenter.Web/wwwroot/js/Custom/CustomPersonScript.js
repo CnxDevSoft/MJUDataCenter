@@ -26,17 +26,17 @@ async function ToggleChart(chartName) {
         $(canvasTab).hide();
         $(tableTab).show();
     });
-    $(datasourceTab).click(function () {
-        var checkDatableLoaded = $('.dataTable-sub-' + chartName).hasClass("datableLoaded");
-        if (checkDatableLoaded == false) {
-            $('.dataTable-sub-' + chartName).DataTable({
-                language: oLanguagePersonScriptOptions,
-               // searching: false,
-               // pageLength: 5
-            });
-            $('.dataTable-sub-' + chartName).addClass('datableLoaded');
-        }
-        $(modalTab).modal('show');
-    });
+    //$(datasourceTab).click(function () {
+    //    var checkDatableLoaded = $('.dataTable-sub-' + chartName).hasClass("datableLoaded");
+    //    if (checkDatableLoaded == false) {
+    //        $('.dataTable-sub-' + chartName).DataTable({
+    //            language: oLanguagePersonScriptOptions,
+    //           // searching: false,
+    //           // pageLength: 5
+    //        });
+    //        $('.dataTable-sub-' + chartName).addClass('datableLoaded');
+    //    }
+    //    $(modalTab).modal('show');
+    //});
 }
 

@@ -41,6 +41,9 @@
     $(function () {
         PersonPositionLevelGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personPositionLevel");
+        $('#personPositionLevel-datasource').click(function () {
+            PersonPositionLevelGraphDS('@userAccesToken','@User.Identity.Name')
+ });
     })
 </script>
 <partial name="PartialViews/PersonPositionLevelGraph/_personPositionLevelGraphDataSource" />

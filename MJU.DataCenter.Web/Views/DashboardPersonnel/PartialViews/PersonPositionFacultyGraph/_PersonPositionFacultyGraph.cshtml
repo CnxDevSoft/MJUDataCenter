@@ -41,6 +41,9 @@
     $(function () {
         PersonPositionFacultyGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personPositionFaculty");
+        $('#personPositionFaculty-datasource').click(function () {
+            PersonPositionFacultyGraphDS('@userAccesToken','@User.Identity.Name')
+         });
     })
 </script>
 <partial name="PartialViews/PersonPositionFacultyGraph/_personPositionFacultyGraphDataSource" />

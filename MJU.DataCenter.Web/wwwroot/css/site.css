@@ -1,6 +1,9 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+@import 'https://fonts.googleapis.com/css?family=Kanit|Prompt';
+
 :root {
     --primary-green: rgba(1, 127, 63, 1);
     --primary-green-60: rgba(1, 127, 63, 0.6);
@@ -39,7 +42,7 @@ a {
 -------------------------------------------------- */
 html {
     font-size: 14px;
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Kanit', sans-serif !important;
 }
 
 @media (min-width: 768px) {
@@ -49,11 +52,11 @@ html {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Kanit', sans-serif !important;
 }
 
 body, p {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Kanit', sans-serif !important;
 }
 
 .border-top {
@@ -234,3 +237,17 @@ body {
         margin-left: -10px;
     }
 }
+
+.modal-header {
+    background-color: #017f3f;
+    color:white;
+}
+.modal-content {
+    overflow: hidden;
+}
+
+.btn-bgwhite {
+    background-color:white;
+}
+
+

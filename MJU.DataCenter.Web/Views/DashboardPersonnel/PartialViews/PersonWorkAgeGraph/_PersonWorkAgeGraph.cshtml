@@ -42,7 +42,9 @@
     $(function () {
         PersonWorkAgeGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personWorkAge");
-
+        $('#personWorkAge-datasource').click(function () {
+            PersonWorkAgeGraphDS('@userAccesToken','@User.Identity.Name')
+ });
     })
 
 </script>
