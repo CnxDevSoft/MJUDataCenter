@@ -250,4 +250,10 @@ body {
     background-color:white;
 }
 
+.btn-app {
+    border-color: #28a745;
+    box-shadow: none;
+    background-color:#ffffff;
+}
+
 
