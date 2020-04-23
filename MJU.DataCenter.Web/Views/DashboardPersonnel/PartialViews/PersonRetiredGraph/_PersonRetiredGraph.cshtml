@@ -43,6 +43,9 @@
     $(function () {
         PersonRetiredGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personRetired");
+        $('#personRetired-datasource').click(function () {
+            PersonRetiredGraphDS('@userAccesToken','@User.Identity.Name')
+        });
     })
 </script>
 <partial name="PartialViews/PersonRetiredGraph/_personRetiredGraphDataSource" />

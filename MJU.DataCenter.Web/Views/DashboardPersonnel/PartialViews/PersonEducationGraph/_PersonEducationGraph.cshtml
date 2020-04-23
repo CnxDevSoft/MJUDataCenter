@@ -26,7 +26,7 @@
             </div>
             <br />
             <div class="card-body" id="personEducation-chart-canvas">
-                <canvas id="personEducation-Chart" style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
+                <canvas id="personEducation-Chart" style="min-height: 300px; height: 332px; max-height: 350px; max-width: 100%;"></canvas>
             </div>
             <div class="position-relative mb-4" id="personEducation-chart-table" style="display:none;">
                 <partial name="PartialViews/PersonEducationGraph/_personEducationGraphDataTable" />
@@ -38,6 +38,9 @@
     $(function () {
         PersonEducationGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personEducation");
+        $('#personEducation-datasource').click(function () {
+            PersonEducationGraphDS('@userAccesToken','@User.Identity.Name')
+        });
     })
 </script>
 <partial name="PartialViews/PersonEducationGraph/_personEducationGraphDataSource" />

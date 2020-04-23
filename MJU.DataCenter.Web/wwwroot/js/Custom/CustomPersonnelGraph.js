@@ -25,7 +25,8 @@ async function AllPersonGraph(token, userName) {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: "'Kanit', sans-serif"
     }
     var mode = 'index'
     var intersect = true
@@ -110,7 +111,7 @@ async function AllPersonGraph(token, userName) {
             $("#allPersonGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PersonGroupDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</a></td></tr>');
 
-            AllPersonGraphDS(token, userName);
+            //AllPersonGraphDS(token, userName);
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -251,63 +252,6 @@ async function PersonAgeGraph(token, userName) {
             });
         });
 }
-
-function genderClick(genderId, genderName, generationType) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGenderGeneration/DataSourceByType/' + generationType + '/' + genderId + '/' + genderName + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0';
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-
-            $('#researcherGenderDrillDownGraphDataSourceModal-card-body').empty();
-            $.each(data, function (key, result) {
-
-                var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researcherGenderDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researcherGenderDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.gender + '</b></a>'
-                var labelEmty = $("#researcherGenderDrillDownGraphDataSourceLabel").empty();
-                var label = $("#researcherGenderDrillDownGraphDataSourceLabel").text(data[0].gender + data[0].personGenderGeneration[0].generetion);
-                $('#researcherGenderDrillDownGraphDataSourceModal-card-body').append(link)
-                var startRow = '<div class="collapse multi-collapse" id="researcherGenderDrillDownGraphDSCollapse' + key + '">';
-                var table = $('#dataTable').DataTable();
-                table.clear().destroy();
-
-                var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researcherGenderDrillDown" id="dataTableResearcherGenderDrillDown' + key + '">';
-
-                var startThead = '<thead id="sub-researcherGenderDrillDownGraphDataSource-thead">';
-                var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-                var endThead = '</thead>';
-
-                var startBody = '<tbody id="sub-researcherGenderDrillDownGraphDataSource-tbody">';
-                $.each(result.personGenderGeneration[0].person, function (key, item) {
-                    startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                        '<td>' + item.dateOfBirth + '</td >' +
-                        '<td>' + item.position + '</td >' +
-                        '<td>' + item.division + '</td>' +
-
-                        '</tr >';
-
-                });
-                var endbody = '</tbody>';
-
-                var endTable = '</table>';
-                var endRow = '</div>';
-
-                var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-                    : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-                $('#researcherGenderDrillDownGraphDataSourceModal-card-body').append(html);
-
-                $('#researcherGenderDrillDownGraphDataSourceModal').modal('show');
-                $('#researcherGenderDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-                })
-
-                $('#dataTableResearcherGenderDrillDown' + key).DataTable({
-                    language: oLanguagePersonGraphOptions
-                });
-            });
-        });
-}
 async function PersonEducationGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelEducation/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
@@ -352,8 +296,6 @@ async function PersonEducationGraph(token, userName) {
 
             $("#personEducationGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PersonEducationDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
-
-            PersonEducationGraphDS(token, userName);
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -403,18 +345,12 @@ async function PersonTypeGraph(token, userName) {
             $("#personTypeGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onclick="PersonPositionDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
 
-            PersonTypeGraphDS(token, userName);
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-
 async function EducationInPersonTypeGraph() {
 
 }
-
-
-
-
 async function PersonWorkAgeGraph(token, userName) {
     var ticksStyle = {
         fontColor: '#495057',
@@ -507,8 +443,6 @@ async function PersonWorkAgeGraph(token, userName) {
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',' + "''" + ')">' + sumValue + '</td></tr > '
             );
 
-
-            PersonWorkAgeGraphDS(token, userName);
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -611,7 +545,6 @@ async function PersonPositionGraph(token, userName) {
             $("#personPositionGraphDataTable-tbody").append(
                 '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
-            PersonPositionGraphDS(token, userName);
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -714,7 +647,6 @@ async function PersonPositionLevelGraph(token, userName) {
             $("#personPositionLevelGraphDataTable-tbody").append(
                 '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
-            PersonPositionLevelGraphDS(token, userName);
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -829,7 +761,6 @@ async function PersonFacultyGraph(token, userName) {
             $("#personFacultyGraphDataTable-tbody").append(
                 '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
-            PersonFacultyGraphDS(token, userName);
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -942,7 +873,6 @@ async function PersonPositionFacultyGraph(token, userName) {
                 $("#personPositionFacultyGraphDataTable-tbody").append(
                     '<tr><td>รวม</td>' + lastHtml + '</tr>');
 
-                PersonPositionFacultyGraphDS(token, userName);
                 $('[data-toggle="tooltip"]').tooltip();
 
             }
@@ -1064,7 +994,7 @@ async function PersonRetiredGraph(token, userName) {
             lastHtml += '<td onClick="PersonRetiredDrillDown(' + "'" + "'," + "'" + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + sumValue + '</td>';
             $("#personRetiredGraphDataTable-tbody").append(
                 '<tr><td>รวม</td>' + lastHtml + '</tr>');
-            PersonRetiredGraphDS(token, userName);
+
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
@@ -1087,7 +1017,62 @@ function RenderDataSet(data, gradientStroke) {
     });
     return datasets;
 }
+function genderClick(genderId, genderName, generationType) {
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGenderGeneration/DataSourceByType/' + generationType + '/' + genderId + '/' + genderName + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0';
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
 
+            $('#researcherGenderDrillDownGraphDataSourceModal-card-body').empty();
+            $.each(data, function (key, result) {
+
+                var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researcherGenderDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researcherGenderDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.gender + '</b></a>'
+                var labelEmty = $("#researcherGenderDrillDownGraphDataSourceLabel").empty();
+                var label = $("#researcherGenderDrillDownGraphDataSourceLabel").text(data[0].gender + data[0].personGenderGeneration[0].generetion);
+                $('#researcherGenderDrillDownGraphDataSourceModal-card-body').append(link)
+                var startRow = '<div class="collapse multi-collapse" id="researcherGenderDrillDownGraphDSCollapse' + key + '">';
+                var table = $('#dataTable').DataTable();
+                table.clear().destroy();
+
+                var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researcherGenderDrillDown" id="dataTableResearcherGenderDrillDown' + key + '">';
+
+                var startThead = '<thead id="sub-researcherGenderDrillDownGraphDataSource-thead">';
+                var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+                var endThead = '</thead>';
+
+                var startBody = '<tbody id="sub-researcherGenderDrillDownGraphDataSource-tbody">';
+                $.each(result.personGenderGeneration[0].person, function (key, item) {
+                    startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                        '<td>' + item.dateOfBirth + '</td >' +
+                        '<td>' + item.position + '</td >' +
+                        '<td>' + item.division + '</td>' +
+
+                        '</tr >';
+
+                });
+                var endbody = '</tbody>';
+
+                var endTable = '</table>';
+                var endRow = '</div>';
+
+                var html = data.length > 1 ? labelEmty + label + startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+                    : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+                $('#researcherGenderDrillDownGraphDataSourceModal-card-body').append(html);
+
+                $('#researcherGenderDrillDownGraphDataSourceModal').modal('show');
+                $('#researcherGenderDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+                })
+
+                $('#dataTableResearcherGenderDrillDown' + key).DataTable({
+                    language: oLanguagePersonGraphOptions
+                });
+            });
+        });
+}
 
 async function PersonForcastGenerationGraph(token, userName) {
     var url = personnelRootPath + 'PersonnelRetired/1/10?UserName=' + userName + ' &Token=' + token + '&api-version=1.0'
@@ -1205,6 +1190,1241 @@ async function PersonForcastGenerationRenderGraph(data) {
     chartClicked(personForcastGenerationChart, "personForcastGeneration");
 }
 
+
+
+
+
+
+async function AllPersonGraphDS(token, userName) {
+
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderAllPersonGraphDS(data);
+        });
+}
+async function RenderAllPersonGraphDS(data) {
+    $('#allpersonalGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+        var table = $('#sub-allpersonal-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#allpersonalGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="sub-allpersonal-' + key + '-table">';
+        var startThead = '<thead id="sub-allpersonalGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-allpersonalGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#allpersonalGraphDataSourceModal-card-body').append(html);
+
+        $('#allpersonalGraphDataSourceModal').modal('show');
+        $('#allpersonalGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-allpersonal-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+
+    });
+}
+
+
+
+async function PersonWorkAgeGraphDS(token, userName) {
+
+    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonWorkAgeGraphDS(data);
+        });
+}
+async function RenderPersonWorkAgeGraphDS(data) {
+    $('#personWorkAgeGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personWorkAgeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkAgeGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+        var table = $('#sub-personWorkAge-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#personWorkAgeGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personWorkAgeGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personWorkAge" id="sub-personWorkAge-' + key + '-table">';
+        var startThead = '<thead id="sub-personWorkAgeGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th><th>ช่วงอายุงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personWorkAgeGraphDataSource-tbody">';
+
+        $.each(result.personGroupWorkDuration, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '<td>' + item.workDuration + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personWorkAgeGraphDataSourceModal-card-body').append(html);
+        $('#personWorkAgeGraphDataSourceModal').modal('show');
+        $('#personWorkAgeGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personWorkAge-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonPositionGraphDS(token, userName) {
+
+    fetch(personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionGraphDS(data);
+        });
+}
+async function RenderPersonPositionGraphDS(data) {
+
+    $('#personPositionGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.adminPositionType + '</b></a>'
+        var table = $('#sub-personPosition-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#personPositionGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personPositionGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="sub-personPosition-' + key + '-table">';
+        var startThead = '<thead id="sub-personPositionGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
+
+        $.each(result.personGroupAdminPosition, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personPositionGraphDataSourceModal-card-body').append(html);
+
+        $('#personPositionGraphDataSourceModal').modal('show');
+        $('#personPositionGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personPosition-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonPositionLevelGraphDS(token, userName) {
+
+    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionLevelGraphDS(data);
+        });
+}
+async function RenderPersonPositionLevelGraphDS(data) {
+    $('#personPositionLevelGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionLevelGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+        var table = $('#sub-personPosition-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#personPositionLevelGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personPositionLevelGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="sub-personPosition-' + key + '-table">';
+        var startThead = '<thead id="sub-personPositionGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionLevelGraphDataSource-tbody">';
+
+        $.each(result.personGroupPosition, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personPositionLevelGraphDataSourceModal-card-body').append(html);
+        $('#personPositionLevelGraphDataSourceModal').modal('show');
+        $('#personPositionLevelGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personPosition-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+
+async function PersonFacultyGraphDS(token, userName) {
+
+    fetch(personnelRootPath + 'PersonnelGroupFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonFacultyGraphDS(data);
+        });
+}
+async function RenderPersonFacultyGraphDS(data) {
+    $('#personFacultyGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personFacultyGraphDSCollapse' + key
+            + '" role="button" aria-expanded="false" aria-controls="personFacultyGraphDSCollapse'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + result.faculty + '</b></a>'
+
+        var table = $('#sub-personFaculty-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#personFacultyGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personFacultyGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personFaculty" id="sub-personFaculty-' + key + '-table">';
+        var startThead = '<thead id="sub-personFacultyGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personFacultyGraphDataSource-tbody">';
+        $.each(result.personGroupFaculty, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personFacultyGraphDataSourceModal-card-body').append(html);
+        $('#personFacultyGraphDataSourceModal').modal('show');
+        $('#personFacultyGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personFaculty-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonPositionFacultyGraphDS(token, userName) {
+
+    fetch(personnelRootPath + 'PersonnelPositionFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionFacultyGraphDS(data);
+        });
+}
+async function RenderPersonPositionFacultyGraphDS(data) {
+    $('#personPositionFacultyGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionFacultyGraphDSCollapse' + key
+            + '" role="button" aria-expanded="false" aria-controls="personPositionFacultyGraphDSCollapse'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + result.faculty + '</b></a>'
+        var table = $('#sub-personPositionFaculty-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#personPositionFacultyGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personPositionFacultyGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionFaculty" id="sub-personPositionFaculty-' + key + '-table">';
+        var startThead = '<thead id="sub-personPositionFacultyGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
+        $.each(result.personPositionFaculty, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personPositionFacultyGraphDataSourceModal-card-body').append(html);
+        $('#personPositionFacultyGraphDataSourceModal').modal('show');
+        $('#personPositionFacultyGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personPositionFaculty-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonRetiredGraphDS(token, userName) {
+
+    fetch(personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=2553-01-01&EndDate=2563-01-01&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderRetiredGraphDS(data);
+        });
+}
+async function RenderRetiredGraphDS(data) {
+    $('#personRetiredGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personRetiredGraphDSCollapse' + key
+            + '" role="button" aria-expanded="false" aria-controls="personRetiredGraphDSCollapse'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + result.reitredYear + '</b></a>'
+        var table = $('#sub-personRetired-' + key + '-table').DataTable();
+        table.clear().destroy();
+
+        $('#personRetiredGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personRetiredGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="sub-personRetired-' + key + '-table">';
+        var startThead = '<thead id="sub-personRetiredGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+        var endThead = '</thead>';
+        var startBody = '<tbody id="sub-personRetiredGraphDataSource-tbody">';
+        $.each(result.personGroupRetiredYear, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+        var endTable = '</table>';
+        var endRow = '</div>';
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+        $('#personRetiredGraphDataSourceModal-card-body').append(html);
+
+        $('#personRetiredGraphDataSourceModal').modal('show');
+        $('#personRetiredGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personRetired-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonEducationGraphDS(token, userName) {
+    fetch(personnelRootPath + 'PersonnelEducation/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonEducationGraphDS(data);
+        });
+}
+async function RenderPersonEducationGraphDS(data) {
+    $('#personEducationGraphDataSourceModal-card-body').empty();
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personEducationGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.educationTypeName + '</b></a>'
+        var table = $('#sub-personEducation-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#personEducationGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personEducationGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personEducation" id="sub-personEducation-' + key + '-table">';
+        var startThead = '<thead id="sub-personEducationGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personEducationGraphDataSourceModal-card-body').append(html);
+        $('#personEducationGraphDataSourceModal').modal('show');
+        $('#personEducationGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personEducation-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+
+async function PersonTypeGraphDS(token, userName) {
+    fetch(personnelRootPath + 'PersonnelPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonTypeGraphDS(data);
+        });
+}
+async function RenderPersonTypeGraphDS(data) {
+    $('#personTypeGraphDataSourceModal-card-body').empty();
+
+    $.each(data, function (key, result) {
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personTypeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personTypeDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personPositionTypeName + '</b></a>'
+        var table = $('#sub-personType-' + key + '-table').DataTable();
+        table.clear().destroy();
+        $('#personTypeGraphDataSourceModal-card-body').append(link)
+        var startRow = '<div class="collapse multi-collapse" id="personTypeGraphDSCollapse' + key + '">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personType" id="sub-personType-' + key + '-table">';
+        var startThead = '<thead id="sub-personTypeGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personTypeGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
+
+        $('#personTypeGraphDataSourceModal-card-body').append(html);
+        $('#personTypeGraphDataSourceModal').modal('show');
+        $('#personTypeGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-personType-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function LoadDataTable(name, key) {
+
+    var dataTableName = '#sub-' + name + '-' + key + '-table';
+    $(dataTableName).DataTable({
+        language: oLanguagePersonGraphOptions,
+        searching: false,
+        pageLength: 5
+    });
+}
+async function Load() {
+
+    $('.dataTable-sub-allpersonal').DataTable({
+        language: oLanguagePersonGraphOptions,
+        searching: false,
+        pageLength: 5
+    });
+}
+
+
+//DrillDown
+async function PersonGenerationDrillDown(generaTion, type) {
+
+    var url = personnelRootPath + 'PersonnelPositionGeneration/DataSource?positionType=' + type + '&index=' + generaTion + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0';
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonGenerationDrillDown(data).then();
+        });
+}
+
+async function RenderPersonGenerationDrillDown(data) {
+    $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').empty()
+    $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personnelPositionGenerationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personnelPositionGenerationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.persionPostionName + '</b></a>'
+            $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').append(link)
+
+        } else {
+            $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').empty()
+            $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').append(result.persionPostionName)
+        }
+
+
+
+        var startRow = '<div class="collapse multi-collapse" id="personnelPositionGenerationDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonnelPositionGenerationDrillDown' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personnelPositionGeneration" id="dataPersonnelPositionGenerationDrillDown' + key + '">';
+        var startThead = '<thead id="sub-personnelPositionGenerationDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personnelPositionGenerationDrillDownGraphDataSource-tbody">';
+
+        $.each(result.personPostionGeneration[0].person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personnelPositionGenerationDrillDownGraphDataSourceModal').modal('show');
+        $('#personnelPositionGenerationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonnelPositionGenerationDrillDown' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+
+    });
+
+}
+
+async function PersonGroupDrillDown(type) {
+    var url = personnelRootPath + 'PersonnelGroup/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderAllPersonDrillDownGraphDS(data).then();
+        });
+
+
+
+}
+
+async function RenderAllPersonDrillDownGraphDS(data) {
+
+    $('#allpersonnelDrillDownGraphDataSourceModal-card-body').empty();
+    $('#allPersoneDrillDownGraphDataSourceLabel').empty()
+    $('#allPersoneDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#allPersonDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+            $('#allpersonnelDrillDownGraphDataSourceModal-card-body').append(link)
+
+        } else {
+            $('#allPersoneDrillDownGraphDataSourceLabel').empty()
+            $('#allPersoneDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
+        }
+
+
+
+        var startRow = '<div class="collapse multi-collapse" id="allPersonDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonnelDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="dataPersonnelDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-allpersonalDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-allpersonalDrillDownGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#allpersonnelDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#allpersonaleDrillDownGraphDataSourceModal').modal('show');
+        $('#allpersonaleDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonnelDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+
+    });
+}
+
+async function PersonEducationDrillDown(type) {
+    var url = personnelRootPath + 'PersonnelEducation/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonEducationDrillDownGraphDS(data).then();
+        });
+
+
+
+}
+
+async function RenderPersonEducationDrillDownGraphDS(data) {
+    $('#personEducationDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personEducationDrillDownGraphDataSourceLabel').empty()
+    $('#personEducationDrillDownGraphDataSourceLabel').append("ระดับการศึกษา")
+    $.each(data, function (key, result) {
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personEducationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.educationTypeName + '</b></a>'
+            $('#personEducationDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personEducationDrillDownGraphDataSourceLabel').empty()
+            $('#personEducationDrillDownGraphDataSourceLabel').append(result.educationTypeName)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personEducationDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonEducationDrillDownTable' + key).DataTable();
+
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personEducation" id="dataPersonEducationDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personEducationDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+        $('#personEducationDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personEducationDrillDownGraphDataSourceModal').modal('show');
+        $('#personEducationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonEducationDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+
+    });
+}
+
+async function PersonPositionDrillDown(type) {
+    var url = personnelRootPath + 'PersonnelPosition/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    console.log(url)
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionDrillDownGraphDS(data).then();
+        });
+}
+
+async function RenderPersonPositionDrillDownGraphDS(data) {
+    $('#personPositionDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personPositionDrillDownGraphDataSourceLabel').empty()
+    $('#personPositionDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personPositionTypeName + '</b></a>'
+
+            $('#personPositionDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personPositionDrillDownGraphDataSourceLabel').empty()
+            $('#personPositionDrillDownGraphDataSourceLabel').append(result.personPositionTypeName)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personPositionDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonPositionDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="dataPersonPositionDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personPositionDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
+        $.each(result.person, function (key, item) {
+            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
+                '<td>' + item.position + '</td >' +
+                '<td>' + item.positionType + '</td >' +
+                '<td>' + item.faculty + '</td>' +
+
+                '</tr >';
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personPositionDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personPositionDrillDownGraphDataSourceModal').modal('show');
+        $('#personPositionDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonPositionDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonPositionAdminDrillDown(adminPositionType, personnelType) {
+    var url = personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?adminPositionType=' + adminPositionType + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+
+    console.log(url)
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionAdminDrillDownGraphDS(data).then();
+        });
+
+
+}
+
+
+async function RenderPersonPositionAdminDrillDownGraphDS(data) {
+    $('#personPositionAdminDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personPositionAdminDrillDownGraphDataSourceLabel').empty()
+    $('#personPositionAdminDrillDownGraphDataSourceLabel').append("รายการตำแหน่งผู้บริหาร")
+    $.each(data, function (key, result) {
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionAdminDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionAdminDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.adminPositionType + '</b></a>'
+
+            $('#personPositionAdminDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personPositionAdminDrillDownGraphDataSourceLabel').empty()
+            $('#personPositionAdminDrillDownGraphDataSourceLabel').append(result.adminPositionType)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personPositionAdminDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonPositionAdminDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionAdmin" id="dataPersonPositionAdminDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personPositionAdminDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionAdminGraphDataSource-tbody">';
+        $.each(result.personGroupAdminPosition, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personPositionAdminDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personPositionAdminDrillDownGraphDataSourceModal').modal('show');
+        $('#personPositionAdminDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonPositionAdminDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonPositionLevelDrillDown(personnelType, posotionLevel) {
+
+    var url = personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?personnelType=' + personnelType + '&positionLevel=' + posotionLevel + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionLevelDrillDownGraphDS(data).then();
+        });
+
+
+}
+
+async function RenderPersonPositionLevelDrillDownGraphDS(data) {
+    $('#personPositionLevelDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personPositionLevelDrillDownGraphDataSourceLabel').empty();
+    $('#personPositionLevelDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionLevelDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+
+            $('#personPositionLevelDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personPositionLevelDrillDownGraphDataSourceLabel').empty();
+            $('#personPositionLevelDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personPositionLevelDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonPositionLevelDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionLevel" id="dataPersonPositionLevelDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personPositionLevelDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionLevelGraphDataSource-tbody">';
+        $.each(result.personGroupPosition, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personPositionLevelDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personPositionLevelDrillDownGraphDataSourceModal').modal('show');
+        $('#personPositionLevelDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonPositionLevelDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonGroupFacultyDrillDown(faculty, personnelType) {
+
+    var url = personnelRootPath + 'PersonnelGroupFaculty/DataSource?faculty=' + faculty + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonGroupFacultyDrillDownGraphDS(data).then();
+        });
+
+
+}
+
+async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
+
+    $('#personGroupFacultyDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personGroupFacultyDrillDownGraphDataSourceLabel').empty()
+    $('#personGroupFacultyDrillDownGraphDataSourceLabel').append("หน่วยงาน/สังกัด")
+    $.each(data, function (key, result) {
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personGroupFacultyDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personGroupFacultyDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.faculty + '</b></a>'
+
+            $('#personGroupFacultyDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personGroupFacultyDrillDownGraphDataSourceLabel').empty()
+            $('#personGroupFacultyDrillDownGraphDataSourceLabel').append(result.faculty)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personGroupFacultyDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonGroupFacultyDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personGroupFaculty" id="dataPersonGroupFacultyDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personGroupFacultyDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personGroupFacultyGraphDataSource-tbody">';
+        $.each(result.personGroupFaculty, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personGroupFacultyDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personGroupFacultyDrillDownGraphDataSourceModal').modal('show');
+        $('#personGroupFacultyDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonGroupFacultyDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonPositionFacultyDrillDown(faculty, personnelType, indexTable) {
+    var url = personnelRootPath + 'PersonnelPositionFaculty/DataSource?faculty=' + faculty + '&position=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonPositionFacultyDrillDownGraphDS(data);
+        });
+}
+
+async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
+
+    $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personPositionFacultyDrillDownGraphDataSourceLabel').empty()
+    $('#personPositionFacultyDrillDownGraphDataSourceLabel').append("หน่วยงาน/สังกัด")
+    $.each(data, function (key, result) {
+
+        if (data.length > 1) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionFacultyDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="persoPositionFacultyDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.faculty + '</b></a>'
+
+            $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personPositionFacultyDrillDownGraphDataSourceLabel').empty()
+            $('#personPositionFacultyDrillDownGraphDataSourceLabel').append(result.faculty)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personPositionFacultyDrillDownGraphDSCollapse' + key + '">';
+
+        var table = $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionFaculty" id="dataPersonPositionFacultyDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personPositionFacultyDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
+        $.each(result.personPositionFaculty, function (key, item) {
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personPositionFacultyDrillDownGraphDataSourceModal').modal('show');
+        $('#personPositionFacultyDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+
+async function PersonRetiredDrillDown(retiredYear, personnelType, startDate, endDate) {
+    var url = personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=' + startDate + '&EndDate=' + endDate
+        + '&RetiredYear=' + retiredYear + '&PersonnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonRetiredDrillDownGraphDS(data).then();
+        });
+
+
+}
+
+async function RenderPersonRetiredDrillDownGraphDS(data) {
+
+    $('#personRetiredDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personRetiredDrillDownGraphDataSourceLabel').empty()
+    $('#personRetiredDrillDownGraphDataSourceLabel').append("ปีที่เกษียณอายุ")
+    $.each(data, function (key, result) {
+        if (data.length > 1 && result.personGroupRetiredYear.length > 0) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personRetiredDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personRetiredDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.reitredYear + '</b></a>'
+
+            $('#personRetiredDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personRetiredDrillDownGraphDataSourceLabel').empty()
+            $('#personRetiredDrillDownGraphDataSourceLabel').append('ปี พ.ศ.' + result.reitredYear)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personRetiredDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonRetiredDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="dataPersonRetiredDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personRetiredDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-persoRetiredGraphDataSource-tbody">';
+        $.each(result.personGroupRetiredYear, function (key, item) {
+
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personRetiredDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personRetiredDrillDownGraphDataSourceModal').modal('show');
+        $('#personRetiredDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonRetiredDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+async function PersonWorkDurationDrillDown(personnelType, index) {
+
+    var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            RenderPersonWorkDurationDrillDownGraphDS(data).then();
+        });
+
+
+}
+async function RenderPersonWorkDurationDrillDownGraphDS(data) {
+
+    $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').empty();
+    $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
+    $('#personWorkDurationDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
+    $.each(data, function (key, result) {
+        if (data.length > 1 && result.personGroupWorkDuration.length > 0) {
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personWorkDurationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkDurationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+
+            $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(link)
+        } else {
+            $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
+            $('#personWorkDurationDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
+        }
+
+        var startRow = '<div class="collapse multi-collapse" id="personWorkDurationDrillDownGraphDSCollapse' + key + '">';
+        var table = $('#dataPersonWorkDurationDrillDownTable' + key).DataTable();
+        table.clear().destroy();
+
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="dataPersonWorkDurationDrillDownTable' + key + '">';
+        var startThead = '<thead id="sub-personWorkDurationDrillDownGraphDataSource-thead">';
+        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
+
+        var endThead = '</thead>';
+
+        var startBody = '<tbody id="sub-personWorkDurationGraphDataSource-tbody">';
+        $.each(result.personGroupWorkDuration, function (key, item) {
+
+            $.each(item.person, function (index, sItem) {
+                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
+                    sItem.gender + '</td>' +
+                    '<td>' + sItem.position + '</td >' +
+                    '<td>' + sItem.positionType + '</td >' +
+                    '<td>' + sItem.faculty + '</td>' +
+                    '</tr >';
+            });
+
+        });
+        var endbody = '</tbody>';
+
+        var endTable = '</table>';
+        var endRow = '</div>';
+
+        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
+            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
+
+
+        $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(html);
+
+        $('#personWorkDurationDrillDownGraphDataSourceModal').modal('show');
+        $('#personWorkDurationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#dataPersonWorkDurationDrillDownTable' + key).DataTable({
+            language: oLanguagePersonGraphOptions
+        });
+    });
+}
+
+
+function RenderReseachMoney(researcheMoneyist) {
+    var listName = '';
+    console.log(researcheMoneyist)
+    $.each(researcheMoneyist, function (key, value) {
+        if (key > 0) {
+            listName += '<br/>';
+        }
+        listName += (key + 1) + '.' + value.moneyTypeName;
+    });
+
+    //return listName;
+    return listName
+}
+
+function RenderReseacherName(researcherList) {
+    //var listName = '';
+    //$.each(researcherList, function (key, value) {
+    //    if (key > 0) {
+    //        listName += '<br/>';
+    //    }
+    //    listName += '<a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId + ')" class="text-green">' + value.researcherName + '</a>';
+    //});
+
+    //return listName;
+    return '<a href="#" onclick="DisplayPersonInfoDetailModal(' + researcherList[0].citizenId + ')" class="text-green">' + researcherList[0].researcherName + '</a>'
+}
 
 function chartClicked(chart, chartName) {
 
@@ -1413,1141 +2633,4 @@ async function DisplayPersonInfoDetailModal(citizenId) {
 
 
 
-}
-
-
-
-async function AllPersonGraphDS(token, userName) {
-
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderAllPersonGraphDS(data);
-        });
-}
-async function RenderAllPersonGraphDS(data) {
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
-
-        $('#allpersonalGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="allPersonGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="sub-allpersonal-' + key + '-table">';
-        var startThead = '<thead id="sub-allpersonalGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-allpersonalGraphDataSource-tbody">';
-        $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                '<td>' + item.position + '</td >' +
-                '<td>' + item.positionType + '</td >' +
-                '<td>' + item.faculty + '</td>' +
-
-                '</tr >';
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#allpersonalGraphDataSourceModal-card-body').append(html);
-
-    });
-}
-function RenderReseachMoney(researcheMoneyist) {
-    var listName = '';
-    console.log(researcheMoneyist)
-    $.each(researcheMoneyist, function (key, value) {
-        if (key > 0) {
-            listName += '<br/>';
-        }
-        listName += (key + 1) + '.' + value.moneyTypeName;
-    });
-
-    //return listName;
-    return listName
-}
-
-function RenderReseacherName(researcherList) {
-    //var listName = '';
-    //$.each(researcherList, function (key, value) {
-    //    if (key > 0) {
-    //        listName += '<br/>';
-    //    }
-    //    listName += '<a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId + ')" class="text-green">' + value.researcherName + '</a>';
-    //});
-
-    //return listName;
-    return '<a href="#" onclick="DisplayPersonInfoDetailModal(' + researcherList[0].citizenId + ')" class="text-green">' + researcherList[0].researcherName + '</a>'
-}
-
-async function PersonWorkAgeGraphDS(token, userName) {
-
-    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonWorkAgeGraphDS(data);
-        });
-}
-async function RenderPersonWorkAgeGraphDS(data) {
-
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personWorkAgeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkAgeGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
-
-        $('#personWorkAgeGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personWorkAgeGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personWorkAge" id="sub-personWorkAge-' + key + '-table">';
-        var startThead = '<thead id="sub-personWorkAgeGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th><th>ช่วงอายุงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personWorkAgeGraphDataSource-tbody">';
-
-        $.each(result.personGroupWorkDuration, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '<td>' + item.workDuration + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#personWorkAgeGraphDataSourceModal-card-body').append(html);
-    });
-}
-
-async function PersonPositionGraphDS(token, userName) {
-
-    fetch(personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonPositionGraphDS(data);
-        });
-}
-async function RenderPersonPositionGraphDS(data) {
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.adminPositionType + '</b></a>'
-
-        $('#personPositionGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personPositionGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="sub-personPosition-' + key + '-table">';
-        var startThead = '<thead id="sub-personPositionGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
-
-        $.each(result.personGroupAdminPosition, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#personPositionGraphDataSourceModal-card-body').append(html);
-    });
-}
-
-async function PersonPositionLevelGraphDS(token, userName) {
-
-    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonPositionLevelGraphDS(data);
-        });
-}
-async function RenderPersonPositionLevelGraphDS(data) {
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionLevelGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
-
-        $('#personPositionLevelGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personPositionLevelGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="sub-personPosition-' + key + '-table">';
-        var startThead = '<thead id="sub-personPositionGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personPositionLevelGraphDataSource-tbody">';
-
-        $.each(result.personGroupPosition, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#personPositionLevelGraphDataSourceModal-card-body').append(html);
-    });
-}
-
-
-async function PersonFacultyGraphDS(token, userName) {
-
-    fetch(personnelRootPath + 'PersonnelGroupFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonFacultyGraphDS(data);
-        });
-}
-async function RenderPersonFacultyGraphDS(data) {
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personFacultyGraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="personFacultyGraphDSCollapse'
-            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
-            + result.faculty + '</b></a>'
-
-        $('#personFacultyGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personFacultyGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personFaculty" id="sub-personFaculty-' + key + '-table">';
-        var startThead = '<thead id="sub-personFacultyGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personFacultyGraphDataSource-tbody">';
-        $.each(result.personGroupFaculty, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#personFacultyGraphDataSourceModal-card-body').append(html);
-    });
-}
-
-async function PersonPositionFacultyGraphDS(token, userName) {
-
-    fetch(personnelRootPath + 'PersonnelPositionFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonPositionFacultyGraphDS(data);
-        });
-}
-async function RenderPersonPositionFacultyGraphDS(data) {
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionFacultyGraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="personPositionFacultyGraphDSCollapse'
-            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
-            + result.faculty + '</b></a>'
-
-        $('#personPositionFacultyGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personPositionFacultyGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionFaculty" id="sub-personPositionFaculty-' + key + '-table">';
-        var startThead = '<thead id="sub-personPositionFacultyGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
-        $.each(result.personPositionFaculty, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#personPositionFacultyGraphDataSourceModal-card-body').append(html);
-    });
-}
-
-async function PersonRetiredGraphDS(token, userName) {
-
-    fetch(personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=2553-01-01&EndDate=2563-01-01&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderRetiredGraphDS(data);
-        });
-}
-async function RenderRetiredGraphDS(data) {
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personRetiredGraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="personRetiredGraphDSCollapse'
-            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
-            + result.reitredYear + '</b></a>'
-
-        $('#personRetiredGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personRetiredGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="sub-personRetired-' + key + '-table">';
-        var startThead = '<thead id="sub-personRetiredGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-        var endThead = '</thead>';
-        var startBody = '<tbody id="sub-personRetiredGraphDataSource-tbody">';
-        $.each(result.personGroupRetiredYear, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-        var endTable = '</table>';
-        var endRow = '</div>';
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-        $('#personRetiredGraphDataSourceModal-card-body').append(html);
-    });
-}
-
-async function PersonEducationGraphDS(token, userName) {
-    fetch(personnelRootPath + 'PersonnelEducation/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonEducationGraphDS(data);
-        });
-}
-async function RenderPersonEducationGraphDS(data) {
-
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personEducationGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.educationTypeName + '</b></a>'
-
-        $('#personEducationGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personEducationGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personEducation" id="sub-personEducation-' + key + '-table">';
-        var startThead = '<thead id="sub-personEducationGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
-        $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                '<td>' + item.position + '</td >' +
-                '<td>' + item.positionType + '</td >' +
-                '<td>' + item.faculty + '</td>' +
-
-                '</tr >';
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#personEducationGraphDataSourceModal-card-body').append(html);
-
-    });
-}
-
-
-async function PersonTypeGraphDS(token, userName) {
-    fetch(personnelRootPath + 'PersonnelPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonTypeGraphDS(data);
-        });
-}
-async function RenderPersonTypeGraphDS(data) {
-
-    $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personTypeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personTypeDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personPositionTypeName + '</b></a>'
-
-        $('#personTypeGraphDataSourceModal-card-body').append(link)
-        var startRow = '<div class="collapse multi-collapse" id="personTypeGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personType" id="sub-personType-' + key + '-table">';
-        var startThead = '<thead id="sub-personTypeGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personTypeGraphDataSource-tbody">';
-        $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                '<td>' + item.position + '</td >' +
-                '<td>' + item.positionType + '</td >' +
-                '<td>' + item.faculty + '</td>' +
-
-                '</tr >';
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
-
-        $('#personTypeGraphDataSourceModal-card-body').append(html);
-
-    });
-}
-
-async function LoadDataTable(name, key) {
-
-    var dataTableName = '#sub-' + name + '-' + key + '-table';
-    $(dataTableName).DataTable({
-        language: oLanguagePersonGraphOptions,
-        searching: false,
-        pageLength: 5
-    });
-}
-async function Load() {
-
-    $('.dataTable-sub-allpersonal').DataTable({
-        language: oLanguagePersonGraphOptions,
-        searching: false,
-        pageLength: 5
-    });
-}
-
-
-//DrillDown
-async function PersonGenerationDrillDown(generaTion, type) {
-
-    var url = personnelRootPath + 'PersonnelPositionGeneration/DataSource?positionType=' + type + '&index=' + generaTion + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0';
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonGenerationDrillDown(data).then();
-        });
-}
-
-async function RenderPersonGenerationDrillDown(data) {
-    $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').empty()
-    $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
-    $.each(data, function (key, result) {
-
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personnelPositionGenerationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personnelPositionGenerationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.persionPostionName + '</b></a>'
-            $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').append(link)
-
-        } else {
-            $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').empty()
-            $('#personnelPositionGenerationDrillDownGraphDataSourceLabel').append(result.persionPostionName)
-        }
-
-
-
-        var startRow = '<div class="collapse multi-collapse" id="personnelPositionGenerationDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonnelPositionGenerationDrillDown' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personnelPositionGeneration" id="dataPersonnelPositionGenerationDrillDown' + key + '">';
-        var startThead = '<thead id="sub-personnelPositionGenerationDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personnelPositionGenerationDrillDownGraphDataSource-tbody">';
-
-        $.each(result.personPostionGeneration[0].person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                '<td>' + item.position + '</td >' +
-                '<td>' + item.positionType + '</td >' +
-                '<td>' + item.faculty + '</td>' +
-
-                '</tr >';
-
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personnelPositionGenerationDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personnelPositionGenerationDrillDownGraphDataSourceModal').modal('show');
-        $('#personnelPositionGenerationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonnelPositionGenerationDrillDown' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-
-    });
-
-}
-
-async function PersonGroupDrillDown(type) {
-    var url = personnelRootPath + 'PersonnelGroup/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderAllPersonDrillDownGraphDS(data).then();
-        });
-
-
-
-}
-
-async function RenderAllPersonDrillDownGraphDS(data) {
-
-    $('#allpersonnelDrillDownGraphDataSourceModal-card-body').empty();
-    $('#allPersoneDrillDownGraphDataSourceLabel').empty()
-    $('#allPersoneDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
-    $.each(data, function (key, result) {
-
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#allPersonDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
-            $('#allpersonnelDrillDownGraphDataSourceModal-card-body').append(link)
-
-        } else {
-            $('#allPersoneDrillDownGraphDataSourceLabel').empty()
-            $('#allPersoneDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
-        }
-
-
-
-        var startRow = '<div class="collapse multi-collapse" id="allPersonDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonnelDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-allpersonal" id="dataPersonnelDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-allpersonalDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-allpersonalDrillDownGraphDataSource-tbody">';
-        $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                '<td>' + item.position + '</td >' +
-                '<td>' + item.positionType + '</td >' +
-                '<td>' + item.faculty + '</td>' +
-
-                '</tr >';
-
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#allpersonnelDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#allpersonaleDrillDownGraphDataSourceModal').modal('show');
-        $('#allpersonaleDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonnelDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-
-    });
-}
-
-async function PersonEducationDrillDown(type) {
-    var url = personnelRootPath + 'PersonnelEducation/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonEducationDrillDownGraphDS(data).then();
-        });
-
-
-
-}
-
-async function RenderPersonEducationDrillDownGraphDS(data) {
-    $('#personEducationDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personEducationDrillDownGraphDataSourceLabel').empty()
-    $('#personEducationDrillDownGraphDataSourceLabel').append("ระดับการศึกษา")
-    $.each(data, function (key, result) {
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personEducationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.educationTypeName + '</b></a>'
-            $('#personEducationDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personEducationDrillDownGraphDataSourceLabel').empty()
-            $('#personEducationDrillDownGraphDataSourceLabel').append(result.educationTypeName)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personEducationDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonEducationDrillDownTable' + key).DataTable();
-
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personEducation" id="dataPersonEducationDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personEducationDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personEducationGraphDataSource-tbody">';
-        $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                '<td>' + item.position + '</td >' +
-                '<td>' + item.positionType + '</td >' +
-                '<td>' + item.faculty + '</td>' +
-
-                '</tr >';
-        });
-        var endbody = '</tbody>';
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-        $('#personEducationDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personEducationDrillDownGraphDataSourceModal').modal('show');
-        $('#personEducationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonEducationDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-
-    });
-}
-
-async function PersonPositionDrillDown(type) {
-    var url = personnelRootPath + 'PersonnelPosition/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-    console.log(url)
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonPositionDrillDownGraphDS(data).then();
-        });
-}
-
-async function RenderPersonPositionDrillDownGraphDS(data) {
-    $('#personPositionDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personPositionDrillDownGraphDataSourceLabel').empty()
-    $('#personPositionDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
-    $.each(data, function (key, result) {
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personPositionTypeName + '</b></a>'
-
-            $('#personPositionDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personPositionDrillDownGraphDataSourceLabel').empty()
-            $('#personPositionDrillDownGraphDataSourceLabel').append(result.personPositionTypeName)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personPositionDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonPositionDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPosition" id="dataPersonPositionDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personPositionDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personPositionGraphDataSource-tbody">';
-        $.each(result.person, function (key, item) {
-            startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + item.citizenId + ')" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                '<td>' + item.position + '</td >' +
-                '<td>' + item.positionType + '</td >' +
-                '<td>' + item.faculty + '</td>' +
-
-                '</tr >';
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personPositionDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personPositionDrillDownGraphDataSourceModal').modal('show');
-        $('#personPositionDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonPositionDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-    });
-}
-
-async function PersonPositionAdminDrillDown(adminPositionType, personnelType) {
-    var url = personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?adminPositionType=' + adminPositionType + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-
-    console.log(url)
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonPositionAdminDrillDownGraphDS(data).then();
-        });
-
-
-}
-
-
-async function RenderPersonPositionAdminDrillDownGraphDS(data) {
-    $('#personPositionAdminDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personPositionAdminDrillDownGraphDataSourceLabel').empty()
-    $('#personPositionAdminDrillDownGraphDataSourceLabel').append("รายการตำแหน่งผู้บริหาร")
-    $.each(data, function (key, result) {
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionAdminDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionAdminDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.adminPositionType + '</b></a>'
-
-            $('#personPositionAdminDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personPositionAdminDrillDownGraphDataSourceLabel').empty()
-            $('#personPositionAdminDrillDownGraphDataSourceLabel').append(result.adminPositionType)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personPositionAdminDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonPositionAdminDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionAdmin" id="dataPersonPositionAdminDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personPositionAdminDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personPositionAdminGraphDataSource-tbody">';
-        $.each(result.personGroupAdminPosition, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personPositionAdminDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personPositionAdminDrillDownGraphDataSourceModal').modal('show');
-        $('#personPositionAdminDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonPositionAdminDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-    });
-}
-
-async function PersonPositionLevelDrillDown(personnelType, posotionLevel) {
-
-    var url = personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?personnelType=' + personnelType + '&positionLevel=' + posotionLevel + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonPositionLevelDrillDownGraphDS(data).then();
-        });
-
-
-}
-
-async function RenderPersonPositionLevelDrillDownGraphDS(data) {
-    $('#personPositionLevelDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personPositionLevelDrillDownGraphDataSourceLabel').empty();
-    $('#personPositionLevelDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
-    $.each(data, function (key, result) {
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionLevelDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
-
-            $('#personPositionLevelDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personPositionLevelDrillDownGraphDataSourceLabel').empty();
-            $('#personPositionLevelDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personPositionLevelDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonPositionLevelDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionLevel" id="dataPersonPositionLevelDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personPositionLevelDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personPositionLevelGraphDataSource-tbody">';
-        $.each(result.personGroupPosition, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personPositionLevelDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personPositionLevelDrillDownGraphDataSourceModal').modal('show');
-        $('#personPositionLevelDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonPositionLevelDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-    });
-}
-
-async function PersonGroupFacultyDrillDown(faculty, personnelType) {
-
-    var url = personnelRootPath + 'PersonnelGroupFaculty/DataSource?faculty=' + faculty + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonGroupFacultyDrillDownGraphDS(data).then();
-        });
-
-
-}
-
-async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
-
-    $('#personGroupFacultyDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personGroupFacultyDrillDownGraphDataSourceLabel').empty()
-    $('#personGroupFacultyDrillDownGraphDataSourceLabel').append("หน่วยงาน/สังกัด")
-    $.each(data, function (key, result) {
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personGroupFacultyDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personGroupFacultyDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.faculty + '</b></a>'
-
-            $('#personGroupFacultyDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personGroupFacultyDrillDownGraphDataSourceLabel').empty()
-            $('#personGroupFacultyDrillDownGraphDataSourceLabel').append(result.faculty)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personGroupFacultyDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonGroupFacultyDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personGroupFaculty" id="dataPersonGroupFacultyDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personGroupFacultyDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personGroupFacultyGraphDataSource-tbody">';
-        $.each(result.personGroupFaculty, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personGroupFacultyDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personGroupFacultyDrillDownGraphDataSourceModal').modal('show');
-        $('#personGroupFacultyDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonGroupFacultyDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-    });
-}
-
-async function PersonPositionFacultyDrillDown(faculty, personnelType, indexTable) {
-    var url = personnelRootPath + 'PersonnelPositionFaculty/DataSource?faculty=' + faculty + '&position=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonPositionFacultyDrillDownGraphDS(data);
-        });
-}
-
-async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
-
-    $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personPositionFacultyDrillDownGraphDataSourceLabel').empty()
-    $('#personPositionFacultyDrillDownGraphDataSourceLabel').append("หน่วยงาน/สังกัด")
-    $.each(data, function (key, result) {
-
-        if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personPositionFacultyDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="persoPositionFacultyDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.faculty + '</b></a>'
-
-            $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personPositionFacultyDrillDownGraphDataSourceLabel').empty()
-            $('#personPositionFacultyDrillDownGraphDataSourceLabel').append(result.faculty)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personPositionFacultyDrillDownGraphDSCollapse' + key + '">';
-
-        var table = $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personPositionFaculty" id="dataPersonPositionFacultyDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personPositionFacultyDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personPositionFacultyGraphDataSource-tbody">';
-        $.each(result.personPositionFaculty, function (key, item) {
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personPositionFacultyDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personPositionFacultyDrillDownGraphDataSourceModal').modal('show');
-        $('#personPositionFacultyDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonPositionFacultyDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-    });
-}
-
-
-async function PersonRetiredDrillDown(retiredYear, personnelType, startDate, endDate) {
-    var url = personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=' + startDate + '&EndDate=' + endDate
-        + '&RetiredYear=' + retiredYear + '&PersonnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonRetiredDrillDownGraphDS(data).then();
-        });
-
-
-}
-
-async function RenderPersonRetiredDrillDownGraphDS(data) {
-
-    $('#personRetiredDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personRetiredDrillDownGraphDataSourceLabel').empty()
-    $('#personRetiredDrillDownGraphDataSourceLabel').append("ปีที่เกษียณอายุ")
-    $.each(data, function (key, result) {
-        if (data.length > 1 && result.personGroupRetiredYear.length > 0) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personRetiredDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personRetiredDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.reitredYear + '</b></a>'
-
-            $('#personRetiredDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personRetiredDrillDownGraphDataSourceLabel').empty()
-            $('#personRetiredDrillDownGraphDataSourceLabel').append('ปี พ.ศ.' + result.reitredYear)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personRetiredDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonRetiredDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="dataPersonRetiredDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personRetiredDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-persoRetiredGraphDataSource-tbody">';
-        $.each(result.personGroupRetiredYear, function (key, item) {
-
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + sItem.citizenId + ')" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personRetiredDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personRetiredDrillDownGraphDataSourceModal').modal('show');
-        $('#personRetiredDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonRetiredDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-    });
-}
-
-async function PersonWorkDurationDrillDown(personnelType, index) {
-
-    var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-
-    fetch(url)
-        .then(res => res.json())
-        .then((data) => {
-            RenderPersonWorkDurationDrillDownGraphDS(data).then();
-        });
-
-
-}
-async function RenderPersonWorkDurationDrillDownGraphDS(data) {
-
-    $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').empty();
-    $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
-    $('#personWorkDurationDrillDownGraphDataSourceLabel').append("ประเภทบุคลากร")
-    $.each(data, function (key, result) {
-        if (data.length > 1 && result.personGroupWorkDuration.length > 0) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#personWorkDurationDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkDurationDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
-
-            $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(link)
-        } else {
-            $('#personWorkDurationDrillDownGraphDataSourceLabel').empty()
-            $('#personWorkDurationDrillDownGraphDataSourceLabel').append(result.personGroupTypeName)
-        }
-
-        var startRow = '<div class="collapse multi-collapse" id="personWorkDurationDrillDownGraphDSCollapse' + key + '">';
-        var table = $('#dataPersonWorkDurationDrillDownTable' + key).DataTable();
-        table.clear().destroy();
-
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-personRetired" id="dataPersonWorkDurationDrillDownTable' + key + '">';
-        var startThead = '<thead id="sub-personWorkDurationDrillDownGraphDataSource-thead">';
-        var thead = '<tr><th>ชื่อ-นามสกุล</th><th>เพศ</th><th>ตำแหน่ง</th><th>ประเภท</th><th>หน่วยงาน</th></tr>';
-
-        var endThead = '</thead>';
-
-        var startBody = '<tbody id="sub-personWorkDurationGraphDataSource-tbody">';
-        $.each(result.personGroupWorkDuration, function (key, item) {
-
-            $.each(item.person, function (index, sItem) {
-                startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
-                    sItem.gender + '</td>' +
-                    '<td>' + sItem.position + '</td >' +
-                    '<td>' + sItem.positionType + '</td >' +
-                    '<td>' + sItem.faculty + '</td>' +
-                    '</tr >';
-            });
-
-        });
-        var endbody = '</tbody>';
-
-        var endTable = '</table>';
-        var endRow = '</div>';
-
-        var html = data.length > 1 ? startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow
-            : startTable + startThead + thead + endThead + startBody + endbody + endTable;
-
-
-        $('#personWorkDurationDrillDownGraphDataSourceModal-card-body').append(html);
-
-        $('#personWorkDurationDrillDownGraphDataSourceModal').modal('show');
-        $('#personWorkDurationDrillDownGraphDataSourceModal').on('shown.bs.modal', function () {
-
-        })
-
-        $('#dataPersonWorkDurationDrillDownTable' + key).DataTable({
-            language: oLanguagePersonGraphOptions
-        });
-    });
 }

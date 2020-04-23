@@ -24,7 +24,7 @@
             </div>
             <br />
             <div class="card-body" id="personType-chart-canvas">
-                <canvas id="personType-chart" style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%;"></canvas>
+                <canvas id="personType-chart" style="min-height: 350px; height: 370px; max-height: 400px; max-width: 100%;"></canvas>
             </div>
             <div class="position-relative mb-4" id="personType-chart-table" style="display:none;">
                 <partial name="PartialViews/PersonTypeGraph/_personTypeGraphDataTable" />
@@ -37,6 +37,9 @@
     $(function () {
         PersonTypeGraph('@userAccesToken','@User.Identity.Name');
         ToggleChart("personType");
+        $('#personType-datasource').click(function () {
+            PersonEducationGraphDS('@userAccesToken','@User.Identity.Name')
+        });
     })
 </script>
 <partial name="PartialViews/PersonTypeGraph/_personTypeGraphDataSource" />
