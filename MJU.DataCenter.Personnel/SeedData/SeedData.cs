@@ -148,6 +148,13 @@ namespace MJU.DataCenter.Personnel.SeedData
             int range = (DateTime.UtcNow.AddYears(-23) - start).Days;
             return start.AddDays(random.Next(range));
         }
+        public static DateTime? RandomDateWork()
+        {
+            Random random = new Random();
+            DateTime start = new DateTime(1970, 1, 1);
+            int range = (DateTime.UtcNow.AddYears(-1) - start).Days;
+            return start.AddDays(random.Next(range));
+        }
         public static DateTime? RandomDateTimeRetired()
         {
             Random random = new Random();
