@@ -152,7 +152,7 @@ namespace MJU.DataCenter.Personnel.SeedData
         {
             Random random = new Random();
             DateTime start = new DateTime(1970, 1, 1);
-            int range = (DateTime.UtcNow.AddYears(-1) - start).Days;
+            int range = (DateTime.UtcNow - start).Days;
             return start.AddDays(random.Next(range));
         }
         public static DateTime? RandomDateTimeRetired()
