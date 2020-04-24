@@ -1200,18 +1200,20 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var label = new List<string>();
                 var distinctPersonnelType = personnel.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
+                var distinctAdminPositionTypeByPersonnelType = personnel.Select(s => s.AdminPositionType).Distinct();
 
+                foreach (var ap in distinctAdminPositionTypeByPersonnelType)
+                {
+                    label.Add(ap);
+                }
                 var index = 0;
                 foreach (var p in distinctPersonnelType)
                 {
                     var data = new List<int>();
                     var adminPositionTypeByPersonnelType = personnel.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId);
-                    var distinctAdminPositionTypeByPersonnelType = adminPositionTypeByPersonnelType.Select(s => s.AdminPositionType).Distinct();
-
                     foreach (var ap in distinctAdminPositionTypeByPersonnelType)
                     {
                         data.Add(adminPositionTypeByPersonnelType.Where(m => m.AdminPositionType == ap).Count());
-                        label.Add(ap);
                     }
                     var graphDataset = new GraphDataSet
                     {
@@ -1227,7 +1229,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 }
                 var graphData = new GraphData
                 {
-                    Label = label.Distinct().ToList(),
+                    Label = label,
                     GraphDataSet = graphDatasetList
                 };
 
@@ -1355,17 +1357,21 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var label = new List<string>();
                 var distinctPersonnelType = personnel.Select(s => new { s.PersonnelTypeId, s.PersonnelType }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
+                var distinctfacultyByPersonnelType = personnel.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
+
+                foreach (var fc in distinctfacultyByPersonnelType)
+                {
+                    label.Add(fc.Faculty);
+                }
                 var index = 0;
                 foreach (var p in distinctPersonnelType)
                 {
                     var data = new List<int>();
                     var facultyByPersonnelType = personnel.Where(m => m.PersonnelType == p.PersonnelType && m.PersonnelTypeId == p.PersonnelTypeId).OrderBy(o => o.PersonnelTypeId);
-                    var distinctfacultyByPersonnelType = facultyByPersonnelType.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
 
                     foreach (var fc in distinctfacultyByPersonnelType)
                     {
                         data.Add(facultyByPersonnelType.Where(m => m.Faculty == fc.Faculty && m.FacultyId == fc.FacultyId).Count());
-                        label.Add(fc.Faculty);
                     }
                     var graphDataset = new GraphDataSet
                     {
@@ -1380,7 +1386,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 }
                 var graphData = new GraphData
                 {
-                    Label = label.Distinct().ToList(),
+                    Label = label,
                     GraphDataSet = graphDatasetList
                 };
 
@@ -1524,16 +1530,6 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         label.Add(item.Key);
                         index++;
                     }
-
-                    //var subGraphData = new GraphData
-                    //{
-                    //    Label = graphDatasetList.GroupBy(x => x.Label).Select(x => x.Key).ToList(),
-                    //    GraphDataSet = graphDatasetList,
-                    //    IsSubGraphDataSet = isSubGraphDataSet
-                    //};
-
-         
-
                     var graphDataSet = new GraphDataSet
                     {
                         Data = data,
@@ -1562,17 +1558,20 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var label = new List<string>();
                     var distinctPersonPosition = personnel.Select(s => s.Position).Distinct();
                     var graphDatasetList = new List<GraphDataSet>();
-  
+                    var distinctFacultyByPosition = personnel.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
+
+                    foreach (var fp in distinctFacultyByPosition)
+                    {
+                        label.Add(fp.Faculty);
+                    }
                     foreach (var position in distinctPersonPosition)
                     {
                         var data = new List<int>();
                         var facultyByPosition = personnel.Where(m => m.Position == position);
-                        var distinctFacultyByPosition = facultyByPosition.Select(s => new { s.FacultyId, s.Faculty }).Distinct();
 
                         foreach (var fp in distinctFacultyByPosition)
                         {
                             data.Add(facultyByPosition.Where(m => m.Faculty == fp.Faculty && m.FacultyId == fp.FacultyId).Count());
-                            label.Add(fp.Faculty);
                         }
                         var graphDataset = new GraphDataSet
                         {
@@ -1587,23 +1586,14 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     }
                     var graphData = new GraphData
                     {
-                        Label = label.Distinct().ToList(),
+                        Label = label,
                         GraphDataSet = graphDatasetList
                     };
 
                     return graphData;
 
                 }
-
-
-
-
-
-
-
-
-
-               
+  
 
             }
             else
@@ -1929,18 +1919,20 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 var label = new List<string>();
                 var distinctPositionLevel = personnel.Select(s => new { s.PositionLevelId, s.PositionLevel }).Distinct();
                 var graphDatasetList = new List<GraphDataSet>();
+                var distinctPersonnelTypeByPositionLevel = personnel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
 
+                foreach (var pp in distinctPersonnelTypeByPositionLevel)
+                {
+                    label.Add(pp.PersonnelType);
+                }
                 foreach (var pl in distinctPositionLevel)
                 {
                     var data = new List<int>();
                     var personnelTypeByPositionLevel = personnel.Where(m => m.PositionLevelId == pl.PositionLevelId && m.PositionLevel == pl.PositionLevel).OrderBy(o => o.PersonnelTypeId);
                     var ad = personnelTypeByPositionLevel.Count();
-                    var distinctPersonnelTypeByPositionLevel = personnelTypeByPositionLevel.Select(s => new { s.PersonnelType, s.PersonnelTypeId }).Distinct();
-
                     foreach (var pp in distinctPersonnelTypeByPositionLevel)
                     {
                         data.Add(personnelTypeByPositionLevel.Where(m => m.PersonnelTypeId == pp.PersonnelTypeId && m.PersonnelType == pp.PersonnelType).Count());
-                        label.Add(pp.PersonnelType);
                     }
                     var graphDataset = new GraphDataSet
                     {
@@ -1957,7 +1949,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
                 var graphData = new GraphData
                 {
-                    Label = label.Distinct().ToList(),
+                    Label = label,
                     GraphDataSet = graphDatasetList
                 };
 

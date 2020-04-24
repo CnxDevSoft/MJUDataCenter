@@ -51,7 +51,7 @@ async function ResearchDepartmentRender(data) {
     var mode = 'index'
     var intersect = true
     var $allResearchChart = $('#researchDepartment-chart');
-
+    Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
 
     var chart = new Chart($allResearchChart, {
         type: 'horizontalBar',
@@ -60,7 +60,7 @@ async function ResearchDepartmentRender(data) {
             //  datasLabels: [1001,1002,1003,1004,1005,1006,1007],
             datasets: [
                 {
-                    backgroundColor: "rgba(114, 249, 156,0.5)",
+                    backgroundColor: ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)"],
                     borderColor: '#007bff',
                     data: data.graphDataSet[0].data,//[50, 25, 1300, 10, 30, 40, 200],
                     //label: [1101,1102,1103,1104,1105]
@@ -152,7 +152,7 @@ async function ResearchDepartmentGraphDS() {
 async function RenderResearchDepartmentGraphDS(data) {
 
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
 
         $('#researchDepartmentGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="researchDepartmentGraphDSCollapse' + key + '">';
@@ -196,7 +196,7 @@ async function ResearchPersonGroupRender(data) {
 
     $('#researchPersonGroup-chart-canvas').empty(); // this is my <canvas> element
     $('#researchPersonGroup-chart-canvas').append('<canvas id="researchPersongroup-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
-
+    Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
@@ -285,7 +285,7 @@ async function ReseachPersonGroupGraphDS() {
 async function RenderReseachPersonGroupGraphDS(data) {
 
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchPersonGroupGraphDSCollapse' + key
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchPersonGroupGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="researchPersonGroupGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
         $('#researchPersonGroupGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="researchPersonGroupGraphDSCollapse' + key + '">';
@@ -331,7 +331,7 @@ async function ResearchMoneyRangeRender(data) {
 
     $('#' + chartName + '-chart-canvas').empty(); // this is my <canvas> element
     $('#' + chartName + '-chart-canvas').append('<canvas id="' + chartName + '-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
-
+    Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
@@ -440,7 +440,7 @@ async function RenderResearchMoneyRangeGraphDS(data) {
     var chartName = 'researchMoneyRange';
     console.log(data);
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
         $('#' + chartName + 'GraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="' + chartName + 'GraphDSCollapse' + key + '">';
@@ -482,7 +482,7 @@ async function ResearchMoneyTypeGraph(startDate, endDate, token, userName) {
 async function ResearchMoneyTypeRender(data) {
 
     var chartName = 'researchMoneyType';
-
+    Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
     $('#' + chartName + '-chart-canvas').empty(); // this is my <canvas> element
     $('#' + chartName + '-chart-canvas').append('<canvas id="' + chartName + '-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
 
@@ -582,7 +582,7 @@ async function RenderResearchMoneyTypeGraphDS(data) {
     var chartName = 'researchMoneyType';
 
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
         $('#' + chartName + 'GraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="' + chartName + 'GraphDSCollapse' + key + '">';
@@ -627,7 +627,7 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
     $.each(data, function (key, result) {
         console.log(result)
         if (data.length>1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchDepartmentDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
             $('#researchDepartmentDrillDownGraphDataSourceModal-card-body').append(link)
         } else {
             $('#researchDepartmentDrillDownGraphDataSourceLabel').empty()
@@ -710,7 +710,7 @@ async function RenderResearchGroupTableDrillDown(data) {
     $.each(data, function (key, result) {
 
         if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchGroupDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchGroupDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchGroupDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchGroupDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
             $('#researchGroupDrillDownGraphDataSourceModal-card-body').append(link)
 
         } else {
@@ -770,7 +770,7 @@ async function RenderResearchMoneyRangeDrillDown(data) {
     $.each(data, function (key, result) {
 
         if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyRangeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyRangeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchMoneyRangeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyRangeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
             $('#researchMoneyRangeDrillDownGraphDataSourceModal-card-body').append(link)
 
         } else {
@@ -843,7 +843,7 @@ async function RenderResearchMoneyTypeDrillDown(data) {
     $.each(data, function (key, result) {
 
         if (data.length > 1) {
-            var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researchMoneyTypeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyTypeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
+            var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchMoneyTypeDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchMoneyTypeDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
             $('#researchMoneyTypeDrillDownGraphDataSourceModal-card-body').append(link)
 
         } else {

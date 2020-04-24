@@ -67,6 +67,5 @@ async function PersonPositionFacultySubGraph($chart, data, token, userName) {
     $("#personPositionFacultyGraphDataTable-tbody").append(
         '<tr><td><strong>รวม</strong></td>' + lastHtml + '</tr>');
 
-    PersonPositionFacultyGraphDS(token, userName);
     $('[data-toggle="tooltip"]').tooltip();
 }

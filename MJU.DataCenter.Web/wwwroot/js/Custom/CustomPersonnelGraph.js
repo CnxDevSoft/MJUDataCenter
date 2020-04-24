@@ -841,8 +841,6 @@ async function PersonPositionFacultyGraph(token, userName) {
                 function handleClick(evt) {
                     var activeElement = chart.getElementAtEvent(evt);
                     PersonPositionFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
-
-                    console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
                 }
                 var sumColumns = [];
                 var sumRows = [];
@@ -1492,7 +1490,7 @@ async function RenderPersonFacultyGraphDS(data) {
 }
 
 async function PersonPositionFacultyGraphDS(token, userName) {
-
+    console.log('dsadasd')
     fetch(personnelRootPath + 'PersonnelPositionFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
