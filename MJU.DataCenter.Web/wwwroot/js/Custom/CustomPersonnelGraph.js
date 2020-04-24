@@ -417,7 +417,7 @@ async function PersonWorkAgeGraph(token, userName) {
 
             function handleClick(evt) {
                 var activeElement = chart.getElementAtEvent(evt);
-                PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._index)
+                PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
             }
 
             var sumColumns = [];
@@ -2349,11 +2349,12 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
 
 async function PersonWorkDurationDrillDown(personnelType, index) {
 
-    var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
-
+    var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+       console.log(url)
     fetch(url)
         .then(res => res.json())
         .then((data) => {
+            console.log(data)
             RenderPersonWorkDurationDrillDownGraphDS(data).then();
         });
 
@@ -2386,7 +2387,7 @@ async function RenderPersonWorkDurationDrillDownGraphDS(data) {
 
         var startBody = '<tbody id="sub-personWorkDurationGraphDataSource-tbody">';
         $.each(result.personGroupWorkDuration, function (key, item) {
-
+            console.log(item)
             $.each(item.person, function (index, sItem) {
                 startBody += '<tr><td><a href="#" class="text-green">' + sItem.personName + '</a></td><td>' +
                     sItem.gender + '</td>' +

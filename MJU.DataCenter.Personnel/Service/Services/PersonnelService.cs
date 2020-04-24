@@ -251,7 +251,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return list;
 
         }
-     
+
         public object GetAllPersonnelEducation(int type, List<int> filter)
         {
             var educate = new List<string>() { "ปริญญาเอก", "ปริญญาตรี", "ปริญญาโท" };
@@ -521,7 +521,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
 
         public List<PersonPostionGenertionDataSourceViewModel> GetAllPersonnelPositionGenerationDataSource(string positionType, int? index, List<int> filter)
         {
-            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(positionType) ? m.PositionType == positionType: true);
+            var personnel = _dcPersonRepository.GetAll().Where(m => !string.IsNullOrEmpty(positionType) ? m.PositionType == positionType : true);
             if (filter.Any())
             {
                 personnel = personnel.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
@@ -1095,88 +1095,277 @@ namespace MJU.DataCenter.Personnel.Service.Services
             var list = new List<PersonGroupWorkDurationDataSourceModel>();
             foreach (var personnelType in distinctPersonnelTypeId)
             {
-                var personData = personnel.Where(m => m.PersonnelType == personnelType.PersonnelType && m.PersonnelTypeId == personnelType.PersonnelTypeId)
-                   .Select(s => new PersonnelDataSourceViewModel
-                   {
-                       AdminPosition = s.AdminPosition,
-                       AdminPositionType = s.AdminPositionType,
-                       BloodType = s.BloodType,
-                       Country = s.Country,
-                       DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
-                       Division = s.Division,
-                       Education = s.Education,
-                       EducationLevel = s.EducationLevel,
-                       Faculty = s.Faculty,
-                       Gender = s.Gender,
-                       GraduateDate = s.GraduateDate.ToLocalDateTime(),
-                       CitizenId = s.CitizenId,
-                       Major = s.Major,
-                       Nation = s.Nation,
-                       PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
-                       PersonnelId = s.PersonnelId,
-                       PersonnelType = s.PersonnelType,
-                       Position = s.Position,
-                       PositionLevel = s.PositionLevel,
-                       PositionType = s.PositionType,
-                       Province = s.Province,
-                       RetiredDate = s.RetiredDate.ToLocalDateTime(),
-                       RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
-                       Salary = s.Salary,
-                       Section = s.Section,
-                       StartDate = s.StartDate.ToLocalDateTime(),
-                       StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
-                       TitleEducation = s.TitleEducation,
-                       University = s.University,
-                       ZipCode = s.ZipCode,
-                       Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+                var personData = personnel.Where(m => m.PersonnelType == personnelType.PersonnelType && m.PersonnelTypeId == personnelType.PersonnelTypeId);
+                var asd = personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).ToList();
 
-                   });
+                var listPerson = new List<PersonGroupWorkDurationDataSource>();
+                if (index == 0 || index == null)
+                {
+                    var persons = new PersonGroupWorkDurationDataSource
+                    {
+                        WorkDuration = "น้อยกว่า 3 ปี",
+                        Person = personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                            CitizenId = s.CitizenId,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
+                        }).ToList()
+                    };
+                    listPerson.Add(persons);
+                }
+                if (index == 1 || index == null)
+                {
+                    var persons = new PersonGroupWorkDurationDataSource
+                    {
+                        WorkDuration = "3 - 5 ปี",
+                        Person = personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                            CitizenId = s.CitizenId,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
+                        }).ToList()
+                    };
+                    listPerson.Add(persons);
+                }
+                if (index == 2 || index == null)
+                {
+                    var persons = new PersonGroupWorkDurationDataSource
+                    {
+                        WorkDuration = "6 - 9 ปี",
+                        Person = personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                            CitizenId = s.CitizenId,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
+                        }).ToList()
+                    };
+                    listPerson.Add(persons);
+                }
+                if (index == 3 || index == null)
+                {
+                    var persons = new PersonGroupWorkDurationDataSource
+                    {
+                        WorkDuration = "10 - 15 ปี",
+                        Person = personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                            CitizenId = s.CitizenId,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
+                        }).ToList()
+                    };
+                    listPerson.Add(persons);
+                }
+                if (index == 4 || index == null)
+                {
+                    var persons = new PersonGroupWorkDurationDataSource
+                    {
+                        WorkDuration = "16 - 20 ปี",
+                        Person = personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                            CitizenId = s.CitizenId,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
+                        }).ToList()
+                    };
+                    listPerson.Add(persons);
+                }
+                if (index == 5 || index == null)
+                {
+                    var persons = new PersonGroupWorkDurationDataSource
+                    {
+                        WorkDuration = "20 ปีขึ้นไป",
+                        Person = personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).Select(s => new PersonnelDataSourceViewModel
+                        {
+                            AdminPosition = s.AdminPosition,
+                            AdminPositionType = s.AdminPositionType,
+                            BloodType = s.BloodType,
+                            Country = s.Country,
+                            DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                            Division = s.Division,
+                            Education = s.Education,
+                            EducationLevel = s.EducationLevel,
+                            Faculty = s.Faculty,
+                            Gender = s.Gender,
+                            GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                            CitizenId = s.CitizenId,
+                            Major = s.Major,
+                            Nation = s.Nation,
+                            PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                            PersonnelId = s.PersonnelId,
+                            PersonnelType = s.PersonnelType,
+                            Position = s.Position,
+                            PositionLevel = s.PositionLevel,
+                            PositionType = s.PositionType,
+                            Province = s.Province,
+                            RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                            RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                            Salary = s.Salary,
+                            Section = s.Section,
+                            StartDate = s.StartDate.ToLocalDateTime(),
+                            StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                            TitleEducation = s.TitleEducation,
+                            University = s.University,
+                            ZipCode = s.ZipCode,
+                            Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
+                        }).ToList()
+                    };
+                    listPerson.Add(persons);
+                }
+
                 var personGroup = new PersonGroupWorkDurationDataSourceModel
                 {
 
                     PersonGroupTypeId = personnelType.PersonnelTypeId,
                     PersonGroupTypeName = personnelType.PersonnelType,
-                    PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataSource>
-                    {
-                            new PersonGroupWorkDurationDataSource
-                           {
-                               WorkDuration = "น้อยกว่า 3 ปี",
-                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) < 3).ToList()
-                           } ,
-                           new PersonGroupWorkDurationDataSource
-                           {
-                               WorkDuration = "3 - 5 ปี",
-                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 3 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 5).ToList()
-                           },
-                           new PersonGroupWorkDurationDataSource
-                           {
-                               WorkDuration = "6 - 9 ปี",
-                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 6 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 9).ToList()
-                            },
-                            new PersonGroupWorkDurationDataSource
-                           {
-                               WorkDuration = "10 - 15 ปี",
-                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 10 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 15).ToList()
-                           },
-                            new PersonGroupWorkDurationDataSource
-                           {
-                               WorkDuration = "16 - 20 ปี",
-                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) >= 16 && (DateTime.UtcNow.Year - m.StartDate.Value.Year) <= 20).ToList()
-                           },
-                            new PersonGroupWorkDurationDataSource
-                           {
-                               WorkDuration = "20 ปีขึ้นไป",
-                               Person =  personData.Where(m => (DateTime.UtcNow.Year - m.StartDate.Value.Year) > 20).ToList()
-                           }
-                    }
+                    PersonGroupWorkDuration = listPerson
                 };
-                if (index != null)
-                {
-                    personGroup.PersonGroupWorkDuration = new List<PersonGroupWorkDurationDataSource>
-                    {
-                        personGroup.PersonGroupWorkDuration[index.Value]
-                    };
-                }
+
                 list.Add(personGroup);
             }
 
@@ -1593,7 +1782,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     return graphData;
 
                 }
-  
+
 
             }
             else
@@ -1912,7 +2101,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 //else
                 //{
 
-                  
+
                 //}
 
 
