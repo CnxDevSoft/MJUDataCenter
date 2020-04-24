@@ -266,8 +266,9 @@ async function ResearchPersonGroupRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                ResearchGroupTableDrillDown(item[0]._model.label);
-               
+                if (item.length > 0) {
+                    ResearchGroupTableDrillDown(item[0]._model.label);
+                }      
             }
         }
     })
@@ -425,8 +426,9 @@ async function ResearchMoneyRangeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                ResearchMoneyRangeDrillDown(item[0]._index);
-               
+                if (item.length > 0) {
+                    ResearchMoneyRangeDrillDown(item[0]._index);
+                }
             }
         }
     })
