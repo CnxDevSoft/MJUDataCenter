@@ -123,11 +123,12 @@ async function ResearchDepartmentRender(data) {
     });
 
     var tempData = [];
-
+    $('#researchDepartmentGraphDataTable-tbody').empty();
     $.each(data.label, function (key, title) {
         tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
     });
     var sumValue = 0;
+
     $.each(tempData, function (key, item) {
         $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="ResearchDepartmentTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
             + item.val + '</button></td></tr>');
@@ -266,11 +267,13 @@ async function ResearchPersonGroupRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                ResearchGroupTableDrillDown(item[0]._model.label);
-               
+                if (item.length > 0) {
+                    ResearchGroupTableDrillDown(item[0]._model.label);
+                }      
             }
         }
     })
+    $('#researchPersonGroupGraphDataTable-tbody').empty();
     var tempData = [];
     $.each(data.label, function (key, title) {
         tempData.push({ "key": key, "val": data.graphDataSet[0].data[key], "title": title });
@@ -425,12 +428,13 @@ async function ResearchMoneyRangeRender(data) {
                 }]
             },
             onClick: function (evt, item) {
-                ResearchMoneyRangeDrillDown(item[0]._index);
-               
+                if (item.length > 0) {
+                    ResearchMoneyRangeDrillDown(item[0]._index);
+                }
             }
         }
     })
-
+    $('#' + chartName + 'GraphDataTable-tbody').empty();
     var tempData = [];
 
     $.each(data.label, function (key, title) {
@@ -582,7 +586,7 @@ async function ResearchMoneyTypeRender(data) {
             }
         }
     })
-
+    $('#' + chartName + 'GraphDataTable-tbody').empty();
     var tempData = [];
 
     $.each(data.label, function (key, title) {

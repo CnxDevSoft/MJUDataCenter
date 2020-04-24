@@ -94,8 +94,9 @@ async function AllPersonGraph(token, userName) {
                         }]
                     },
                     onClick: function (evt, item) {
-
-                        PersonGroupDrillDown(data.label[item[0]._index]);
+                        if (item.length > 0) {
+                            PersonGroupDrillDown(data.label[item[0]._index]);
+                        }
                     }
                 }
             })
@@ -184,10 +185,11 @@ async function PersonAgeGraph(token, userName) {
 
             })
 
-            function handleClick(evt) {
-                var activeElement = stackedBarChart.getElementAtEvent(evt);
-                PersonGenerationDrillDown(activeElement[0]._index, data.graphDataSet[activeElement[0]._datasetIndex].label)
-
+            function handleClick(evt, item) {
+                if (item.length > 0) {
+                    var activeElement = stackedBarChart.getElementAtEvent(evt);
+                    PersonGenerationDrillDown(activeElement[0]._index, data.graphDataSet[activeElement[0]._datasetIndex].label)
+                }
             }
         })
 
@@ -284,10 +286,10 @@ async function PersonEducationGraph(token, userName) {
             var donutOptions = {
                 maintainAspectRatio: false,
                 responsive: true,
-
                 onClick: function (evt, item) {
-
-                    PersonEducationDrillDown(data.label[item[0]._index]);
+                    if (item.length > 0) {
+                        PersonEducationDrillDown(data.label[item[0]._index]);
+                    }
                 }
             }
 
@@ -415,9 +417,11 @@ async function PersonWorkAgeGraph(token, userName) {
                 }
             })
 
-            function handleClick(evt) {
-                var activeElement = chart.getElementAtEvent(evt);
-                PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
+            function handleClick(evt, item) {
+                if (item.length > 0) {
+                    var activeElement = chart.getElementAtEvent(evt);
+                    PersonWorkDurationDrillDown(data.label[activeElement[0]._index], activeElement[0]._datasetIndex)
+                }
             }
 
             var sumColumns = [];
@@ -512,8 +516,10 @@ async function PersonPositionGraph(token, userName) {
             })
 
             function handleClick(evt) {
-                var activeElement = chart.getElementAtEvent(evt);
-                PersonPositionAdminDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                if (item.length > 0) {
+                    var activeElement = chart.getElementAtEvent(evt);
+                    PersonPositionAdminDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                }
             }
 
 
@@ -613,11 +619,13 @@ async function PersonPositionLevelGraph(token, userName) {
                     onClick: handleClick
                 }
             })
-            function handleClick(evt) {
-                var activeElement = chart.getElementAtEvent(evt);
-                PersonPositionLevelDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+            function handleClick(evt, item) {
+                if (item.length > 0) {
+                    var activeElement = chart.getElementAtEvent(evt);
+                    PersonPositionLevelDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
 
-                console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                    console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                }
             }
 
             var sumColumns = [];
@@ -726,11 +734,13 @@ async function PersonFacultyGraph(token, userName) {
                     onClick: handleClick
                 }
             })
-            function handleClick(evt) {
-                var activeElement = chart.getElementAtEvent(evt);
-                PersonGroupFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+            function handleClick(evt, item) {
+                if (item.length > 0) {
+                    var activeElement = chart.getElementAtEvent(evt);
+                    PersonGroupFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
 
-                console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                    console.log(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                }
             }
 
             var sumColumns = [];
@@ -838,9 +848,11 @@ async function PersonPositionFacultyGraph(token, userName) {
                     }
                 })
 
-                function handleClick(evt) {
-                    var activeElement = chart.getElementAtEvent(evt);
-                    PersonPositionFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                function handleClick(evt, item) {
+                    if (item.length > 0) {
+                        var activeElement = chart.getElementAtEvent(evt);
+                        PersonPositionFacultyDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
+                    }
                 }
                 var sumColumns = [];
                 var sumRows = [];
@@ -965,9 +977,11 @@ async function PersonRetiredGraph(token, userName) {
 
 
 
-            function handleClick(evt) {
-                var activeElement = chart.getElementAtEvent(evt);
-                PersonRetiredDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label, startDate, endDate)
+            function handleClick(evt, item) {
+                if (item.length > 0) {
+                    var activeElement = chart.getElementAtEvent(evt);
+                    PersonRetiredDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label, startDate, endDate)
+                }
             }
             var sumColumns = [];
             var sumRows = [];
@@ -2637,9 +2651,9 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personFaculty').append(data.faculty);
                 $('#personStartDate').append(moment(data.startDate).format('DD/MM/YYYY'));
                 $('#personRetiredYear').append(data.retiredYear);
-                $('#personSalary').append(new Number(data.salary).toLocaleString("th-TH"));
+                $('#personSalary').append(new Number(data.salary).toLocaleString("th-TH")+' บาท');
                 $('#personAddress').append(data.address + ' ' + data.zipCode);
-                $('#personEducationLevel').append(data.educationLevel);
+                $('#personEducationLevel').append(' '+ data.educationLevel);
                 $('#personEducation').append(data.education);
                 $('#personEducationCountry').append('ประเทศ' + data.country);
             }

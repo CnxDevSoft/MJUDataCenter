@@ -76,7 +76,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                         Position = SeedData.SeedData.Position(),
                         PositionLevelId = PositionLevel.PositionLevelId,
                         PositionLevel = PositionLevel.PositionLevelName,
-                        StartDate = SeedData.SeedData.RandomDateTimeDoB(),
+                        StartDate = SeedData.SeedData.RandomDateWork(),
                         RetiredDate = retired,
                         RetiredYear = retired.GetValueOrDefault().Year,
                         SectionId = Section.SectionId,
