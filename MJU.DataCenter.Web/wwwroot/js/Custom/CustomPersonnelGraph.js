@@ -515,7 +515,7 @@ async function PersonPositionGraph(token, userName) {
                 }
             })
 
-            function handleClick(evt) {
+            function handleClick(evt, item) {
                 if (item.length > 0) {
                     var activeElement = chart.getElementAtEvent(evt);
                     PersonPositionAdminDrillDown(data.label[activeElement[0]._index], data.graphDataSet[activeElement[0]._datasetIndex].label)
@@ -1063,7 +1063,7 @@ function genderClick(genderId, genderName, generationType) {
 
                 var link = '<a class="btn btn-default collapse-ds" data-toggle="collapse" href="#researcherGenderDrillDownGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researcherGenderDrillDownGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.gender + '</b></a>'
                 var labelEmty = $("#researcherGenderDrillDownGraphDataSourceLabel").empty();
-                var label = $("#researcherGenderDrillDownGraphDataSourceLabel").text(data[0].gender + data[0].personGenderGeneration[0].generetion);
+                var label = $("#researcherGenderDrillDownGraphDataSourceLabel").text(data[0].gender + ' ' + data[0].personGenderGeneration[0].generetion);
                 $('#researcherGenderDrillDownGraphDataSourceModal-card-body').append(link)
                 var startRow = '<div class="collapse multi-collapse" id="researcherGenderDrillDownGraphDSCollapse' + key + '">';
                 var table = $('#dataTable').DataTable();
@@ -1079,7 +1079,7 @@ function genderClick(genderId, genderName, generationType) {
                 var startBody = '<tbody id="sub-researcherGenderDrillDownGraphDataSource-tbody">';
                 $.each(result.personGenderGeneration[0].person, function (key, item) {
                     startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                        '<td>' + item.dateOfBirth + '</td >' +
+                        '<td>' + moment(item.dateOfBirth).format("DD/MM/YYYY")  + '</td >' +
                         '<td>' + item.position + '</td >' +
                         '<td>' + item.division + '</td>' +
 
