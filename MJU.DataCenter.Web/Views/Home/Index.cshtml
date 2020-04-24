@@ -152,11 +152,12 @@
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
-                        <h3 class="card-title text-green"><strong>หน่วยงานภายใน</strong></h3>
+                        <h3 class="card-title text-green"><strong id="FacultyHead"></strong></h3>
+                        
                     </div>
                 </div>
                 <div class="card-body">
-
+                    <span id="Faculty"></span>
                 </div>
             </div>
         </div>
@@ -166,6 +167,7 @@
     $(function () {
         GetPersonCount();
         GetResearchCount();
+        GetResearchFaculty();
     })
     </script>
 </section>

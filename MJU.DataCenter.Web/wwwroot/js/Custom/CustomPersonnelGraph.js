@@ -26,13 +26,13 @@ async function AllPersonGraph(token, userName) {
         fontColor: '#495057',
         fontStyle: 'bold',
         fontSize: 16,
-        fontFamily: "'Kanit', sans-serif"
     }
     var mode = 'index'
     var intersect = true
     fetch(personnelRootPath + 'PersonnelGroup/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $allPersonalChart = $('#allpersonal-chart')
             var chart = new Chart($allPersonalChart, {
                 type: 'horizontalBar',
@@ -57,10 +57,14 @@ async function AllPersonGraph(token, userName) {
                         intersect: intersect
                     },
                     legend: {
-                        display: false
+                        display: false,
+                        labels: {
+                            fontFamily: "'Kanit', sans-serif"
+                        }
                     },
                     scales: {
                         yAxes: [{
+                            radius: 25,
                             // display: false,
                             gridLines: {
                                 display: true,
@@ -81,6 +85,7 @@ async function AllPersonGraph(token, userName) {
                             }, ticksStyle)
                         }],
                         xAxes: [{
+                            radius: 25,
                             display: true,
                             gridLines: {
                                 display: false
@@ -117,9 +122,16 @@ async function AllPersonGraph(token, userName) {
         });
 }
 async function PersonAgeGraph(token, userName) {
+
     fetch(personnelRootPath + 'PersonnelPositionGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
+            var ticksStyle = {
+                fontColor: '#495057',
+                fontStyle: 'bold',
+                fontSize: 10,
+            }
             var barChartData = {
                 labels: data.label,
                 datasets: [
@@ -155,9 +167,11 @@ async function PersonAgeGraph(token, userName) {
                 scales: {
                     xAxes: [{
                         stacked: true,
+                        ticks: ticksStyle
                     }],
                     yAxes: [{
-                        stacked: true
+                        stacked: true,
+                        ticks: ticksStyle
                     }]
                 },
                 onClick: handleClick
@@ -256,6 +270,7 @@ async function PersonEducationGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelEducation/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personEducation-Chart').get(0).getContext('2d')
             var donutData = {
                 labels: data.label,
@@ -269,6 +284,7 @@ async function PersonEducationGraph(token, userName) {
             var donutOptions = {
                 maintainAspectRatio: false,
                 responsive: true,
+
                 onClick: function (evt, item) {
 
                     PersonEducationDrillDown(data.label[item[0]._index]);
@@ -303,6 +319,7 @@ async function PersonTypeGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personType-chart').get(0).getContext('2d')
             var donutData = {
                 labels: data.label,
@@ -363,6 +380,7 @@ async function PersonWorkAgeGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelGroupWorkDuration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personWorkAge-chart')
             var chart = new Chart($chart, {
                 type: 'horizontalBar',
@@ -457,6 +475,7 @@ async function PersonPositionGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelGroupAdminPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personPosition-chart')
             var chart = new Chart($chart, {
                 type: 'horizontalBar',
@@ -559,6 +578,7 @@ async function PersonPositionLevelGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelGroupPositionLevel/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personPositionLevel-chart')
             var chart = new Chart($chart, {
                 type: 'horizontalBar',
@@ -662,6 +682,7 @@ async function PersonFacultyGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelGroupFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personFaculty-chart')
 
             var ctx = $($chart).get(0).getContext('2d')
@@ -776,6 +797,7 @@ async function PersonPositionFacultyGraph(token, userName) {
     fetch(personnelRootPath + 'PersonnelPositionFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personPositionFaculty-chart')
             if (data.isSubGraphDataSet) {
 
@@ -898,6 +920,7 @@ async function PersonRetiredGraph(token, userName) {
     fetch(url)
         .then(res => res.json())
         .then((data) => {
+            Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personRetired-chart')
 
             var ctx = $($chart).get(0).getContext('2d')
