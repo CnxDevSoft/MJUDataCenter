@@ -139,7 +139,7 @@ async function ResearchDepartmentRender(data) {
 
     $('[data-toggle="tooltip"]').tooltip();
 }
-async function ResearchDepartmentGraphDS(startDate, endDate) {
+async function ResearchDepartmentGraphDS(startDate, endDate, token, userName) {
     var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchFaculty/GetDataSource' +
         '?StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
         : researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
@@ -276,7 +276,7 @@ async function ResearchPersonGroupRender(data) {
     ReseachPersonGroupGraphDS();
     $('[data-toggle="tooltip"]').tooltip();
 }
-async function ReseachPersonGroupGraphDS(startDate, endDate) {
+async function ReseachPersonGroupGraphDS(startDate, endDate,token, userName) {
     var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchGroup/GetDataSource' +
         '?StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
         : researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0';
@@ -431,7 +431,7 @@ async function ResearchMoneyRangeRender(data) {
     $('[data-toggle="tooltip"]').tooltip();
 
 }
-async function ResearchMoneyRangeGraphDS(startDate, endDate) {
+async function ResearchMoneyRangeGraphDS(startDate, endDate, token, userName) {
     var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchMoney/GetDataSource' +
         '?StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
         : researchExtensionRootPath + 'ResearchMoney/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
@@ -575,7 +575,7 @@ async function ResearchMoneyTypeRender(data) {
     $('[data-toggle="tooltip"]').tooltip();
 
 }
-async function ResearchMoneyTypeGraphDS(startDate, endDate) {
+async function ResearchMoneyTypeGraphDS(startDate, endDate, token, userName) {
     var url = startDate != null && endDate != null ?
         researchExtensionRootPath + 'ResearchData/GetDataSource' + '?StartDate=' + startDate
         + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
@@ -688,7 +688,8 @@ async function ResearchDepartmentTableDrillDown(type) {
 
     var url = type != null ? researchExtensionRootPath +'ResearchFaculty/GetDataSource?Type=' + type
         + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-        : researchExtensionRootPath +'ResearchFaculty/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+        : researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+
     fetch(url)
         .then(res => res.json())
         .then((data) => {
