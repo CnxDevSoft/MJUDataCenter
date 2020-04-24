@@ -74,6 +74,9 @@
     $(function () {
         ResearchMoneyTypeGraph(null,null,'@userAccesToken', '@User.Identity.Name');
         ToggleResearchChart("researchMoneyType");
+        $('#researchMoneyType-datasource').click(function () {
+            ResearchMoneyTypeGraphDS('@userAccesToken','@User.Identity.Name')
+        });
     })
 </script>
 <partial name="PartialViews/ResearchMoneyType/_researchMoneyTypeGraphDataSource" />

@@ -76,6 +76,9 @@
     $(function () {
         ResearchFacultyGraph(null,null,'@userAccesToken', '@User.Identity.Name');
         ToggleResearchChart("researchDepartment");
+        $('#researchDepartment-datasource').click(function () {
+            ResearchDepartmentGraphDS('@userAccesToken','@User.Identity.Name')
+        });
     })
 </script>
 
