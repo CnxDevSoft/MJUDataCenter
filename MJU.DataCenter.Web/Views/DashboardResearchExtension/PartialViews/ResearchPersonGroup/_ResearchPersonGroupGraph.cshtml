@@ -70,6 +70,10 @@
     $(function () {
         ResearchPersonGroupGraph(null, null,'@userAccesToken', '@User.Identity.Name');
         ToggleResearchChart("researchPersonGroup");
+        $('#researchPersonGroup-datasource').click(function () {
+            console.log('test')
+            ReseachPersonGroupGraphDS('@userAccesToken','@User.Identity.Name')
+        });
     })
 </script>
 <partial name="PartialViews/ResearchPersonGroup/_researchPersonGroupGraphDataSource" />

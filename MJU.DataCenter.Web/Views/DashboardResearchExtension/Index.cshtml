@@ -129,9 +129,8 @@
             var startDate = moment(startDateval, "DD/MM/YYYY").format('MM/DD/YYYY');
             var endDate = moment(endDateVal, "DD/MM/YYYY").format('MM/DD/YYYY');
 
-            console.log(startDate)
-            console.log(endDate)
 
+            SetDateTimeTemp(startDate, endDate)
             ResearchFacultyGraph(startDate, endDate,'@userAccesToken', '@User.Identity.Name');
             ResearchPersonGroupGraph(startDate, endDate,'@userAccesToken', '@User.Identity.Name');
             ResearchMoneyRangeGraph(startDate, endDate,'@userAccesToken', '@User.Identity.Name');

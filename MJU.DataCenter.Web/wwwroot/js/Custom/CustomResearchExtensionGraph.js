@@ -2,7 +2,12 @@
 var userNameTemp;
 var personnelRootPath = 'https://localhost/MJU.DataCenter.Personnel/api/';
 var researchExtensionRootPath = 'https://localhost/MJU.DataCenter.ResearchExtension/api/';
-
+var startDateTemp='';
+var endDateTemp='';
+async function SetDateTimeTemp(startDate, endDate) {
+    startDateTemp = startDate;
+    endDateTemp = endDate;
+}
 async function SetTempAuthorization(token, userName) {
     tokenTemp = token;
     userNameTemp = userName
@@ -135,15 +140,11 @@ async function ResearchDepartmentRender(data) {
     /*$("#researchDepartmentGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');*/
 
-    ResearchDepartmentGraphDS();
-
     $('[data-toggle="tooltip"]').tooltip();
 }
-async function ResearchDepartmentGraphDS(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchFaculty/GetDataSource' +
-        '?StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
-    fetch(url)
+async function ResearchDepartmentGraphDS() {
+
+    fetch(researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0')
         .then(res => res.json())
         .then((data) => {
 
@@ -152,13 +153,14 @@ async function ResearchDepartmentGraphDS(startDate, endDate, token, userName) {
         });
 }
 async function RenderResearchDepartmentGraphDS(data) {
-
+    $('#researchDepartmentGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
-
+        var table = $('#sub-department-' + key + '-table').DataTable();
+        table.clear().destroy();
         $('#researchDepartmentGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="researchDepartmentGraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-' + key + '-table">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub" id="sub-department' + key + '-table">';
         var startThead = '<thead id="sub-researchDepartmentGraphDataSource-thead">';
         var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
         var endThead = '</thead>';
@@ -177,6 +179,14 @@ async function RenderResearchDepartmentGraphDS(data) {
         var endRow = '</div>';
         var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
         $('#researchDepartmentGraphDataSourceModal-card-body').append(html);
+        $('#researchDepartmentGraphDataSourceModal').modal('show');
+        $('#researchDepartmentGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-department-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
     });
 }
 
@@ -204,9 +214,8 @@ async function ResearchPersonGroupRender(data) {
         fontColor: '#495057',
         fontStyle: 'bold',
         beginAtZero: true,
-        stepSize: 10,
+        stepSize: 1,
         suggestedMin: 0,
-        suggestedMax: 100
     }
     var mode = 'index'
     var intersect = true
@@ -246,6 +255,7 @@ async function ResearchPersonGroupRender(data) {
                         color: 'rgba(0, 0, 0, .2)',
                         zeroLineColor: 'transparent'
                     },
+                    ticks: ticksStyle
                 }],
                 xAxes: [{
                     display: true,
@@ -273,13 +283,11 @@ async function ResearchPersonGroupRender(data) {
     });
     $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchGroupTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
-    ReseachPersonGroupGraphDS();
+
     $('[data-toggle="tooltip"]').tooltip();
 }
-async function ReseachPersonGroupGraphDS(startDate, endDate,token, userName) {
-    var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchGroup/GetDataSource' +
-        '?StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0';
+async function ReseachPersonGroupGraphDS() {
+    var url = researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -287,10 +295,12 @@ async function ReseachPersonGroupGraphDS(startDate, endDate,token, userName) {
         });
 }
 async function RenderReseachPersonGroupGraphDS(data) {
-
+    $('#researchPersonGroupGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchPersonGroupGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="researchPersonGroupGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
+        var table = $('#sub-researchPersonGroup-' + key + '-table').DataTable();
+        table.clear().destroy();
         $('#researchPersonGroupGraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="researchPersonGroupGraphDSCollapse' + key + '">';
         var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchPersonGroup" id="sub-researchPersonGroup-' + key + '-table">';
@@ -313,6 +323,14 @@ async function RenderReseachPersonGroupGraphDS(data) {
         var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
 
         $('#researchPersonGroupGraphDataSourceModal-card-body').append(html);
+        $('#researchPersonGroupGraphDataSourceModal').modal('show');
+        $('#researchPersonGroupGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-researchPersonGroup-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
     });
 }
 
@@ -426,15 +444,13 @@ async function ResearchMoneyRangeRender(data) {
     });
     $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td> รวม </td><td><a onClick="ResearchMoneyRangeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
-    ResearchMoneyRangeGraphDS();
+
 
     $('[data-toggle="tooltip"]').tooltip();
 
 }
-async function ResearchMoneyRangeGraphDS(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchMoney/GetDataSource' +
-        '?StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchMoney/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+async function ResearchMoneyRangeGraphDS() {
+    var url = researchExtensionRootPath + 'ResearchMoney/GetDataSource'+ '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -444,13 +460,15 @@ async function ResearchMoneyRangeGraphDS(startDate, endDate, token, userName) {
 async function RenderResearchMoneyRangeGraphDS(data) {
 
     var chartName = 'researchMoneyRange';
-    console.log(data);
+    $('#researchMoneyRangeGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
+        var table = $('#sub-researchMoneyRange-' + key + '-table').DataTable();
+        table.clear().destroy();
         $('#' + chartName + 'GraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="' + chartName + 'GraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-' + chartName + '" id="sub-' + chartName + '-' + key + '-table">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-' + chartName + '" id="sub-researchMoneyRange-' + key + '-table">';
         var startThead = '<thead id="sub-' + chartName + 'GraphDataSource-thead">';
         var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>จำนวนเงิน</th></tr>';
         var endThead = '</thead>';
@@ -469,7 +487,15 @@ async function RenderResearchMoneyRangeGraphDS(data) {
 
         var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
 
-        $('#' + chartName + 'GraphDataSourceModal-card-body').append(html);
+        $('#researchMoneyRangeGraphDataSourceModal-card-body').append(html);
+        $('#researchMoneyRangeGraphDataSourceModal').modal('show');
+        $('#researchMoneyRangeGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-researchMoneyRange-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
     });
 }
 
@@ -570,16 +596,13 @@ async function ResearchMoneyTypeRender(data) {
     });
     $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td> รวม </td><td><a onClick="ResearchMoneyTypeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
-    ResearchMoneyTypeGraphDS();
+
 
     $('[data-toggle="tooltip"]').tooltip();
 
 }
-async function ResearchMoneyTypeGraphDS(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ?
-        researchExtensionRootPath + 'ResearchData/GetDataSource' + '?StartDate=' + startDate
-        + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchData/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+async function ResearchMoneyTypeGraphDS() {
+    var url = researchExtensionRootPath + 'ResearchData/GetDataSource'+ '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -589,13 +612,15 @@ async function ResearchMoneyTypeGraphDS(startDate, endDate, token, userName) {
 async function RenderResearchMoneyTypeGraphDS(data) {
 
     var chartName = 'researchMoneyType';
-
+    $('#researchMoneyTypeGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
+        var table = $('#sub-researchMoneyType-' + key + '-table').DataTable();
+        table.clear().destroy();
         $('#' + chartName + 'GraphDataSourceModal-card-body').append(link)
         var startRow = '<div class="collapse multi-collapse" id="' + chartName + 'GraphDSCollapse' + key + '">';
-        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-' + chartName + '" id="sub-' + chartName + '-' + key + '-table">';
+        var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-' + chartName + '" id="sub-researchMoneyType-' + key + '-table">';
         var startThead = '<thead id="sub-' + chartName + 'GraphDataSource-thead">';
         var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>จำนวนเงิน</th></tr>';
         var endThead = '</thead>';
@@ -612,7 +637,15 @@ async function RenderResearchMoneyTypeGraphDS(data) {
 
         var html = startRow + startTable + startThead + thead + endThead + startBody + endbody + endTable + endRow;
 
-        $('#' + chartName + 'GraphDataSourceModal-card-body').append(html);
+        $('#researchMoneyTypeGraphDataSourceModal-card-body').append(html);
+        $('#researchMoneyTypeGraphDataSourceModal').modal('show');
+        $('#researchMoneyTypeGraphDataSourceModal').on('shown.bs.modal', function () {
+
+        })
+
+        $('#sub-researchMoneyType-' + key + '-table').DataTable({
+            language: oLanguagePersonGraphOptions
+        });
     });
 }
 
@@ -687,9 +720,8 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 async function ResearchDepartmentTableDrillDown(type) {
 
     var url = type != null ? researchExtensionRootPath +'ResearchFaculty/GetDataSource?Type=' + type
-        + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-        : researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
-
+        + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -701,8 +733,8 @@ async function ResearchDepartmentTableDrillDown(type) {
 //drilldown researchGroup
 
 async function ResearchGroupTableDrillDown(type) {
-    var url = type != null ? researchExtensionRootPath +'ResearchGroup/GetDataSource?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-        : researchExtensionRootPath +'ResearchGroup/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+    var url = type != null ? researchExtensionRootPath + 'ResearchGroup/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -832,8 +864,8 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 
 async function ResearchMoneyRangeDrillDown(type) {
 
-    var url = type != null ? researchExtensionRootPath +'ResearchMoney/GetDataSource?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-        : researchExtensionRootPath +'ResearchMoney/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+    var url = type != null ? researchExtensionRootPath + 'ResearchMoney/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchMoney/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
 
 
     fetch(url)
@@ -903,8 +935,8 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 }
 
 async function ResearchMoneyTypeDrillDown(type) {
-    var url = type != null ? researchExtensionRootPath +'ResearchData/GetDataSource?Type=' + type + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-        : researchExtensionRootPath +'ResearchData/GetDataSource' + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+    var url = type != null ? researchExtensionRootPath + 'ResearchData/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchData/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
