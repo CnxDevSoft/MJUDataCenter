@@ -292,7 +292,7 @@ namespace MJU.DataCenter.Personnel.SeedData
                     break;
                 case 5:
                     result.PersonTypeId = "T";
-                    result.PersonType = "พนักงานราชการ";
+                    result.PersonType = "พนักงานราชกาล";
                     break;
                 case 6:
                     result.PersonTypeId = "Y";
