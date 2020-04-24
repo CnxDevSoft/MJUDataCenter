@@ -250,4 +250,8 @@ body {
     background-color:white;
 }
 
-
+.btn-newbutton {
+    background-color: #017f3f;
+    color: #FFF;
+    border-color: #2F3E48;
+}
