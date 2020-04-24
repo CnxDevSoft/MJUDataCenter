@@ -41,9 +41,9 @@ async function ResearchFacultyGraph(startDate, endDate, token, userName) {
 }
 async function ResearchDepartmentRender(data) {
 
-    $('#researchDepartmentBox').empty(); // this is my <canvas> element
-    $('#researchDepartmentBox').append('<canvas id="researchDepartment-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
-
+    $('#researchDepartment-chart-canvas').empty(); // this is my <canvas> element
+    $('#researchDepartment-chart-canvas').append('<canvas id="researchDepartment-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"><canvas>');
+    Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
     'use strict'
     var ticksStyle = {
         fontColor: '#495057',
@@ -56,7 +56,7 @@ async function ResearchDepartmentRender(data) {
     var mode = 'index'
     var intersect = true
     var $allResearchChart = $('#researchDepartment-chart');
-    Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
+
 
     var chart = new Chart($allResearchChart, {
         type: 'horizontalBar',
