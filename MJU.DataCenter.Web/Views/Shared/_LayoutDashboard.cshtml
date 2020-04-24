@@ -79,7 +79,7 @@
                 {
                     <li class="nav-item">
                         <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <button type="submit" class="nav-link btn btn-link text-dark">ออกจากระบบ</button>
+                            <button type="submit" class="nav-link btn btn-link text-dark"><i class="fa fa-lock-open"></i> ออกจากระบบ</button>
                         </form>
                     </li>
                 }
@@ -248,8 +248,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item"><a href="/">หนัาหลัก</a></li>
+                                <li class="breadcrumb-item text-green active">แดชบอร์ด</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -298,7 +298,7 @@
     <script src="plugins/moment/moment.min.js"></script>
     <script src="plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    @*<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>*@
     <!-- Summernote -->
     <script src="plugins/summernote/summernote-bs4.min.js"></script>
     <!-- overlayScrollbars -->
