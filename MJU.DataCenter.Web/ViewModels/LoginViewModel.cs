@@ -9,11 +9,13 @@ namespace MJU.DataCenter.Web.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "กรุณาระบุ {0}")]
         [EmailAddress]
+        [Display(Name = "อีเมล์")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "กรุณาระบุ {0}")]
+        [Display(Name = "รหัสผ่าน")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

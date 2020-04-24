@@ -8,20 +8,20 @@ namespace MJU.DataCenter.Web.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "กรุณาระบุ {0}")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "อีเมล์")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "กรุณาระบุ {0}")]
+        [StringLength(100, ErrorMessage = "{0} ต้องมีตัวอักษรอย่างน้อย {2} ตัว และต้องมีความยาวไม่เกิน {1} อักษร", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "รหัสผ่าน")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ยืนยันรหัสผ่าน")]
+        [Compare("Password", ErrorMessage = "ยืนยันรหัสผ่านไม่ถูกต้อง")]
         public string ConfirmPassword { get; set; }
     }
 }
