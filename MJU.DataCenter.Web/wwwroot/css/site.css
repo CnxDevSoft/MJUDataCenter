@@ -269,9 +269,9 @@ body {
     width:50%;
     border:2px solid green;
 }
-.register-box .card{
-    margin:0;
-}
+    .register-box .card, .login-box .card {
+        margin: 0;
+    }
 
 .logo-account {
     float: left;
