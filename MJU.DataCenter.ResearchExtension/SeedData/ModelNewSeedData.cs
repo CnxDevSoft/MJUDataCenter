@@ -98,4 +98,9 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
         public string MoneyTypeName { get; set; }
 
     }
+    public class Abstract
+    {
+        public string AbstractTH { get; set; }
+        public string AbstractEN { get; set; }
+    }
 }

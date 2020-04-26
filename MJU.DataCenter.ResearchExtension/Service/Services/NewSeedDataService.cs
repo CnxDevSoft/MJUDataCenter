@@ -117,7 +117,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var list = new List<ResearchData>();
             for (var i = 1; i <= 100; i++)
             {
-
+                var ab = SeedData.NewSeedData.Abstrack();
                 var rd1 = SeedData.HelperSeedData.RandomDateTimeResearch();
                 var rd2 = SeedData.HelperSeedData.RandomDateTimeResearch();
                 var model = new ResearchData
@@ -127,7 +127,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearchNameTh = string.Format("งานวิจัย {0}", i),
                     StartDateResearch = rd1 > rd2 ? rd2 : rd1,
                     EndDateResearch = rd1 < rd2 ? rd2 : rd1,
-                    
+                    AbstractTh = ab.AbstractTH,
+                    AbstractEn = ab.AbstractEN,
+
                 };
                 list.Add(model);
             }

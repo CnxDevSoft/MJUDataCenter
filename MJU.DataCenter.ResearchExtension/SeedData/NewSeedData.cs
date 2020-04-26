@@ -100,9 +100,14 @@ namespace MJU.DataCenter.ResearchExtension.SeedData
             return result;
 
         }
-
-
-        public static string RandomTitleName()
+        public static Abstract Abstrack()
+        {
+            var model = new Abstract();
+            model.AbstractEN = "Nowadays, many games can play on various devices. Multi-platform development in game can help us waste of resources and increase number of market share. That is reason of multi-platform game development if it is interesting. Action RPG is classic game genre, that still popular through years. It is so interesting to use Action RPG for multi-platform game case study. Monster In Thailand has story about invaded monster who make an disorder in tourist attractions. The stages are referred by famous tourist attractions in Thailand. Characters has mixed Thai style with SD scale. Players have to role as hero to get rid of monster in tourist attractions. Players also can improve their character by battle with monster. In the future, if we got fund or any support. We will develop more features in this game such as real-time PVP and in-app purchase.";
+            model.AbstractEN = "ปัจจุบันเกมที่ผลิตออกมานั้นสามารถใช้งานได้บนหลากหลายระบบปฏิบัติการณ์ เนื่องจากเป็นการประหยัดทรัพยากรแล้วยังถือเป็นการขยายกลุ่มตลาดให้กว้างยิ่งขึ้นด้วย ผู้พัฒนาจึงได้เล็งเห็นถึงการพัฒนาเกมแบบหลายระบบปฏิบัติการณ์หรือมัลติแพลตฟอร์ม โดยการออกแบบเกมเพียงครั้งเดียว ซึ่งตั้งแต่อดีตจนปัจจุบันประเภทเกมแอ็กชั่นอาร์พีจีถือเป็นประเภทเกมที่ได้รับความนิยมอยู่เสมอ จึงน่าหยิบยกมาใช้เป็นกรณีศึกษาสำหรับการพัฒนาเกมแบบมัลติแพลตฟอร์ม โดยเนื้อหาของเกมจะอ้างอิงจากสถานที่ท่องเที่ยวต่างๆ ของไทยรวมทั้งตัวละครแบบ SD (Super Deformed) ที่ผสมผสานความเป็นไทย ภายในเกมผู้เล่นจะได้รับบทบาทเป็นฮีโร่ผู้พิทักษ์ภัยจากเหล่าสัตว์ประหลาดลึกลับ ซึ่งออกมาสร้างความปั่นปุวนให้แก่สถานที่ท่องเที่ยวต่างๆ ผู้เล่นสามารถพัฒนาความสามารถและทักษะต่างๆ ได้ ผ่านการเก็บค่าประสบการณ์ ในอนาคตหากผู้พัฒนาได้รับการสนับสนุนต่อยอด ผู้พัฒนาได้มีแผนการพัฒนาส่วนของการต่อสู้ระหว่างผู้เล่นแบบออนไลน์เรียลไทม์ หรือเพิ่มระบบ In-app purchase เป็นต้น";
+            return model;
+        }
+            public static string RandomTitleName()
         {
             Random random = new Random();
             int TitleType = random.Next(0, 3);
