@@ -5,6 +5,8 @@ CREATE TABLE [dbo].[ResearchData](
 	[ResearchNameEN] [nvarchar](max) NULL,
 	[StartDateResearch] [datetime] NULL,
 	[EndDateResearch] [datetime] NULL,
+	[AbstractTH] [nvarchar](max) NULL,
+	[AbstractEN] [nvarchar](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[ResearchId] ASC

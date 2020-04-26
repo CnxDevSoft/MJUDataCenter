@@ -8,6 +8,8 @@ select r.ResearcherId ,CONCAT(r.TitleTH , ' ', r.FirstNameTH , ' ', r.LastNameTH
 ,rd.ResearchCode
 ,rd.ResearchNameTH
 ,rd.ResearchNameEN
+,rd.AbstractTH
+,rd.AbstractEN
 ,rd.StartDateResearch as ResearchStartDate
 ,rd.EndDateResearch as ResearchEndDate
 ,rm.ResearchMoney
