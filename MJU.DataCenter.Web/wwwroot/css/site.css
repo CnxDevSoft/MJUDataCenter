@@ -261,4 +261,21 @@ body {
     background-color:#ffffff;
 }
 
+.login-page, .register-page{
+    background:none;
+}
+.login-box, .register-box
+{
+    width:50%;
+    border:2px solid green;
+}
+    .register-box .card, .login-box .card {
+        margin: 0;
+    }
 
+.logo-account {
+    float: left;
+    left: 30px;
+    position: absolute;
+    top: 15px;
+}

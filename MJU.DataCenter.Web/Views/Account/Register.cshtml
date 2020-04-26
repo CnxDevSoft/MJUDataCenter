@@ -3,19 +3,16 @@
     Layout = "_BlankLayout";
     ViewData["Title"] = "ลงทะเบียนสมาชิก";
 }
-
-<div class="row align-items-center h-100">
-    <div class="col-lg-12 card shadow" style="height: 80%;">
-        <div class="row h-100">
-            <div class="col-lg-8 gradient-bg">
-                <div class="py-4">
-                    <div class="py-2">
-                        <img class="logo" src="~/img/logo.png"/>
-                    </div>
-                    <h2 class="text-white">MJU Datacenter</h2>
-                </div>
-            </div>
-            <div class="col-lg-4 align-self-center">
+<div class="register-page">
+    <div class="logo-account">
+        <div class="py-1 text-center">
+            <a asp-controller="Home" asp-action="Index"><img class="logo" src="~/img/logo.png" /></a>
+            <h2 class="">MJU Datacenter</h2>
+        </div>
+    </div>
+    <div class="register-box">
+        <div class="card">
+            <div class="card-body register-card-body">
                 <h2 class="text-center">@ViewData["Title"]</h2>
                 <section>
                     <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
@@ -44,6 +41,49 @@
         </div>
     </div>
 </div>
+<!-- /.register-box -->
+@*<div class="row align-items-center h-100">
+        <div class="col-lg-12 card shadow" style="height: 80%;">
+            <div class="row h-100">
+                <div class="col-lg-8 gradient-bg">
+                    <div class="py-4">
+                        <div class="py-2">
+                            <img class="logo" src="~/img/logo.png"/>
+                        </div>
+                        <h2 class="text-white">MJU Datacenter</h2>
+                    </div>
+                </div>
+                <div class="col-lg-4 align-self-center">
+                    <h2 class="text-center">@ViewData["Title"]</h2>
+                    <section>
+                        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-green">ยืนยันการลงทะเบียน</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
