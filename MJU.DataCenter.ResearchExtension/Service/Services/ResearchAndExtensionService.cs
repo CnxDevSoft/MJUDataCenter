@@ -953,6 +953,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                   ResearchId = research.ResearchId,
                   ResearchNameTh = research.ResearchNameTh,
                   ResearchNameEn = research.ResearchNameEn,
+                  //ResearchAbstarctTh = research
                   ResearchStartDate = research.ResearchStartDate.ToLocalDateTime(),
                   ResearchEndDate = research.ResearchEndDate.ToLocalDateTime(),
                   ResearcherCount = researcher.Count(),
