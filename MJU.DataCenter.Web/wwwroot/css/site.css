@@ -21,6 +21,9 @@ a.navbar-brand {
 a {
     color: #0366d6;
 }
+    a:hover, .btn:hover, canvas:hover {
+        cursor: pointer;
+    }
 
 .btn-primary {
     color: #fff;

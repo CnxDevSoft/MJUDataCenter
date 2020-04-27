@@ -165,10 +165,9 @@ async function RenderResearchDepartmentGraphDS(data) {
         var startThead = '<thead id="sub-researchDepartmentGraphDataSource-thead">';
         var thead = '<tr><th>รายชื่องานวิจัย</th><th>ผู้ทำวิจัย</th><th>วันที่สิ้นสุดงานวิจัย</th></tr>';
         var endThead = '</thead>';
-
         var startBody = '<tbody id="sub-researchDepartmentGraphDataSource-tbody">';
         $.each(result.researchData, function (key, item) {
-            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.resaerchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
+            startBody += '<tr><td><a href="#" class="text-green" onclick="DisplayResearchDetailModal(' + item.researchId + ')">' + item.researchNameEn + '</a></td><td>' + RenderReseacherName(item.researcher) + '</td>' +
                 '<td>' + moment(item.researchEndDate).format("DD/MM/YYYY") + '</td>' +
 
                 '</tr >';
@@ -949,8 +948,6 @@ async function ResearchMoneyTypeDrillDown(type) {
 }
 
 async function DisplayResearchDetailModal(researchId) {
-
-    
 
     var modal = '#researchDetailModal';
     $('#researchDetailSection').empty();
