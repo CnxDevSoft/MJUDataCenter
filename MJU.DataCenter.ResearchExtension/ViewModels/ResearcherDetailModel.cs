@@ -12,6 +12,7 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
         public int? DepartmentiId { get; set; }
         public string DepartmentCode { get; set; }
         public string DepartmentNameTh { get; set; }
+        public int SummaryResearchMoney { get; set; }
         public List<ResearchDataModel> ResearchData { get; set; }
     }
 

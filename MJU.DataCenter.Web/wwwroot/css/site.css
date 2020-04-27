@@ -282,6 +282,12 @@ body {
     position: absolute;
     top: 15px;
 }
+.card-body-overlay {
+    max-height: 230px;
+    display: block;
+    overflow: auto;
+}
+}
 
 .th-text-green {
     color: #017f3f;

@@ -10,6 +10,8 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
         public int ResearchId { get; set; }
         public string ResearchNameTh { get; set; }
         public string ResearchNameEn { get; set; }
+        public string ResearchAbstarctTh { get; set; }
+        public string ResearchAbstarctEn { get; set; }
         public DateTime? ResearchStartDate { get; set; }
         public DateTime? ResearchEndDate { get; set; }
         public List<ResearchMoneyResearchDetail> ResearchMoney { get; set; }

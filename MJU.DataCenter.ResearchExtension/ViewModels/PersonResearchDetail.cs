@@ -9,6 +9,7 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
     {
         public int ResearcherId { get; set; }
         public string ResearcherName { get; set; }
+        public int SummaryResearchMoney { get; set; }
         public List<PersonResearchDetail> PersonResearchDetail { get; set; }
     }
     public class PersonResearchDetail
@@ -16,6 +17,8 @@ namespace MJU.DataCenter.ResearchExtension.ViewModels
         public int ResearchId { get; set; }
         public string ResearchNameTh { get; set; }
         public string ResearchNameEn { get; set; }
+        public string ResearchAbstractTh { get; set; }
+        public string ResearchAbstractEn { get; set; }
         public List<PersonResearchMoneyDetail> ResearchMoneyData { get; set; }
         public int? ResearchMoney { get; set; }
         public DateTime? ResearchStartDate { get; set; }
