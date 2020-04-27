@@ -183,6 +183,9 @@ body {
 .info-box {
     min-height: 90px;
 }
+.info-box-block{
+    display:block;
+}
 
 .bg-dark-sea-green {
     background: #aadcc6;
