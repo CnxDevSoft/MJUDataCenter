@@ -282,3 +282,7 @@ body {
     position: absolute;
     top: 15px;
 }
+
+.th-text-green {
+    color: #017f3f;
+}

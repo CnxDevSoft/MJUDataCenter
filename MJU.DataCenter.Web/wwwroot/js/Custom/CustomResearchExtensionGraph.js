@@ -135,7 +135,7 @@ async function ResearchDepartmentRender(data) {
         sumValue += item.val;
         //.....onclick even+any funtion
     });
-    $("#researchDepartmentGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $("#researchDepartmentGraphDataTable-tbody").append('<tr><td class="th-text-green"> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
     /*$("#researchDepartmentGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
@@ -156,7 +156,7 @@ async function ResearchDepartmentGraphDS() {
 async function RenderResearchDepartmentGraphDS(data) {
     $('#researchDepartmentGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.facultyName + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchDepartmentGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="researchDepartmentGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.facultyName + '</b></a>'
         var table = $('#sub-department-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#researchDepartmentGraphDataSourceModal-card-body').append(link)
@@ -284,7 +284,7 @@ async function ResearchPersonGroupRender(data) {
             + item.val + '</button></td></tr>');
         sumValue += item.val;
     });
-    $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchGroupTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td class="th-text-green"> รวม </td><td><a onClick="ResearchGroupTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -301,7 +301,7 @@ async function RenderReseachPersonGroupGraphDS(data) {
     $('#researchPersonGroupGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#researchPersonGroupGraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="researchPersonGroupGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupName + '</b></a>'
+            + '" role="button" aria-expanded="false" aria-controls="researchPersonGroupGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.personGroupName + '</b></a>'
         var table = $('#sub-researchPersonGroup-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#researchPersonGroupGraphDataSourceModal-card-body').append(link)
@@ -446,7 +446,7 @@ async function ResearchMoneyRangeRender(data) {
             + item.val + '</button></td></tr>');
         sumValue += item.val;
     });
-    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td> รวม </td><td><a onClick="ResearchMoneyRangeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td class="th-text-green"> รวม </td><td><a onClick="ResearchMoneyRangeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
 
@@ -467,7 +467,7 @@ async function RenderResearchMoneyRangeGraphDS(data) {
     $('#researchMoneyRangeGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.researchRankMoneyName + '</b></a>'
+            + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.researchRankMoneyName + '</b></a>'
         var table = $('#sub-researchMoneyRange-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#' + chartName + 'GraphDataSourceModal-card-body').append(link)
@@ -598,7 +598,7 @@ async function ResearchMoneyTypeRender(data) {
             + item.val + '</button></td></tr>');
         sumValue += item.val;
     });
-    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td> รวม </td><td><a onClick="ResearchMoneyTypeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td class="th-text-green"> รวม </td><td><a onClick="ResearchMoneyTypeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
 
@@ -619,7 +619,7 @@ async function RenderResearchMoneyTypeGraphDS(data) {
     $('#researchMoneyTypeGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#' + chartName + 'GraphDSCollapse' + key
-            + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.moneyTypeName + '</b></a>'
+            + '" role="button" aria-expanded="false" aria-controls="' + chartName + 'GraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.moneyTypeName + '</b></a>'
         var table = $('#sub-researchMoneyType-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#' + chartName + 'GraphDataSourceModal-card-body').append(link)

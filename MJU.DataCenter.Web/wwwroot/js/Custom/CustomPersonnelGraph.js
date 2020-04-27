@@ -114,7 +114,7 @@ async function AllPersonGraph(token, userName) {
                 sumValue += item.val;
             });
 
-            $("#allPersonGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PersonGroupDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#allPersonGraphDataTable-tbody").append('<tr><td class="th-text-green"> รวม </td><td><a onClick="PersonGroupDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</a></td></tr>');
 
             //AllPersonGraphDS(token, userName);
@@ -312,7 +312,7 @@ async function PersonEducationGraph(token, userName) {
                 sumValue += item.val;
             });
 
-            $("#personEducationGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="PersonEducationDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#personEducationGraphDataTable-tbody").append('<tr><td class="th-text-green"> รวม </td><td><a onClick="PersonEducationDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -361,7 +361,7 @@ async function PersonTypeGraph(token, userName) {
                 sumValue += item.val;
             });
 
-            $("#personTypeGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onclick="PersonPositionDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#personTypeGraphDataTable-tbody").append('<tr><td class="th-text-green"> รวม </td><td><a onclick="PersonPositionDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -431,7 +431,7 @@ async function PersonWorkAgeGraph(token, userName) {
                     + data.graphDataSet[4].data[key] + data.graphDataSet[5].data[key];
 
                 $("#personWorkAgeGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' +
+                    '<tr><td >' + item + '</td>' +
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',0)">' + data.graphDataSet[0].data[key] + '</td>' +
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',1)">' + data.graphDataSet[1].data[key] + '</td>' +
                     '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',2)">' + data.graphDataSet[2].data[key] + '</td>' +
@@ -455,7 +455,7 @@ async function PersonWorkAgeGraph(token, userName) {
             });
 
             $("#personWorkAgeGraphDataTable-tbody").append(
-                '<tr><td>รวม</td>' +
+                '<tr><td class="th-text-green">รวม</td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',0)">' + sumColumns[0] + '</td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',1)">' + sumColumns[1] + '</td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',2)">' + sumColumns[2] + '</td>' +
@@ -523,7 +523,7 @@ async function PersonPositionGraph(token, userName) {
             }
 
 
-            $("#personPositionGraphDataTable-thead > tr").append('<th>ตำแหน่งบริหาร</th>');
+            $("#personPositionGraphDataTable-thead > tr").append('<th class="th-text-green">ตำแหน่งบริหาร</th>');
 
             var sumColumns = [];
             var labelColumns = []
@@ -531,7 +531,7 @@ async function PersonPositionGraph(token, userName) {
 
             $.each(data.graphDataSet, function (key, item) {
                 $("#personPositionGraphDataTable-thead > tr").append(
-                    '<th>' + item.label + '</th>'
+                    '<th class="th-text-green">' + item.label + '</th>'
                 );
                 var sumColumn = 0;
 
@@ -543,7 +543,7 @@ async function PersonPositionGraph(token, userName) {
             });
 
             $("#personPositionGraphDataTable-thead > tr").append(
-                '<th>รวม</th>'
+                '<th class="th-text-green">รวม</th>'
             );
 
             var sumValue = 0;
@@ -568,7 +568,7 @@ async function PersonPositionGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonPositionAdminDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
             $("#personPositionGraphDataTable-tbody").append(
-                '<tr><td>รวม</td>' + lastHtml + '</tr>');
+                '<tr><td class="th-text-green">รวม</td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -633,10 +633,10 @@ async function PersonPositionLevelGraph(token, userName) {
             var sumValue = 0;
             var labelColumns = [];
 
-            $("#personPositionLevelGraphDataTable-thead").append('<th>ประเภทบุคลากร</th>');
+            $("#personPositionLevelGraphDataTable-thead").append('<th class="th-text-green">ประเภทบุคลากร</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personPositionLevelGraphDataTable-thead").append(
-                    '<th>' + item.label + '</th>'
+                    '<th class="th-text-green">' + item.label + '</th>'
                 );
                 var sumColumn = 0;
 
@@ -647,7 +647,7 @@ async function PersonPositionLevelGraph(token, userName) {
                 labelColumns.push(item.label);
             });
             $("#personPositionLevelGraphDataTable-thead").append(
-                '<th>รวม</th>'
+                '<th class="th-text-green">รวม</th>'
             );
 
             $.each(data.label, function (key, item) {
@@ -673,7 +673,7 @@ async function PersonPositionLevelGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonPositionLevelDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
             $("#personPositionLevelGraphDataTable-tbody").append(
-                '<tr><td>รวม</td>' + lastHtml + '</tr>');
+                '<tr><td class="th-text-green">รวม</td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -748,10 +748,10 @@ async function PersonFacultyGraph(token, userName) {
             var sumValue = 0;
             var labelColumns = [];
 
-            $("#personFacultyGraphDataTable-thead").append('<th>ประเภทและบุคลากร</th>');
+            $("#personFacultyGraphDataTable-thead").append('<th class="th-text-green">ประเภทและบุคลากร</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personFacultyGraphDataTable-thead").append(
-                    '<th>' + item.label + '</th>'
+                    '<th class="th-text-green">' + item.label + '</th>'
                 );
                 var sumColumn = 0;
 
@@ -763,7 +763,7 @@ async function PersonFacultyGraph(token, userName) {
             });
 
             $("#personFacultyGraphDataTable-thead").append(
-                '<th>รวม</th>'
+                '<th class="th-text-green">รวม</th>'
             );
 
             $.each(data.label, function (key, item) {
@@ -790,7 +790,7 @@ async function PersonFacultyGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonGroupFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
             $("#personFacultyGraphDataTable-tbody").append(
-                '<tr><td>รวม</td>' + lastHtml + '</tr>');
+                '<tr><td class="th-text-green">รวม</td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -859,10 +859,10 @@ async function PersonPositionFacultyGraph(token, userName) {
                 var sumValue = 0;
                 var labelColumns = [];
 
-                $("#personPositionFacultyGraphDataTable-thead").append('<th>หน่วยงาน</th>');
+                $("#personPositionFacultyGraphDataTable-thead").append('<th class="th-text-green">หน่วยงาน</th>');
                 $.each(data.graphDataSet, function (key, item) {
                     $("#personPositionFacultyGraphDataTable-thead").append(
-                        '<th>' + item.label + '</th>'
+                        '<th class="th-text-green">' + item.label + '</th>'
                     );
 
                     var sumColumn = 0;
@@ -875,7 +875,7 @@ async function PersonPositionFacultyGraph(token, userName) {
                 });
 
                 $("#personPositionFacultyGraphDataTable-thead").append(
-                    '<th>รวม</th>'
+                    '<th class="th-text-green">รวม</th>'
                 );
 
                 $.each(data.label, function (key, item) {
@@ -903,7 +903,7 @@ async function PersonPositionFacultyGraph(token, userName) {
                 });
                 lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
                 $("#personPositionFacultyGraphDataTable-tbody").append(
-                    '<tr><td>รวม</td>' + lastHtml + '</tr>');
+                    '<tr><td class="th-text-green">รวม</td>' + lastHtml + '</tr>');
 
                 $('[data-toggle="tooltip"]').tooltip();
 
@@ -988,10 +988,10 @@ async function PersonRetiredGraph(token, userName) {
             var sumValue = 0;
             var labelColumns = [];
 
-            $("#personRetiredGraphDataTable-thead").append('<th>ปีที่เกษียน</th>');
+            $("#personRetiredGraphDataTable-thead").append('<th class="th-text-green">ปีที่เกษียน</th>');
             $.each(data.graphDataSet, function (key, item) {
                 $("#personRetiredGraphDataTable-thead").append(
-                    '<th>' + item.label + '</th>'
+                    '<th class="th-text-green">' + item.label + '</th>'
                 );
                 var sumColumn = 0;
 
@@ -1002,7 +1002,7 @@ async function PersonRetiredGraph(token, userName) {
                 labelColumns.push(item.label);
             });
             $("#personRetiredGraphDataTable-thead").append(
-                '<th>รวม</th>'
+                '<th class="th-text-green">รวม</th>'
             );
 
             $.each(data.label, function (key, item) {
@@ -1028,7 +1028,7 @@ async function PersonRetiredGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonRetiredDrillDown(' + "'" + "'," + "'" + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + sumValue + '</td>';
             $("#personRetiredGraphDataTable-tbody").append(
-                '<tr><td>รวม</td>' + lastHtml + '</tr>');
+                '<tr><td class="th-text-green">รวม</td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -1241,7 +1241,7 @@ async function AllPersonGraphDS(token, userName) {
 async function RenderAllPersonGraphDS(data) {
     $('#allpersonalGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#allPersonGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="allPersonGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.personGroupTypeName + '</b></a>'
         var table = $('#sub-allpersonal-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#allpersonalGraphDataSourceModal-card-body').append(link)
@@ -1295,7 +1295,7 @@ async function PersonWorkAgeGraphDS(token, userName) {
 async function RenderPersonWorkAgeGraphDS(data) {
     $('#personWorkAgeGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personWorkAgeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkAgeGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personWorkAgeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personWorkAgeGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.personGroupTypeName + '</b></a>'
         var table = $('#sub-personWorkAge-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#personWorkAgeGraphDataSourceModal-card-body').append(link)
@@ -1350,7 +1350,7 @@ async function RenderPersonPositionGraphDS(data) {
 
     $('#personPositionGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.adminPositionType + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.adminPositionType + '</b></a>'
         var table = $('#sub-personPosition-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#personPositionGraphDataSourceModal-card-body').append(link)
@@ -1404,7 +1404,7 @@ async function PersonPositionLevelGraphDS(token, userName) {
 async function RenderPersonPositionLevelGraphDS(data) {
     $('#personPositionLevelGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionLevelGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personGroupTypeName + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionLevelGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personPositionLevelGraphDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.personGroupTypeName + '</b></a>'
         var table = $('#sub-personPosition-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#personPositionLevelGraphDataSourceModal-card-body').append(link)
@@ -1460,7 +1460,7 @@ async function RenderPersonFacultyGraphDS(data) {
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personFacultyGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="personFacultyGraphDSCollapse'
-            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">'
             + result.faculty + '</b></a>'
 
         var table = $('#sub-personFaculty-' + key + '-table').DataTable();
@@ -1516,7 +1516,7 @@ async function RenderPersonPositionFacultyGraphDS(data) {
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personPositionFacultyGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="personPositionFacultyGraphDSCollapse'
-            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">'
             + result.faculty + '</b></a>'
         var table = $('#sub-personPositionFaculty-' + key + '-table').DataTable();
         table.clear().destroy();
@@ -1571,7 +1571,7 @@ async function RenderRetiredGraphDS(data) {
     $.each(data, function (key, result) {
         var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personRetiredGraphDSCollapse' + key
             + '" role="button" aria-expanded="false" aria-controls="personRetiredGraphDSCollapse'
-            + key + '"><i class="fas fa-angle-double-down"></i> <b>'
+            + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">'
             + result.reitredYear + '</b></a>'
         var table = $('#sub-personRetired-' + key + '-table').DataTable();
         table.clear().destroy();
@@ -1620,7 +1620,7 @@ async function PersonEducationGraphDS(token, userName) {
 async function RenderPersonEducationGraphDS(data) {
     $('#personEducationGraphDataSourceModal-card-body').empty();
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personEducationGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.educationTypeName + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personEducationGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personEducationDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.educationTypeName + '</b></a>'
         var table = $('#sub-personEducation-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#personEducationGraphDataSourceModal-card-body').append(link)
@@ -1671,7 +1671,7 @@ async function RenderPersonTypeGraphDS(data) {
     $('#personTypeGraphDataSourceModal-card-body').empty();
 
     $.each(data, function (key, result) {
-        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personTypeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personTypeDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b>' + result.personPositionTypeName + '</b></a>'
+        var link = '<a class="btn btn-default btn-bgwhite collapse-ds" data-toggle="collapse" href="#personTypeGraphDSCollapse' + key + '" role="button" aria-expanded="false" aria-controls="personTypeDSCollapse' + key + '"><i class="fas fa-angle-double-down"></i> <b class="th-text-green">' + result.personPositionTypeName + '</b></a>'
         var table = $('#sub-personType-' + key + '-table').DataTable();
         table.clear().destroy();
         $('#personTypeGraphDataSourceModal-card-body').append(link)
