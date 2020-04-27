@@ -46,6 +46,10 @@ namespace MJU.DataCenter.ResearchExtension.Models
 
                 entity.ToView("DC_researchData");
 
+                entity.Property(e => e.AbstractEn).HasColumnName("AbstractEN");
+
+                entity.Property(e => e.AbstractTh).HasColumnName("AbstractTH");
+
                 entity.Property(e => e.ResearchEndDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ResearchNameEn).HasColumnName("ResearchNameEN");
@@ -117,7 +121,11 @@ namespace MJU.DataCenter.ResearchExtension.Models
             modelBuilder.Entity<ResearchData>(entity =>
             {
                 entity.HasKey(e => e.ResearchId)
-                    .HasName("PK__Research__617A954ECFA5E328");
+                    .HasName("PK__Research__617A954E0E99D8D6");
+
+                entity.Property(e => e.AbstractEn).HasColumnName("AbstractEN");
+
+                entity.Property(e => e.AbstractTh).HasColumnName("AbstractTH");
 
                 entity.Property(e => e.EndDateResearch).HasColumnType("datetime");
 
