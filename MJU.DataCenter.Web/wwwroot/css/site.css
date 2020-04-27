@@ -287,8 +287,10 @@ body {
     display: block;
     overflow: auto;
 }
-}
+
 
 .th-text-green {
     color: #017f3f;
+    font-weight: bold;
 }
+

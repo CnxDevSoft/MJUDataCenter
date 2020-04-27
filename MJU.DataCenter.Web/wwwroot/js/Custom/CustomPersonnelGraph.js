@@ -114,7 +114,7 @@ async function AllPersonGraph(token, userName) {
                 sumValue += item.val;
             });
 
-            $("#allPersonGraphDataTable-tbody").append('<tr><td><strong>รวม</strong></td><td><a onClick="PersonGroupDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#allPersonGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="PersonGroupDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</a></td></tr>');
 
             //AllPersonGraphDS(token, userName);
@@ -312,7 +312,7 @@ async function PersonEducationGraph(token, userName) {
                 sumValue += item.val;
             });
 
-            $("#personEducationGraphDataTable-tbody").append('<tr><td><strong>รวม</strong></td><td><a onClick="PersonEducationDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#personEducationGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="PersonEducationDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -361,7 +361,7 @@ async function PersonTypeGraph(token, userName) {
                 sumValue += item.val;
             });
 
-            $("#personTypeGraphDataTable-tbody").append('<tr><td><strong>รวม</strong></td><td><a onclick="PersonPositionDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#personTypeGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onclick="PersonPositionDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -455,7 +455,7 @@ async function PersonWorkAgeGraph(token, userName) {
             });
 
             $("#personWorkAgeGraphDataTable-tbody").append(
-                '<tr><td><strong>รวม</strong></td>' +
+                '<tr><td><strong class="th-text-green">รวม</strong></td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',0)">' + sumColumns[0] + '</td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',1)">' + sumColumns[1] + '</td>' +
                 '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',2)">' + sumColumns[2] + '</td>' +
@@ -543,7 +543,7 @@ async function PersonPositionGraph(token, userName) {
             });
 
             $("#personPositionGraphDataTable-thead > tr").append(
-                '<th><strong>รวม</strong></th>'
+                '<th><strong class="th-text-green">รวม</strong></th>'
             );
 
             var sumValue = 0;
@@ -568,7 +568,7 @@ async function PersonPositionGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonPositionAdminDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
             $("#personPositionGraphDataTable-tbody").append(
-                '<tr><td><strong>รวม</strong></td>' + lastHtml + '</tr>');
+                '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -647,7 +647,7 @@ async function PersonPositionLevelGraph(token, userName) {
                 labelColumns.push(item.label);
             });
             $("#personPositionLevelGraphDataTable-thead").append(
-                '<th><strong>รวม</strong></th>'
+                '<th><strong class="th-text-green">รวม</strong></th>'
             );
 
             $.each(data.label, function (key, item) {
@@ -673,7 +673,7 @@ async function PersonPositionLevelGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonPositionLevelDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
             $("#personPositionLevelGraphDataTable-tbody").append(
-                '<tr><td><strong>รวม</strong></td>' + lastHtml + '</tr>');
+                '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -763,7 +763,7 @@ async function PersonFacultyGraph(token, userName) {
             });
 
             $("#personFacultyGraphDataTable-thead").append(
-                '<th><strong>รวม</strong></th>'
+                '<th><strong class="th-text-green">รวม</strong></th>'
             );
 
             $.each(data.label, function (key, item) {
@@ -790,7 +790,7 @@ async function PersonFacultyGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonGroupFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
             $("#personFacultyGraphDataTable-tbody").append(
-                '<tr><td><strong>รวม</strong></td>' + lastHtml + '</tr>');
+                '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -875,7 +875,7 @@ async function PersonPositionFacultyGraph(token, userName) {
                 });
 
                 $("#personPositionFacultyGraphDataTable-thead").append(
-                    '<th><strong>รวม</strong></th>'
+                    '<th><strong class="th-text-green">รวม</strong></th>'
                 );
 
                 $.each(data.label, function (key, item) {
@@ -903,7 +903,7 @@ async function PersonPositionFacultyGraph(token, userName) {
                 });
                 lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
                 $("#personPositionFacultyGraphDataTable-tbody").append(
-                    '<tr><td><strong>รวม</strong></td>' + lastHtml + '</tr>');
+                    '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
                 $('[data-toggle="tooltip"]').tooltip();
 
@@ -1002,7 +1002,7 @@ async function PersonRetiredGraph(token, userName) {
                 labelColumns.push(item.label);
             });
             $("#personRetiredGraphDataTable-thead").append(
-                '<th><strong>รวม</strong></th>'
+                '<th><strong class="th-text-green">รวม</strong></th>'
             );
 
             $.each(data.label, function (key, item) {
@@ -1028,7 +1028,7 @@ async function PersonRetiredGraph(token, userName) {
             });
             lastHtml += '<td onClick="PersonRetiredDrillDown(' + "'" + "'," + "'" + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + sumValue + '</td>';
             $("#personRetiredGraphDataTable-tbody").append(
-                '<tr><td><strong>รวม</strong></td>' + lastHtml + '</tr>');
+                '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
         });
