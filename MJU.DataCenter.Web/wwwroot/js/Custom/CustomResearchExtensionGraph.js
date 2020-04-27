@@ -950,7 +950,7 @@ async function ResearchMoneyTypeDrillDown(type) {
 
 async function DisplayResearchDetailModal(researchId) {
 
-    console.log(researchId)
+    
 
     var modal = '#researchDetailModal';
     $('#researchDetailSection').empty();
@@ -964,7 +964,6 @@ async function DisplayResearchDetailModal(researchId) {
     fetch(url)
         .then(res => res.json())
         .then((data) => {
-
             $('#researchNameEn').append(data.researchNameEn)
             $('#researchNameTh').append(data.researchNameTh)
             $('#researcherCount').append(data.researcherCount+' คน')

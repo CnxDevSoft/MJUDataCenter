@@ -953,7 +953,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                   ResearchId = research.ResearchId,
                   ResearchNameTh = research.ResearchNameTh,
                   ResearchNameEn = research.ResearchNameEn,
-                  //ResearchAbstarctTh = research
+                  ResearchAbstarctTh = research.AbstractTh,
+                  ResearchAbstarctEn = research.AbstractEn,
                   ResearchStartDate = research.ResearchStartDate.ToLocalDateTime(),
                   ResearchEndDate = research.ResearchEndDate.ToLocalDateTime(),
                   ResearcherCount = researcher.Count(),
@@ -976,6 +977,7 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             var researchDistinect = research.Select(s => new { s.ResearchId, s.ResearchNameEn }).Distinct();
             var firstPerson = research.Select(s => new { s.ResearcherId, s.ResearcherName }).FirstOrDefault();
             var list = new List<PersonResearchDetail>();
+            var summaryResearchMoney = 0;
             foreach (var re in researchDistinect)
             {
                 var researchData = research.Where(m => m.ResearchId == re.ResearchId && m.ResearchNameEn == re.ResearchNameEn);
@@ -991,6 +993,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                 {
                     PersonResearcher = personResearch.ToList(),
                     ResearchId = re.ResearchId,
+                    ResearchAbstractTh = firstResearchData.AbstractTh,
+                    ResearchAbstractEn = firstResearchData.AbstractEn,
                     ResearchNameTh = firstResearchData.ResearchNameTh,
                     ResearchNameEn = firstResearchData.ResearchNameEn,
                     ResearchMoney = researchData.Sum(s=>s.ResearchMoney),
@@ -1002,12 +1006,14 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
                     ResearchEndDate = firstResearchData.ResearchEndDate.ToLocalDateTime()
                 };
                 list.Add(personResearchDetail);
+                summaryResearchMoney += researchData.Sum(s => s.ResearchMoney).Value;
             }
             var result = new PersonResearchDetailModel
             {
                 ResearcherId = firstPerson.ResearcherId,
                 ResearcherName = firstPerson.ResearcherName,
-                PersonResearchDetail = list
+                PersonResearchDetail = list,
+                SummaryResearchMoney = summaryResearchMoney
             };
             return result;
         }

@@ -2577,6 +2577,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
     fetch(urlResearch)
         .then(res => res.json())
         .then((data) => {
+            console.log(data)
             $('#personNameTh').empty();
             $('#personNameTh').append(data.researcherName);
             $('#personNameEn').empty();
