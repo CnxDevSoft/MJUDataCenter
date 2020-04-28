@@ -1079,7 +1079,7 @@ function genderClick(genderId, genderName, generationType) {
                 var startBody = '<tbody id="sub-researcherGenderDrillDownGraphDataSource-tbody">';
                 $.each(result.personGenderGeneration[0].person, function (key, item) {
                     startBody += '<tr><td><a href="#" class="text-green">' + item.personName + '</a></td><td>' + item.gender + '</td>' +
-                        '<td>' + moment(item.dateOfBirth).format("DD/MM/YYYY")  + '</td >' +
+                        '<td>' + moment(item.dateOfBirth).format("DD/MM/YYYY") + '</td >' +
                         '<td>' + item.position + '</td >' +
                         '<td>' + item.division + '</td>' +
 
@@ -2364,7 +2364,7 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
 async function PersonWorkDurationDrillDown(personnelType, index) {
 
     var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
-       console.log(url)
+    console.log(url)
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -2585,7 +2585,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
 
             var table = $('#userDetailTable').DataTable();
             table.clear().destroy();
-            var html = '';
+            var html = '<div class="col-md-12">';
 
             var startTable = '<table class="table table-striped table-valign-middle dataTable dataTable-sub-researchMoneyRangeDrillDown" id="userDetailTable">';
 
@@ -2608,11 +2608,17 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             });
             var endbody = '</tbody>';
 
-            var endTable = '</table>';
+            var endTable = '</table></div></div>';
 
             html = startTable + startThead + thead + endThead + startBody + endbody + endTable;
 
             $('#research').empty();
+            $('#research').append('<div class="row"><div class="col-md-4"><div class="info-box">' +
+                '<span class="info-box-icon bg-green elevation-1" > <i class="fas fa-dollar-sign"></i></span>' +
+                '<div class="info-box-content">' +
+                '<span class="info-box-text chartCard">ผลรวมงบประมาณงานวิจัย</span>' +
+                '<span class="info-box-number">' + new Number(data.summaryResearchMoney).toLocaleString("th-TH") +' บาท</span>' +
+                '</div></div></div>')
             $('#research').append(html);
 
             $('#userDetailTable').DataTable({
@@ -2651,9 +2657,9 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personFaculty').append(data.faculty);
                 $('#personStartDate').append(moment(data.startDate).format('DD/MM/YYYY'));
                 $('#personRetiredYear').append(data.retiredYear);
-                $('#personSalary').append(new Number(data.salary).toLocaleString("th-TH")+' บาท');
+                $('#personSalary').append(new Number(data.salary).toLocaleString("th-TH") + ' บาท');
                 $('#personAddress').append(data.address + ' ' + data.zipCode);
-                $('#personEducationLevel').append(' '+ data.educationLevel);
+                $('#personEducationLevel').append(' ' + data.educationLevel);
                 $('#personEducation').append(data.education);
                 $('#personEducationCountry').append('ประเทศ' + data.country);
             }
