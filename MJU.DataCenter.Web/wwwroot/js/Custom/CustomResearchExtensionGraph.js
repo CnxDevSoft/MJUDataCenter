@@ -956,13 +956,18 @@ async function DisplayResearchDetailModal(researchId) {
     $('#researcherCount').empty();
     $('#researchdateTimeRange').empty();
     $('#researchMoneyType').empty();
+    $('#researchAbstractEn').empty();
+    $('#researchAbstractTh').empty();
 
     var url = researchExtensionRootPath + 'PersonnelResearchData/ResearchDetail/' + researchId + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
+            console.log(data)
             $('#researchNameEn').append(data.researchNameEn)
             $('#researchNameTh').append(data.researchNameTh)
+            $('#researchAbstractEn').append(data.researchAbstractEn)
+            $('#researchAbstractTh').append(data.researchAbstractTh)
             $('#researcherCount').append(data.researcherCount+' คน')
             $('#researchdateTimeRange').append(moment(data.researchStartDate).format('DD/MM/YYYY') + ' - ' + moment(data.researchEndDate).format('DD/MM/YYYY'))
             var moneyType = '';
