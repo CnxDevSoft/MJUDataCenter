@@ -8,5 +8,6 @@ namespace MJU.DataCenter.Personnel.Service.Interface
     public interface ISeedDataPersonService
     {
         void AddPerson();
+        void AddPersonEducation();
     }
 }

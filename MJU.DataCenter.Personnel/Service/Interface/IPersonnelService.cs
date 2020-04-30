@@ -63,6 +63,7 @@ namespace MJU.DataCenter.Personnel.Service.Interface
 
         PersonnelDataSourceViewModel GetPersonDetailByCitizenId(string citizenId);
         PersonnelDashboard GetPersonnelDashboard();
+        List<PersonEducationDetailViewModel> GetPersonEducationDetailByCitizenId(string citizenId);
 
     }
 }

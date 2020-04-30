@@ -47,9 +47,11 @@ namespace MJU.DataCenter.Personnel
 
             services.AddScoped<IPersonnelRepository,PersonnelRepository>();
             services.AddScoped<IDcPersonRepository, DcPersonRepository>();
+            services.AddScoped<IPersonEducationRepository, PersonEducationRepository>();
+            services.AddScoped<IDcPersonEducationRepository, DcPersonEducationRepository>();
             services.AddTransient<IPersonnelService, PersonnelService>();
             services.AddTransient<ISeedDataPersonService, SeedDataPersonService>();
-
+            
             services.AddApiVersioning(
               options =>
               {

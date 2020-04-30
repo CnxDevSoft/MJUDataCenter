@@ -585,8 +585,9 @@ namespace MJU.DataCenter.Personnel.SeedData
             }
             return result;
         }
-        public static Education Education()
+        public static Education Education(int i)
         {
+            var x = i % 3;
             Random random = new Random();
             var randomTypeA = random.Next(1, 5);
             var randomTypeB = random.Next(1, 5);

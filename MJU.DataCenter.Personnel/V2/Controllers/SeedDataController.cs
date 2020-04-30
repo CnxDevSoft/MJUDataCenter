@@ -23,6 +23,7 @@ namespace MJU.DataCenter.Personnel.V2.Controllers
         public IEnumerable<string> Get()
         {
             _seedDataPersonService.AddPerson();
+            _seedDataPersonService.AddPersonEducation();
             return new string[] { "value1", "value2" };
         }
 

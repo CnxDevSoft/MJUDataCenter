@@ -13,12 +13,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
     {
         private readonly IPersonnelRepository _personnelRepository;
         private readonly IDcPersonRepository _dcPersonRepository;
+        private readonly IPersonEducationRepository _personEducationRepository;
 
         public SeedDataPersonService(IPersonnelRepository personnelRepository,
-            IDcPersonRepository dcPersonRepository)
+            IDcPersonRepository dcPersonRepository
+            , IPersonEducationRepository personEducationRepository)
         {
             _personnelRepository = personnelRepository;
             _dcPersonRepository = dcPersonRepository;
+            _personEducationRepository = personEducationRepository;
         }
         public void AddPerson()
         {
@@ -34,7 +37,7 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     var Division = SeedData.SeedData.Division();
                     var Fact = SeedData.SeedData.Fact(i);
                     var AdminPosition = SeedData.SeedData.AdminPosition();
-                    var Education = SeedData.SeedData.Education();
+                    var Education = SeedData.SeedData.Education(i);
                     var PersonnelType = SeedData.SeedData.TypePersonCode();
                     var PositionType = SeedData.SeedData.PositionType();
                     var PositionLevel = SeedData.SeedData.PositionLevel();
@@ -108,8 +111,38 @@ namespace MJU.DataCenter.Personnel.Service.Services
                 _personnelRepository.AddRange(list);
            
         }
-        public void NewAddPersonSeedData()
+        public void AddPersonEducation()
         {
+            var list = new List<PersonEducation>();
+           
+            for (var i = 0; i < 300; i++)
+            {
+                var idcrd = "1234567890000";
+                var aStringBuilder = new StringBuilder(idcrd);
+                aStringBuilder.Remove(13 - i.ToString().Length, i.ToString().Length);
+                aStringBuilder.Insert(13 - i.ToString().Length, i.ToString());
+                var Education = SeedData.SeedData.Education(i+1);
+
+                var result = new PersonEducation
+                {
+                    CitizenId = aStringBuilder.ToString(),
+                    EducationLevel = Education.EducationLevel,
+                    EducationLevelId = Education.EducationLevelId,
+                    TitleEducation = Education.TitleEducation,
+                    Education = Education.EducationName,
+                    Major = Education.Major,
+                    University = Education.University,
+                    CountryId = Education.CountryId,
+                    Country = Education.Country,
+                    StartEducationDate = SeedData.SeedData.RandomDateTimeDoB(),
+                    GraduateDate = SeedData.SeedData.RandomDateTimeDoB()
+
+                };
+                //_personEducationRepository.Add(result);
+                list.Add(result);
+            }
+
+           _personEducationRepository.AddRange(list);
         }
 
     }

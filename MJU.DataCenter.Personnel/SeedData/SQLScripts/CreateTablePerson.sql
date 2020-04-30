@@ -58,3 +58,24 @@ PRIMARY KEY CLUSTERED
 	[PersonnelId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+
+
+CREATE TABLE [dbo].[PersonEducation](
+	[PersonEducationId] [int] IDENTITY(1,1) NOT NULL,
+	[CitizenId] [nvarchar](max) NULL,
+	[EducationLevelId] [int] NULL,
+	[EducationLevel] [nvarchar](max) NULL,
+	[TitleEducation] [nvarchar](max) NULL,
+	[Education] [nvarchar](max) NULL,
+	[Major] [nvarchar](max) NULL,
+	[University] [nvarchar](max) NULL,
+	[CountryId] [nvarchar](max) NULL,
+	[Country] [nvarchar](max) NULL,
+	[StartEducationDate] [datetime] NULL,
+	[GraduateDate] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PersonEducationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

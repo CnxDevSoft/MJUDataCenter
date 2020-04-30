@@ -24,7 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="RestSharp" Version="106.10.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
@@ -35,9 +35,7 @@
     <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repository\Interface\" />
     <Folder Include="Repository\Common\" />
-    <Folder Include="Repository\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MJU.DataCenter.Core\MJU.DataCenter.Core.csproj" />

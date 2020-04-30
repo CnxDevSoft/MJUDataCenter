@@ -16,13 +16,16 @@ namespace MJU.DataCenter.Personnel.Models
         }
 
         public virtual DbSet<DcPerson> DcPerson { get; set; }
+        public virtual DbSet<DcPersonEducation> DcPersonEducation { get; set; }
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<PersonEducation> PersonEducation { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-OAG5O3P;Database=Personnel;User Id=admin;Password=abc123;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-OAG5O3P;User Id=admin;Database=Personnel;Password=abc123");
             }
         }
 
@@ -47,6 +50,33 @@ namespace MJU.DataCenter.Personnel.Models
                 entity.Property(e => e.StartEducationDate).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<DcPersonEducation>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("DC_PersonEducation");
+
+                entity.Property(e => e.CitizenId).HasMaxLength(25);
+
+                entity.Property(e => e.Country).HasMaxLength(50);
+
+                entity.Property(e => e.CountryId).HasMaxLength(50);
+
+                entity.Property(e => e.Education).HasMaxLength(50);
+
+                entity.Property(e => e.EducationLevel).HasMaxLength(50);
+
+                entity.Property(e => e.GraduateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Major).HasMaxLength(50);
+
+                entity.Property(e => e.StartEducationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TitleEducation).HasMaxLength(50);
+
+                entity.Property(e => e.University).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.HasKey(e => e.PersonnelId)
@@ -59,6 +89,13 @@ namespace MJU.DataCenter.Personnel.Models
                 entity.Property(e => e.RetiredDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.StartEducationDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<PersonEducation>(entity =>
+            {
+                entity.Property(e => e.GraduateDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StartEducationDate).HasColumnType("datetime");
             });

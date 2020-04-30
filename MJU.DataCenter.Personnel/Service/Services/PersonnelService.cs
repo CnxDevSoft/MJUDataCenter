@@ -17,12 +17,15 @@ namespace MJU.DataCenter.Personnel.Service.Services
     {
         private readonly IPersonnelRepository _personnelRepository;
         private readonly IDcPersonRepository _dcPersonRepository;
+        private readonly IDcPersonEducationRepository _dcPersonEducationRepository;
 
         public PersonnelService(IPersonnelRepository personnelRepository,
-            IDcPersonRepository dcPersonRepository)
+            IDcPersonRepository dcPersonRepository,
+            IDcPersonEducationRepository personEducationRepository)
         {
             _personnelRepository = personnelRepository;
             _dcPersonRepository = dcPersonRepository;
+            _dcPersonEducationRepository = personEducationRepository;
         }
 
         public object GetAllPersonnelGroup(int type, List<int> filter)
@@ -2833,6 +2836,28 @@ namespace MJU.DataCenter.Personnel.Service.Services
             };
 
             return model;
+        }
+
+        public List<PersonEducationDetailViewModel> GetPersonEducationDetailByCitizenId(string citizenId)
+        {
+            var personEducationDetail = _dcPersonEducationRepository.GetAll().Where(m => m.CitizenId == citizenId)
+                .Select(s => new PersonEducationDetailViewModel
+                {
+                    CitizenId = s.CitizenId,
+                    EducationLevelId = s.EducationLevelId,
+                    Education = s.Education,
+                    EducationLevel = s.EducationLevel,
+                    University = s.University,
+                    Major = s.Major,
+                    StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                    GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                    TitleEducation = s.TitleEducation,
+                    Country = s.Country,
+                    CountryId = s.CountryId,
+                }).ToList();
+
+            return personEducationDetail;
+
         }
     }
 }
