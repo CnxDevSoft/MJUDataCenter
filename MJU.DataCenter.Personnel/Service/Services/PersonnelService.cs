@@ -2818,7 +2818,8 @@ namespace MJU.DataCenter.Personnel.Service.Services
                     TitleEducation = s.TitleEducation,
                     University = s.University,
                     ZipCode = s.ZipCode,
-                    Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+                    Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province),
+                    PersonEducation = GetPersonEducationDetailByCitizenId(citizenId)
                 }).FirstOrDefault();
 
             return personDetail;
