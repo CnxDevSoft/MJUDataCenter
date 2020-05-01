@@ -616,110 +616,138 @@ namespace MJU.DataCenter.Personnel.SeedData
             switch (randomTypeB)
             {
                 case 1:
-                    result.TitleEducation = "วท.บ. /B.Sc";
-                    result.EducationName = "วิทยาศาสตรบัณฑิต";
+                    
                     if (randomTypeA == 1) 
                     {
+                        result.TitleEducation = "วท.บ. /B.Sc";
+                        result.EducationName = "วิทยาศาสตรบัณฑิต";
                         result.Major = "วิทยาการคอมพิวเตอร์";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                         result.CountryId = "TH";
                     }
                     else if (randomTypeA == 2)
                     {
+                        result.TitleEducation = "วท.บ. /B.Sc";
+                        result.EducationName = "วิทยาศาสตรบัณฑิต";
                         result.Major = "สถิติประยุกต์";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                         result.CountryId = "TH";
                     }
                     else if (randomTypeA == 3)
                     {
+                        result.TitleEducation = "วท.บ. /B.Sc";
+                        result.EducationName = "วิทยาศาสตรบัณฑิต";
                         result.Major = "เคมี";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 4)
                     {
-                        result.Major = null;
-                        result.University = null;
+                        result.TitleEducation = "ปวส.";
+                        result.EducationName = "ประกาศนียบัตรวิชาชีพชั้นสูง";
+                        result.Major = "ปวส.คอมพิวเตอร์ธุรกิจ";
+                        result.University = "มหาวิลัยเทคโนโลยีราชมงคลล้านนา";
                     }
                     result.CountryId = "TH";
                     result.Country = "ไทย";
                     break;
 
                 case 2:
-                    result.TitleEducation = "วศ.บ. /B.Eng.";
-                    result.EducationName = "วิศวกรรมศาสตรบัณฑิต";
+                    
                     if (randomTypeA == 1)
                     {
+                        result.TitleEducation = "วศ.บ. /B.Eng.";
+                        result.EducationName = "วิศวกรรมศาสตรบัณฑิต";
                         result.Major = "เกษตร";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                         result.CountryId = "TH";
                     }
                     else if (randomTypeA == 2)
                     {
+                        result.TitleEducation = "วศ.บ. /B.Eng.";
+                        result.EducationName = "วิศวกรรมศาสตรบัณฑิต";
                         result.Major = "อุตสาหกรรมอาหาร";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 3)
                     {
+                        result.TitleEducation = "วศ.บ. /B.Eng.";
+                        result.EducationName = "วิศวกรรมศาสตรบัณฑิต";
                         result.Major = "วิศวกรรมเครื่องกล";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 4)
                     {
-                        result.Major = null;
-                        result.University = null;
+                        result.TitleEducation = "ปวส.";
+                        result.EducationName = "ประกาศนียบัตรวิชาชีพชั้นสูง";
+                        result.Major = "ปวส.อิเล็กทรอนิกส์";
+                        result.University = "มหาวิลัยเทคโนโลยีราชมงคลล้านนา";
                     }
                     result.CountryId = "TH";
                     result.Country = "ไทย";
                     break;
 
                 case 3:
-                    result.TitleEducation = "รป.บ. / B.P.A.";
-                    result.EducationName = "รัฐประศาสนศาสตรบัณฑิต";
+                    
                     if (randomTypeA == 1)
                     {
+                        result.TitleEducation = "รป.บ. / B.P.A.";
+                        result.EducationName = "รัฐประศาสนศาสตรบัณฑิต";
                         result.Major = "รัฐประศาสนศาสตร์";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 2)
                     {
+                        result.TitleEducation = "รป.บ. / B.P.A.";
+                        result.EducationName = "รัฐประศาสนศาสตรบัณฑิต";
                         result.Major = "รัฐประศาสนศาสตร์";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 3)
                     {
+                        result.TitleEducation = "รป.บ. / B.P.A.";
+                        result.EducationName = "รัฐประศาสนศาสตรบัณฑิต";
                         result.Major = "รัฐประศาสนศาสตร์";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 4)
                     {
-                        result.Major = null;
-                        result.University = null;
+                        result.TitleEducation = "ปวช.";
+                        result.EducationName = "ประกาศนียบัตรวิชาชีพ";
+                        result.Major = "เครื่องกลเกษตร";
+                        result.University = "โปลิเทคนิคเชียงใหม่";
                     }
                     result.CountryId = "TH";
                     result.Country = "ไทย";
                     break;
                 case 4:
-                    result.TitleEducation = "บธ.บ. / B.B.A.";
-                    result.EducationName = "ธุรกิจและบริหาร";
+                   
                     if (randomTypeA == 1)
                     {
+                        result.TitleEducation = "บธ.บ. / B.B.A.";
+                        result.EducationName = "ธุรกิจและบริหาร";
                         result.Major = "วิชาผู้ประกอบการ";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 2)
                     {
+                        result.TitleEducation = "บธ.บ. / B.B.A.";
+                        result.EducationName = "ธุรกิจและบริหาร";
                         result.Major = "ธุรกิจศึกษา";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 3)
                     {
+                        result.TitleEducation = "บธ.บ. / B.B.A.";
+                        result.EducationName = "ธุรกิจและบริหาร";
                         result.Major = "การบัญชี";
                         result.University = randomTypeU == 1 ? result.University = "มหาวิทยาลัยเชียงใหม่" : result.University = "มหาวิทยาลัยแม่โจ้";
                     }
                     else if (randomTypeA == 4)
                     {
-                        result.Major = null;
-                        result.University = null;
+                        result.TitleEducation = "ปวส";
+                        result.EducationName = "ประกาศนียบัตรวิชาชีพชั้นสูง";
+                        result.Major = "ปวส.การบัญชี";
+                        result.University = "มหาวิลัยเทคโนโลยีราชมงคลล้านนา";
                     }
                     if (randomTypeA == 4) 
                     { 
