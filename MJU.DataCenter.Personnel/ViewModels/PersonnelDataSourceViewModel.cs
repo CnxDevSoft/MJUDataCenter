@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MJU.DataCenter.Personnel.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,5 +39,8 @@ namespace MJU.DataCenter.Personnel.ViewModels
         public DateTime? StartEducationDate { get; set; }
         public DateTime? GraduateDate { get; set; }
         public string Address { get; set; }
+
+        public List<PersonEducationDetailViewModel> PersonEducation { get; set; }
+
     }
 }

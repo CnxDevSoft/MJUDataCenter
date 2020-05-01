@@ -2644,9 +2644,6 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personRetiredYear').empty();
                 $('#personSalary').empty();
                 $('#personAddress').empty();
-                $('#personEducationLevel').empty();
-                $('#personEducation').empty();
-                $('#personEducationCountry').empty();
 
                 $('#personNameTh').append(data.personName);
                 $('#personNameEn').append(data.personName);
@@ -2659,9 +2656,38 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personRetiredYear').append(data.retiredYear);
                 $('#personSalary').append(new Number(data.salary).toLocaleString("th-TH") + ' บาท');
                 $('#personAddress').append(data.address + ' ' + data.zipCode);
-                $('#personEducationLevel').append(' ' + data.educationLevel);
-                $('#personEducation').append(data.education);
-                $('#personEducationCountry').append('ประเทศ' + data.country);
+
+                $('.educationGroup').empty();
+
+                if (data.personEducation.length > 0) {
+                    var educationGroupText = 'ไม่มีข้อมูล';
+                    $.each(data.personEducation, function (key, item) {
+                      
+                        educationGroupText = '<strong><i class="fas fa-book mr-1"></i>' + item.educationLevel + '</strong>' +
+                            '<div class="text-muted educationText">ปีที่จบ ' +moment(item.graduateDate).format('YYYY')+ '</div>' +
+                            '<div class="text-muted educationText">' + data.titleEducation + '</div>' +
+                            '<div class="text-muted educationText">' + data.education + '</div>' +
+                            '<div class="text-muted educationText">' + data.major + '</div>' +
+                            '<div class="text-muted educationText">' + data.university + '</div>'+
+                            '<div class="text-muted educationText">ประเทศ ' + data.country + '</div>'
+                            ;
+                        $('.educationGroup').append(educationGroupText);
+                    });
+        
+                }
+                
+
+                //$('#personEducationLevel').empty();
+                //$('#personEducation').empty();
+                //$('#personEducationCountry').empty();
+
+                //$('#personEducationLevel').append(' ' + data.educationLevel);
+                //$('#personEducation').append(data.education);
+                //$('#personEducationCountry').append('ประเทศ' + data.country);
+
+
+
+
             }
 
         }).then(function () {
