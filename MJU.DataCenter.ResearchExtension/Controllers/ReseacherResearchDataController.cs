@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MJU.DataCenter.Core.Models;
 using MJU.DataCenter.ResearchExtension.Helper;
 using MJU.DataCenter.ResearchExtension.Models;
@@ -19,15 +20,18 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     public class ResearcherResearchDataController : Controller
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
-        public ResearcherResearchDataController(IResearchAndExtensionService researchAndExtensionService)
+        private readonly IConfiguration _configuration;
+        public ResearcherResearchDataController(IResearchAndExtensionService researchAndExtensionService, IConfiguration configuration)
         {
             _researchAndExtensionService = researchAndExtensionService;
+            _configuration = configuration;
         }
 
         [HttpGet("")]
         public List<ResearcherResearchDataModel> Get([FromQuery]ResearcherInputDto input, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var webHost = _configuration["App:WebHost"];
+            var result = AuthenticationApi.Authenticated(auth, webHost);
             if (result.Result.IsSuccess)
             {
                 List<int> filter = new List<int>();
@@ -43,7 +47,8 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         [HttpGet("/Detail/{researcherId}")]
         public ResearcherDetailModel Get(int researcherId, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var webHost = _configuration["App:WebHost"];
+            var result = AuthenticationApi.Authenticated(auth, webHost);
             if (result.Result.IsSuccess)
             {
                

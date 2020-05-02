@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MJU.DataCenter.Core.Models;
 using MJU.DataCenter.ResearchExtension.Helper;
 using MJU.DataCenter.ResearchExtension.Models;
@@ -16,18 +17,21 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class PersonnelResearchDataController : Controller
+    public class PersonnelResearchDataController : ControllerBase
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
-        public PersonnelResearchDataController(IResearchAndExtensionService researchAndExtensionService)
+        private readonly IConfiguration _configuration;
+        public PersonnelResearchDataController(IResearchAndExtensionService researchAndExtensionService, IConfiguration configuration)
         {
             _researchAndExtensionService = researchAndExtensionService;
+            _configuration = configuration;
         }
 
         [HttpGet("{citizenId}")]
         public PersonResearchDetailModel Get(string citizenId, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var webHost = _configuration["App:WebHost"];
+            var result = AuthenticationApi.Authenticated(auth, webHost);
             if (result.Result.IsSuccess)
             {
                 return _researchAndExtensionService.GetPersonResearchDetail(citizenId);
@@ -38,7 +42,8 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         [HttpGet("ResearchDetail/{researchId}")]
         public ResearchDetailViewModel Get(int researchId, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var webHost = _configuration["App:WebHost"];
+            var result = AuthenticationApi.Authenticated(auth, webHost);
             if (result.Result.IsSuccess)
             {
                 return _researchAndExtensionService.GetResearchDetail(researchId);

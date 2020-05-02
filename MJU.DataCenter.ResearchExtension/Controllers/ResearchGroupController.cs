@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MJU.DataCenter.Core.Models;
 using MJU.DataCenter.ResearchExtension.Helper;
 using MJU.DataCenter.ResearchExtension.Service.Interface;
@@ -18,15 +19,18 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
     public class ResearchGroupController : ControllerBase
     {
         private readonly IResearchAndExtensionService _researchAndExtensionService;
-        public ResearchGroupController(IResearchAndExtensionService researchAndExtensionService)
+        private readonly IConfiguration _configuration;
+        public ResearchGroupController(IResearchAndExtensionService researchAndExtensionService, IConfiguration configuration)
         {
             _researchAndExtensionService = researchAndExtensionService;
+            _configuration = configuration;
         }
 
         [HttpGet("")]
         public object Get([FromQuery]InputFilterGraphViewModel input, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var webHost = _configuration["App:WebHost"];
+            var result = AuthenticationApi.Authenticated(auth, webHost);
             if (result.Result.IsSuccess)
             {
                 List<int> filter = new List<int>();
@@ -43,7 +47,8 @@ namespace MJU.DataCenter.ResearchExtension.Controllers
         [HttpGet("GetDataSource")]
         public List<ResearchGroupDataSourceModel> Get([FromQuery]InputFilterDataSourceViewModel input, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var webHost = _configuration["App:WebHost"];
+            var result = AuthenticationApi.Authenticated(auth, webHost);
             if (result.Result.IsSuccess)
             {
                 List<int> filter = new List<int>();
