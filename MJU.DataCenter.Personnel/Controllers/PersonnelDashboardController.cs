@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MJU.DataCenter.Core.Models;
 using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
@@ -17,10 +18,16 @@ namespace MJU.DataCenter.Personnel.Controllers
     {
 
         private readonly IPersonnelService _personnelService;
-        public PersonnelDashboardController(IPersonnelService personnelService)
+        private readonly IConfiguration _configuration;
+
+        public PersonnelDashboardController(IPersonnelService personnelService, IConfiguration configuration)
         {
             _personnelService = personnelService;
+            _configuration = configuration;
+
         }
+        private string WebHost => _configuration["App:WebHost"];
+
         // GET: api/PersonnelDashboard
         [HttpGet("PersonnelCount")]
         public object Get()

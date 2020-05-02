@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MJU.DataCenter.Core.Models;
 using MJU.DataCenter.Personnel.Helper;
 using MJU.DataCenter.Personnel.Service.Interface;
@@ -17,15 +18,21 @@ namespace MJU.DataCenter.Personnel.Controllers
     public class PersonnelGenderGenerationController : ControllerBase
     {
         private readonly IPersonnelService _personnelService;
-        public PersonnelGenderGenerationController(IPersonnelService personnelService)
+        private readonly IConfiguration _configuration;
+
+        public PersonnelGenderGenerationController(IPersonnelService personnelService, IConfiguration configuration)
         {
             _personnelService = personnelService;
+            _configuration = configuration;
+
         }
+        private string WebHost => _configuration["App:WebHost"];
+
 
         [HttpGet("{type}")]
         public object Get(int type, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var result = AuthenticationApi.Authenticated(auth, WebHost);
             if (result.Result.IsSuccess)
             {
                 List<int> filter = new List<int>();
@@ -42,7 +49,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("DataSource")]
         public object Get([FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var result = AuthenticationApi.Authenticated(auth, WebHost);
             if (result.Result.IsSuccess)
             {
                 List<int> filter = new List<int>();
@@ -59,7 +66,7 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("DataSourceByType/{type}/{gender}/{genderName}")]
         public object Get(int type, int gender, string genderName, [FromQuery] AuthenticateModel auth)
         {
-            var result = AuthenticationApi.Authenticated(auth);
+            var result = AuthenticationApi.Authenticated(auth, WebHost);
             if (result.Result.IsSuccess)
             {
                 List<int> filter = new List<int>();
