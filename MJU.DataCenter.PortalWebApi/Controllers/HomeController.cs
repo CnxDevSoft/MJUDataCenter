@@ -29,7 +29,7 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                 var departmentRoles = _userDepartmentService.GetAllDepartmentRole();
                 model.DepartmentRoles = departmentRoles;             
             }
-            else
+            else if(User.IsInRole("Developer"))
             {
                 if (User.FindFirst("UserId") != null) 
                 {
