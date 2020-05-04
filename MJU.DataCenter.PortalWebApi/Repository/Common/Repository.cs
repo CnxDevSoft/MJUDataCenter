@@ -26,6 +26,30 @@ namespace MJU.DataCenter.PortalWebApi.Repository.Common
             Context.SaveChanges();
         }
 
+        public TEntity Update(TEntity entity)
+        {
+            foreach (var entry in Context.ChangeTracker.Entries().Where(m => m.Entity != entity))
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Modified:
+                        entry.State = EntityState.Unchanged;
+                        break;
+                    //case EntityState.Added:
+                    //    entry.State = EntityState.Detached;
+                    //    break;
+                    // If the EntityState is the Deleted, reload the date from the database.   
+                    case EntityState.Deleted:
+                        entry.Reload();
+                        break;
+                    default: break;
+                }
+            }
+            Context.Set<TEntity>().Update(entity);
+            Context.SaveChanges();
+            return entity;
+        }
+
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await Context.Set<TEntity>().AddRangeAsync(entities);

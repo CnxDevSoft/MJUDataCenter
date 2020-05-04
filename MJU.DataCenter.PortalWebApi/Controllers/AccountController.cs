@@ -292,10 +292,10 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GenDepartmentKey()
+        public async Task<DepartmentRole> GenDepartmentKey(int departmentRoleId)
         {
 
-            return Ok("new key");
+            return _userDepartmentService.GenerateDepartmentRole(departmentRoleId);
         }
 
 

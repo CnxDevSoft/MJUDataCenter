@@ -24,7 +24,7 @@
                         {
                             <tr>
                                 <td>@item.DepartmentRoleName</td>
-                                <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId , Disabled = "Disabled" })</td>
+                                <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId, Disabled = "Disabled",id="departmentKey"+ item.DepartmentRoleId})</td>
                                 <td><button class="btn btn-success" onclick="Save(@item.DepartmentRoleId)"><i class="fa fa-key"> บันทึก</button></td>
                             </tr>
                         }
@@ -37,5 +37,13 @@
 </div>
 
 <script>
+    async function Save(departmentRoleId) {
+        $.post("@Url.Action("GenDepartmentKey", "Account")", { departmentRoleId: departmentRoleId }, function (data) {
+            console.log(data);
+            var id = '#departmentKey' + departmentRoleId;
+            $(id).val(data.departmentApiToken)
+            //$('#departmentKey' + departmentRoleId).append(data.departmentApiToken);
+     });
+    }
 
 </script>
