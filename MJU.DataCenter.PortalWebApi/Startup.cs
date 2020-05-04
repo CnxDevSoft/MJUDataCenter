@@ -66,6 +66,7 @@ namespace MJU.DataCenter.PortalWebApi
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddScoped<IDepartmentRoleRepository, DepartmentRoleRepository>();
             services.AddScoped<IUserDepartmentRoleRepository, UserDepartmentRoleRepository>();
             services.AddTransient<IUserDepartmentRoleService, UserDepartmentRoleService>();
 

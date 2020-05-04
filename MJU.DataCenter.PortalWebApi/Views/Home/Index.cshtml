@@ -1,6 +1,9 @@
-﻿@page
+﻿
+@model MJU.DataCenter.PortalWebApi.Models.HomeViewModel
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var modelTest = Model;
 }
 
 <section class="content">
@@ -18,13 +21,10 @@
                             <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">@User.Identity.Name</h3>
-                        <p class="text-muted text-center">Software Engineer</p>
+                        <p class="text-muted text-center">Super Admin</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
                                 <b>หน่วยงาน</b> <a class="float-right">คณะวิทยาศาสตร์</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Token</b> <a class="float-right">7e2f4ef1-0a8c-40cb-bd57-278eee52d640</a>
                             </li>
                         </ul>
                         @*<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>*@
@@ -59,13 +59,21 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tab_2">
+                            @User.IsInRole("SuperAdmin")
+                            @if (User.IsInRole("SuperAdmin"))
+                            {
+                                <!-- super admin -->
+                                <partial name="~/Views/Account/PartialViews/_SuperAdminManagementRole.cshtml" model="@Model" />
+                            }
+                            else
+                            {
+                                <!-- developer -->
+                                <partial name="~/Views/Account/PartialViews/_UserManagementRole.cshtml" model="@Model" />
+                            }
 
-                            <!-- super admin -->
-                            <!-- developer -->
-                          
                         </div>
                         <div class="tab-pane" id="tab_3">
-                 
+
                         </div>
                     </div>
                 </div>
@@ -73,7 +81,7 @@
         </div>
     </div>
     <script>
-    $(function () {
-    })
+        $(function () {
+        })
     </script>
 </section>

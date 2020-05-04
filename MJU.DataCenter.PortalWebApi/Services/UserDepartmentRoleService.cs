@@ -11,10 +11,13 @@ namespace MJU.DataCenter.PortalWebApi.Services
     public class UserDepartmentRoleService : IUserDepartmentRoleService
     {
         private readonly IUserDepartmentRoleRepository _userDepartmentRoleRepository;
+        private readonly IDepartmentRoleRepository _departmentRoleRepository;
 
-        public UserDepartmentRoleService(IUserDepartmentRoleRepository userDepartmentRoleRepository)
+        public UserDepartmentRoleService(IUserDepartmentRoleRepository userDepartmentRoleRepository,
+             IDepartmentRoleRepository departmentRoleRepository)
         {
             _userDepartmentRoleRepository = userDepartmentRoleRepository;
+            _departmentRoleRepository = departmentRoleRepository;
         }
         public List<UserDepartmentRole> GetAll()
         {
@@ -26,5 +29,10 @@ namespace MJU.DataCenter.PortalWebApi.Services
             return _userDepartmentRoleRepository.GetAllWith(x => x.DepartmentRole)
                 .Where( x=>x.UserId == userId).ToList();
         }
+        public List<DepartmentRole> GetAllDepartmentRole()
+        {
+            return _departmentRoleRepository.GetAll().ToList();
+        }
+
     }
 }

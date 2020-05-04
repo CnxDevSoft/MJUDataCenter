@@ -10,5 +10,6 @@ namespace MJU.DataCenter.PortalWebApi.Services.Interface
     {
         List<UserDepartmentRole> GetAll();
         List<UserDepartmentRole> GetById(int userId);
+        List<DepartmentRole> GetAllDepartmentRole();
     }
 }

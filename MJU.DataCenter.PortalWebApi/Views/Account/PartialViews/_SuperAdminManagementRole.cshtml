@@ -1,0 +1,41 @@
+﻿@model MJU.DataCenter.PortalWebApi.Models.HomeViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-green-theme">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    การจัดการสิทธิ์สำหรับผู้ดูแลระบบ
+                </h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-valign-middle dataTable bg-white" id="superAdminRoletable">
+                    <thead id="superAdminRoletable-thead">
+                        <tr>
+                            <th>ชื่อสิทธิ์</th>
+                            <th>API Token Key</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="superAdminRoletable-tbody">
+
+                        @foreach (var item in Model.DepartmentRoles)
+                        {
+                            <tr>
+                                <td>@item.DepartmentRoleName</td>
+                                <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId , Disabled = "Disabled" })</td>
+                                <td><button class="btn btn-success" onclick="Save(@item.DepartmentRoleId)"><i class="fa fa-key"> บันทึก</button></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
