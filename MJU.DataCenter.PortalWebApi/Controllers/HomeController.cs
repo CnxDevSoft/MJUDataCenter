@@ -27,7 +27,13 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
             if (User.IsInRole("SuperAdmin"))
             {
                 var departmentRoles = _userDepartmentService.GetAllDepartmentRole();
-                model.DepartmentRoles = departmentRoles;             
+                model.DepartmentRoles = departmentRoles;
+                model.UserInfo = new UserInfo
+                {
+                    Role = "ผู้ดูแลระบบ",
+                    FullName = User.Identity.Name
+                    
+                };
             }
             else if(User.IsInRole("Developer"))
             {
@@ -36,6 +42,15 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                     var id = User.FindFirst("UserId").Value;
                     var currentDepartmentRoles = _userDepartmentService.GetById(int.Parse(id));
                     model.DepartmentRoles = currentDepartmentRoles.Select(x => x.DepartmentRole).ToList();
+                    model.UserInfo = new UserInfo
+                    {
+                        Role = "นักพัฒนา",
+                        FullName = User.Identity.Name,
+                        DepartmentRole = model.DepartmentRoles.FirstOrDefault()
+
+                    };
+
+
                 }
             }
             return View(model);
