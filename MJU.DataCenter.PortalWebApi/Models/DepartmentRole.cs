@@ -10,6 +10,6 @@ namespace MJU.DataCenter.PortalWebApi.Models
         public int DepartmentRoleId { get; set; }
         public string DepartmentRoleName { get; set; }
         public string DepartmentKey { get; set; }
-        public Guid DepartmentApiToken { get; set; }
+        public Guid? DepartmentApiToken { get; set; }
     }
 }

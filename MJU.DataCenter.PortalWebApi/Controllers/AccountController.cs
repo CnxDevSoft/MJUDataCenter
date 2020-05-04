@@ -69,8 +69,13 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                     _logger.LogInformation("User logged in.");
                     var user = await _userManager.FindByNameAsync(model.Email);
 
+                    var roles = await _userManager.GetRolesAsync(user);
+
                     _userManager.AddClaimAsync(user, new Claim("AccessToken", user.AccessToken.ToString())).Wait();
-                    
+                    //_userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString())).Wait();
+                    _userManager.AddToRolesAsync(user, roles).Wait();
+
+
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -284,6 +289,13 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GenDepartmentKey()
+        {
+
+            return Ok("new key");
         }
 
 
