@@ -1,0 +1,93 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using MJU.DataCenter.PortalWebApi.Models
+@model MJU.DataCenter.PortalWebApi.ViewModels.LoginViewModel
+@inject SignInManager<AppUser> SignInManager
+
+@{
+    Layout = "_BlankLayout";
+    ViewData["Title"] = "เข้าสู่ระบบ";
+}
+
+    <div class="login-page">
+        <div class="logo-account">
+            <div class="py-1 text-center">
+                <a asp-controller="Home" asp-action="Index"><img class="logo" src="~/img/logo.png" /></a>
+                <h2 class="">MJU Datacenter</h2>
+            </div>
+        </div>
+        <div class="login-box">
+            <div class="card">
+                <div class="card-body logo-card-body">
+                    <h2 class="text-center">@ViewData["Title"]</h2>
+                    <section>
+                        <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-green">เข้าสู่ระบบ</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="row align-items-center h-100">
+        <div class="col-lg-12 card shadow" style="height: 80%;">
+            <div class="card-body" style="padding: 0px !important;">
+                <div class="row h-100">
+                    <div class="col-lg-8 gradient-bg">
+                        <div class="py-4">
+                            <div class="py-2">
+                                <img class="logo" src="~/img/logo.png"/>
+                            </div>
+                            <h2 class="text-white">MJU Datacenter</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 align-self-center">
+                        <h2 class="text-center">@ViewData["Title"]</h2>
+                        <section>
+                            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input asp-for="Password" class="form-control" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-green">เข้าสู่ระบบ</button>
+                                </div>
+                                <div class="form-group text-center">
+                                    <p>
+                                        <a asp-action="ForgotPassword">Forgot password?</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

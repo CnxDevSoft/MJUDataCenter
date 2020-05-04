@@ -1,0 +1,56 @@
+﻿@{
+}
+
+<div class="col-lg-6">
+    <div class="card card-green-theme">
+        <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+                <h3 class="card-title">กราฟแสดงงานวิจัยแยกตามกลุ่มบุคลากร</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="position-relative mb-4" id="moneyPersonGroupBox">
+                <canvas id="moneyPersonGroup-chart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <span class="mr-2">
+                    <i class="fas fa-square text-primary"></i> จำนวนงานวิจัย
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="moneyPersonGroupModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="card card-green-theme">
+                <div class="card-header border-0">
+                    <h3 class="card-title">แสดงรายชื่องานวิจัยแยกตามกลุ่มบุคลากร <span id="moneyPersonGroupLabel" ></span> </h3>
+                    <div class="card-tools">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-striped table-valign-middle dataTable" id="moneyPersonGroupTable">
+                        <thead>
+                            <tr>
+                                <th><i class="fa fa-paper-plane"></i>  รายชื่องานวิจัย</th>
+                                <th><i class="fa fa-user"></i>  ผู้ทำวิจัย</th>
+                                <th><i class="fa fa-clock"></i> วันสิ้นสุดงานวิจัย</th>
+                            </tr>
+                        </thead>
+                        <tbody id="moneyPersonGroupSection">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        ResearchPersonGroupGraph(null);
+    })
+</script>

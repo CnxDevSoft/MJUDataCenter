@@ -1,0 +1,46 @@
+﻿@{
+    var userAccesToken = User.FindFirst("AccessToken").Value;
+}
+<div class="col-lg-6">
+    <div class="card card-green-theme">
+        <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+                <h3 class="card-title">กราฟแสดงจำนวนบุคลากรแยกตามระดับการศึกษา</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="position-relative mb-4 text-center">
+                <div class="btn-group btn-group-toggle btn-toggle-green" data-toggle="buttons">
+                    <label class="btn btn-success label-default-bg active" id="switch-personEducation-label-canvas">
+                        <input type="radio" name="options" id="switch-personEducation-chart-1" autocomplete="off" checked="">
+                        <i class="fa fa-chart-bar" aria-hidden="true"></i><br /> มุมมองกราฟ
+                    </label>
+                    <label class="btn btn-success label-default-bg btn-toggle-green" id="switch-personEducation-label-table">
+                        <input type="radio" name="options" id="switch-personEducation-chart-2" autocomplete="off">
+                        <i class="fa fa-table" aria-hidden="true"></i><br /> มุมมองตาราง
+                    </label>
+                </div>
+                <a class="btn btn-app" style="position: absolute;right: 0;" id="personEducation-datasource">
+                    <i class="fas fa-info"></i> ข้อมูล
+                </a>
+            </div>
+            <br />
+            <div class="card-body" id="personEducation-chart-canvas">
+                <canvas id="personEducation-Chart" style="min-height: 300px; height: 332px; max-height: 350px; max-width: 100%;"></canvas>
+            </div>
+            <div class="position-relative mb-4" id="personEducation-chart-table" style="display:none;">
+                <partial name="PartialViews/PersonEducationGraph/_personEducationGraphDataTable" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        PersonEducationGraph('@userAccesToken','@User.Identity.Name');
+        ToggleChart("personEducation");
+        $('#personEducation-datasource').click(function () {
+            PersonEducationGraphDS('@userAccesToken','@User.Identity.Name')
+        });
+    })
+</script>
+<partial name="PartialViews/PersonEducationGraph/_personEducationGraphDataSource" />
