@@ -13,5 +13,6 @@ namespace MJU.DataCenter.PortalWebApi.Services.Interface
         List<DepartmentRole> GetAllDepartmentRole();
 
         DepartmentRole GenerateDepartmentRole(int departmentRoleId);
+        List<UserDepartmentRole> GetDepartmentRoleByToken(Guid token);
     }
 }

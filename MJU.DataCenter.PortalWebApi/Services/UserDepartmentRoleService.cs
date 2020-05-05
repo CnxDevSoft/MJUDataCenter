@@ -41,5 +41,12 @@ namespace MJU.DataCenter.PortalWebApi.Services
             return _departmentRoleRepository.Update(depertmentRole);
         }
 
+        public List<UserDepartmentRole> GetDepartmentRoleByToken(Guid token)
+        {
+            var query = _userDepartmentRoleRepository.GetAllWith(inc => inc.DepartmentRole)
+                .Where(x => x.DepartmentRole.DepartmentApiToken == token).ToList();
+            return query;
+        }
+
     }
 }
