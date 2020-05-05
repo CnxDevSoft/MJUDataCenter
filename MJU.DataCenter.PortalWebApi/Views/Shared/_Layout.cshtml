@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MJU.DataCenter.Web</title>
+    <title>MJU.DataCenter.PortalWebApi</title>
     <link rel="icon" href="~/img/logo.ico">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,6 +35,7 @@
     <script src="~/plugins/jquery/jquery.min.js"></script>
 </head>
 <body>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container" style="min-width: 80%;">
@@ -52,8 +53,8 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="DashboardPersonnel" asp-action="Index">แดชบอร์ด</a>
-                            </li>*@
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="DashboardPersonnel" asp-action="Index">แดชบอร์ด</a>
+                                </li>*@
                         }
                     </ul>
                 </div>
@@ -67,7 +68,7 @@
         </main>
     </div>
 
-    <footer class="footer main-footer">
+    <footer class="footer main-footer-full">
         <div class="container">
             <strong>Copyright &copy; 2020 <a href="http://adminlte.io">MJU DataCenter</a>.</strong>
             All rights reserved.

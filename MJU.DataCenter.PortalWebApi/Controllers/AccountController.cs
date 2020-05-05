@@ -63,13 +63,26 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                var user = await _userManager.FindByNameAsync(model.Email);
+
+                var checkRole = await _userManager.IsInRoleAsync(user, "User");
+                if (checkRole)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var user = await _userManager.FindByNameAsync(model.Email);
+
+                  //  var user = await _userManager.FindByNameAsync(model.Email);
 
                     var roles = await _userManager.GetRolesAsync(user);
+
+                  
 
                     _userManager.AddClaimAsync(user, new Claim("AccessToken", user.AccessToken.ToString())).Wait();
                     //_userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString())).Wait();
