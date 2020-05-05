@@ -18,5 +18,7 @@ namespace MJU.DataCenter.Personnel.IRepository.Common
         void RemoveRange(IEnumerable<TEntity> entities);
         IEnumerable<TEntity> GetAll();
         void AddRange(IEnumerable<TEntity> entities);
+
+        TEntity Update(TEntity entity);
     }
 }

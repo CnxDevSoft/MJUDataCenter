@@ -282,6 +282,13 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        [HttpPost]
+        public async Task<DepartmentRole> GenDepartmentKey(int departmentRoleId)
+        {
+
+            return _userDepartmentService.GenerateDepartmentRole(departmentRoleId);
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)
