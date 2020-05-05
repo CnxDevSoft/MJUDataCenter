@@ -1,6 +1,6 @@
 ﻿
 async function PersonPositionFacultySubGraph($chart, data, token, userName) {
-
+    debugger;
     var $chart = $chart.get(0).getContext('2d')
     var donutData = {
         labels: data.label,

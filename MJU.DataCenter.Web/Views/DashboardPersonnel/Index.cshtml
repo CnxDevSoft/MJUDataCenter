@@ -1,7 +1,7 @@
 ﻿@page
 @{
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-    var userAccesToken = User.FindFirst("AccessToken").Value;
+    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
 }
 
 <div class="container-fluid">

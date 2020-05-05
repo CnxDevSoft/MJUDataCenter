@@ -31,7 +31,6 @@ namespace MJU.DataCenter.Web.Controllers
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             //  IEmailSender emailSender,
-            // 
             ILogger<AccountController> logger,
             IUserDepartmentRoleService userDepartmentService)
         {
@@ -40,7 +39,6 @@ namespace MJU.DataCenter.Web.Controllers
             //  _emailSender = emailSender;
             _logger = logger;
             _userDepartmentService = userDepartmentService;
-
         }
 
         [HttpGet]
@@ -64,14 +62,37 @@ namespace MJU.DataCenter.Web.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                var user = await _userManager.FindByNameAsync(model.Email);
+                if(user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+
+                var checkRole = await _userManager.IsInRoleAsync(user, "User");
+                if (!checkRole)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var user = await _userManager.FindByNameAsync(model.Email);
+                    var userDepartment = _userDepartmentService.GetById(user.Id);
+                    if (userDepartment.Any())
+                    {
+                        var firstRole = userDepartment.FirstOrDefault();
+                        var dcWebToken = string.Empty;
+                        if (firstRole.DepartmentRole.DepartmentApiToken != null)
+                        {
+                            dcWebToken = firstRole.DepartmentRole.DepartmentApiToken.ToString();
+                        }
+                        _userManager.AddClaimAsync(user, new Claim("DCWebToken", dcWebToken)).Wait();
+                    }
 
-                    _userManager.AddClaimAsync(user, new Claim("AccessToken", user.AccessToken.ToString())).Wait();
-                    
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -94,48 +115,6 @@ namespace MJU.DataCenter.Web.Controllers
             return View(model);
         }
 
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Authenticated(string userName, string password, string token)
-        {
-            var model = new LoginApiModel
-            {
-                IsSuccess = false
-            };
-
-            if (token == null) return BadRequest(new LoginApiModel
-            {
-                IsSuccess = false,
-                Description = "Token is not valid"
-            });
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(userName, password, false, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                _logger.LogInformation("User logged in.");
-                var user = await _userManager.FindByNameAsync(userName);
-                if (user != null)
-                {
-                    if (Guid.Parse(token) == user.AccessToken)
-                    {
-                        var data = _userDepartmentService.GetById(user.Id);
-                        //find user role with token
-                        model = new LoginApiModel
-                        {
-                            IsSuccess = true,
-                            AccessToken = token,
-                            DepartmentRoleList = data.Select(x => x.DepartmentRole).ToList()
-                        };
-                        return Ok(model);
-                    }
-                }
-            }
-            return BadRequest(model);
-        }
-        
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> AuthenticatedToken(string token, string userName)
@@ -151,6 +130,7 @@ namespace MJU.DataCenter.Web.Controllers
                 Description = "Token is not valid"
             });
 
+            userName = User.Identity.Name;
             var user = await _userManager.FindByNameAsync(userName);
             if (user != null)
             {

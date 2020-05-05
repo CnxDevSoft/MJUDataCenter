@@ -65,7 +65,6 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
 
                 var user = await _userManager.FindByNameAsync(model.Email);
-
                 var checkRole = await _userManager.IsInRoleAsync(user, "User");
                 if (checkRole)
                 {
@@ -81,10 +80,8 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                   //  var user = await _userManager.FindByNameAsync(model.Email);
 
                     var roles = await _userManager.GetRolesAsync(user);
-
                   
-
-                    _userManager.AddClaimAsync(user, new Claim("AccessToken", user.AccessToken.ToString())).Wait();
+                    _userManager.AddClaimAsync(user, new Claim("DCApiToken", user.AccessToken.ToString())).Wait();
                     //_userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString())).Wait();
                     _userManager.AddToRolesAsync(user, roles).Wait();
 
@@ -155,7 +152,7 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
         
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> AuthenticatedToken(string token, string userName)
+        public async Task<IActionResult> AuthenticatedToken(string token)
         {
             var model = new LoginApiModel
             {
@@ -168,38 +165,19 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                 Description = "Token is not valid"
             });
 
-            var user = await _userManager.FindByNameAsync(userName);
-            if (user != null)
+            var userDepartmentRole =  _userDepartmentService.GetDepartmentRoleByToken(Guid.Parse(token));
+            if(userDepartmentRole.Any())
             {
-                if (Guid.Parse(token) == user.AccessToken)
+                model = new LoginApiModel
                 {
-                    var data = _userDepartmentService.GetById(user.Id);
-                    //find user role with token
-                    model = new LoginApiModel
-                    {
-                        IsSuccess = true,
-                        AccessToken = token,
-                        DepartmentRoleList = data.Select(x => x.DepartmentRole).ToList()
-                    };
-                    return Ok(model);
-                }
+                    IsSuccess = true,
+                    AccessToken = token,
+                    DepartmentRoleList = userDepartmentRole.Select(x => x.DepartmentRole).ToList()
+                };
+                return Ok(model);
             }
-
             return BadRequest(model);
         }
-
-
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Test()
-        {
-            var user = await _userManager.FindByNameAsync("general@general.com");
-
-            return Ok("test");
-        }
-
-
-
 
         //[HttpGet]
         //[AllowAnonymous]
@@ -303,14 +281,6 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-
-        [HttpPost]
-        public async Task<IActionResult> GenDepartmentKey()
-        {
-
-            return Ok("new key");
-        }
-
 
         #region Helpers
 

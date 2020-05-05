@@ -27,11 +27,18 @@ namespace MJU.DataCenter.PortalWebApi.Services
         public List<UserDepartmentRole> GetById(int userId)
         {
             return _userDepartmentRoleRepository.GetAllWith(x => x.DepartmentRole)
-                .Where( x=>x.UserId == userId).ToList();
+                .Where(x => x.UserId == userId).ToList();
         }
         public List<DepartmentRole> GetAllDepartmentRole()
         {
             return _departmentRoleRepository.GetAll().ToList();
+        }
+
+        public List<UserDepartmentRole> GetDepartmentRoleByToken(Guid token)
+        {
+            var query =  _userDepartmentRoleRepository.GetAllWith(x => x.DepartmentRole)
+             .Where(x => x.DepartmentRole.DepartmentApiToken == token).ToList();
+            return query;
         }
 
     }
