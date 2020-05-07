@@ -1,8 +1,4 @@
-﻿@{
-    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
-}
-
-<div class="col-lg-6">
+﻿<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
             <div class="d-flex justify-content-between">
@@ -74,10 +70,10 @@
 
 <script>
     $(function () {
-        ResearchFacultyGraph(null,null,'@userAccesToken', '@User.Identity.Name');
+        ResearchFacultyGraph(null,null);
         ToggleResearchChart("researchDepartment");
         $('#researchDepartment-datasource').click(function () {
-            ResearchDepartmentGraphDS('@userAccesToken','@User.Identity.Name')
+            ResearchDepartmentGraphDS();
         });
     })
 </script>

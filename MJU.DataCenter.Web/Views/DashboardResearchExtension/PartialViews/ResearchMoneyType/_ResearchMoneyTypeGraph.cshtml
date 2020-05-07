@@ -1,6 +1,3 @@
-@{
-    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
-}
 <div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
@@ -72,10 +69,10 @@
 
 <script>
     $(function () {
-        ResearchMoneyTypeGraph(null,null,'@userAccesToken', '@User.Identity.Name');
+        ResearchMoneyTypeGraph(null,null);
         ToggleResearchChart("researchMoneyType");
         $('#researchMoneyType-datasource').click(function () {
-            ResearchMoneyTypeGraphDS('@userAccesToken','@User.Identity.Name')
+            ResearchMoneyTypeGraphDS();
         });
     })
 </script>

@@ -65,7 +65,9 @@ namespace MJU.DataCenter.Web
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            services.AddSingleton<IApplicationConfiguration, ApplicationConfiguration>(
+       e => Configuration.GetSection("ApiUrlConfiguration")
+               .Get<ApplicationConfiguration>());
             services.AddScoped<IUserDepartmentRoleRepository, UserDepartmentRoleRepository>();
             services.AddTransient<IUserDepartmentRoleService, UserDepartmentRoleService>();
 
@@ -102,7 +104,7 @@ namespace MJU.DataCenter.Web
                 options.SlidingExpiration = true;
             });
 
-          //  services.AddRazorPages();
+            //  services.AddRazorPages();
             services.AddControllersWithViews();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddMvc(options =>
@@ -144,7 +146,7 @@ namespace MJU.DataCenter.Web
                 //endpoints.MapRazorPages();
             });
 
-        
+
         }
     }
 

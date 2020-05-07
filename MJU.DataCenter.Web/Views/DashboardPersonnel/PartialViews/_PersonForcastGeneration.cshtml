@@ -1,8 +1,4 @@
-﻿@{
-    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
-}
-
-<div class="col-lg-12">
+﻿<div class="col-lg-12">
     <div class="row">
         <div class="col-lg-12">
             <div class="card card-green-theme">
@@ -107,6 +103,6 @@
 
 <script>
     $(function () {
-        PersonForcastGenerationGraph('@userAccesToken','@User.Identity.Name');
+        PersonForcastGenerationGraph();
     })
 </script>

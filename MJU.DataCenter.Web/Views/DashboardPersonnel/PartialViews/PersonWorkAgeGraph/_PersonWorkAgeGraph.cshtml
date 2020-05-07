@@ -40,10 +40,10 @@
 
 <script>
     $(function () {
-        PersonWorkAgeGraph('@userAccesToken','@User.Identity.Name');
+        PersonWorkAgeGraph();
         ToggleChart("personWorkAge");
         $('#personWorkAge-datasource').click(function () {
-            PersonWorkAgeGraphDS('@userAccesToken','@User.Identity.Name')
+            PersonWorkAgeGraphDS()
  });
     })
 

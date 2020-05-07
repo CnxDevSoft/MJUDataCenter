@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://localhost/MJU.DataCenter.PortalWebApi",
+      "applicationUrl": "https://localhost/MJU.DataCenter.PortalWebApi",
       "sslPort": 0
     },
     "iisExpress": {

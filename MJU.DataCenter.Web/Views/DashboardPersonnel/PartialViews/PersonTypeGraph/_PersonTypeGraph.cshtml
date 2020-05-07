@@ -1,7 +1,4 @@
-﻿@{
-    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
-}
-<div class="col-lg-6">
+﻿<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header">
             <h3 class="card-title">กราฟแสดงอัตราส่วนจำนวนบุคลากรประเภทวิชาการและประเภทสนับสนุน</h3>
@@ -35,10 +32,10 @@
 
 <script>
     $(function () {
-        PersonTypeGraph('@userAccesToken','@User.Identity.Name');
+        PersonTypeGraph();
         ToggleChart("personType");
         $('#personType-datasource').click(function () {
-            PersonEducationGraphDS('@userAccesToken','@User.Identity.Name')
+            PersonEducationGraphDS();
         });
     })
 </script>

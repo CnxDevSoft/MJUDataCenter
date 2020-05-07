@@ -1,16 +1,8 @@
-﻿var tokenTemp;
-var userNameTemp;
-var personnelRootPath = 'https://localhost/MJU.DataCenter.Personnel/api/';
-var researchExtensionRootPath = 'https://localhost/MJU.DataCenter.ResearchExtension/api/';
-var startDateTemp='';
+﻿var startDateTemp='';
 var endDateTemp='';
 async function SetDateTimeTemp(startDate, endDate) {
     startDateTemp = startDate;
     endDateTemp = endDate;
-}
-async function SetTempAuthorization(token, userName) {
-    tokenTemp = token;
-    userNameTemp = userName
 }
 
 const obackgroudColor = ["rgba(165,96,229,0.8)", "rgba(127,157,240, 0.8)", "rgba(118,119,232, 0.5)", "rgba(41, 182, 246, 0.5)", "rgba(75, 202, 219,0.5)", "rgba(214,237,154,0.5)", "rgba(114, 249, 156,0.5)"];
@@ -27,9 +19,9 @@ const oLanguageOptions = {
     }
 }
 
-async function ResearchFacultyGraph(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? researchExtensionRootPath+'ResearchFaculty/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
-        : researchExtensionRootPath+'ResearchFaculty?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
+async function ResearchFacultyGraph(startDate, endDate) {
+    var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchFaculty/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&Token=' + accessToken + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchFaculty?Type=1' + '&Token=' + accessToken + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -145,7 +137,7 @@ async function ResearchDepartmentRender(data) {
 }
 async function ResearchDepartmentGraphDS() {
 
-    fetch(researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0')
+    fetch(researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0')
         .then(res => res.json())
         .then((data) => {
 
@@ -191,9 +183,9 @@ async function RenderResearchDepartmentGraphDS(data) {
 }
 
 
-async function ResearchPersonGroupGraph(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? researchExtensionRootPath +'ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
-        : researchExtensionRootPath +'ResearchGroup?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
+async function ResearchPersonGroupGraph(startDate, endDate) {
+    var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchGroup/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&Token=' + accessToken + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchGroup?Type=1' + '&Token=' + accessToken + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -289,7 +281,7 @@ async function ResearchPersonGroupRender(data) {
     $('[data-toggle="tooltip"]').tooltip();
 }
 async function ReseachPersonGroupGraphDS() {
-    var url = researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+    var url = researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -336,9 +328,9 @@ async function RenderReseachPersonGroupGraphDS(data) {
     });
 }
 
-async function ResearchMoneyRangeGraph(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? researchExtensionRootPath +'ResearchMoney/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + '&api-version=1.0'
-        : researchExtensionRootPath +'ResearchMoney?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
+async function ResearchMoneyRangeGraph(startDate, endDate) {
+    var url = startDate != null && endDate != null ? researchExtensionRootPath +'ResearchMoney/?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&Token=' + accessToken + '&api-version=1.0'
+        : researchExtensionRootPath + 'ResearchMoney?Type=1' + '&Token=' + accessToken + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -453,7 +445,7 @@ async function ResearchMoneyRangeRender(data) {
 
 }
 async function ResearchMoneyRangeGraphDS() {
-    var url = researchExtensionRootPath + 'ResearchMoney/GetDataSource'+ '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+    var url = researchExtensionRootPath + 'ResearchMoney/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -502,9 +494,9 @@ async function RenderResearchMoneyRangeGraphDS(data) {
     });
 }
 
-async function ResearchMoneyTypeGraph(startDate, endDate, token, userName) {
-    var url = startDate != null && endDate != null ? researchExtensionRootPath +'ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0'
-        : researchExtensionRootPath +'ResearchData?Type=1' + '&UserName=' + userName + ' &Token=' + token + ' &api-version=1.0';
+async function ResearchMoneyTypeGraph(startDate, endDate) {
+    var url = startDate != null && endDate != null ? researchExtensionRootPath + 'ResearchData?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&Token=' + accessToken + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchData?Type=1' + '&Token=' + accessToken + ' &api-version=1.0';
 
     fetch(url)
         .then((response) => {
@@ -605,7 +597,7 @@ async function ResearchMoneyTypeRender(data) {
 
 }
 async function ResearchMoneyTypeGraphDS() {
-    var url = researchExtensionRootPath + 'ResearchData/GetDataSource'+ '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+    var url = researchExtensionRootPath + 'ResearchData/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -723,8 +715,8 @@ async function RenderResearchDepartmentDrillDownGraphDS(data) {
 async function ResearchDepartmentTableDrillDown(type) {
 
     var url = type != null ? researchExtensionRootPath +'ResearchFaculty/GetDataSource?Type=' + type
-        + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+        + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchFaculty/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -736,8 +728,8 @@ async function ResearchDepartmentTableDrillDown(type) {
 //drilldown researchGroup
 
 async function ResearchGroupTableDrillDown(type) {
-    var url = type != null ? researchExtensionRootPath + 'ResearchGroup/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+    var url = type != null ? researchExtensionRootPath + 'ResearchGroup/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchGroup/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -867,8 +859,8 @@ async function RenderResearchMoneyRangeDrillDown(data) {
 
 async function ResearchMoneyRangeDrillDown(type) {
 
-    var url = type != null ? researchExtensionRootPath + 'ResearchMoney/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchMoney/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+    var url = type != null ? researchExtensionRootPath + 'ResearchMoney/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchMoney/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
 
 
     fetch(url)
@@ -938,8 +930,8 @@ async function RenderResearchMoneyTypeDrillDown(data) {
 }
 
 async function ResearchMoneyTypeDrillDown(type) {
-    var url = type != null ? researchExtensionRootPath + 'ResearchData/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
-        : researchExtensionRootPath + 'ResearchData/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0'
+    var url = type != null ? researchExtensionRootPath + 'ResearchData/GetDataSource?Type=' + type + '&StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
+        : researchExtensionRootPath + 'ResearchData/GetDataSource' + '?StartDate=' + startDateTemp + '&EndDate=' + endDateTemp + '&Token=' + accessToken + ' &api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -959,7 +951,7 @@ async function DisplayResearchDetailModal(researchId) {
     $('#researchAbstractEn').empty();
     $('#researchAbstractTh').empty();
 
-    var url = researchExtensionRootPath + 'PersonnelResearchData/ResearchDetail/' + researchId + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + ' &api-version=1.0';
+    var url = researchExtensionRootPath + 'PersonnelResearchData/ResearchDetail/' + researchId + '?Token=' + accessToken + ' &api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {

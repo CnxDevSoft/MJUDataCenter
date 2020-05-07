@@ -17,12 +17,10 @@ namespace MJU.DataCenter.ResearchExtension.Helper
                 clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
                 using var client = new HttpClient(clientHandler);
-                using var request = new HttpRequestMessage(HttpMethod.Post, $"{webHost}/account/AuthenticatedToken?token=" + auth.Token + "&userName=" + auth.UserName + "");
+                using var request = new HttpRequestMessage(HttpMethod.Post, $"{webHost}/account/AuthenticatedToken?token=" + auth.Token);
                 request.Headers.Add("token", auth.Token);
-                request.Headers.Add("userName", auth.UserName);
 
                 request.Properties.Add("token", auth.Token);
-                request.Properties.Add("userName", auth.UserName);
 
                 using var response = await client.SendAsync(request);
                 var content = await response.Content.ReadAsStringAsync();
