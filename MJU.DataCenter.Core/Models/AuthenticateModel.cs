@@ -7,7 +7,7 @@ namespace MJU.DataCenter.Core.Models
 {
     public class AuthenticateModel
     {
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
         public string Token { get; set; }
 
     }

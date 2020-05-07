@@ -3,12 +3,14 @@
     var currentpage = ViewData["currentPage"];
     var personPageActive = currentpage.ToString() == "DashboardPerson" ? "active text-white" : "text-black";
     var researchExtensionPageActive = currentpage.ToString() == "DashboardResearchExtension" ? "active text-white" : "text-black";
+    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
 
 }
 @using Microsoft.AspNetCore.Identity
 @using MJU.DataCenter.Web.Models
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@inject MJU.DataCenter.Web.Services.Interface.IApplicationConfiguration AppSettings;
 <!DOCTYPE html>
 <html>
 <head>
@@ -308,13 +310,19 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     @* <script src="dist/js/pages/dashboard.js"></script>*@
     <!-- AdminLTE for demo purposes -->
+    <script>
+    var accessToken = '@userAccesToken';
+    var personnelRootPath = '@AppSettings.PerssonnelApi';
+    var researchExtensionRootPath = '@AppSettings.ResearchExtensionApi';
+    </script>
+    <script src="~/js/Custom/CustomPersonnelGraph.js"></script>
+    <script src="~/js/Custom/CustomPersonScript.js"></script>
+    <script src="~/js/Custom/CustomSubPersonGraph.js"></script>
     <script src="dist/js/demo.js"></script>
     <script src="~/js/Custom/CustomDashboard.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <script src="~/js/Custom/CustomPersonnelGraph.js"></script>
-    <script src="~/js/Custom/CustomPersonScript.js"></script>
-    <script src="~/js/Custom/CustomSubPersonGraph.js"></script>
+
     <script src="~/js/Custom/CustomResearchExtensionGraph.js"></script>
     <script src="~/js/Custom/CustomResearchExtensionScript.js"></script>
     @RenderSection("Scripts", required: false)

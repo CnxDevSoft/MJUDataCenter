@@ -1,8 +1,4 @@
-﻿@{
-    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
-}
-
-<div class="col-lg-6">
+﻿<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header">
             <h3 class="card-title">กราฟแสดงจำนวนบุคลากรแยกตามช่วงอายุ</h3>
@@ -74,7 +70,7 @@
 
 <script>
     $(function () {
-        PersonAgeGraph('@userAccesToken','@User.Identity.Name');
+        PersonAgeGraph();
     })
 </script>
 <partial name="PartialViews/PersonPositionGeneration/_personPositionGenerationDataSource" />

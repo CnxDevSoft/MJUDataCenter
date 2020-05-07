@@ -1,7 +1,4 @@
-﻿@{
-    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
-}
-<div class="col-lg-6">
+﻿<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
             <div class="d-flex justify-content-between">
@@ -67,10 +64,10 @@
 
 <script>
     $(function () {
-        ResearchMoneyRangeGraph(null, null,'@userAccesToken', '@User.Identity.Name');
+        ResearchMoneyRangeGraph(null, null);
         ToggleResearchChart("researchMoneyRange");
         $('#researchMoneyRange-datasource').click(function () {
-            ResearchMoneyRangeGraphDS('@userAccesToken','@User.Identity.Name')
+            ResearchMoneyRangeGraphDS();
         });
     })
 </script>

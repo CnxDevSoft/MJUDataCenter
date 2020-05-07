@@ -1,9 +1,4 @@
-﻿var tokenTemp;
-var userNameTemp;
-var personnelRootPath = 'https://localhost/MJU.DataCenter.Personnel/api/';
-var researchExtensionRootPath = 'https://localhost/MJU.DataCenter.ResearchExtension/api/';
-
-const oLanguagePersonGraphOptions = {
+﻿const oLanguagePersonGraphOptions = {
     sLengthMenu: "แสดง _MENU_",
     sSearch: "ค้นหา",
     sInfo: "แสดง _START_ ถึง _END_ จาก _TOTAL_ ข้อมูล",
@@ -16,12 +11,7 @@ const oLanguagePersonGraphOptions = {
 }
 
 
-async function SetTempAuthorization(token, userName) {
-    tokenTemp = token;
-    userNameTemp = userName
-}
-
-async function AllPersonGraph(token, userName) {
+async function AllPersonGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -29,7 +19,7 @@ async function AllPersonGraph(token, userName) {
     }
     var mode = 'index'
     var intersect = true
-    fetch(personnelRootPath + 'PersonnelGroup/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroup/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -122,9 +112,9 @@ async function AllPersonGraph(token, userName) {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonAgeGraph(token, userName) {
+async function PersonAgeGraph() {
 
-    fetch(personnelRootPath + 'PersonnelPositionGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPositionGeneration/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -194,7 +184,7 @@ async function PersonAgeGraph(token, userName) {
         })
 
 
-    fetch(personnelRootPath + 'PersonnelGenderGeneration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGenderGeneration/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
 
@@ -268,8 +258,8 @@ async function PersonAgeGraph(token, userName) {
             });
         });
 }
-async function PersonEducationGraph(token, userName) {
-    fetch(personnelRootPath + 'PersonnelEducation/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+async function PersonEducationGraph() {
+    fetch(personnelRootPath + 'PersonnelEducation/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -317,8 +307,8 @@ async function PersonEducationGraph(token, userName) {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonTypeGraph(token, userName) {
-    fetch(personnelRootPath + 'PersonnelPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+async function PersonTypeGraph() {
+    fetch(personnelRootPath + 'PersonnelPosition/1/?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -370,7 +360,7 @@ async function PersonTypeGraph(token, userName) {
 async function EducationInPersonTypeGraph() {
 
 }
-async function PersonWorkAgeGraph(token, userName) {
+async function PersonWorkAgeGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         //  fontStyle: 'bold',
@@ -379,7 +369,7 @@ async function PersonWorkAgeGraph(token, userName) {
     }
     var mode = 'point'
     var intersect = true
-    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -468,7 +458,7 @@ async function PersonWorkAgeGraph(token, userName) {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonPositionGraph(token, userName) {
+async function PersonPositionGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -476,7 +466,7 @@ async function PersonPositionGraph(token, userName) {
     }
     var mode = 'point'
     var intersect = true
-    fetch(personnelRootPath + 'PersonnelGroupAdminPosition/1/?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupAdminPosition/1/?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -573,7 +563,7 @@ async function PersonPositionGraph(token, userName) {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonPositionLevelGraph(token, userName) {
+async function PersonPositionLevelGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         fontStyle: 'bold',
@@ -581,7 +571,7 @@ async function PersonPositionLevelGraph(token, userName) {
     }
     var mode = 'point'
     var intersect = true
-    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -678,7 +668,7 @@ async function PersonPositionLevelGraph(token, userName) {
             $('[data-toggle="tooltip"]').tooltip();
         });
 }
-async function PersonFacultyGraph(token, userName) {
+async function PersonFacultyGraph() {
     var ticksStyle = {
         fontColor: '#495057',
         // fontStyle: 'bold',
@@ -687,7 +677,7 @@ async function PersonFacultyGraph(token, userName) {
     }
     var mode = 'nearest'
     var intersect = true
-    fetch(personnelRootPath + 'PersonnelGroupFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupFaculty/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
@@ -804,14 +794,14 @@ async function PersonPositionFacultyGraph(token, userName) {
     }
     var mode = 'nearest'
     var intersect = true
-    fetch(personnelRootPath + 'PersonnelPositionFaculty/1?' + 'UserName=' + userName + '&Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPositionFaculty/1?' + 'Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
             var $chart = $('#personPositionFaculty-chart')
             if (data.isSubGraphDataSet) {
 
-                PersonPositionFacultySubGraph($chart, data, token, userName);
+                PersonPositionFacultySubGraph($chart, data);
             }
             else {
                 var chart = new Chart($chart, {
@@ -914,7 +904,7 @@ async function PersonPositionFacultyGraph(token, userName) {
 async function PersonRetiredGraph(token, userName) {
     var endDate = moment(moment().add(543, 'Y')).format('YYYY-MM-DD');
     var startDate = moment(moment(endDate).add(-10, 'Y')).endOf('year').format('YYYY-MM-DD');
-
+                                   
 
     var ticksStyle = {
         fontColor: '#495057',
@@ -924,7 +914,7 @@ async function PersonRetiredGraph(token, userName) {
     }
     var mode = 'nearest'
 
-    var url = personnelRootPath + 'PersonnelGroupRetiredYear?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&UserName=' + userName + '&Token=' + token + '&api-version=1.0';
+    var url = personnelRootPath + 'PersonnelGroupRetiredYear?Type=1&StartDate=' + startDate + '&EndDate=' + endDate + '&Token=' + accessToken + '&api-version=1.0';
 
     console.log(url)
     fetch(url)
@@ -1053,7 +1043,7 @@ function RenderDataSet(data, gradientStroke) {
     return datasets;
 }
 function genderClick(genderId, genderName, generationType) {
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGenderGeneration/DataSourceByType/' + generationType + '/' + genderId + '/' + genderName + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0';
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelGenderGeneration/DataSourceByType/' + generationType + '/' + genderId + '/' + genderName + '?Token=' + accessToken + '&api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -1110,7 +1100,7 @@ function genderClick(genderId, genderName, generationType) {
 }
 
 async function PersonForcastGenerationGraph(token, userName) {
-    var url = personnelRootPath + 'PersonnelRetired/1/10?UserName=' + userName + ' &Token=' + token + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelRetired/1/10?Token=' + accessToken + '&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -1232,7 +1222,7 @@ async function PersonForcastGenerationRenderGraph(data) {
 
 async function AllPersonGraphDS(token, userName) {
 
-    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch('https://localhost/MJU.DataCenter.Personnel/api/PersonnelGroup/DataSource?Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderAllPersonGraphDS(data);
@@ -1286,7 +1276,7 @@ async function RenderAllPersonGraphDS(data) {
 
 async function PersonWorkAgeGraphDS(token, userName) {
 
-    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonWorkAgeGraphDS(data);
@@ -1395,7 +1385,7 @@ async function RenderPersonPositionGraphDS(data) {
 
 async function PersonPositionLevelGraphDS(token, userName) {
 
-    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonPositionLevelGraphDS(data);
@@ -1505,7 +1495,7 @@ async function RenderPersonFacultyGraphDS(data) {
 
 async function PersonPositionFacultyGraphDS(token, userName) {
     console.log('dsadasd')
-    fetch(personnelRootPath + 'PersonnelPositionFaculty/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPositionFaculty/DataSource?Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonPositionFacultyGraphDS(data);
@@ -1560,7 +1550,9 @@ async function RenderPersonPositionFacultyGraphDS(data) {
 
 async function PersonRetiredGraphDS(token, userName) {
 
-    fetch(personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=2553-01-01&EndDate=2563-01-01&UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    var endDate = moment(moment().add(543, 'Y')).format('YYYY-MM-DD');
+    var startDate = moment(moment(endDate).add(-10, 'Y')).endOf('year').format('YYYY-MM-DD');
+    fetch(personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=' + startDate + '&EndDate=' + endDate+'&Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderRetiredGraphDS(data);
@@ -1611,7 +1603,7 @@ async function RenderRetiredGraphDS(data) {
 }
 
 async function PersonEducationGraphDS(token, userName) {
-    fetch(personnelRootPath + 'PersonnelEducation/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelEducation/DataSource?Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonEducationGraphDS(data);
@@ -1661,7 +1653,7 @@ async function RenderPersonEducationGraphDS(data) {
 
 
 async function PersonTypeGraphDS(token, userName) {
-    fetch(personnelRootPath + 'PersonnelPosition/DataSource?UserName=' + userName + ' &Token=' + token + '&api-version=1.0')
+    fetch(personnelRootPath + 'PersonnelPosition/DataSource?Token=' + accessToken + '&api-version=1.0')
         .then(res => res.json())
         .then((data) => {
             RenderPersonTypeGraphDS(data);
@@ -1732,7 +1724,7 @@ async function Load() {
 //DrillDown
 async function PersonGenerationDrillDown(generaTion, type) {
 
-    var url = personnelRootPath + 'PersonnelPositionGeneration/DataSource?positionType=' + type + '&index=' + generaTion + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0';
+    var url = personnelRootPath + 'PersonnelPositionGeneration/DataSource?positionType=' + type + '&index=' + generaTion + '&Token=' + accessToken + '&api-version=1.0';
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -1803,7 +1795,7 @@ async function RenderPersonGenerationDrillDown(data) {
 }
 
 async function PersonGroupDrillDown(type) {
-    var url = personnelRootPath + 'PersonnelGroup/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroup/DataSource?type=' + type + '&Token=' + accessToken + '&api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -1876,7 +1868,7 @@ async function RenderAllPersonDrillDownGraphDS(data) {
 }
 
 async function PersonEducationDrillDown(type) {
-    var url = personnelRootPath + 'PersonnelEducation/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelEducation/DataSource?type=' + type + '&Token=' + accessToken + '&api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -1942,7 +1934,7 @@ async function RenderPersonEducationDrillDownGraphDS(data) {
 }
 
 async function PersonPositionDrillDown(type) {
-    var url = personnelRootPath + 'PersonnelPosition/DataSource?type=' + type + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelPosition/DataSource?type=' + type + '&Token=' + accessToken + '&api-version=1.0'
     console.log(url)
     fetch(url)
         .then(res => res.json())
@@ -2007,7 +1999,7 @@ async function RenderPersonPositionDrillDownGraphDS(data) {
 }
 
 async function PersonPositionAdminDrillDown(adminPositionType, personnelType) {
-    var url = personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?adminPositionType=' + adminPositionType + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupAdminPosition/DataSource?adminPositionType=' + adminPositionType + '&personnelType=' + personnelType + '&Token=' + accessToken + '&api-version=1.0'
 
     console.log(url)
     fetch(url)
@@ -2079,7 +2071,7 @@ async function RenderPersonPositionAdminDrillDownGraphDS(data) {
 
 async function PersonPositionLevelDrillDown(personnelType, posotionLevel) {
 
-    var url = personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?personnelType=' + personnelType + '&positionLevel=' + posotionLevel + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupPositionLevel/DataSource?personnelType=' + personnelType + '&positionLevel=' + posotionLevel + '&Token=' + accessToken + '&api-version=1.0'
 
     fetch(url)
         .then(res => res.json())
@@ -2149,7 +2141,7 @@ async function RenderPersonPositionLevelDrillDownGraphDS(data) {
 
 async function PersonGroupFacultyDrillDown(faculty, personnelType) {
 
-    var url = personnelRootPath + 'PersonnelGroupFaculty/DataSource?faculty=' + faculty + '&personnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupFaculty/DataSource?faculty=' + faculty + '&personnelType=' + personnelType + '&Token=' + accessToken + '&api-version=1.0'
 
     fetch(url)
         .then(res => res.json())
@@ -2219,7 +2211,7 @@ async function RenderPersonGroupFacultyDrillDownGraphDS(data) {
 }
 
 async function PersonPositionFacultyDrillDown(faculty, personnelType, indexTable) {
-    var url = personnelRootPath + 'PersonnelPositionFaculty/DataSource?faculty=' + faculty + '&position=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelPositionFaculty/DataSource?faculty=' + faculty + '&position=' + personnelType + '&Token=' + accessToken + '&api-version=1.0'
     fetch(url)
         .then(res => res.json())
         .then((data) => {
@@ -2290,7 +2282,7 @@ async function RenderPersonPositionFacultyDrillDownGraphDS(data) {
 
 async function PersonRetiredDrillDown(retiredYear, personnelType, startDate, endDate) {
     var url = personnelRootPath + 'PersonnelGroupRetiredYear/DataSource?StartDate=' + startDate + '&EndDate=' + endDate
-        + '&RetiredYear=' + retiredYear + '&PersonnelType=' + personnelType + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+        + '&RetiredYear=' + retiredYear + '&PersonnelType=' + personnelType + '&Token=' + accessToken + '&api-version=1.0'
 
     fetch(url)
         .then(res => res.json())
@@ -2363,7 +2355,7 @@ async function RenderPersonRetiredDrillDownGraphDS(data) {
 
 async function PersonWorkDurationDrillDown(personnelType, index) {
 
-    var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+    var url = personnelRootPath + 'PersonnelGroupWorkDuration/DataSource?personType=' + personnelType + '&index=' + index + '&Token=' + accessToken + '&api-version=1.0'
     console.log(url)
     fetch(url)
         .then(res => res.json())
@@ -2475,7 +2467,7 @@ function chartClicked(chart, chartName) {
             var modelLabel = chart.data.labels[clickedElementIndex];
             var clickedDatasetPoint = clickedDatasetPoint.data[clickedElementIndex];
 
-            var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+            var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?Token=' + accessToken + '&api-version=1.0'
 
             fetch(url)
                 .then((response) => {
@@ -2513,7 +2505,7 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
 
-    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = 'https://localhost/MJU.DataCenter.Personnel/api/PersonnelRetired/GetDataTablePersonRetired/' + clickedDatasetIndex + '/' + modelLabel + '?Token=' + accessToken + '&api-version=1.0'
 
     fetch(url)
         .then((response) => {
@@ -2543,7 +2535,7 @@ async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?firstName=' + firstNameVal + '&lastName=' + lastNameVal + '&UserName=' + userNameTemp + ' &Token=' + tokenTemp + '&api-version=1.0'
+    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?firstName=' + firstNameVal + '&lastName=' + lastNameVal + '&Token=' + accessToken + '&api-version=1.0'
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
@@ -2572,7 +2564,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
 
     var modal = '#personDetailModal';
 
-    var urlResearch = researchExtensionRootPath + 'PersonnelResearchData/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+    var urlResearch = researchExtensionRootPath + 'PersonnelResearchData/' + citizenId + '?&Token=' + accessToken + '&api-version=1.0'
 
     fetch(urlResearch)
         .then(res => res.json())
@@ -2628,7 +2620,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
 
         });
 
-    var urlPerson = personnelRootPath + 'PersonnelDetail/' + citizenId + '?UserName=' + userNameTemp + '&Token=' + tokenTemp + '&api-version=1.0'
+    var urlPerson = personnelRootPath + 'PersonnelDetail/' + citizenId + '?Token=' + accessToken + '&api-version=1.0'
     fetch(urlPerson)
         .then(res => res.json())
         .then((data) => {

@@ -1,7 +1,4 @@
-﻿@{
-    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
-}
-<div class="col-lg-6">
+﻿<div class="col-lg-6">
     <div class="card card-green-theme">
         <div class="card-header border-0">
             <div class="d-flex justify-content-between">
@@ -36,10 +33,10 @@
 </div>
 <script>
     $(function () {
-        PersonEducationGraph('@userAccesToken','@User.Identity.Name');
+        PersonEducationGraph();
         ToggleChart("personEducation");
         $('#personEducation-datasource').click(function () {
-            PersonEducationGraphDS('@userAccesToken','@User.Identity.Name')
+            PersonEducationGraphDS();
         });
     })
 </script>

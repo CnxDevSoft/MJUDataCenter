@@ -1,11 +1,4 @@
 ﻿
-var personnelRootPath = 'https://localhost/MJU.DataCenter.Personnel/api/';
-var researchExtensionRootPath = 'https://localhost/MJU.DataCenter.ResearchExtension/api/';
-/*
-async function SetTempAuthorization(token, userName) {
-    tokenTemp = token;
-    userNameTemp = userName
-}*/
 async function GetPersonCount(/*token, userName*/) {
     fetch(personnelRootPath + 'PersonnelDashboard/PersonnelCount?api-version=1.0')
         .then(res => res.json())
