@@ -17,6 +17,7 @@ using MJU.DataCenter.PersonnelActivity.Models;
 using MJU.DataCenter.PersonnelActivity.Repository.Interface;
 using MJU.DataCenter.PersonnelActivity.Repository.Repositories;
 using MJU.DataCenter.PersonnelActivity.Service.Interface;
+using MJU.DataCenter.PersonnelActivity.Service.Services;
 using MJU.DataCenter.ResearchExtension.Service.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -45,7 +46,10 @@ namespace MJU.DataCenter.PersonnelActivity
 
             services.AddScoped<IDcActivityRepository, DcActivityRepository>();
             services.AddScoped<IDcPersonnelActivityRepository, DcPersonnelActivityRepository>();
+            services.AddScoped<IPersonnelActivityRepository, PersonnelActivityRepository>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddTransient<IPersonnelActivityService, PersonnelActivityService>();
+            services.AddTransient<ISeedPersonnelActivityService, SeedPersonnelActivityService>();
 
 
 
