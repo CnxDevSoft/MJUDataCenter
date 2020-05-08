@@ -1,0 +1,1 @@
+create view DC_Activity as select * from [Activity]

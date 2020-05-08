@@ -1,0 +1,1 @@
+create view DC_PersonnelActivity as select * from PersonnelActivity

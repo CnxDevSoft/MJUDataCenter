@@ -1,8 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,16 +13,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.PlatformAbstractions;
-using Microsoft.OpenApi.Models;
-using MJU.DataCenter.ResearchExtension.Models;
-using MJU.DataCenter.ResearchExtension.Repository.Interface;
-using MJU.DataCenter.ResearchExtension.Repository.Repositories;
-using MJU.DataCenter.ResearchExtension.Service.Interface;
+using MJU.DataCenter.PersonnelActivity.Models;
+using MJU.DataCenter.PersonnelActivity.Repository.Interface;
+using MJU.DataCenter.PersonnelActivity.Repository.Repositories;
+using MJU.DataCenter.PersonnelActivity.Service.Interface;
 using MJU.DataCenter.ResearchExtension.Service.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace MJU.DataCenter.ResearchExtension
+namespace MJU.DataCenter.PersonnelActivity
 {
     public class Startup
     {
@@ -38,40 +34,30 @@ namespace MJU.DataCenter.ResearchExtension
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
 
-            services.AddDbContext<ResearchExtensionContext>(option =>
+            services.AddDbContext<PersonnelActivityContext>(option =>
             option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), builder =>
             {
                 builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
             }));
 
-            //DI
-            services.AddScoped<IPersonnelGroupRepository, PersonnelGroupRepository>();
-            services.AddScoped<IResearchDataRepository, ResearchDataRepository>();
-            services.AddScoped<IResearcherPaperRepository, ResearcherPaperRepository>();
-            services.AddScoped<IResearcherRepository, ResearcherRepository>();
-            services.AddScoped<IResearchGroupRepository, ResearchGroupRepository>();
-            services.AddScoped<IResearchPaperRepository, ResearchPaperRepository>();
-            services.AddScoped<IResearchPersonnelRepository, ResearchPersonnelRepository>();
-            services.AddScoped<IResearchMoneyRepository, ResearchMoneyRepository>();
-            services.AddScoped<IMoneyTypeRepository, MoneyTypeRepository>();
-            services.AddScoped<IDcResearchFacultyRepository, DcResearchFacultyRepository>();
-            services.AddScoped<IDcResearchGroupRepository, DcResearchGroupRepository>();
-            services.AddScoped<IDcResearchDataRepository, DcResearchDataRepository>();
-            services.AddScoped<IDcResearchMoneyRepository, DcReasearchMoneyRepository>();
-            services.AddTransient<INewSeedDataService, NewSeedDataService>();
-            services.AddTransient<IResearchAndExtensionService, ResearchAndExtensionService>();
+            services.AddScoped<IDcActivityRepository, DcActivityRepository>();
+            services.AddScoped<IDcPersonnelActivityRepository, DcPersonnelActivityRepository>();
+            services.AddTransient<IPersonnelActivityService, PersonnelActivityService>();
+
+
 
             services.AddApiVersioning(
               options =>
               {
                   // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
                   options.ReportApiVersions = true;
-               //   options.Conventions.Controller<ResearchMoney>().HasApiVersion(new ApiVersion(1, 0));
-                 // options.Conventions.Controller<ResearchData>().HasApiVersion(new ApiVersion(1, 0));
+                  //   options.Conventions.Controller<ResearchMoney>().HasApiVersion(new ApiVersion(1, 0));
+                  // options.Conventions.Controller<ResearchData>().HasApiVersion(new ApiVersion(1, 0));
 
-                //  options.Conventions.Controller<ResearchMoney>().HasApiVersion(new ApiVersion(2, 0));
+                  //  options.Conventions.Controller<ResearchMoney>().HasApiVersion(new ApiVersion(2, 0));
               });
             services.AddVersionedApiExplorer(
                 options =>
@@ -94,10 +80,8 @@ namespace MJU.DataCenter.ResearchExtension
                     // integrate xml comments
                     //options.IncludeXmlComments(XmlCommentsFilePath);
                 });
-
-
             services.AddRazorPages();
-            services.AddCors();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,28 +91,25 @@ namespace MJU.DataCenter.ResearchExtension
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseCors(builder =>
-              builder.WithOrigins("https://localhost:44302"));
+            //app.UseCors(builder =>
+            // builder.WithOrigins("https://localhost:44302"));
 
             app.UseSwagger();
             app.UseSwaggerUI(
             options =>
             {
                 string swaggerJsonBasePath = string.IsNullOrWhiteSpace(options.RoutePrefix) ? "." : "..";
-                 // build a swagger endpoint for each discovered API version
-                 foreach (var description in provider.ApiVersionDescriptions)
+                // build a swagger endpoint for each discovered API version
+                foreach (var description in provider.ApiVersionDescriptions)
                 {
-                    options.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/{description.GroupName}/swagger.json", "Maejo Research Extension API " + description.GroupName.ToUpperInvariant());
+                    options.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/{description.GroupName}/swagger.json", "Maejo Personnel Activity API " + description.GroupName.ToUpperInvariant());
                 }
             });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            // app.UseMvc(ConfigureRoutes);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -136,18 +117,6 @@ namespace MJU.DataCenter.ResearchExtension
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
-        }
-
-
-
-        static string XmlCommentsFilePath
-        {
-            get
-            {
-                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
-                return Path.Combine(basePath, fileName);
-            }
         }
     }
 }
