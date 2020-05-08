@@ -1,8 +1,11 @@
 ﻿@page
 @{
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
 }
-
+<script>
+        const accessToken = '@userAccesToken';
+</script>
 <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">

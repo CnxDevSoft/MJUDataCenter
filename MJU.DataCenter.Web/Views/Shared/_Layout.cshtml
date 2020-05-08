@@ -2,6 +2,7 @@
 @using MJU.DataCenter.Web.Models
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@inject MJU.DataCenter.Web.Services.Interface.IApplicationConfiguration AppSettings;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,6 +105,10 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     @* <script src="dist/js/pages/dashboard.js"></script>*@
     <!-- AdminLTE for demo purposes -->
+    <script>
+        const personnelRootPath = '@AppSettings.PerssonnelApi';
+        const researchExtensionRootPath = '@AppSettings.ResearchExtensionApi';
+    </script>
     <script src="~/dist/js/demo.js"></script>
     <script src="~/js/Custom/CustomDashboard.js"></script>
     <script src="~/plugins/datatables/jquery.dataTables.js"></script>
