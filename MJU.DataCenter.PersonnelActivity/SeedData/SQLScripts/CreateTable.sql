@@ -1,5 +1,5 @@
 Create table Activity(
-	ctivityId int IDENTITY(1,1) NOT NULL,
+	ActivityId int IDENTITY(1,1) NOT NULL,
 	ActivityTh nvarchar(max) NULL,
 	ActivityEn nvarchar(max) NULL,
 	StartDate dateTime NULL,
