@@ -14,6 +14,8 @@
                     <thead id="superAdminRoletable-thead">
                         <tr>
                             <th>ชื่อสิทธิ์</th>
+                            <th>ชื่อหน่วยงาน</th>
+                            <th>รหัสหน่วยงานที่ใช้อ้างอิง</th>
                             <th>API Token Key</th>
                         </tr>
                     </thead>
@@ -21,11 +23,13 @@
 
                         @foreach (var item in Model.DepartmentRoles)
                         {
-                            <tr>
-                                <td>@item.DepartmentRoleName</td>
-                                <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId , Disabled = "Disabled" })</td>
-                               
-                            </tr>
+                        <tr>
+                            <td>@item.DepartmentRoleName</td>
+                            <td>@item.DepartmentRoleNameTH</td>
+                            <td>@item.DepartmentKey</td>
+                            <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId + " fullWidth", Disabled = "Disabled" })</td>
+
+                        </tr>
                         }
 
                     </tbody>

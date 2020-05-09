@@ -72,19 +72,23 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                     return View(model);
                 }
 
+                var claims = _userManager.GetClaimsAsync(user);
+
+                if (!claims.Result.Any(x => x.Type == "DCApiToken"))
+                    _userManager.AddClaimAsync(user, new Claim("DCApiToken", user.AccessToken.ToString())).Wait();
+                if (!claims.Result.Any(x => x.Type == "UserId"))
+                    _userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString())).Wait();
+
+                _userManager.UpdateAsync(user).Wait();
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
 
-                  //  var user = await _userManager.FindByNameAsync(model.Email);
-
                     var roles = await _userManager.GetRolesAsync(user);
-                  
-                    _userManager.AddClaimAsync(user, new Claim("DCApiToken", user.AccessToken.ToString())).Wait();
-                    //_userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString())).Wait();
-                    _userManager.AddToRolesAsync(user, roles).Wait();
 
+                    _userManager.AddToRolesAsync(user, roles).Wait();
 
                     return RedirectToLocal(returnUrl);
                 }
@@ -149,7 +153,7 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
             }
             return BadRequest(model);
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> AuthenticatedToken(string token)
@@ -165,8 +169,8 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                 Description = "Token is not valid"
             });
 
-            var userDepartmentRole =  _userDepartmentService.GetDepartmentRoleByToken(Guid.Parse(token));
-            if(userDepartmentRole.Any())
+            var userDepartmentRole = _userDepartmentService.GetDepartmentRoleByToken(Guid.Parse(token));
+            if (userDepartmentRole.Any())
             {
                 model = new LoginApiModel
                 {

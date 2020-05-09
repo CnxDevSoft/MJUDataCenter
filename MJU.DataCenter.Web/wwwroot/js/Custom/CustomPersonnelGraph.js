@@ -2572,8 +2572,8 @@ async function DisplayPersonInfoDetailModal(citizenId) {
             console.log(data)
             $('#personNameTh').empty();
             $('#personNameTh').append(data.researcherName);
-            $('#personNameEn').empty();
-            $('#personNameEn').append(data.researcherName);
+          //  $('#personNameEn').empty();
+          //  $('#personNameEn').append(data.researcherName);
 
             var table = $('#userDetailTable').DataTable();
             table.clear().destroy();
@@ -2626,7 +2626,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
         .then((data) => {
             if (data != null) {
                 $('#personNameTh').empty();
-                $('#personNameEn').empty();
+                //$('#personNameEn').empty();
                 $('#personPosition').empty();
                 $('#personType').empty();
                 $('#personSection').empty();
@@ -2638,7 +2638,7 @@ async function DisplayPersonInfoDetailModal(citizenId) {
                 $('#personAddress').empty();
 
                 $('#personNameTh').append(data.personName);
-                $('#personNameEn').append(data.personName);
+               // $('#personNameEn').append(data.personName);
                 $('#personPosition').append(data.position + '(' + data.positionLevel + ')');
                 $('#personType').append(data.personnelType);
                 $('#personSection').append(data.section);
