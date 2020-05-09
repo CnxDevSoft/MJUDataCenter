@@ -287,10 +287,17 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<DepartmentRole> GenDepartmentKey(int departmentRoleId)
+        public DepartmentRole UpdateDepartmentRole(int departmentRoleId, string departmentRoleName, string departmentRoleNameTH, string departmentKey, Guid? departmentApiToken)
         {
 
-            return _userDepartmentService.GenerateDepartmentRole(departmentRoleId);
+            return _userDepartmentService.UpdateDepartmentRole(departmentRoleId, departmentRoleName, departmentRoleNameTH, departmentKey, departmentApiToken);
+        }
+
+        [HttpPost]
+        public DepartmentRole AddDepartmentRole(string departmentRoleName, string departmentRoleNameTH, string departmentKey, Guid? departmentApiToken)
+        {
+
+            return _userDepartmentService.AddDepartmentRole(departmentRoleName, departmentRoleNameTH, departmentKey, departmentApiToken);
         }
 
         #region Helpers
