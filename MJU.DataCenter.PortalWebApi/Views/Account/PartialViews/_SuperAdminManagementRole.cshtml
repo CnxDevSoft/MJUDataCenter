@@ -8,7 +8,7 @@
                         <i class="fas fa-exclamation-triangle"></i>
                         การจัดการสิทธิ์สำหรับผู้ดูแลระบบ
                     </h3>
-                    <button type="button" class="btn btn-default float-right text-green">เพิ่มสิทธิ์</button>
+                    <button type="button" id="addRoleBtn" class="btn btn-default float-right text-green">เพิ่มสิทธิ์</button>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-valign-middle dataTable bg-white" id="superAdminRoletable">
@@ -24,13 +24,16 @@
 
                             @foreach (var item in Model.DepartmentRoles)
                             {
-                            <tr>
-                                <td>@item.DepartmentRoleName</td>
-                                <td>@item.DepartmentRoleNameTH</td>
-                                <td>@item.DepartmentKey</td>
-                                <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId + " fullWidth", Disabled = "Disabled", id = "departmentKey" + item.DepartmentRoleId })</td>
-                                <td><button class="btn btn-success" id="generateTokenBtn" value="@item.DepartmentRoleId"><i class="fa fa-key"></i> บันทึก</button></td>
-                            </tr>
+                                if (item.DepartmentRoleName != "General")
+                                {
+                                    <tr>
+                                        <td>@Html.TextBox("roleName-" + item.DepartmentRoleId, item.DepartmentRoleName, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleName" + item.DepartmentRoleId })</td>
+                                        <td>@Html.TextBox("name-" + item.DepartmentRoleId, item.DepartmentRoleNameTH, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleNameTH" + item.DepartmentRoleId })</td>
+                                        <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentKey, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentKey" + item.DepartmentRoleId })</td>
+                                        <td>@Html.TextBox("apiToken-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId + " fullWidth", Disabled = "Disabled", id = "departmentApiToken" + item.DepartmentRoleId })</td>
+                                        <td><button class="btn btn-success" id="generateTokenBtn" value="@item.DepartmentRoleId"><i class="fa fa-key"></i> บันทึก</button></td>
+                                    </tr>
+                                }
                             }
 
                         </tbody>
@@ -57,20 +60,52 @@
                 </div>
             </div>
         </div>
+
+        <div id="addRoleModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">การเพิ่มสิทธิ์</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       
+
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 
 <script>
     $("#generateTokenBtn").click(function () {
 
-        $('#generateTokenBtnModal').modal('show');                          
+        $('#generateTokenBtnModal').modal('show');
     });
+
+    $("#addRoleBtn").click(function () {
+
+        $('#addRoleModal').modal('show');
+    });
+
+    
+
 
     async function Save() {
         var departmentRoleId = $('#generateTokenBtn').val();
         $.post("@Url.Action("GenDepartmentKey", "Account")", { departmentRoleId: departmentRoleId }, function (data) {
 
-            var id = '#departmentKey' + departmentRoleId;
+            var id = '#departmentApiToken' + departmentRoleId;
             $(id).val(data.departmentApiToken)
             //$('#departmentKey' + departmentRoleId).append(data.departmentApiToken);
      });
