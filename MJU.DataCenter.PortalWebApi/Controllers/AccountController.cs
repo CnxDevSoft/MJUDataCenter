@@ -266,8 +266,20 @@ namespace MJU.DataCenter.PortalWebApi.Controllers
                     // var callbackUrl = Url.EmailConfirmationLink(user.Id.ToString(), code, Request.Scheme);
                     //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
+                    var claims = _userManager.GetClaimsAsync(user);
+
+                    if (!claims.Result.Any(x => x.Type == "DCApiToken"))
+                        _userManager.AddClaimAsync(user, new Claim("DCApiToken", user.AccessToken.ToString())).Wait();
+                    if (!claims.Result.Any(x => x.Type == "UserId"))
+                        _userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString())).Wait();
+
+                    _userManager.UpdateAsync(user).Wait();
+
+                    _userManager.AddToRoleAsync(user, "Developer").Wait();
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+  
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
