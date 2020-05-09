@@ -849,9 +849,9 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
             {
                 researcher = researcher.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
             }
-            var distinc = researcher.Where(m => !string.IsNullOrEmpty(input.FirstName) ? m.ResearcherName.Contains(input.FirstName) : true)
-                .Where(m => !string.IsNullOrEmpty(input.LastName) ? m.ResearcherName.Contains(input.LastName) : true)
-                .Where(m => !string.IsNullOrEmpty(input.FacultyName) ? m.FacultyName.Contains(input.FacultyName) : true)
+            var distinc = researcher.Where(m => !string.IsNullOrEmpty(input.FirstName) ? m.ResearcherName.ToLower().Contains(input.FirstName.ToLower()) : true)
+                .Where(m => !string.IsNullOrEmpty(input.LastName) ? m.ResearcherName.ToLower().Contains(input.LastName.ToLower()) : true)
+                .Where(m => !string.IsNullOrEmpty(input.FacultyName) ? m.FacultyName.ToLower().Contains(input.FacultyName.ToLower()) : true)
                 .Select(s => new { s.ResearcherId, s.ResearcherName, s.FacultyName, s.FacultyId, s.FacultyCode, s.CitizenId }).Distinct();
 
             return distinc.Select(s => new ResearcherResearchDataModel

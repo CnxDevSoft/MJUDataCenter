@@ -2530,12 +2530,12 @@ function modalRender(chartName, element, modelLabel, data, clickedDatasetIndex) 
         });
 }
 
-async function DisplayPersonProfileModal(firstNameVal, lastNameVal) {
+async function DisplayResearcherProfileModal(firstNameVal, lastNameVal) {
 
     var table = '#researchInfoTable';
     var modal = '#researchInfoModal';
     var section = '#researchInfoSection';
-    var url = 'https://localhost/MJU.DataCenter.ResearchExtension/api/ResearcherResearchData/?firstName=' + firstNameVal + '&lastName=' + lastNameVal + '&Token=' + accessToken + '&api-version=1.0'
+    var url = researchExtensionRootPath+'ResearcherResearchData/?firstName=' + firstNameVal + '&lastName=' + lastNameVal + '&Token=' + accessToken + '&api-version=1.0'
 
     var dataTable = $(table).DataTable();
     dataTable.clear().destroy();
@@ -2691,6 +2691,37 @@ async function DisplayPersonInfoDetailModal(citizenId) {
 
 
 
+
+
+}
+
+async function DisplayPersonnelProfileModal(firstNameVal, lastNameVal) {
+
+    var table = '#personInfoTable';
+    var modal = '#personInfoModal';
+    var section = '#personInfoSection';
+    var url = personnelRootPath+'PersonnelDetail?FirstName=' + firstNameVal + '&lastName=' + lastNameVal + '&Token=' + accessToken + '&api-version=1.0'
+
+    var dataTable = $(table).DataTable();
+    dataTable.clear().destroy();
+
+    fetch(url)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            $.each(data, function (key, value) {
+                $(section).append('<tr><td><a href="#" onclick="DisplayPersonInfoDetailModal(' + value.citizenId + ')" class="text-green">' + value.personName + '</a></td><td>' +
+                    value.faculty + '</td></tr > ')
+            });
+
+            $(modal).modal('show');
+            $(modal).on('shown.bs.modal', function () {
+            })
+            $(table).DataTable({
+                language: oLanguagePersonGraphOptions
+            });
+        });
 
 
 }

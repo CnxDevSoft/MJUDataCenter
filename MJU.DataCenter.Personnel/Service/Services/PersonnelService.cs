@@ -2860,5 +2860,55 @@ namespace MJU.DataCenter.Personnel.Service.Services
             return personEducationDetail;
 
         }
+
+        public List<PersonnelDataSourceViewModel> GetPersonnelByName(PersonnelInputDto input, List<int> filter)
+        {
+            var personnel = _dcPersonRepository.GetAll();
+            if (filter.Any())
+            {
+                personnel = personnel.Where(x => filter.Contains(x.FacultyId.GetValueOrDefault()));
+            }
+
+            var result = personnel
+                .Where(m => !string.IsNullOrEmpty(input.FirstName) ? m.FirstName.ToLower().Contains(input.FirstName.ToLower()): true)
+                .Where(m=> !string.IsNullOrEmpty(input.LastName)? m.LastName.ToLower().Contains(input.LastName.ToLower()): true)
+                 .Select(s => new PersonnelDataSourceViewModel
+                 {
+                     AdminPosition = s.AdminPosition,
+                     AdminPositionType = s.AdminPositionType,
+                     BloodType = s.BloodType,
+                     Country = s.Country,
+                     DateOfBirth = s.DateOfBirth.ToLocalDateTime(),
+                     Division = s.Division,
+                     Education = s.Education,
+                     EducationLevel = s.EducationLevel,
+                     Faculty = s.Faculty,
+                     Gender = s.Gender,
+                     GraduateDate = s.GraduateDate.ToLocalDateTime(),
+                     CitizenId = s.CitizenId,
+                     Major = s.Major,
+                     Nation = s.Nation,
+                     PersonName = string.Format("{0} {1} {2}", s.TitleName, s.FirstName, s.LastName),
+                     PersonnelId = s.PersonnelId,
+                     PersonnelType = s.PersonnelType,
+                     Position = s.Position,
+                     PositionLevel = s.PositionLevel,
+                     PositionType = s.PositionType,
+                     Province = s.Province,
+                     RetiredDate = s.RetiredDate.ToLocalDateTime(),
+                     RetiredYear = s.RetiredYear.GetValueOrDefault().ToLocalYear(),
+                     Salary = s.Salary,
+                     Section = s.Section,
+                     StartDate = s.StartDate.ToLocalDateTime(),
+                     StartEducationDate = s.StartEducationDate.ToLocalDateTime(),
+                     TitleEducation = s.TitleEducation,
+                     University = s.University,
+                     ZipCode = s.ZipCode,
+                     Address = string.Format("{0} ซอย {1} หมู่ {2} ต.{4} อ.{4} จ.{5}", s.HomeNumber, s.Soi, s.Moo, s.SubDistrict, s.District, s.Province)
+
+                 }).ToList();
+
+            return result;
+        }
     }
 }
