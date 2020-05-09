@@ -99,12 +99,12 @@ async function AllPersonGraph() {
 
             var sumValue = 0;
             $.each(tempData, function (key, item) {
-                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="PersonGroupDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                $("#allPersonGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a class="text-green" href="#" onClick="PersonGroupDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
                     + item.val + '</a></td></tr>');
                 sumValue += item.val;
             });
 
-            $("#allPersonGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="PersonGroupDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#allPersonGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a class="text-green" href="#" onClick="PersonGroupDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</a></td></tr>');
 
             //AllPersonGraphDS(token, userName);
@@ -297,12 +297,12 @@ async function PersonEducationGraph() {
 
             var sumValue = 0;
             $.each(tempData, function (key, item) {
-                $("#personEducationGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a  onClick="PersonEducationDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                $("#personEducationGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a class="text-green" href="#" onClick="PersonEducationDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
                     + item.val + '</button></td></tr>');
                 sumValue += item.val;
             });
 
-            $("#personEducationGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="PersonEducationDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#personEducationGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a class="text-green" href="#" onClick="PersonEducationDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -346,12 +346,12 @@ async function PersonTypeGraph() {
 
             var sumValue = 0;
             $.each(tempData, function (key, item) {
-                $("#personTypeGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onclick="PersonPositionDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+                $("#personTypeGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a class="text-green" href="#" onclick="PersonPositionDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
                     + item.val + '</button></td></tr>');
                 sumValue += item.val;
             });
 
-            $("#personTypeGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onclick="PersonPositionDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+            $("#personTypeGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a class="text-green" href="#" onclick="PersonPositionDrillDown(' + "''" + ')" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
                 + sumValue + '</button></td></tr>');
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -422,13 +422,13 @@ async function PersonWorkAgeGraph() {
 
                 $("#personWorkAgeGraphDataTable-tbody").append(
                     '<tr><td >' + item + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',0)">' + data.graphDataSet[0].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',1)">' + data.graphDataSet[1].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',2)">' + data.graphDataSet[2].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',3)">' + data.graphDataSet[3].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',4)">' + data.graphDataSet[4].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',5)">' + data.graphDataSet[5].data[key] + '</td>' +
-                    '<td onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',' + "''" + ')">' + sumRow + '</td></tr>'
+                    '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',0)">' + data.graphDataSet[0].data[key] + '</a></td>' +
+                    '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',1)">' + data.graphDataSet[1].data[key] + '</a></td>' +
+                    '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',2)">' + data.graphDataSet[2].data[key] + '</a></td>' +
+                    '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',3)">' + data.graphDataSet[3].data[key] + '</a></td>' +
+                    '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',4)">' + data.graphDataSet[4].data[key] + '</a></td>' +
+                    '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',5)">' + data.graphDataSet[5].data[key] + '</a></td>' +
+                    '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "'" + data.label[key] + "'" + ',' + "''" + ')">' + sumRow + '</a></td></tr>'
                 );
             });
 
@@ -446,13 +446,13 @@ async function PersonWorkAgeGraph() {
 
             $("#personWorkAgeGraphDataTable-tbody").append(
                 '<tr><td><strong class="th-text-green">รวม</strong></td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',0)">' + sumColumns[0] + '</td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',1)">' + sumColumns[1] + '</td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',2)">' + sumColumns[2] + '</td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',3)">' + sumColumns[3] + '</td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',4)">' + sumColumns[4] + '</td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',5)">' + sumColumns[5] + '</td>' +
-                '<td onclick="PersonWorkDurationDrillDown(' + "''" + ',' + "''" + ')">' + sumValue + '</td></tr > '
+                '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "''" + ',0)">' + sumColumns[0] + '</a></td>' +
+                '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "''" + ',1)">' + sumColumns[1] + '</a></td>' +
+                '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "''" + ',2)">' + sumColumns[2] + '</a></td>' +
+                '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "''" + ',3)">' + sumColumns[3] + '</a></td>' +
+                '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "''" + ',4)">' + sumColumns[4] + '</a></td>' +
+                '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "''" + ',5)">' + sumColumns[5] + '</a></td>' +
+                '<td><a class="text-green" href="#" onclick="PersonWorkDurationDrillDown(' + "''" + ',' + "''" + ')">' + sumValue + '</a></td></tr > '
             );
 
             $('[data-toggle="tooltip"]').tooltip();
@@ -541,7 +541,7 @@ async function PersonPositionGraph() {
                 var html = '';
                 var sumRow = 0;
                 $.each(data.graphDataSet, function (keys, sItem) {
-                    html += '<td onClick="PersonPositionAdminDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</td>';
+                    html += '<td><a class="text-green" href="#" onClick="PersonPositionAdminDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</a></td>';
                     sumRow += data.graphDataSet[keys].data[key];
                 });
 
@@ -549,14 +549,14 @@ async function PersonPositionGraph() {
                 sumRows.push(sumRow);
 
                 $("#personPositionGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '<td onClick="PersonPositionAdminDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</td></tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td><a class="text-green" href="#" onClick="PersonPositionAdminDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</a></td></tr>');
             });
             var lastHtml;
             $.each(sumColumns, function (key, item) {
-                lastHtml += '<td onClick="PersonPositionAdminDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</td>';
+                lastHtml += '<td><a class="text-green" href="#" onClick="PersonPositionAdminDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</a></td>';
 
             });
-            lastHtml += '<td onClick="PersonPositionAdminDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
+            lastHtml += '<td><a class="text-green" href="#" onClick="PersonPositionAdminDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</a></td>';
             $("#personPositionGraphDataTable-tbody").append(
                 '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
@@ -646,7 +646,7 @@ async function PersonPositionLevelGraph() {
                 var sumRow = 0;
                 $.each(data.graphDataSet, function (keys, sItem) {
 
-                    html += '<td onClick="PersonPositionLevelDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</td>';
+                    html += '<td><a class="text-green" href="#" onClick="PersonPositionLevelDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</a></td>';
                     sumRow += data.graphDataSet[keys].data[key];
                 });
 
@@ -654,14 +654,14 @@ async function PersonPositionLevelGraph() {
                 sumRows.push(sumRow);
 
                 $("#personPositionLevelGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '<td onClick="PersonPositionLevelDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</td></tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td><a class="text-green" href="#" onClick="PersonPositionLevelDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</a></td></tr>');
             });
 
             var lastHtml;
             $.each(sumColumns, function (key, item) {
-                lastHtml += '<td onClick="PersonPositionLevelDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</td>';
+                lastHtml += '<td><a class="text-green" href="#"onClick="PersonPositionLevelDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</a></td>';
             });
-            lastHtml += '<td onClick="PersonPositionLevelDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
+            lastHtml += '<td><a class="text-green" href="#" onClick="PersonPositionLevelDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</a></td>';
             $("#personPositionLevelGraphDataTable-tbody").append(
                 '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
@@ -761,7 +761,7 @@ async function PersonFacultyGraph() {
 
                 var sumRow = 0;
                 $.each(data.graphDataSet, function (keys, sItem) {
-                    html += '<td onClick="PersonGroupFacultyDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</td>';
+                    html += '<td><a class="text-green" href="#" onClick="PersonGroupFacultyDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</a></td>';
                     sumRow += data.graphDataSet[keys].data[key];
                 });
 
@@ -769,16 +769,16 @@ async function PersonFacultyGraph() {
                 sumRows.push(sumRow);
 
                 $("#personFacultyGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '<td onClick="PersonGroupFacultyDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</td></tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td><a class="text-green" href="#" onClick="PersonGroupFacultyDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</a></td></tr>');
             });
 
 
             var lastHtml;
             $.each(sumColumns, function (key, item) {
-                lastHtml += '<td onClick="PersonGroupFacultyDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</td>';
+                lastHtml += '<td><a class="text-green" href="#" onClick="PersonGroupFacultyDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</a></td>';
 
             });
-            lastHtml += '<td onClick="PersonGroupFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
+            lastHtml += '<td><a class="text-green" href="#" onClick="PersonGroupFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</a></td>';
             $("#personFacultyGraphDataTable-tbody").append(
                 '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
@@ -873,7 +873,7 @@ async function PersonPositionFacultyGraph(token, userName) {
 
                     var sumRow = 0;
                     $.each(data.graphDataSet, function (keys, sItem) {
-                        html += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</td>';
+                        html += '<td><a class="text-green" href="#" onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'" + ')">' + data.graphDataSet[keys].data[key] + '</a></td>';
                         sumRow += data.graphDataSet[keys].data[key];
                     });
 
@@ -882,16 +882,16 @@ async function PersonPositionFacultyGraph(token, userName) {
 
 
                     $("#personPositionFacultyGraphDataTable-tbody").append(
-                        '<tr><td>' + item + '</td>' + html + '<td onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</td></tr>');
+                        '<tr><td>' + item + '</td>' + html + '<td><a class="text-green" href="#" onClick="PersonPositionFacultyDrillDown(' + "'" + item + "'," + "'" + "'" + ')">' + sumRow + '</a></td></tr>');
 
                 });
 
                 var lastHtml;
                 $.each(sumColumns, function (key, item) {
-                    lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</td>';
+                    lastHtml += '<td><a class="text-green" href="#" onClick="PersonPositionFacultyDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'" + ')">' + item + '</a></td>';
 
                 });
-                lastHtml += '<td onClick="PersonPositionFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</td>';
+                lastHtml += '<td><a class="text-green" href="#" onClick="PersonPositionFacultyDrillDown(' + "'" + "'," + "'" + "'" + ')">' + sumValue + '</a></td>';
                 $("#personPositionFacultyGraphDataTable-tbody").append(
                     '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 
@@ -1000,7 +1000,7 @@ async function PersonRetiredGraph(token, userName) {
 
                 var sumRow = 0;
                 $.each(data.graphDataSet, function (keys, sItem) {
-                    html += '<td onClick="PersonRetiredDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'," + "'" + startDate + "'" + ",'" + endDate + "'" + ')">' + data.graphDataSet[keys].data[key] + '</td>';
+                    html += '<td><a class="text-green" href="#" onClick="PersonRetiredDrillDown(' + "'" + item + "'," + "'" + data.graphDataSet[keys].label + "'," + "'" + startDate + "'" + ",'" + endDate + "'" + ')">' + data.graphDataSet[keys].data[key] + '</a></td>';
                     sumRow += data.graphDataSet[keys].data[key];
                 });
 
@@ -1008,15 +1008,15 @@ async function PersonRetiredGraph(token, userName) {
                 sumRows.push(sumRow);
 
                 $("#personRetiredGraphDataTable-tbody").append(
-                    '<tr><td>' + item + '</td>' + html + '<td onClick="PersonRetiredDrillDown(' + "'" + item + "'," + "'" + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + sumRow + '</td></tr>');
+                    '<tr><td>' + item + '</td>' + html + '<td><a class="text-green" href="#" onClick="PersonRetiredDrillDown(' + "'" + item + "'," + "'" + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + sumRow + '</a></td></tr>');
             });
 
             var lastHtml;
             $.each(sumColumns, function (key, item) {
-                lastHtml += '<td onClick="PersonRetiredDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + item + '</td>';
+                lastHtml += '<td><a class="text-green" href="#" onClick="PersonRetiredDrillDown(' + "'" + "'" + ",'" + labelColumns[key] + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + item + '</a></td>';
 
             });
-            lastHtml += '<td onClick="PersonRetiredDrillDown(' + "'" + "'," + "'" + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + sumValue + '</td>';
+            lastHtml += '<td><a class="text-green" href="#"onClick="PersonRetiredDrillDown(' + "'" + "'," + "'" + "'," + "'" + startDate + "'," + "'" + endDate + "'" + ')">' + sumValue + '</a></td>';
             $("#personRetiredGraphDataTable-tbody").append(
                 '<tr><td><strong class="th-text-green">รวม</strong></td>' + lastHtml + '</tr>');
 

@@ -122,12 +122,12 @@ async function ResearchDepartmentRender(data) {
     var sumValue = 0;
 
     $.each(tempData, function (key, item) {
-        $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="ResearchDepartmentTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
-            + item.val + '</button></td></tr>');
+        $("#researchDepartmentGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a class="text-green" href="#" onClick="ResearchDepartmentTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+            + item.val + '</a></td></tr>');
         sumValue += item.val;
         //.....onclick even+any funtion
     });
-    $("#researchDepartmentGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $("#researchDepartmentGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a class="text-green" href="#" onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
     /*$("#researchDepartmentGraphDataTable-tbody").append('<tr><td> รวม </td><td><a onClick="ResearchDepartmentTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
@@ -271,11 +271,11 @@ async function ResearchPersonGroupRender(data) {
     });
     var sumValue = 0;
     $.each(tempData, function (key, item) {
-        $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a onClick="ResearchGroupTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
-            + item.val + '</button></td></tr>');
+        $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td>' + item.title + '</td><td><a class="text-green" href="#" onClick="ResearchGroupTableDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+            + item.val + '</a></td></tr>');
         sumValue += item.val;
     });
-    $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="ResearchGroupTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $("#researchPersonGroupGraphDataTable-tbody").append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a class="text-green" href="#" onClick="ResearchGroupTableDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -433,11 +433,11 @@ async function ResearchMoneyRangeRender(data) {
     });
     var sumValue = 0;
     $.each(tempData, function (key, item) {
-        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a onClick="ResearchMoneyRangeDrillDown(' + "'"+ key + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
-            + item.val + '</button></td></tr>');
+        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a class="text-green" href="#" onClick="ResearchMoneyRangeDrillDown(' + "'"+ key + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+            + item.val + '</a></td></tr>');
         sumValue += item.val;
     });
-    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="ResearchMoneyRangeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a class="text-green" href="#" onClick="ResearchMoneyRangeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
 
@@ -585,11 +585,11 @@ async function ResearchMoneyTypeRender(data) {
     });
     var sumValue = 0;
     $.each(tempData, function (key, item) {
-        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a  onClick="ResearchMoneyTypeDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
-            + item.val + '</button></td></tr>');
+        $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td>' + item.title + '</td><td><a class="text-green" href="#" onClick="ResearchMoneyTypeDrillDown(' + "'" + item.title + "'" + ')" data-placement="right" data-toggle="tooltip" title="' + item.title + '(' + item.val + ')' + '">'
+            + item.val + '</a></td></tr>');
         sumValue += item.val;
     });
-    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a onClick="ResearchMoneyTypeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
+    $('#' + chartName + 'GraphDataTable-tbody').append('<tr><td><strong class="th-text-green">รวม</strong></td><td><a class="text-green" href="#" onClick="ResearchMoneyTypeDrillDown()" data-placement="right" data-toggle="tooltip" title="รวม(' + sumValue + ')' + '">'
         + sumValue + '</a></td></tr>');
 
 
