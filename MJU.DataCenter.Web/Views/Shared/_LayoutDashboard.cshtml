@@ -3,6 +3,9 @@
     var currentpage = ViewData["currentPage"];
     var personPageActive = currentpage.ToString() == "DashboardPerson" ? "active text-white" : "text-black";
     var researchExtensionPageActive = currentpage.ToString() == "DashboardResearchExtension" ? "active text-white" : "text-black";
+    var personActivityPageActive = currentpage.ToString() == "DashboardPersonnelActivity" ? "active text-white" : "text-black";
+   
+    
     var userAccesToken = User.Claims.LastOrDefault(x => x.Type == "DCWebToken").Value;
 
 }
@@ -222,6 +225,12 @@
                                     <a asp-controller="DashboardResearchExtension" asp-action="Index" class="nav-link @researchExtensionPageActive">
                                         <i class="fas fa-flask"></i>
                                         <p>สำนักวิจัย</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="DashboardPersonnelActivity" asp-action="Index" class="nav-link @personActivityPageActive">
+                                        <i class="fas fa-flask"></i>
+                                        <p>กิจกรรม</p>
                                     </a>
                                 </li>
                             </ul>
