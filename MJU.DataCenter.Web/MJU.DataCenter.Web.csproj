@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Repository\Common\" />
-    <Folder Include="Views\DashboardPersonnelActivity\PartialViews\" />
+    <Folder Include="Views\DashboardPersonnelActivity\PartialViews\FacultyActivity\" />
+    <Folder Include="Views\DashboardPersonnelActivity\PartialViews\PersonnelActivity\" />
   </ItemGroup>
 </Project>

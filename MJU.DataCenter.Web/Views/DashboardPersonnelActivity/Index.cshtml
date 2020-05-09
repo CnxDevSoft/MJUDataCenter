@@ -94,12 +94,9 @@
 
 
 <div class="container-fluid">
- 
     <div class="row">
-     
-        @*Chart*@
-
-
+        <partial name="PartialViews/FacultyActivity/_FacultyActivityGraph" />
+        <partial name="PartialViews/PersonnelActivity/_PersonnelActivityGraph" />
     </div>
 </div>
 
@@ -119,11 +116,11 @@
             var endDate = moment(endDateVal, "DD/MM/YYYY").format('MM/DD/YYYY');
 
 
-          //  SetDateTimeTemp(startDate, endDate)
-         //   ResearchFacultyGraph(startDate, endDate);
-         //   ResearchPersonGroupGraph(startDate, endDate);
-          //  ResearchMoneyRangeGraph(startDate, endDate);
-         //   ResearchMoneyTypeGraph(startDate, endDate);
+            //  SetDateTimeTemp(startDate, endDate)
+            //   ResearchFacultyGraph(startDate, endDate);
+            //   ResearchPersonGroupGraph(startDate, endDate);
+            //  ResearchMoneyRangeGraph(startDate, endDate);
+            //   ResearchMoneyTypeGraph(startDate, endDate);
 
         });
 
@@ -136,7 +133,7 @@
             var firstNameVal = $('#firstNameTxt').val();
             var lastNameVal = $('#lastNameTxt').val();
 
-          //  DisplayResearcherProfileModal(firstNameVal, lastNameVal);
+            //  DisplayResearcherProfileModal(firstNameVal, lastNameVal);
         });
 
     });</script>
@@ -184,7 +181,7 @@
         RenderDatePicker();
     });
 </script>
-
+<script src="~/js/Custom/CustomActivityGraph.js"></script>
 @*<partial name="PartialViews/_ResearchInfoModal" />
-<partial name="~/Views/DashboardPersonnel/PartialViews/_PersonDetailModal.cshtml" />
-<partial name="~/Views/DashboardResearchExtension/PartialViews/_ResearchDetailModal.cshtml" />*@
+    <partial name="~/Views/DashboardPersonnel/PartialViews/_PersonDetailModal.cshtml" />
+    <partial name="~/Views/DashboardResearchExtension/PartialViews/_ResearchDetailModal.cshtml" />*@
