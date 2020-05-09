@@ -20,10 +20,11 @@ namespace MJU.DataCenter.PortalWebApi.Repository.Common
             await Context.Set<TEntity>().AddAsync(entity);
         }
 
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
             Context.SaveChanges();
+            return entity;
         }
 
         public TEntity Update(TEntity entity)
