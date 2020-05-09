@@ -6,6 +6,91 @@
 <script>
         const accessToken = '@userAccesToken';
 </script>
+<div class="col-md-12">
+    <div class="card card-green-theme">
+        <div class="card-header">
+            <h3 class="card-title">@Html.Raw("ค้นหาบุคลากร")</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @*<div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="bootstrap-timepicker">
+                                    <div class="form-group">
+                                        <label>เลือกวันเริ่มต้น:</label>
+                                        <div class="input-group date" id="startDatePicker" data-target-input="nearest">
+                                            <input type="text" id="startDate" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#startDatePicker" />
+                                            <div class="input-group-append" data-target="#startDatePicker" data-toggle="datepicker">
+                                                <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="bootstrap-timepicker">
+                                    <div class="form-group">
+                                        <label>เลือกวันสิ้นสุด:</label>
+                                        <div class="input-group date" id="endDatePicker" data-target-input="nearest">
+                                            <input type="text" id="endDate" class="form-control datetimepicker-input" data-provide="datepicker" data-date-language="th-th" data-target="#endDatePicker" />
+                                            <div class="input-group-append" data-target="#endDatePicker" data-toggle="datepicker">
+                                                <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>&nbsp;</label>
+                                <button id="dateBtn" class="form-control btn btn-success label-default-bg active">ตกลง</button>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>ระบุชื่อ</label>
+                                    <div class="input-group" id="searchFirstNamePerson-Personnel" data-target-input="nearest">
+                                        @*<div class="input-group-append">
+                                                <div class="input-group-text"><i class="far fa-user"></i></div>
+                                            </div>*@
+                                        <input type="text" placeholder="ค้นหาด้วยชื่อ" id="firstNameTxt-Personnel" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label>ระบุนามสกุล</label>
+                                    <div class="input-group" id="searchLastNamePerson-Personnel" data-target-input="nearest">
+                                        @*<div class="input-group-append">
+                                                <div class="input-group-text"><i class="far fa-user"></i></div>
+                                            </div>*@
+                                        <input type="text" placeholder="ค้นหาด้วยนามสกุล" id="lastNameTxt-Personnel" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>&nbsp;</label>
+                            <button id="searchBtn-Personnel" class="form-control btn btn-success label-default-bg active">ค้นหา</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
@@ -24,9 +109,62 @@
 
     </div>
 </div><!-- /.container-fluid -->
+<partial name="~/Views/DashboardPersonnel/PartialViews/_PersonInfoModal.cshtml" />
 <partial name="~/Views/DashboardPersonnel/PartialViews/_PersonDetailModal.cshtml" />
 <partial name="~/Views/DashboardResearchExtension/PartialViews/_ResearchDetailModal.cshtml" />
 
 <script type="text/javascript">
-   //eval(function (p, a, c, k, e, d) { e = function (c) { return c.toString(36) }; if (!''.replace(/^/, String)) { while (c--) { d[c.toString(a)] = k[c] || c.toString(a) } k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1 }; while (c--) { if (k[c]) { p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]) } } return p }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'), 0, {}))
+    $(function () {
+
+        $('#searchBtn-Personnel').click(function () {
+            
+            var firstNameVal = $('#firstNameTxt-Personnel').val();
+            var lastNameVal = $('#lastNameTxt-Personnel').val();
+            DisplayPersonnelProfileModal(firstNameVal, lastNameVal);
+        });
+
+    });</script>
+
+
+
+<script src="~/js/bootstrap-datepicker.js"></script>
+<script src="~/js/bootstrap-datepicker-thai.js"></script>
+<script src="~/js/locales/bootstrap-datepicker.th.js"></script>
+<script src="//getbootstrap.com/2.3.2/assets/js/google-code-prettify/prettify.js"></script>
+
+<link rel="stylesheet" href="~/css/datepicker.css" />
+<script type="text/javascript">
+
+    function RenderDatePicker() {
+        $('.startDatePicker').datepicker({ format: "dd/mm/yyyy" });
+        $('.endDatePicker').datepicker({ format: "dd/mm/yyyy" });
+    }
+
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        $('pre[data-source]').each(function () {
+            var $this = $(this),
+                $source = $($this.data('source'));
+
+            var text = [];
+            $source.each(function () {
+                var $s = $(this);
+                if ($s.attr('type') == 'text/javascript') {
+                    text.push($s.html().replace(/(\n)*/, ''));
+                } else {
+                    text.push($s.clone().wrap('<div>').parent().html()
+                        .replace(/(\"(?=[[{]))/g, '\'')
+                        .replace(/\]\"/g, ']\'').replace(/\}\"/g, '\'') // javascript not support lookbehind
+                        .replace(/\&quot\;/g, '"'));
+                }
+            });
+
+            $this.text(text.join('\n\n').replace(/\t/g, '    '));
+        });
+
+        prettyPrint();
+        RenderDatePicker();
+    });
 </script>

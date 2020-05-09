@@ -70,6 +70,10 @@ namespace MJU.DataCenter.PortalWebApi
             services.AddScoped<IUserDepartmentRoleRepository, UserDepartmentRoleRepository>();
             services.AddTransient<IUserDepartmentRoleService, UserDepartmentRoleService>();
 
+            services.AddSingleton<IApplicationConfiguration, ApplicationConfiguration>(e => Configuration.GetSection("ApiUrlConfiguration")
+            .Get<ApplicationConfiguration>());
+
+
 
             services.Configure<IdentityOptions>(options =>
             {

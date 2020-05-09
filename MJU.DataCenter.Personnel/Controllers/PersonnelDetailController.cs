@@ -33,13 +33,33 @@ namespace MJU.DataCenter.Personnel.Controllers
         [HttpGet("{citizenId}")]
         public object Get(string citizenId, [FromQuery]AuthenticateModel auth)
         {
+
             var result = AuthenticationApi.Authenticated(auth, WebHost);
+
             if (result.Result.IsSuccess)
             {
                 return _personnelService.GetPersonDetailByCitizenId(citizenId);
             }
             return null;
                
+        }
+
+        [HttpGet("")]
+        public object Get([FromQuery]PersonnelInputDto input, [FromQuery]AuthenticateModel auth)
+        {
+
+            var result = AuthenticationApi.Authenticated(auth, WebHost);
+            List<int> filter = new List<int>();
+            if (result.Result.DepartmentRoleList.Any(x => x.DepartmentKey != null))
+            {
+                filter = result.Result.
+                DepartmentRoleList.Select(x => int.Parse(x.DepartmentKey)).ToList();
+            }
+            if (result.Result.IsSuccess)
+            {
+                return _personnelService.GetPersonnelByName(input,filter);
+            }
+            return null;
         }
 
 
