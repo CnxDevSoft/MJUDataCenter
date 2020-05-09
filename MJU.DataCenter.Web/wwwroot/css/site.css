@@ -297,3 +297,6 @@ body {
     font-weight: bold;
 }
 
+a.noPointer{
+    cursor:pointer;
+}
