@@ -27,10 +27,10 @@
                                 if (item.DepartmentRoleName != "General")
                                 {
                                     <tr>
-                                        <td>@Html.TextBox("roleName-" + item.DepartmentRoleId, item.DepartmentRoleName, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleName" + item.DepartmentRoleId })</td>
-                                        <td>@Html.TextBox("name-" + item.DepartmentRoleId, item.DepartmentRoleNameTH, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleNameTH" + item.DepartmentRoleId })</td>
-                                        <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentKey, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentKey" + item.DepartmentRoleId })</td>
-                                        <td>@Html.TextBox("apiToken-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId + " fullWidth", Disabled = "Disabled", id = "departmentApiToken" + item.DepartmentRoleId })</td>
+                                        <td>@Html.TextBox("roleName-" + item.DepartmentRoleId, item.DepartmentRoleName, new { @required = true , @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleName" + item.DepartmentRoleId })</td>
+                                        <td>@Html.TextBox("name-" + item.DepartmentRoleId, item.DepartmentRoleNameTH, new {  @required = true ,@class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleNameTH" + item.DepartmentRoleId })</td>
+                                        <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentKey, new {  @required = true ,@class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentKey" + item.DepartmentRoleId })</td>
+                                        <td>@Html.TextBox("apiToken-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId + " fullWidth", id = "departmentApiToken" + item.DepartmentRoleId })</td>
                                         <td><button class="btn btn-success" id="generateTokenBtn" value="@item.DepartmentRoleId"><i class="fa fa-key"></i> บันทึก</button></td>
                                     </tr>
                                 }
