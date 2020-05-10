@@ -52,7 +52,8 @@ namespace MJU.DataCenter.ResearchExtension.Service.Services
         public object GetPersonnelActivityByCitizenId(string citizenId)
         {                                                                                                   
             var personActivity = _dcPersonnelActivityRepository.GetAll().Where(m => m.CitizenId == citizenId).ToList();
-        }                                                                                                                            s
+            return personActivity;
+        }                                                                                                                            
 
 
     }
