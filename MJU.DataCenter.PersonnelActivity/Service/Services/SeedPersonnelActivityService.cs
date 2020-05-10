@@ -30,33 +30,41 @@ namespace MJU.DataCenter.PersonnelActivity.Service.Services
 
         public void GeneratePersonActivity()
         {
-            var list = new List<Models.PersonnelActivity>();
-            for (var i = 0; i < 300; i++)
+            try
             {
-                Random random = new Random();
-                var randomTypeA = random.Next(0,2);
-                var randomTypeb = random.Next(1, 7);
-                var idcrd = "1234567890000";
-                var fact = SeedData.SeedData.Fact(i);
-            var aStringBuilder = new StringBuilder(idcrd);
-            aStringBuilder.Remove(13 - i.ToString().Length, i.ToString().Length);
-            aStringBuilder.Insert(13 - i.ToString().Length, i.ToString());
-
-                var result = new Models.PersonnelActivity
+                var list = new List<Models.PersonnelActivity>();
+                for (var i = 0; i < 300; i++)
                 {
-                    CitizenId = aStringBuilder.ToString(),
-                    PersonnelId = i,
-                    PersonnelName = string.Format("FirstName LastName {0}",i),
-                    PersonnelStatus = randomTypeA == 1?true:false,
-                    HourQty = randomTypeA == 0?0:randomTypeb,
-                    FacultyId = fact.FactId,
-                    FacultyName = fact.FactName,
-                    PersonnelActivity1 = fact.PersonnelActivityId.GetValueOrDefault()
-                };
-                list.Add(result);
+                    Random random = new Random();
+                    var randomTypeA = random.Next(0, 2);
+                    var randomTypeb = random.Next(1, 7);
+                    var idcrd = "1234567890000";
+                    var fact = SeedData.SeedData.Fact(i);
+                    var aStringBuilder = new StringBuilder(idcrd);
+                    aStringBuilder.Remove(13 - i.ToString().Length, i.ToString().Length);
+                    aStringBuilder.Insert(13 - i.ToString().Length, i.ToString());
 
+                    var result = new Models.PersonnelActivity
+                    {
+                        CitizenId = aStringBuilder.ToString(),
+                        PersonnelId = i + 1,
+                        PersonnelName = string.Format("FirstName{0} LastName {1}", i + 1, i + 1),
+                        PersonnelStatus = randomTypeA == 1 ? true : false,
+                        HourQty = randomTypeA == 0 ? 0 : randomTypeb,
+                        FacultyId = fact.FactId,
+                        FacultyName = fact.FactName,
+                    };
+                    //_personnelActivityRepository.Add(result);
+                    list.Add(result);
+
+                }
+                _personnelActivityRepository.AddRange(list);
             }
-            _personnelActivityRepository.AddRange(list);
+            catch (Exception ex)
+            {
+               
+            }
+           
         }
 
         public void GeneratePersonActivity1()
@@ -76,13 +84,12 @@ namespace MJU.DataCenter.PersonnelActivity.Service.Services
                 var result = new Models.PersonnelActivity
                 {
                     CitizenId = aStringBuilder.ToString(),
-                    PersonnelId = i,
-                    PersonnelName = string.Format("FirstName LastName {0}", i),
+                    PersonnelId = i+1,
+                    PersonnelName = string.Format("FirstName{0} LastName{1}", i+1,i+1),
                     PersonnelStatus = randomTypeA == 1 ? true : false,
                     HourQty = randomTypeA == 0 ? 0 : randomTypeb,
                     FacultyId = fact.FactId,
                     FacultyName = fact.FactName,
-                    PersonnelActivity1 = fact.PersonnelActivityId.GetValueOrDefault()
                 };
                 list.Add(result);
 

@@ -5,7 +5,7 @@ namespace MJU.DataCenter.PersonnelActivity.Models
 {
     public partial class DcPersonnelActivity
     {
-        public int PersonnelActivity { get; set; }
+        public int PersonnelActivityId { get; set; }
         public int? PersonnelId { get; set; }
         public string CitizenId { get; set; }
         public string PersonnelName { get; set; }

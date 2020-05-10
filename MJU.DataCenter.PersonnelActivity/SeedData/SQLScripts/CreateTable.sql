@@ -18,7 +18,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 create table PersonnelActivity(
-	PersonnelActivity int IDENTITY(1,1) NOT NULL,
+	PersonnelActivityId int IDENTITY(1,1) NOT NULL,
 	PersonnelId int NULL,
 	CitizenId nvarchar(max) NULL,
 	PersonnelName nvarchar(max) NULL,
@@ -28,6 +28,6 @@ create table PersonnelActivity(
 	PersonnelStatus bit null
 PRIMARY KEY CLUSTERED 
 (
-	PersonnelActivity ASC
+	PersonnelActivityId ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]

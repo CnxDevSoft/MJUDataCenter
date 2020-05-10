@@ -24,7 +24,8 @@ namespace MJU.DataCenter.PersonnelActivity.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=PersonnelActivity;User Id=admin;Password=abc123;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;User Id=admin;Database=PersonnelActivity;Password=abc123");
             }
         }
 
@@ -56,15 +57,7 @@ namespace MJU.DataCenter.PersonnelActivity.Models
 
                 entity.ToView("DC_PersonnelActivity");
 
-                entity.Property(e => e.PersonnelActivity).ValueGeneratedOnAdd();
-            });
-
-            modelBuilder.Entity<PersonnelActivity>(entity =>
-            {
-                entity.HasKey(e => e.PersonnelActivity1)
-                    .HasName("PK__Personne__9580D2EA2EE27208");
-
-                entity.Property(e => e.PersonnelActivity1).HasColumnName("PersonnelActivity");
+                entity.Property(e => e.PersonnelActivityId).ValueGeneratedOnAdd();
             });
 
             OnModelCreatingPartial(modelBuilder);
