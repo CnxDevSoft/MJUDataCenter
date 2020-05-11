@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MJU.DataCenter.Web.Controllers
 {
-    [Authorize]
-    public class DashboardPersonnelActivityController : Controller
+    public class DashboardFinanceController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
-            ViewData["currentPage"] = "DashboardPersonnelActivity";
+            ViewData["currentPage"] = "DashboardFinance";
             return View();
         }
     }
