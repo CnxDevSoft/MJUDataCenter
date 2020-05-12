@@ -20,6 +20,7 @@ PRIMARY KEY CLUSTERED
 create table PersonnelActivity(
 	PersonnelActivityId int IDENTITY(1,1) NOT NULL,
 	PersonnelId int NULL,
+	ActivityId int NULL,
 	CitizenId nvarchar(max) NULL,
 	PersonnelName nvarchar(max) NULL,
 	HourQty int NULL,

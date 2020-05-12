@@ -40,7 +40,7 @@ namespace MJU.DataCenter.PersonnelActivity.SeedData
         public int? FactId { get; set; }
         public string FactName { get; set; }
 
-        public int? PersonnelActivityId { get; set; }
+        public int? ActivityId { get; set; }
     }
 
     public partial class ActivitySeed

@@ -21,57 +21,57 @@ namespace MJU.DataCenter.PersonnelActivity.SeedData
                 case 1:
                     result.FactId = (int)Faculty.FacultyEnum.Office;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Office);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 2:
                     result.FactId = (int)Faculty.FacultyEnum.Science;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Science);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 3:
                     result.FactId = (int)Faculty.FacultyEnum.Engineer;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Engineer);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 4:
                     result.FactId = (int)Faculty.FacultyEnum.BusinessAdministration;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.BusinessAdministration);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 5:
                     result.FactId = (int)Faculty.FacultyEnum.Agriculture;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Agriculture);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 6:
                     result.FactId = (int)Faculty.FacultyEnum.FisheriesTechnologyAndWaterResources;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.FisheriesTechnologyAndWaterResources);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 7:
                     result.FactId = (int)Faculty.FacultyEnum.TourismDevelopment;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.TourismDevelopment);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 8:
                     result.FactId = (int)Faculty.FacultyEnum.LiberalArts;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.LiberalArts);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 9:
                     result.FactId = (int)Faculty.FacultyEnum.Economics;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Economics);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 10:
                     result.FactId = (int)Faculty.FacultyEnum.AnimalScienceAndTechnology;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.AnimalScienceAndTechnology);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
                 case 0:
                     result.FactId = (int)Faculty.FacultyEnum.InformationAndCommunication;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.InformationAndCommunication);
-                    result.PersonnelActivityId = m;
+                    result.ActivityId = m;
                     break;
             }
             return result;
@@ -89,57 +89,57 @@ namespace MJU.DataCenter.PersonnelActivity.SeedData
                 case 1:
                     result.FactId = (int)Faculty.FacultyEnum.Office;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Office);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 2:
                     result.FactId = (int)Faculty.FacultyEnum.Science;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Science);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 3:
                     result.FactId = (int)Faculty.FacultyEnum.Engineer;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Engineer);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 4:
                     result.FactId = (int)Faculty.FacultyEnum.BusinessAdministration;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.BusinessAdministration);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 5:
                     result.FactId = (int)Faculty.FacultyEnum.Agriculture;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Agriculture);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 6:
                     result.FactId = (int)Faculty.FacultyEnum.FisheriesTechnologyAndWaterResources;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.FisheriesTechnologyAndWaterResources);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 7:
                     result.FactId = (int)Faculty.FacultyEnum.TourismDevelopment;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.TourismDevelopment);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 8:
                     result.FactId = (int)Faculty.FacultyEnum.LiberalArts;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.LiberalArts);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 9:
                     result.FactId = (int)Faculty.FacultyEnum.Economics;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.Economics);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 10:
                     result.FactId = (int)Faculty.FacultyEnum.AnimalScienceAndTechnology;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.AnimalScienceAndTechnology);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
                 case 0:
                     result.FactId = (int)Faculty.FacultyEnum.InformationAndCommunication;
                     result.FactName = EnumHelper.GetDescriptionFromEnumValue(Faculty.FacultyEnum.InformationAndCommunication);
-                    result.PersonnelActivityId = x;
+                    result.ActivityId = x;
                     break;
             }
             return result;

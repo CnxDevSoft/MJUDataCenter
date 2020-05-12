@@ -47,6 +47,7 @@ namespace MJU.DataCenter.PersonnelActivity.Service.Services
                     var result = new Models.PersonnelActivity
                     {
                         CitizenId = aStringBuilder.ToString(),
+                        ActivityId = fact.ActivityId,
                         PersonnelId = i + 1,
                         PersonnelName = string.Format("FirstName{0} LastName {1}", i + 1, i + 1),
                         PersonnelStatus = randomTypeA == 1 ? true : false,
@@ -85,6 +86,7 @@ namespace MJU.DataCenter.PersonnelActivity.Service.Services
                 {
                     CitizenId = aStringBuilder.ToString(),
                     PersonnelId = i+1,
+                    ActivityId = fact.ActivityId,
                     PersonnelName = string.Format("FirstName{0} LastName{1}", i+1,i+1),
                     PersonnelStatus = randomTypeA == 1 ? true : false,
                     HourQty = randomTypeA == 0 ? 0 : randomTypeb,

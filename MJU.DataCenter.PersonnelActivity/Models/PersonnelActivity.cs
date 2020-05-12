@@ -7,6 +7,7 @@ namespace MJU.DataCenter.PersonnelActivity.Models
     {
         public int PersonnelActivityId { get; set; }
         public int? PersonnelId { get; set; }
+        public int? ActivityId { get; set; }
         public string CitizenId { get; set; }
         public string PersonnelName { get; set; }
         public int? HourQty { get; set; }

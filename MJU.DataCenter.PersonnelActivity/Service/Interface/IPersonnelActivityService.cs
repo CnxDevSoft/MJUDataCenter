@@ -10,5 +10,11 @@ namespace MJU.DataCenter.PersonnelActivity.Service.Interface
     public interface IPersonnelActivityService
     {
         List<PersonnelViewModel> GetPersonnelActivityByName(PersonnelInputDto input);
+
+        object GetFacultyActivity(PersonnelActivityInputDto input, List<int> filter);
+        List<FacultyActivityDataSourceModel> GetFacultyActivityDataSource(PersonnelActivityFilterInputDto input, List<int> filter);
+
+        object GetPersonnelFacultyActivity(PersonnelActivityInputDto input, List<int> filter);
+        List<PersonnelFacultyActivityDataSourceModel> GetPersonnelFacultyActivityDataSource(PersonnelActivityFilterInputDto input, List<int> filter);
     }
 }
