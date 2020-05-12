@@ -26,5 +26,6 @@
     <Folder Include="Repository\Common\" />
     <Folder Include="Views\DashboardPersonnelActivity\PartialViews\FacultyActivity\" />
     <Folder Include="Views\DashboardPersonnelActivity\PartialViews\PersonnelActivity\" />
+    <Folder Include="Views\DashboardFinance\" />
   </ItemGroup>
 </Project>
