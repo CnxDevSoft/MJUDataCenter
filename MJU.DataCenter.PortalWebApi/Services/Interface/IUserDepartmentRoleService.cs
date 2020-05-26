@@ -11,8 +11,8 @@ namespace MJU.DataCenter.PortalWebApi.Services.Interface
         List<UserDepartmentRole> GetAll();
         List<UserDepartmentRole> GetById(int userId);
         List<DepartmentRole> GetAllDepartmentRole();
-
-        DepartmentRole GenerateDepartmentRole(int departmentRoleId);
+        DepartmentRole AddDepartmentRole(string departmentRoleName, string departmentRoleNameTH, string departmentKey, Guid? departmentApiToken);
+        DepartmentRole UpdateDepartmentRole(int departmentRoleId, string departmentRoleName, string departmentRoleNameTH, string departmentKey, Guid? departmentApiToken);
         List<UserDepartmentRole> GetDepartmentRoleByToken(Guid token);
     }
 }

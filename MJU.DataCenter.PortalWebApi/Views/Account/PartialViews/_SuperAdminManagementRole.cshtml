@@ -1,113 +1,186 @@
 ﻿@model MJU.DataCenter.PortalWebApi.Models.HomeViewModel
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-green-theme">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        การจัดการสิทธิ์สำหรับผู้ดูแลระบบ
-                    </h3>
-                    <button type="button" id="addRoleBtn" class="btn btn-default float-right text-green">เพิ่มสิทธิ์</button>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped table-valign-middle dataTable bg-white" id="superAdminRoletable">
-                        <thead id="superAdminRoletable-thead">
-                            <tr>
-                                <th>ชื่อสิทธิ์</th>
-                                <th>ชื่อหน่วยงาน</th>
-                                <th>รหัสหน่วยงานที่ใช้อ้างอิง</th>
-                                <th>API Token Key</th>
-                            </tr>
-                        </thead>
-                        <tbody id="superAdminRoletable-tbody">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-green-theme">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    การจัดการสิทธิ์สำหรับผู้ดูแลระบบ
+                </h3>
+                <button type="button" id="addRoleBtn" class="btn btn-default float-right text-green">เพิ่มสิทธิ์</button>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-valign-middle dataTable bg-white" id="superAdminRoletable">
+                    <thead id="superAdminRoletable-thead">
+                        <tr>
+                            <th>ชื่อสิทธิ์</th>
+                            <th>ชื่อหน่วยงาน</th>
+                            <th>รหัสหน่วยงานที่ใช้อ้างอิง</th>
+                            <th>API Token Key</th>
+                        </tr>
+                    </thead>
+                    <tbody id="superAdminRoletable-tbody">
 
-                            @foreach (var item in Model.DepartmentRoles)
+                        @foreach (var item in Model.DepartmentRoles)
+                        {
+                            if (item.DepartmentRoleName != "General")
                             {
-                                if (item.DepartmentRoleName != "General")
-                                {
-                                    <tr>
-                                        <td>@Html.TextBox("roleName-" + item.DepartmentRoleId, item.DepartmentRoleName, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleName" + item.DepartmentRoleId })</td>
-                                        <td>@Html.TextBox("name-" + item.DepartmentRoleId, item.DepartmentRoleNameTH, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleNameTH" + item.DepartmentRoleId })</td>
-                                        <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentKey, new { @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentKey" + item.DepartmentRoleId })</td>
-                                        <td>@Html.TextBox("apiToken-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId + " fullWidth", Disabled = "Disabled", id = "departmentApiToken" + item.DepartmentRoleId })</td>
-                                        <td><button class="btn btn-success" id="generateTokenBtn" value="@item.DepartmentRoleId"><i class="fa fa-key"></i> บันทึก</button></td>
-                                    </tr>
-                                }
+                                <tr>
+                                    <td>@Html.TextBox("roleName-" + item.DepartmentRoleId, item.DepartmentRoleName, new { @required = true, @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleName" + item.DepartmentRoleId })</td>
+                                    <td>@Html.TextBox("name-" + item.DepartmentRoleId, item.DepartmentRoleNameTH, new { @required = true, @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentRoleNameTH" + item.DepartmentRoleId })</td>
+                                    <td>@Html.TextBox("key-" + item.DepartmentRoleId, item.DepartmentKey, new { @required = true, @class = "code-" + item.DepartmentRoleId + " fullWidth", id = "departmentKey" + item.DepartmentRoleId })</td>
+                                    <td>@Html.TextBox("apiToken-" + item.DepartmentRoleId, item.DepartmentApiToken, new { @class = "text-" + item.DepartmentRoleId + " fullWidth", id = "departmentApiToken" + item.DepartmentRoleId })</td>
+                                    <td><button class="btn btn-success" onclick="SaveDepartmentRole(@item.DepartmentRoleId)"><i class="fa fa-key"></i> บันทึก</button></td>
+                                </tr>
                             }
+                        }
 
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="generateTokenBtnModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ยืนยันการบันทึก</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>คุณต้องการบันทึกการจัดการสิทธิ์สำหรับผู้ดูแลระบบ หรือไม่</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-success" onclick="UpdateDepartmentRole()">บันทึก</button>
+
                 </div>
             </div>
         </div>
-        <div id="generateTokenBtnModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">ยืนยันการบันทึก</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>คุณต้องการบันทึก API Token Key หรือไม่</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" onclick="Save()">บันทึก</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                    </div>
+    </div>
+
+    <div id="addRoleModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">การเพิ่มสิทธิ์</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="departmentRoleName" class="col-sm-3 col-form-label">ชื่อสิทธิ์</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="departmentRoleName" placeholder="ชื่อสิทธิ์">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="departmentRoleNameTH" class="col-sm-3 col-form-label">ชื่อหน่วยงาน</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="departmentRoleNameTH" placeholder="ชื่อหน่วยงาน">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="departmentKey" class="col-sm-3 col-form-label">รหัสหน่วยงานที่ใช้อ้างอิง</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="departmentKey" placeholder="รหัสหน่วยงานที่ใช้อ้างอิง">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="departmentApiToken" class="col-sm-3 col-form-label">API Token Key</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="departmentApiToken" placeholder="API Token Key">
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                    <button type="button" class="btn btn-success" onclick="AddDepartmentRole()">บันทึก</button>
+
                 </div>
             </div>
         </div>
-
-        <div id="addRoleModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">การเพิ่มสิทธิ์</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                       
-
-
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
 
-<script>
-    $("#generateTokenBtn").click(function () {
+</div>
 
-        $('#generateTokenBtnModal').modal('show');
+
+<script>
+    $(function () {
+    var departmentRoleIdTemp;
+    $("#generateTokenBtnModal").on('hide.bs.modal', function(){
+        departmentRoleIdTemp=null;
     });
 
-    $("#addRoleBtn").click(function () {
+   });
+
+
+    async function SaveDepartmentRole(departmentRoleId) {
+        departmentRoleIdTemp = departmentRoleId;
+        $('#generateTokenBtnModal').modal('show');
+    };
+
+     $("#addRoleBtn").click(function () {
 
         $('#addRoleModal').modal('show');
     });
 
-    
 
 
-    async function Save() {
-        var departmentRoleId = $('#generateTokenBtn').val();
-        $.post("@Url.Action("GenDepartmentKey", "Account")", { departmentRoleId: departmentRoleId }, function (data) {
+    async function UpdateDepartmentRole() {
+        var departmentRoleName = $('#departmentRoleName'+departmentRoleIdTemp).val();
+        var departmentRoleNameTH = $('#departmentRoleNameTH'+departmentRoleIdTemp).val();
+        var departmentKey= $('#departmentKey'+departmentRoleIdTemp).val();
+        var departmentApiToken =$('#departmentApiToken'+departmentRoleIdTemp).val();
 
-            var id = '#departmentApiToken' + departmentRoleId;
-            $(id).val(data.departmentApiToken)
-            //$('#departmentKey' + departmentRoleId).append(data.departmentApiToken);
+        $.post("@Url.Action("UpdateDepartmentRole", "Account")",
+            {
+                departmentRoleId: departmentRoleIdTemp,
+                departmentRoleName:departmentRoleName,
+                departmentRoleNameTH:departmentRoleNameTH,
+                departmentKey:departmentKey,
+                departmentApiToken:departmentApiToken
+            }, function (data) {
+            $('#departmentRoleName'+departmentRoleIdTemp).val(data.departmentRoleName)
+            $('#departmentRoleNameTH'+departmentRoleIdTemp).val(data.departmentRoleNameTH)
+            $('#departmentKey'+departmentRoleIdTemp).val(data.departmentKey)
+            $('#departmentApiToken'+departmentRoleIdTemp).val(data.departmentApiToken)
+            $('#generateTokenBtnModal').modal('hide');
+     });
+
+    }
+     async function AddDepartmentRole() {
+        var departmentRoleName = $('#departmentRoleName').val();
+        var departmentRoleNameTH = $('#departmentRoleNameTH').val();
+        var departmentKey= $('#departmentKey').val();
+        var departmentApiToken =$('#departmentApiToken').val();
+
+        $.post("@Url.Action("AddDepartmentRole", "Account")",
+            {
+                departmentRoleName:departmentRoleName,
+                departmentRoleNameTH:departmentRoleNameTH,
+                departmentKey:departmentKey,
+                departmentApiToken:departmentApiToken
+            }, function (data) {
+                $('#superAdminRoletable-tbody').append(
+                    '<tr>'+
+                    '<td>'+'<input class="code-'+data.departmentRoleId+' fullWidth" id="departmentRoleName'+data.departmentRoleId+'" name="roleName-'+data.departmentRoleId+'" required="True" type="text" value="'+data.departmentRoleName+'">'+'</td>'+
+                    '<td>'+'<input class="code-'+data.departmentRoleId+' fullWidth" id="departmentRoleNameTH'+data.departmentRoleId+'" name="roleName-'+data.departmentRoleId+'" required="True" type="text" value="'+data.departmentRoleNameTH+'">'+'</td>'+
+                    '<td>'+'<input class="code-'+data.departmentRoleId+' fullWidth" id="departmentKey'+data.departmentRoleId+'" name="roleName-'+data.departmentRoleId+'" required="True" type="text" value="'+data.departmentKey+'">'+'</td>'+
+                    '<td>'+'<input class="code-'+data.departmentRoleId+' fullWidth" id="departmentApiToken'+data.departmentRoleId+'" name="roleName-'+data.departmentRoleId+'" required="True" type="text" value="'+data.departmentApiToken+'">'+'</td>'+
+                    '<td><button class="btn btn-success" onclick="SaveDepartmentRole('+data.departmentRoleId+')"><i class="fa fa-key"></i> บันทึก</button></td>' +
+                    '</tr>'
+                );
+               $('#addRoleModal').modal('hide');
      });
     }
 

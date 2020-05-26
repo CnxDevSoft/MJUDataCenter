@@ -250,6 +250,11 @@ body {
 }
 .modal-content {
     overflow: hidden;
+ 
+}
+
+.modal-max-content {
+    max-height: -webkit-fill-available;
 }
 
 .btn-bgwhite {
@@ -297,6 +302,12 @@ body {
     font-weight: bold;
 }
 
-a.noPointer{
-    cursor:pointer;
+.cursorDefault {
+    cursor: default !important;
+}
+.dataTables_filter {
+    float: right !important;
+}
+table.dataTable > thead > tr > th {
+    padding: 0.5em 1em;
 }

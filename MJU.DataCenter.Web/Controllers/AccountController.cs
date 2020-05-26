@@ -76,23 +76,29 @@ namespace MJU.DataCenter.Web.Controllers
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
                 }
+                
+                var userDepartment = _userDepartmentService.GetById(user.Id);
+                if (userDepartment.Any())
+                {
+                    var firstRole = userDepartment.FirstOrDefault();
+                    var dcWebToken = string.Empty;
+                    if (firstRole.DepartmentRole.DepartmentApiToken != null)
+                    {
+                        dcWebToken = firstRole.DepartmentRole.DepartmentApiToken.ToString();
+                    }
+                    var claims = _userManager.GetClaimsAsync(user);
+                    if (!claims.Result.Any(x => x.Type == "DCWebToken"))
+                        _userManager.AddClaimAsync(user, new Claim("DCWebToken", user.AccessToken.ToString())).Wait();
+
+                    _userManager.UpdateAsync(user).Wait();
+
+                }
 
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var userDepartment = _userDepartmentService.GetById(user.Id);
-                    if (userDepartment.Any())
-                    {
-                        var firstRole = userDepartment.FirstOrDefault();
-                        var dcWebToken = string.Empty;
-                        if (firstRole.DepartmentRole.DepartmentApiToken != null)
-                        {
-                            dcWebToken = firstRole.DepartmentRole.DepartmentApiToken.ToString();
-                        }
-                        _userManager.AddClaimAsync(user, new Claim("DCWebToken", dcWebToken)).Wait();
-                    }
-
+                   
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

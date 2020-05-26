@@ -21,7 +21,7 @@ namespace MJU.DataCenter.PortalWebApi.Services
         }
         public List<UserDepartmentRole> GetAll()
         {
-            return _userDepartmentRoleRepository.GetAllWith(x=>x.DepartmentRole).ToList();
+            return _userDepartmentRoleRepository.GetAllWith(x => x.DepartmentRole).ToList();
         }
 
         public List<UserDepartmentRole> GetById(int userId)
@@ -34,11 +34,38 @@ namespace MJU.DataCenter.PortalWebApi.Services
             return _departmentRoleRepository.GetAll().ToList();
         }
 
-        public DepartmentRole GenerateDepartmentRole(int departmentRoleId)
+        public DepartmentRole UpdateDepartmentRole(int departmentRoleId, string departmentRoleName, string departmentRoleNameTH, string departmentKey, Guid? departmentApiToken)
         {
-            var depertmentRole = _departmentRoleRepository.Find(m=>m.DepartmentRoleId == departmentRoleId).FirstOrDefault();
-            depertmentRole.DepartmentApiToken = Guid.NewGuid();
+            var depertmentRole = _departmentRoleRepository.Find(m => m.DepartmentRoleId == departmentRoleId).FirstOrDefault();
+
+            depertmentRole.DepartmentRoleName = departmentRoleName;
+            depertmentRole.DepartmentRoleNameTH = departmentRoleNameTH;
+            depertmentRole.DepartmentKey = departmentKey;
+
+            if (departmentApiToken == null)
+            {
+                depertmentRole.DepartmentApiToken = Guid.NewGuid();
+            }
+            else
+            {
+                depertmentRole.DepartmentApiToken = departmentApiToken;
+            }
+
             return _departmentRoleRepository.Update(depertmentRole);
+        }
+
+        public DepartmentRole AddDepartmentRole(string departmentRoleName, string departmentRoleNameTH, string departmentKey, Guid? departmentApiToken)
+        {
+            var departmentRole = new DepartmentRole { 
+                DepartmentRoleName = departmentRoleName,
+                DepartmentRoleNameTH = departmentRoleNameTH,
+                DepartmentKey = departmentKey,
+                DepartmentApiToken = departmentApiToken == null ? Guid.NewGuid() : departmentApiToken,
+                DepartmentApiActive = true
+            };
+
+            return _departmentRoleRepository.Add(departmentRole);
+
         }
 
         public List<UserDepartmentRole> GetDepartmentRoleByToken(Guid token)
